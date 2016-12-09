@@ -17,13 +17,11 @@ public class HumanGui
     private Human currentHuman;
     private GamePhase currentPhase;
 
-    private GameObject canvas;
-    private helpBoxScript helpBox;
+    private canvasScript canvas;
 
     public HumanGui()
     {
-        canvas = GameObject.FindGameObjectWithTag("uiCanvas");
-        helpBox = canvas.GetComponentInChildren<helpBoxScript>();
+        canvas = GameObject.FindGameObjectWithTag("uiCanvas").GetComponent<canvasScript>();
     }
 
 	public void DisplayGui(Human human, GamePhase phase)
@@ -36,14 +34,10 @@ public class HumanGui
         UpdateResourceBar();
     }
 
-    public void DisplayMainMenu()
-    {
-
-    }
-
     private void UpdateResourceBar()
     {
-
+        canvas.SetResourceLabels(currentHuman.GetResources());
+        canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
     }
 
     private void DisplayRoboticonList(List<Roboticon> roboticons)
@@ -63,11 +57,11 @@ public class HumanGui
 
     private void ShowHelpBox()
     {
-        helpBox.ShowHelpBox("TEMPORARY TEST STRING テムプストリング！");
+        canvas.ShowHelpBox(GuiTextStore.GetHelpBoxText(currentPhase));
     }
 
     private void HideHelpBox()
     {
-        helpBox.HideHelpBox();
+        canvas.HideHelpBox();
     }
 }

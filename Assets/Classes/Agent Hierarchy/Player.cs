@@ -27,6 +27,11 @@ public abstract class Player : Agent
         return scoreFromRoboticons + scoreFromTiles;
     }
 
+    public ResourceGroup CalculateTotalResourcesGenerated()
+    {
+        return new ResourceGroup(5, 67, -69);
+    }
+
     public void AcquireTile(Tile tile)
     {
         ownedTiles.Add(tile);
