@@ -11,9 +11,20 @@ public abstract class Player : Agent
 
     public int CalculateScore()
     {
-        return 0;
-        //TODO - Calculate score of player based on owned
-        // tiles, roboticons and resources and money.
+        int scoreFromTiles = 0;
+        foreach(Tile tile in ownedTiles)
+        {
+            ResourceGroup tileResources = tile.GetResourcesGenerated();
+            scoreFromTiles += tileResources.energy + tileResources.food + tileResources.ore;
+        }
+
+        int scoreFromRoboticons = 0;
+        foreach (Roboticon roboticon in ownedRoboticons)
+        {
+            scoreFromRoboticons += roboticon.GetPrice();
+        }
+
+        return scoreFromRoboticons + scoreFromTiles;
     }
 
     public void AcquireTile(Tile tile)
@@ -28,12 +39,12 @@ public abstract class Player : Agent
 
     public void UpgradeRoboticon(Roboticon roboticon, Roboticon.RoboticonUpgrade upgrade)
     {
-        //TODO 
+        roboticon.Upgrade(upgrade);
     }
 
     public void InstallRoboticon(Roboticon roboticon, Tile tile)
     {
-        //TODO - Install roboticon to tile
+        tile.InstallRoboticon(roboticon);
     }
 
     public void PutItemUpForAuction()
