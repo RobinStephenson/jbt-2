@@ -667,7 +667,7 @@ GameObject:
   - 114: {fileID: 114000012237026070}
   - 114: {fileID: 114000013554576982}
   m_Layer: 5
-  m_Name: Purchase
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,6 +752,7 @@ GameObject:
   - 224: {fileID: 224000013091227750}
   - 222: {fileID: 222000013718665074}
   - 114: {fileID: 114000010651462722}
+  - 95: {fileID: 95000013001953952}
   m_Layer: 5
   m_Name: Total Buy Price
   m_TagString: Untagged
@@ -1236,6 +1237,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95000013001953952
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012899014118}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82f75c3062750b848b58d72896d5567f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000010025518812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1247,6 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1a36aa8d29fef47ae35b4da19e9a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCanvas: {fileID: 114000014219443140}
   foodBuyPrice: {fileID: 114000014291291514}
   foodSellPrice: {fileID: 114000011852566378}
   energyBuyPrice: {fileID: 114000013408041400}
@@ -1293,7 +1312,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Purchase
+  m_Text: Buy
 --- !u!114 &114000010270393314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3797,7 +3816,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000012237026070}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000010025518812}
+        m_MethodName: OnBuyButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000013556054728
@@ -4193,7 +4223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helpBox: {fileID: 114000012550103124}
   optionsMenu: {fileID: 1000013686482388}
-  marketWindow: {fileID: 1000011894385628}
+  marketScript: {fileID: 114000010025518812}
   foodLabel: {fileID: 114000013688077038}
   foodChangeLabel: {fileID: 114000013108148684}
   energyLabel: {fileID: 114000011480248946}

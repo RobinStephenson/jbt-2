@@ -8,7 +8,7 @@ public class canvasScript : MonoBehaviour
 
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
-    public GameObject marketWindow;
+    public marketScript marketScript;
 
     #region Resource Labels
     public Text foodLabel;
@@ -32,19 +32,24 @@ public class canvasScript : MonoBehaviour
     {
 	    if(tempFireOnce)
         {
-            humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999)), HumanGui.GamePhase.PRODUCTION);
+            humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999), 550), HumanGui.GamePhase.PRODUCTION);
             tempFireOnce = false;
         }
+    }
+   
+    public void BuyFromMarket(ResourceGroup resources, int price)
+    {
+        humanGui.BuyFromMarket(resources, price);
     }
 
     public void ShowMarketWindow()
     {
-        marketWindow.SetActive(true);
+        marketScript.gameObject.SetActive(true);
     }
 
     public void HideMarketWindow()
     {
-        marketWindow.SetActive(false);
+        marketScript.gameObject.SetActive(false);
     }
 
     public void ShowOptionsMenu()

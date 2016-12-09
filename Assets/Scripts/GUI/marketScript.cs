@@ -4,6 +4,8 @@ using System.Collections;
 
 public class marketScript : MonoBehaviour
 {
+    public canvasScript uiCanvas;
+
     #region Resource price labels
     private ResourceGroup marketBuyingPrices;
     private ResourceGroup marketSellingPrices;
@@ -38,7 +40,7 @@ public class marketScript : MonoBehaviour
         }
         else
         {
-            return '\0';
+            return '\0';    //Empty string character
         }
     }
 
@@ -63,6 +65,23 @@ public class marketScript : MonoBehaviour
     {
 	
 	}
+
+    public void OnBuyButtonPress()
+    {
+        ResourceGroup resourcesToBuy = new ResourceGroup();
+        resourcesToBuy.food = int.Parse(foodBuyAmount.text);
+        resourcesToBuy.energy = int.Parse(energyBuyAmount.text);
+        resourcesToBuy.ore = int.Parse(oreBuyAmount.text);
+
+        int buyPrice = int.Parse(totalBuyPrice.text.Substring(1));
+
+        uiCanvas.BuyFromMarket(resourcesToBuy, buyPrice);
+    }
+
+    public void PlayPurchaseDeclinedAnimation()
+    {
+        totalBuyPrice.GetComponent<Animator>().SetTrigger("Flash Red");
+    }
 
     public void SetShownMarketPrices(ResourceGroup buyingPrices, ResourceGroup sellingPrices)
     {

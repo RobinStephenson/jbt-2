@@ -34,6 +34,31 @@ public class HumanGui
         UpdateResourceBar();
     }
 
+    public void BuyFromMarket(ResourceGroup resourcesToBuy, int buyPrice)
+    {
+        if(currentHuman.GetMoney() >= buyPrice)
+        {
+            currentHuman.SetMoney(currentHuman.GetMoney() - buyPrice);
+
+            //TODO - Replace with overloaded ResourceGroup operations
+            ResourceGroup currentResources = currentHuman.GetResources();
+            ResourceGroup newResources = new ResourceGroup();
+
+            newResources.food   = currentResources.food   + resourcesToBuy.food;
+            newResources.energy = currentResources.energy + resourcesToBuy.energy;
+            newResources.ore    = currentResources.ore    + resourcesToBuy.ore;
+
+            currentHuman.SetResources(newResources);
+            //TODO - Call market BuyFrom method.
+
+            UpdateResourceBar();
+        }
+        else
+        {
+            canvas.marketScript.PlayPurchaseDeclinedAnimation();
+        }
+    }
+
     private void UpdateResourceBar()
     {
         canvas.SetResourceLabels(currentHuman.GetResources());
