@@ -8,6 +8,7 @@ public class canvasScript : MonoBehaviour
 
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public GameObject marketWindow;
 
     #region Resource Labels
     public Text foodLabel;
@@ -38,12 +39,12 @@ public class canvasScript : MonoBehaviour
 
     public void ShowMarketWindow()
     {
-
+        marketWindow.SetActive(true);
     }
 
     public void HideMarketWindow()
     {
-
+        marketWindow.SetActive(false);
     }
 
     public void ShowOptionsMenu()
