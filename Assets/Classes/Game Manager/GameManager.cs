@@ -50,11 +50,4 @@ public class GameManager : System.Object
     {
         //TODO - phase initialisation logic. Low priority
     }
-
-    public void SaveGame(string gameName)
-    {
-        // Need to test to make sure this works.
-        GameSaveFiles.Save(this, gameName+".sav");
-        return;
-    }
 }
