@@ -16,9 +16,68 @@ public class GameManager : System.Object
     {
         this.gameName = gameName;
         this.players = players;
+    }
 
-        //TODO - Constructor for creating new game with name
-        // gameName and players players.
+    public void GameLoop()
+    {
+        // This boolean will be set to false upon a player winning or a player
+        // ending the game prematurely.
+        bool running = true;
+        int state = 0;
+
+        while (running)
+        {
+            switch (state)
+            {
+                case (int)States.ACQUISITION:
+                    BeginAcquisitionPhase();
+                    while (!PlayerReadyCheck())
+                    {
+                        //Need to wait or something here.
+                    }
+                    state++;
+                    break;
+                case (int)States.PURCHASE:
+                    BeginPurchasePhase();
+                    while (!PlayerReadyCheck())
+                    {
+                        //Need to wait or something here.
+                    }
+                    state++;
+                    break;
+                case (int)States.INSTALLATION:
+                    BeginInstallationPhase();
+                    while (!PlayerReadyCheck())
+                    {
+                        //Need to wait or something here.
+                    }
+                    state++;
+                    break;
+                case (int)States.PRODUCTION:
+                    BeginProductionPhase();
+                    while (!PlayerReadyCheck())
+                    {
+                        //Need to wait or something here.
+                    }
+                    state++;
+                    break;
+                case (int)States.AUCTION:
+                    BeginAuctionPhase();
+                    while (!PlayerReadyCheck())
+                    {
+                        //Need to wait or something here.
+                    }
+                    state = 0;
+                    break;
+            }
+        }
+    }
+
+    bool PlayerReadyCheck()
+    {
+        // Check that all players have finished their tasks, or time has
+        // elapsed. Return true if ok to proceed.
+        return false;
     }
 
     public void StartGame()
