@@ -1,16 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System
 
 public static class GameSaveFiles
 {
     public static void Save(GameManager gameManagerToSave)
     {
-        //TODO - Serialise GameManager to binary and save.
+        Stream stream = File.Open("SaveFile.sav", FileMode.Create);
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        formatter.Serialize(stream, gameManagerToSave);
+        stream.Close();
     }
 
     public static GameManager Load(string gameName)
     {
-        //TODO - deserialise and return GameManager object.
-        return new GameManager("TEMP");
+        stream = File.Open("SaveFile.sav", FileMode.Open);
+        BinaryFormatter formatter = new BinaryFormatter();
+        GameManager returnedGameManager = (GameManager)formatter.Deserialize(stream);
+        stream.Close();
+
+        return returnedGameManager;
     }
 }
