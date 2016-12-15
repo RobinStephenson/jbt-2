@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class GameManager
+[Serializable]
+public class GameManager : System.Object
 {
     public string gameName;
     private List<Player> players;
 
-    public GameManager(string gameName)
-    {
-        //TODO - Constructor for loading game with name gameName
-        // from save files. Exception if no game exists with name.
-    }
+    enum States : int { Acquisition, Purchase, Installation,
+       Production, Auction };
 
     public GameManager(string gameName, List<Player> players)
     {
+        this.gameName = gameName;
+        this.players = players;
+
         //TODO - Constructor for creating new game with name
         // gameName and players players.
     }
@@ -51,6 +53,8 @@ public class GameManager
 
     public void SaveGame(string gameName)
     {
-        //TODO - use GameSaveFiles to save game.
+        // Need to test to make sure this works.
+        GameSaveFiles.Save(this, gameName+".sav");
+        return;
     }
 }
