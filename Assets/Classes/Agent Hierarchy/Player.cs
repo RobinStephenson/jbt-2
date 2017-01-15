@@ -29,6 +29,7 @@ public abstract class Player : Agent
 
     public ResourceGroup CalculateTotalResourcesGenerated()
     {
+        //TODO
         return new ResourceGroup(5, 67, -69);
     }
 

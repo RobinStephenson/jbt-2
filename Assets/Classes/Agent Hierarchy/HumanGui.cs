@@ -34,7 +34,7 @@ public class HumanGui
         UpdateResourceBar();
     }
 
-    public void BuyFromMarket(ResourceGroup resourcesToBuy, int buyPrice)
+    public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)
     {
         if(currentHuman.GetMoney() >= buyPrice)
         {
@@ -59,9 +59,41 @@ public class HumanGui
         }
     }
 
+    public void SellToMarket(ResourceGroup resourcesToSell, int sellPrice)
+    {
+        //TODO Interface with market - market has finite money?
+        ResourceGroup humanResources = currentHuman.GetResources();
+        bool humanHasEnoughResources =
+            humanResources.food   >= resourcesToSell.food &&
+            humanResources.energy >= resourcesToSell.energy &&
+            humanResources.ore    >= resourcesToSell.ore;
+
+        if(humanHasEnoughResources)
+        {
+            currentHuman.SetMoney(currentHuman.GetMoney() + sellPrice);
+
+            //TODO - Replace with overloaded ResourceGroup operations
+            ResourceGroup currentResources = currentHuman.GetResources();
+            ResourceGroup newResources = new ResourceGroup();
+
+            newResources.food = currentResources.food - resourcesToSell.food;
+            newResources.energy = currentResources.energy - resourcesToSell.energy;
+            newResources.ore = currentResources.ore - resourcesToSell.ore;
+
+            currentHuman.SetResources(newResources);
+            //TODO - Call market SellFrom method.
+
+            UpdateResourceBar();
+        }
+        else
+        {
+            canvas.marketScript.PlaySaleDeclinedAnimation();
+        }
+    }
+
     private void UpdateResourceBar()
     {
-        canvas.SetResourceLabels(currentHuman.GetResources());
+        canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
         canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
     }
 

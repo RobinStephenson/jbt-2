@@ -12,6 +12,17 @@ public class AI : Player
     }
 
     private DifficultyLevel difficulty;
+    private ResourceGroup optimalResourceFractions;
+
+    public AI(ResourceGroup resources)
+    {
+        this.resources = resources;
+        optimalResourceFractions = new ResourceGroup(33, 33, 34);   //Initialise to even resource weighting.
+
+        //TEMP
+        ResourceGroup testr = GetResourceNecessityWeights();
+        MonoBehaviour.print("Necessities: " + testr.food + " , " + testr.energy + " , " + testr.ore);
+    }
 
     public override void Act()
     {
@@ -33,9 +44,15 @@ public class AI : Player
     private ResourceGroup GetResourceNecessityWeights()
     {
         //TODO - generate resource group where each resource
-        // value corresponds to 0:1 representing necessity,
+        // value corresponds to 0:100 representing necessity,
         // where 0 is not necessary at all.
-        return new ResourceGroup();
+        int totalResources = resources.food + resources.energy + resources.ore;
+        ResourceGroup necessityWeights = new ResourceGroup();
+        necessityWeights.food   = 50 + optimalResourceFractions.food - (int)(100 * resources.food / totalResources);
+        necessityWeights.energy = 50 + optimalResourceFractions.energy - (int)(100 * resources.energy / totalResources);
+        necessityWeights.ore    = 50 + optimalResourceFractions.ore - (int)(100 * resources.ore / totalResources);
+
+        return necessityWeights;
     }
 
     private bool ShouldPurchaseRoboticon()

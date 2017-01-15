@@ -17,6 +17,7 @@ public class canvasScript : MonoBehaviour
     public Text energyChangeLabel;
     public Text oreLabel;
     public Text oreChangeLabel;
+    public Text moneyLabel;
     #endregion
 
     bool tempFireOnce = true;
@@ -32,14 +33,20 @@ public class canvasScript : MonoBehaviour
     {
 	    if(tempFireOnce)
         {
+            AI ai = new AI(new ResourceGroup(550, 500, 550));
             humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999), 550), HumanGui.GamePhase.PRODUCTION);
             tempFireOnce = false;
         }
     }
    
-    public void BuyFromMarket(ResourceGroup resources, int price)
+    public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
-        humanGui.BuyFromMarket(resources, price);
+        humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
+    }
+
+    public void SellToMarket(ResourceGroup resources, int price)
+    {
+        humanGui.SellToMarket(resources, price);
     }
 
     public void ShowMarketWindow()
@@ -72,11 +79,12 @@ public class canvasScript : MonoBehaviour
         helpBox.HideHelpBox();
     }
 
-    public void SetResourceLabels(ResourceGroup resources)
+    public void SetResourceLabels(ResourceGroup resources, int money)
     {
         foodLabel.text = resources.food.ToString();
         energyLabel.text = resources.energy.ToString();
         oreLabel.text = resources.ore.ToString();
+        moneyLabel.text = money.ToString();
     }
 
     public void SetResourceChangeLabels(ResourceGroup resources)
