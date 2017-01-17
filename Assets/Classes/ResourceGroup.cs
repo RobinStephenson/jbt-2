@@ -16,15 +16,39 @@ public class ResourceGroup
 
     public static ResourceGroup operator +(ResourceGroup c1, ResourceGroup c2)
     {
-        //TODO - override + operator to represent element-wise
-        // addition of resources.
-        return new ResourceGroup();
+        return new ResourceGroup(c1.getFood() + c2.getFood(),
+                                 c1.getEnergy() + c2.getEnergy(),
+                                 c1.getOre() + c2.getOre());
     }
 
     public static ResourceGroup operator *(ResourceGroup c1, ResourceGroup c2)
     {
-        //TODO - override * operator to represent element-wise
-        // multiplication of resources.
-        return new ResourceGroup();
+        return new ResourceGroup(c1.getFood() * c2.getFood(),
+                                 c1.getEnergy() * c2.getEnergy(),
+                                 c1.getOre() * c2.getOre());
+    }
+
+    public int getFood()
+    {
+        return this.food();
+    }
+
+    public int getEnergy()
+    {
+        return this.energy();
+    }
+
+    public int getOre()
+    {
+        return this.ore();
+    }
+    public static void Main()
+    {
+        ResourceGroup r1 = new ResourceGroup(50, 50, 50);
+        ResourceGroup r2 = new ResourceGroup(30, 30, 50);
+        r1 = r1 + r2;
+        Console.WriteLine(r1.food, r1.energy, r1.ore);
     }
 }
+
+
