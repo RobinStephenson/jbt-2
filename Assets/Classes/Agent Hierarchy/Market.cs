@@ -6,34 +6,36 @@ public class Market : Agent
     private Casino casino;
     private ResourceGroup resourceSellingPrices;
     private ResourceGroup resourceBuyingPrices;
-    private ResourceGroup resources;
+    private ResourceGroup resourceAmount;
     private int numRoboticonsForSale;
+    private int marketMoney;
 
     public void BuyFrom(ResourceGroup resources, int price)
     {
         //TODO - Alter market's resources and money
         //TODO - Check incoming resource
-        this.resources -= resources;
-        //TODO - Assuming infinte money, not, will deduct price 
-        //this.money += price
+        this.resourceAmount -= resources; //Requires subtraction overload
+        this.marketMoney = this.marketMoney + (resources * resourceSellingPrices); //Overloading * to perform dot product to get total gain
 
     }
 
     public void SellTo(ResourceGroup resource, int price)
     {
         //TODO - Alter market's resources and money
-        this.resources += resources;
-        //this.money -= price
+        this.resourceAmount += resources;
+        this.marketMoney = this.marketMoney - (resources * resourceSellingPrices); //Overloading * to perform dot product to get total expenditure
     }
 
     public void SetResourceSellingPrices(ResourceGroup newPrices)
     {
         //TODO - Setter for selling prices.c
+        resourceSellingPrices = newPrices;
     }
 
     public void SetResourceBuyingPrices(ResourceGroup newPrices)
     {
         //TODO - Setter for buying prices.
+        resourceBuyingPrices = newPrices;
     }
 
     private void ProduceRoboticon()
