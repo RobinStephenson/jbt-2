@@ -8,52 +8,79 @@ public class Tile
     private ResourceGroup resourcesGenerated;
     private Player owner;
     private List<Roboticon> installedRoboticons;
+    private TileObject tileObject;
+    private Map map;
 
-    public Tile(ResourceGroup resources, Player owner = null, int tileId = 0)
+    public const TILE_SIZE = 10;
+
+    public Tile(ResourceGroup resources, Map map, Player owner = null, int tileId = 0)
     {
-        //TODO - implement constructor for tile
+        this.resourcesGenerated = resources;
+        this.owner = owner;
+        this.tileId = tileId;
+        this.map = map;
+        
+        Vector2 tilePosition = new Vector2(tileId % map.MAP_DIMENSIONS.x, (int)(tileId / map.MAP_DIMENSIONS.y));
+        this.tileObject = new TileObject(tilePosition, new Vector2(TILE_SIZE, TILE_SIZE));
     }
 
     public void InstallRoboticon(Roboticon roboticon)
     {
-        //TODO - check for already installed, if not install,
-        // else raise exception
+        for(int i = 0; i < roboticon.Count; i++)
+        {
+            if(this.installedRoboticons[i] == roboticon)
+            {
+                throw new Exception("Roboticon already exists on this tile\n");
+            }
+            else
+            {
+                installedRoboticons.Add(roboticon);
+            }
+        }
     }
 
     public void UninstallRoboticon(Roboticon roboticon)
     {
-        //TODO - check for not installed, if not uninstall,
-        // else raise exception
+      for(int i = 0; i < roboticon.Count; i++)
+      {
+          if(this.installedRoboticons[i] == roboticon)
+          {
+              this.installedRoboticons.Remove(roboticon);
+          }
+          else
+          {
+              throw new Exception("Roboticon doesn't exist on this tile\n");
+          }
+      }
     }
 
     public List<Roboticon> GetInstalledRoboticons()
     {
-        return installedRoboticons;
+        return this.installedRoboticons;
     }
 
     public int GetId()
     {
-        return tileId;
+        return this.tileId;
     }
 
     public int GetPrice()
     {
-        //TODO - Calculate price of tile based on resources
-        // generated
-        return 0;
+        return (this.resourcesGenerated*(new ResourceGroup(10, 10, 10))).Sum();
     }
 
     public ResourceGroup GetResourcesGenerated()
     {
-        //TODO - Calculate resources generated based on
-        // installed roboticons and base resources.
-        return new ResourceGroup();
+      for(int i = 0; i < roboticon.Count; i++)
+      {
+          return this.resourcesGenerated*(ithis.nstalledRoboticons[i].GetUpgrades());
+      }
     }
 
 
     public void SetOwner(Player player)
     {
-        //TODO 
+        this.owner = player;
     }
 
     public Player GetOwner()
