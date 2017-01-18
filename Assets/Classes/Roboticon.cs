@@ -10,23 +10,52 @@ public class Roboticon
         ORE
     }
 
+    const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+
     private ResourceGroup upgrades;
+
+    public Roboticon(ResourceGroup upgrades = new ResourceGroup(0,0,0))
+    {
+        this.upgrades = upgrades;
+    }
 
     public void Upgrade(RoboticonUpgrade upgradeType)
     {
-        //TODO 
+        switch (upgradeType)
+        {
+            case RoboticonUpgrade.FOOD:
+                this.upgrades = this.upgrades + new ResourceGroup(1, 0, 0);
+                break;
+            case RoboticonUpgrade.ENERGY:
+                this.upgrades = this.upgrades + new ResourceGroup(0, 1, 0);
+                break;
+            case RoboticonUpgrade.ORE:
+                this.upgrades = this.upgrades + new ResourceGroup(0, 0, 1);
+                break;
+        }
     }
 
     public void Downgrade(RoboticonUpgrade downGradeType)
     {
-        //TODO 
+        switch (upgradeType)
+        {
+            case RoboticonUpgrade.FOOD:
+                this.upgrades = this.upgrades + new ResourceGroup(-1, 0, 0);
+                break;
+            case RoboticonUpgrade.ENERGY:
+                this.upgrades = this.upgrades + new ResourceGroup(0, -1, 0);
+                break;
+            case RoboticonUpgrade.ORE:
+                this.upgrades = this.upgrades + new ResourceGroup(0, 0, -1);
+                break;
+        }
     }
 
     public int GetPrice()
     {
-        //TODO - Calculate price of roboticon based
-        // on current upgrades
-        return 0;
+        return (this.upgrades.getFood()   * UPGRADEVALUE) +
+               (this.upgrades.getEnergy() * UPGRADEVALUE) +
+               (this.upgrades.getOre()    * UPGRADEVALUE);
     }
 
 }
