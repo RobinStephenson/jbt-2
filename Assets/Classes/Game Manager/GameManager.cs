@@ -87,17 +87,34 @@ public class GameManager : System.Object
 
     public void BeginAcquisitionPhase()
     {
-        //TODO - phase initialisation logic
+        //each player needs an opportunity to act in this turn, by calling their
+        //Act() method.
+        for(int i = 0; i < players.Count; i++){
+            //potentially display a message stating which players turn it is
+            player.Act()
+        }
     }
 
     public void BeginPurchasePhase()
     {
         //TODO - phase initialisation logic
+        //each player needs an opportunity to act in this turn, by calling their
+        //Act() method.
+        for(int i = 0; i < players.Count; i++){
+            //potentially display a message stating which players turn it is
+            player.Act()
+        }
     }
 
     public void BeginInstallationPhase()
     {
         //TODO - phase initialisation logic
+        //each player needs an opportunity to act in this turn, by calling their
+        //Act() method.
+        for(int i = 0; i < players.Count; i++){
+            //potentially display a message stating which players turn it is
+            player.Act()
+        }
     }
 
     public void BeginProductionPhase()
@@ -108,5 +125,11 @@ public class GameManager : System.Object
     public void BeginAuctionPhase()
     {
         //TODO - phase initialisation logic. Low priority
+        //each player needs an opportunity to act in this turn, by calling their
+        //Act() method.
+        for(int i = 0; i < players.Count; i++){
+            //potentially display a message stating which players turn it is
+            player.Act()
+        }
     }
 }
