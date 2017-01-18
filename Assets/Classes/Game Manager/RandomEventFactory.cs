@@ -2,8 +2,6 @@
 using System.Collections;
 using System;
 
-
-
 public class RandomEventFactory
 {
     private RandomEventStore Store = new RandomEventStore();
@@ -13,7 +11,8 @@ public class RandomEventFactory
         if (rnd.Next(2) == 0)           //TODO correct percentage chance of event occuring - 50% currently
         {
             return Store.chooseEvent(craziness);    
-        } else
+        }
+        else
         {
             return new GameObject();    // Return empty gameobject indicating no event should take place
         }
