@@ -20,7 +20,7 @@ public class Market : Agent
 
     public void SetResourceSellingPrices(ResourceGroup newPrices)
     {
-        //TODO - Setter for selling prices.c
+        //TODO - Setter for selling prices.
     }
 
     public void SetResourceBuyingPrices(ResourceGroup newPrices)
