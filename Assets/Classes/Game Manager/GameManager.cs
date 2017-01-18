@@ -8,71 +8,29 @@ public class GameManager : System.Object
 {
     public string gameName;
     private List<Player> players;
-
-    enum States : int { Acquisition, Purchase, Installation,
-       Production, Auction };
-
+	private int currentPlayer;
+	
+	private Market market;
+	private RandomEventFactory factory;
+	private Map map;
+	
+    enum States : int { ACQUISITION, PURCHASE, INSTALLATION,
+       PRODUCTION, AUCTION };
+	private States currentState = States.ACQUISITION;
+		
     public GameManager(string gameName, List<Player> players)
     {
         this.gameName = gameName;
         this.players = players;
+		this.market = new Market(new ResourceGroup(100, 100, 100), new ResourceGroup(100, 100, 100), 200);
+		this.randomEventFactory = new RandomEventFactory();
+		this.map = new Map();
     }
 
-    public void GameLoop()
-    {
-        // This boolean will be set to false upon a player winning or a player
-        // ending the game prematurely.
-        bool running = true;
-        int state = 0;
-
-        while (running)
-        {
-            switch (state)
-            {
-                case (int)States.ACQUISITION:
-                    BeginAcquisitionPhase();
-                    while (!PlayerReadyCheck())
-                    {
-                        //Need to wait or something here.
-                    }
-                    state++;
-                    break;
-                case (int)States.PURCHASE:
-                    BeginPurchasePhase();
-                    while (!PlayerReadyCheck())
-                    {
-                        //Need to wait or something here.
-                    }
-                    state++;
-                    break;
-                case (int)States.INSTALLATION:
-                    BeginInstallationPhase();
-                    while (!PlayerReadyCheck())
-                    {
-                        //Need to wait or something here.
-                    }
-                    state++;
-                    break;
-                case (int)States.PRODUCTION:
-                    BeginProductionPhase();
-                    while (!PlayerReadyCheck())
-                    {
-                        //Need to wait or something here.
-                    }
-                    state++;
-                    break;
-                case (int)States.AUCTION:
-                    BeginAuctionPhase();
-                    while (!PlayerReadyCheck())
-                    {
-                        //Need to wait or something here.
-                    }
-                    state = 0;
-                    break;
-            }
-        }
-    }
-
+    public void NextState(){
+		currentState++;
+	}
+		
     bool PlayerReadyCheck()
     {
         // Check that all players have finished their tasks, or time has
@@ -84,52 +42,76 @@ public class GameManager : System.Object
     {
         //TODO - Initialise game
     }
+	
+	public void PlayerAct()
+	{
+		//Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
+		if (currentPlayer >= players.Count)
+		{
+			//If we've moved on to the production phase then run the function that handles the logic for the production phase.
+			if(currentState == States.PRODUCTION)
+			{
+				ProcessProductionPhase();
+			}
+		
+			currentState++;
+		}
+		
+		//Call the Act function for the current player, passing the state to it.
+		players[currentPlayer].Act(currentState);
+		currentPlayer++;
+	}
 
-    public void BeginAcquisitionPhase()
-    {
-        //each player needs an opportunity to act in this turn, by calling their
-        //Act() method.
-        for(int i = 0; i < players.Count; i++){
-            //potentially display a message stating which players turn it is
-            player.Act()
-        }
-    }
-
-    public void BeginPurchasePhase()
-    {
-        //TODO - phase initialisation logic
-        //each player needs an opportunity to act in this turn, by calling their
-        //Act() method.
-        for(int i = 0; i < players.Count; i++){
-            //potentially display a message stating which players turn it is
-            player.Act()
-        }
-    }
-
-    public void BeginInstallationPhase()
-    {
-        //TODO - phase initialisation logic
-        //each player needs an opportunity to act in this turn, by calling their
-        //Act() method.
-        for(int i = 0; i < players.Count; i++){
-            //potentially display a message stating which players turn it is
-            player.Act()
-        }
-    }
-
-    public void BeginProductionPhase()
-    {
-        //TODO - phase initialisation logic
-    }
-
-    public void BeginAuctionPhase()
-    {
-        //TODO - phase initialisation logic. Low priority
-        //each player needs an opportunity to act in this turn, by calling their
-        //Act() method.
-        for(int i = 0; i < players.Count; i++){
-            //potentially display a message stating which players turn it is
-            player.Act()
-        }
+	private Player GetWinnerIfGameHasEnded()
+	{	
+		//Game ends if there are no remaining tiles (Req 2.3.a)
+		if(map.GetRemainingTiles() == 0)
+		{
+			highestScore = Mathf.NegativeInfinity;
+			winner = Mathf.Infinity;
+			
+			for(int i = 0; i < players.Count; i++)
+			{
+				//Player with the highest score wins (Req 2.3.c)
+				if(players[i].GetScore() > highestScore)
+				{
+					highestScore = players[i].GetScore();
+					winner = i;
+				}
+			}
+			
+			if(highestScore != Mathf.NegativeInfinity)
+			{
+				return players[winner];
+			}
+			else
+			{
+				return null;
+			}	
+		}
+	}
+	
+	private void ShowWinner(Player player)
+	{
+		//Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
+	}
+	
+    public void ProcessProductionPhase()
+    {		
+		winner = GetWinnerIfGameHasEnded();
+		if(winner != null)
+		{
+			ShowWinner(winner);
+			return;
+		}
+		
+		for(int i = 0; i < players.Count; i++)
+		{
+			players[i].Produce();
+		}
+		
+		//Instantiate a random event (probability handled in the randomEventFactory) (Req 2.5.a, 2.5.b)
+		randomEventFactory.Create(Random.Range(0, 101)).Instantiate();
+		market.UpdatePrices();
     }
 }
