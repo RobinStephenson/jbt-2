@@ -47,13 +47,7 @@ public class ResourceGroup
     {
         return this.ore();
     }
-    public static void Main()
-    {
-        ResourceGroup r1 = new ResourceGroup(50, 50, 50);
-        ResourceGroup r2 = new ResourceGroup(30, 30, 50);
-        r1 = r1 + r2;
-        Console.WriteLine(r1.food, r1.energy, r1.ore);
-    }
+
 }
 
 
