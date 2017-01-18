@@ -25,10 +25,13 @@ public class Roboticon
         {
             case RoboticonUpgrade.FOOD:
                 this.upgrades = this.upgrades + new ResourceGroup(1, 0, 0);
+                break;
             case RoboticonUpgrade.ENERGY:
                 this.upgrades = this.upgrades + new ResourceGroup(0, 1, 0);
+                break;
             case RoboticonUpgrade.ORE:
                 this.upgrades = this.upgrades + new ResourceGroup(0, 0, 1);
+                break;
         }
     }
 
@@ -38,10 +41,13 @@ public class Roboticon
         {
             case RoboticonUpgrade.FOOD:
                 this.upgrades = this.upgrades + new ResourceGroup(-1, 0, 0);
+                break;
             case RoboticonUpgrade.ENERGY:
                 this.upgrades = this.upgrades + new ResourceGroup(0, -1, 0);
+                break;
             case RoboticonUpgrade.ORE:
                 this.upgrades = this.upgrades + new ResourceGroup(0, 0, -1);
+                break;
         }
     }
 
