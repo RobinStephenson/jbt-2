@@ -28,6 +28,11 @@ public class ResourceGroup
                                  c1.getOre() * c2.getOre());
     }
 
+    public int Sum()
+    {
+        return this.food + this.energy + this.ore;
+    }
+
     public int getFood()
     {
         return this.food();
