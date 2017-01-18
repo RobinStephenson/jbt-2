@@ -10,6 +10,8 @@ public class Roboticon
         ORE
     }
 
+    const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+
     private ResourceGroup upgrades;
 
     public Roboticon(ResourceGroup upgrades = new ResourceGroup(0,0,0))
@@ -45,10 +47,9 @@ public class Roboticon
 
     public int GetPrice()
     {
-        //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
-        return (this.upgrades.getFood()   * 50) +
-               (this.upgrades.getEnergy() * 50) +
-               (this.upgrades.getOre()    * 50);
+        return (this.upgrades.getFood()   * UPGRADEVALUE) +
+               (this.upgrades.getEnergy() * UPGRADEVALUE) +
+               (this.upgrades.getOre()    * UPGRADEVALUE);
     }
 
 }
