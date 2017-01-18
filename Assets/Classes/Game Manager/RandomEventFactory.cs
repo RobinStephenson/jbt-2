@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class RandomEventFactory
 {
+    private RandomEventStore Store = new RandomEventStore();
     public GameObject create(int craziness)
     {
-        //TODO - create random event gameobject based on craziness.
-        // return empty gameobject to indicate that no event should
-        // take place.
-        return new GameObject();
+        Random rnd = new Random();
+        if (rnd.Next(2) == 0)           //TODO correct percentage chance of event occuring - 50% currently
+        {
+            return Store.chooseEvent(craziness);    
+        }
+        else
+        {
+            return new GameObject();    // Return empty gameobject indicating no event should take place
+        }
     }
 }
