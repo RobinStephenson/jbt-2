@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.IO;
 using System
-using System.collections.generic;
+using System.Collections.Generic;
 
 public static class GameHandler
 {
