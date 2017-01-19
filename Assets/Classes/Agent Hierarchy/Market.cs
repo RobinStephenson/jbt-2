@@ -4,33 +4,55 @@ using System.Collections;
 public class Market : Agent
 {
     private Casino casino;
-    private ResourceGroup resourceSellingPrices;
-    private ResourceGroup resourceBuyingPrices;
-    private int numRoboticonsForSale;
+    private ResourceGroup resourceSellingPrices { get; set;  }
+    private ResourceGroup resourceBuyingPrices { get; set; }
+    private ResourceGroup resourceAmounts { get; set; }
+    private int numRoboticonsForSale { get; set; }
+    private int marketMoney { get; set; }
+    private const int STARTING_FOOD_AMOUNT = 16;
+    private const int STARTING_ENERGY_AMOUNT = 16;
+    private const int STARTING_ORE_AMOUNT = 0;
+    private const int STARTING_ROBOTICON_AMOUNT = 12;
 
-    public void BuyFrom(ResourceGroup resources, int price)
+    public Market(ResourceGroup resourceSellingPrices, ResourceGroup resourceBuyingPrices, int marketMoney)
     {
-        //TODO - Alter market's resources and money
+        this.resourceSellingPrices = resourceSellingPrices;
+        this.resourceBuyingPrices = resourceBuyingPrices;
+        this.resourceAmounts = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
+        this.numRoboticonsForSale = STARTING_ROBOTICON_AMOUNT;
+        this.marketMoney = marketMoney;
+    }
+    
+    public bool BuyFrom(ResourceGroup resources, int price)
+    {
+        bool hasEnoughResources = !(resources.food > this.resourceAmounts.food 
+            || resourceAmounts.energy > this.resourceAmounts.energy 
+            || resourcesAmounts.ore > this.resourceAmounts.ore);
+        if (hasEnoughResource)
+        {
+            this.resourceAmounts -= resources; //Requires subtraction overload
+            this.marketMoney = this.marketMoney + (resources * resourceSellingPrices).Sum(); //Overloading * to perform dot product to get total gain 
+        }  
+        
     }
 
     public void SellTo(ResourceGroup resource, int price)
     {
-        //TODO - Alter market's resources and money
+        this.resourceAmounts += resources;
+        this.marketMoney = this.marketMoney - (resources * resourceSellingPrices).Sum(); //Overloading * to perform dot product to get total expenditure
     }
 
-    public void SetResourceSellingPrices(ResourceGroup newPrices)
+    public void UpdatePrices()
     {
-        //TODO - Setter for selling prices.
-    }
-
-    public void SetResourceBuyingPrices(ResourceGroup newPrices)
-    {
-        //TODO - Setter for buying prices.
+        //Skeleton for later use when adding supply & demand
     }
 
     private void ProduceRoboticon()
-    {
-        //TODO - increment numRoboticons for sale and deduct ore
-        // cost of roboticon production from market resources
+    {  
+        if (resources.ore >= 12)
+        {
+            numRoboticonsForSale++;
+            resources.ore -= 12;
+        }  
     }
 }
