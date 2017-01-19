@@ -20,6 +20,11 @@ public class canvasScript : MonoBehaviour
     public Text moneyLabel;
     #endregion
 
+    public void EndPhase()
+    {
+        humanGui.EndPhase();
+    }
+
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);

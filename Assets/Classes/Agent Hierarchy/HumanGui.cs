@@ -28,6 +28,11 @@ public class HumanGui
         UpdateResourceBar();
     }
 
+    public void EndPhase()
+    {
+        gameManager.CurrentPlayerEndTurn();
+    }
+
     public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)
     {
         if(currentHuman.GetMoney() >= buyPrice)

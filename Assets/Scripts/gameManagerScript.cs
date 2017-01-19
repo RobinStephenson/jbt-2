@@ -18,6 +18,7 @@ public class gameManagerScript : MonoBehaviour
 
         ///TEMP
         List<Player> players = new List<Player>();
+        players.Add(new AI(new ResourceGroup(), 0));
         players.Add(new Human(new ResourceGroup(50, 999, 50), 999));
         players.Add(new Human(new ResourceGroup(), 0));
         players.Add(new AI(new ResourceGroup(), 0));

@@ -32,7 +32,7 @@ public class GameManager : System.Object
     {
         this.gameName = gameName;
         this.players = players;
-        SortPlayerList(this.players);
+        FormatPlayerList(this.players);
 		this.market = new Market();
 		this.randomEventFactory = new RandomEventFactory();
 		this.map = new Map();
@@ -43,12 +43,27 @@ public class GameManager : System.Object
         humanGui = new HumanGui();
         GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
         MonoBehaviour.DontDestroyOnLoad(guiGameObject);
+
         canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
         humanGui.SetCanvasScript(canvas);
         humanGui.SetGameManager(this);
         canvas.SetHumanGui(humanGui);
 
-        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See SortPlayerList)
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            if (player.GetType() == typeof(Human))
+            {
+                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
+        PlayerAct();
     }
 
     public void CurrentPlayerEndTurn()
@@ -61,15 +76,21 @@ public class GameManager : System.Object
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
 		if (currentPlayerIndex >= players.Count)
 		{
-			//If we've moved on to the production phase then run the function that handles the logic for the production phase.
-			if(currentState == States.PRODUCTION)
-			{
-				ProcessProductionPhase();
-			}
+            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == States.PRODUCTION)
+            {
+                ProcessProductionPhase();
+                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+            }
+            else
+            {
+                currentState++;
+            }
 
-			currentState++;
             currentPlayerIndex = 0;
 		}
+
+        MonoBehaviour.print("Calling act on player:  " + currentPlayerIndex + "Human?   " + (players[currentPlayerIndex].GetType() == typeof(Human)) );
 
         //Call the Act function for the current player, passing the state to it.
 		players[currentPlayerIndex].Act(currentState);
@@ -139,11 +160,18 @@ public class GameManager : System.Object
     /// </summary>
     /// <param name="players"></param>
     /// <returns></returns>
-    private void SortPlayerList(List<Player> players)
+    private void FormatPlayerList(List<Player> players)
     {
         players.Sort(delegate(Player p1, Player p2)
         {
-            if(p1.GetType() == typeof(Human))
+            bool p1IsHuman = p1.GetType().ToString() == "Human";
+            bool p2IsHuman = p2.GetType().ToString() == "Human";
+
+            if (p1IsHuman && p2IsHuman)
+            {
+                return 0;
+            }
+            else if(p1IsHuman)
             {
                 return -1;
             }
@@ -152,8 +180,8 @@ public class GameManager : System.Object
                 return 1;
             }
         });
-
-        if(players[0].GetType() != typeof(Human))
+        
+        if (players[0].GetType().ToString() != "Human")
         {
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
