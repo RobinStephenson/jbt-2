@@ -6,15 +6,15 @@ public abstract class Player : Agent
 {
     protected string name;
     protected int score;
-    protected List<Roboticon> ownedRoboticons;
-    protected List<Tile> ownedTiles;
+    protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
+    protected List<Tile> ownedTiles = new List<Tile>();
 
     public int CalculateScore()
     {
         int scoreFromTiles = 0;
         foreach(Tile tile in ownedTiles)
         {
-            ResourceGroup tileResources = tile.GetResourcesGenerated();
+            ResourceGroup tileResources = tile.GetTotalResourcesGenerated();
             scoreFromTiles += tileResources.energy + tileResources.food + tileResources.ore;
         }
 
@@ -27,10 +27,28 @@ public abstract class Player : Agent
         return scoreFromRoboticons + scoreFromTiles;
     }
 
+    /// <summary>
+    /// Adds the total resources for all tiles owned by the player to the player's resources.
+    /// </summary>
+    public void Produce()
+    {
+        resources += CalculateTotalResourcesGenerated();
+    }
+
+    /// <summary>
+    /// Returns the sum of all tile-generated resources.
+    /// </summary>
+    /// <returns></returns>
     public ResourceGroup CalculateTotalResourcesGenerated()
     {
-        //TODO
-        return new ResourceGroup(5, 67, -69);
+        ResourceGroup totalResources = new ResourceGroup();
+
+        foreach (Tile tile in ownedTiles)
+        {
+            totalResources += tile.GetTotalResourcesGenerated();
+        }
+
+        return totalResources;
     }
 
     public void AcquireTile(Tile tile)
@@ -64,5 +82,5 @@ public abstract class Player : Agent
         return true;
     }
 
-    public abstract void Act();
+    public abstract void Act(GameManager.States state);
 }

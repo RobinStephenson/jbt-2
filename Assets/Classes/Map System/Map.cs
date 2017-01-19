@@ -4,17 +4,34 @@ using System.Collections.Generic;
 
 public class Map
 {
-    private List<Tile> tiles;
+    private List<Tile> tiles = new List<Tile>();
     public Vector2 MAP_DIMENSIONS = new Vector2(100, 100);
 
     public Tile GetTile(int tileId)
     {
-        for(int i = 0; i < this.tiles.Count; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
-            if(this.tiles[i].GetID == tileId)
+            if (tiles[i].GetId() == tileId)
             {
-                return this.tiles[i];
+                return tiles[i];
             }
         }
+
+        throw new System.IndexOutOfRangeException("Tile with index " + tileId.ToString() + " does not exist in the map.");
+    }
+
+    public int GetNumUnownedTilesRemaining()
+    {
+        int numTiles = 0;
+
+        foreach(Tile tile in tiles)
+        {
+            if(tile.GetOwner() == null)
+            {
+                numTiles++;
+            }
+        }
+
+        return numTiles;
     }
 }

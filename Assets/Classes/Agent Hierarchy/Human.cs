@@ -9,7 +9,7 @@ public class Human : Player
         this.money = money;
     }
 
-    public override void Act()
+    public override void Act(GameManager.States state)
     {
         //TODO - Interface with HumanGui to provide
         // Human actions.

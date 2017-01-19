@@ -20,25 +20,6 @@ public class canvasScript : MonoBehaviour
     public Text moneyLabel;
     #endregion
 
-    bool tempFireOnce = true;
-
-    // Use this for initialization
-    void Start ()
-    {
-        humanGui = new HumanGui();
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-	    if(tempFireOnce)
-        {
-            AI ai = new AI(new ResourceGroup(550, 500, 550));
-            humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999), 550), HumanGui.GamePhase.PRODUCTION);
-            tempFireOnce = false;
-        }
-    }
-   
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
@@ -92,6 +73,11 @@ public class canvasScript : MonoBehaviour
         foodChangeLabel.text = FormatResourceChangeLabel(resources.food);
         energyChangeLabel.text = FormatResourceChangeLabel(resources.energy);
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
+    }
+
+    public void SetHumanGui(HumanGui gui)
+    {
+        humanGui = gui;
     }
 
     private string FormatResourceChangeLabel(int changeAmount)

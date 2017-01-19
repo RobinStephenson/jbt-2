@@ -14,7 +14,7 @@ public class Roboticon
 
     private ResourceGroup upgrades;
 
-    public Roboticon(ResourceGroup upgrades = new ResourceGroup(0,0,0))
+    public Roboticon(ResourceGroup upgrades)
     {
         this.upgrades = upgrades;
     }
@@ -37,7 +37,7 @@ public class Roboticon
 
     public void Downgrade(RoboticonUpgrade downGradeType)
     {
-        switch (upgradeType)
+        switch (downGradeType)
         {
             case RoboticonUpgrade.FOOD:
                 this.upgrades = this.upgrades + new ResourceGroup(-1, 0, 0);
@@ -58,4 +58,8 @@ public class Roboticon
                (this.upgrades.getOre()    * UPGRADEVALUE);
     }
 
+    public ResourceGroup GetUpgrades()
+    {
+        return upgrades;
+    }
 }

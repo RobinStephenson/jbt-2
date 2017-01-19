@@ -1,12 +1,20 @@
 using UnityEngine;
-using System.Collections;
+using System;
 using System.IO;
-using System
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public static class GameHandler
 {
-    public static GameManager CreateNew(string gameName, List<int> players)
+    /// <summary>
+    /// Throws System.ArgumentException if given a list of players not containing any
+    /// Human players.
+    /// </summary>
+    /// <param name="gameName"></param>
+    /// <param name="players"></param>
+    /// <returns></returns>
+    public static GameManager CreateNew(string gameName, List<Player> players)
     {
         return new GameManager(gameName, players);
     }
@@ -22,6 +30,7 @@ public static class GameHandler
 
     public static GameManager Load(string filePath)
     {
+        FileStream stream;
         stream = File.Open(filePath, FileMode.Open);
         BinaryFormatter formatter = new BinaryFormatter();
         GameManager returnedGameManager = (GameManager)formatter.Deserialize(stream);

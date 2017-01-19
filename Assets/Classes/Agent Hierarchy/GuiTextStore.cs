@@ -12,7 +12,7 @@ public class GuiTextStore
         "Production Phase."
     };
 
-    public static string GetHelpBoxText(HumanGui.GamePhase phase)
+    public static string GetHelpBoxText(GameManager.States phase)
     {
         return helpBoxText[(int)phase];
     }

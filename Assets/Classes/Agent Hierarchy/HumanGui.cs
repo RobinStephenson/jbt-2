@@ -4,27 +4,21 @@ using System.Collections.Generic;
 
 public class HumanGui
 {
-    public enum GamePhase
-    {
-        ACQUISITION,
-        PURCHASE,
-        INSTALLATION,
-        AUCTION,
-        PRODUCTION
-    }
+    public static GameObject humanGuiGameObject;
+    private const string humanGuiGameObjectPath = "Prefabs/Player GUI Canvas";
 
-    private float guiScale = 1;
     private Human currentHuman;
-    private GamePhase currentPhase;
+    private GameManager.States currentPhase;
+    private GameManager gameManager;
 
     private canvasScript canvas;
 
     public HumanGui()
     {
-        canvas = GameObject.FindGameObjectWithTag("uiCanvas").GetComponent<canvasScript>();
+        humanGuiGameObject = (GameObject)Resources.Load(humanGuiGameObjectPath);
     }
 
-	public void DisplayGui(Human human, GamePhase phase)
+	public void DisplayGui(Human human, GameManager.States phase)
     {
         currentHuman = human;
         currentPhase = phase;
@@ -38,18 +32,26 @@ public class HumanGui
     {
         if(currentHuman.GetMoney() >= buyPrice)
         {
+            try
+            {
+                gameManager.market.BuyFrom(resourcesToBuy, buyPrice);
+            }
+            catch (System.ArgumentException e)
+            {
+                //TODO - Implement separate animation for when the market does not have enough resources
+                canvas.marketScript.PlayPurchaseDeclinedAnimation();
+                return;
+            }
+
             currentHuman.SetMoney(currentHuman.GetMoney() - buyPrice);
 
-            //TODO - Replace with overloaded ResourceGroup operations
+            for(int i = 0; i < roboticonsToBuy; i ++)
+            {
+                currentHuman.AcquireRoboticon(new Roboticon(new ResourceGroup()));
+            }
+
             ResourceGroup currentResources = currentHuman.GetResources();
-            ResourceGroup newResources = new ResourceGroup();
-
-            newResources.food   = currentResources.food   + resourcesToBuy.food;
-            newResources.energy = currentResources.energy + resourcesToBuy.energy;
-            newResources.ore    = currentResources.ore    + resourcesToBuy.ore;
-
-            currentHuman.SetResources(newResources);
-            //TODO - Call market BuyFrom method.
+            currentHuman.SetResources(currentResources + resourcesToBuy);
 
             UpdateResourceBar();
         }
@@ -61,7 +63,6 @@ public class HumanGui
 
     public void SellToMarket(ResourceGroup resourcesToSell, int sellPrice)
     {
-        //TODO Interface with market - market has finite money?
         ResourceGroup humanResources = currentHuman.GetResources();
         bool humanHasEnoughResources =
             humanResources.food   >= resourcesToSell.food &&
@@ -70,18 +71,21 @@ public class HumanGui
 
         if(humanHasEnoughResources)
         {
+            try
+            {
+                gameManager.market.SellTo(resourcesToSell, sellPrice);
+            }
+            catch (System.ArgumentException e)
+            {
+                //TODO - Implement separate animation for when the market does not have enough resources
+                canvas.marketScript.PlaySaleDeclinedAnimation();
+                return;
+            }
+
             currentHuman.SetMoney(currentHuman.GetMoney() + sellPrice);
 
-            //TODO - Replace with overloaded ResourceGroup operations
             ResourceGroup currentResources = currentHuman.GetResources();
-            ResourceGroup newResources = new ResourceGroup();
-
-            newResources.food = currentResources.food - resourcesToSell.food;
-            newResources.energy = currentResources.energy - resourcesToSell.energy;
-            newResources.ore = currentResources.ore - resourcesToSell.ore;
-
-            currentHuman.SetResources(newResources);
-            //TODO - Call market SellFrom method.
+            currentHuman.SetResources(currentResources - resourcesToSell);
 
             UpdateResourceBar();
         }
@@ -89,6 +93,16 @@ public class HumanGui
         {
             canvas.marketScript.PlaySaleDeclinedAnimation();
         }
+    }
+
+    public void SetGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
+    public void SetCanvasScript(canvasScript canvas)
+    {
+        this.canvas = canvas;
     }
 
     private void UpdateResourceBar()
