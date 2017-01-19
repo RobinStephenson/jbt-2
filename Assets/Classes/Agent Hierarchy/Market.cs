@@ -9,19 +9,25 @@ public class Market : Agent
     private ResourceGroup resourceAmounts { get; set; }
     private int numRoboticonsForSale { get; set; }
     private int marketMoney { get; set; }
+    private const int STARTING_FOOD_AMOUNT = 16;
+    private const int STARTING_ENERGY_AMOUNT = 16;
+    private const int STARTING_ORE_AMOUNT = 0;
+    private const int STARTING_ROBOTICON_AMOUNT = 12;
 
     public Market(ResourceGroup resourceSellingPrices, ResourceGroup resourceBuyingPrices, int marketMoney)
     {
         this.resourceSellingPrices = resourceSellingPrices;
         this.resourceBuyingPrices = resourceBuyingPrices;
-        this.resourceAmounts = new ResourceGroup(16, 16, 0);
-        this.numRoboticonsForSale = 12;
+        this.resourceAmounts = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
+        this.numRoboticonsForSale = STARTING_ROBOTICON_AMOUNT;
         this.marketMoney = marketMoney;
     }
     
     public bool BuyFrom(ResourceGroup resources, int price)
     {
-        bool hasEnoughResources = !(resources.food > this.resourceAmounts.food || resourceAmounts.energy > this.resourceAmounts.energy || resourcesAmounts.ore > this.resourceAmounts.ore);
+        bool hasEnoughResources = !(resources.food > this.resourceAmounts.food 
+            || resourceAmounts.energy > this.resourceAmounts.energy 
+            || resourcesAmounts.ore > this.resourceAmounts.ore);
         if (hasEnoughResource)
         {
             this.resourceAmounts -= resources; //Requires subtraction overload
@@ -33,7 +39,7 @@ public class Market : Agent
     public void SellTo(ResourceGroup resource, int price)
     {
         this.resourceAmounts += resources;
-        this.marketMoney = this.marketMoney - (resources * resourceSellingPrices); //Overloading * to perform dot product to get total expenditure
+        this.marketMoney = this.marketMoney - (resources * resourceSellingPrices).Sum(); //Overloading * to perform dot product to get total expenditure
     }
 
     public void UpdatePrices()
@@ -42,13 +48,11 @@ public class Market : Agent
     }
 
     private void ProduceRoboticon()
-    {
-        
+    {  
         if (resources.ore >= 12)
         {
             numRoboticonsForSale++;
             resources.ore -= 12;
         }  
     }
-
 }
