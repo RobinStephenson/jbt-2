@@ -52,13 +52,10 @@ public class GameManager : System.Object
         for (int i = 0; i < players.Count; i++)
         {
             Player player = players[i];
+            player.SetGameManager(this);
             if (player.GetType() == typeof(Human))
             {
                 ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
-            }
-            else
-            {
-                break;
             }
         }
 
@@ -93,8 +90,12 @@ public class GameManager : System.Object
         MonoBehaviour.print("Calling act on player:  " + currentPlayerIndex + "Human?   " + (players[currentPlayerIndex].GetType() == typeof(Human)) );
 
         //Call the Act function for the current player, passing the state to it.
-		players[currentPlayerIndex].Act(currentState);
+        Player currentPlayer = players[currentPlayerIndex];
+
+        humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
         currentPlayerIndex++;
+
+        currentPlayer.Act(currentState);
 	}
 
 	private Player GetWinnerIfGameHasEnded()
@@ -164,14 +165,11 @@ public class GameManager : System.Object
     {
         players.Sort(delegate(Player p1, Player p2)
         {
-            bool p1IsHuman = p1.GetType().ToString() == "Human";
-            bool p2IsHuman = p2.GetType().ToString() == "Human";
-
-            if (p1IsHuman && p2IsHuman)
+            if (p1.IsHuman() && p2.IsHuman())
             {
                 return 0;
             }
-            else if(p1IsHuman)
+            else if(p1.IsHuman())
             {
                 return -1;
             }
@@ -181,7 +179,7 @@ public class GameManager : System.Object
             }
         });
         
-        if (players[0].GetType().ToString() != "Human")
+        if (!players[0].IsHuman())
         {
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }

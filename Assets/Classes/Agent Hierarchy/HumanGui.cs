@@ -26,11 +26,20 @@ public class HumanGui
         ShowHelpBox();
 
         UpdateResourceBar();
+        canvas.EnableEndPhaseButton();
     }
 
     public void EndPhase()
     {
         gameManager.CurrentPlayerEndTurn();
+    }
+
+    public void DisableGui()
+    {
+        currentHuman = new Human(new ResourceGroup(), 0);
+        UpdateResourceBar();    //This will reset all resource values to 0.
+
+        canvas.DisableEndPhaseButton();
     }
 
     public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)

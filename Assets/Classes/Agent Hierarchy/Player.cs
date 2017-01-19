@@ -8,6 +8,7 @@ public abstract class Player : Agent
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
     protected List<Tile> ownedTiles = new List<Tile>();
+    protected GameManager gameManager;
 
     public int CalculateScore()
     {
@@ -80,6 +81,16 @@ public abstract class Player : Agent
     {
         //TODO - interface with auction. Not a priority.
         return true;
+    }
+
+    public bool IsHuman()
+    {
+        return this.GetType().ToString() == "Human";
+    }
+
+    public void SetGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
     }
 
     public abstract void Act(GameManager.States state);

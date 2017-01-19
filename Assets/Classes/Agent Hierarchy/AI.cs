@@ -12,12 +12,11 @@ public class AI : Player
     }
 
     private DifficultyLevel difficulty;
-    private ResourceGroup optimalResourceFractions;
+    private ResourceGroup optimalResourceFractions = new ResourceGroup(33, 33, 34);     //The AI will attempt to meet this resource distribution.
 
     public AI(ResourceGroup resources, int money)
     {
         this.resources = resources;
-        optimalResourceFractions = new ResourceGroup(33, 33, 34);   //Initialise to even resource weighting.
 
         //TEMP
         ResourceGroup testr = GetResourceNecessityWeights();
@@ -27,6 +26,8 @@ public class AI : Player
     public override void Act(GameManager.States state)
     {
         //TODO - AI action
+
+        gameManager.CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 
     private Tile ChooseTileToAcquire()
@@ -41,11 +42,14 @@ public class AI : Player
         return Roboticon.RoboticonUpgrade.ENERGY;
     }
 
+    /// <summary>
+    /// Returns a resource group in which each resource value signifies
+    /// the necessity of that resource from 0 to 100, where 0 is not 
+    /// necessary at all and 100 is absolutely necessary.
+    /// </summary>
+    /// <returns></returns>
     private ResourceGroup GetResourceNecessityWeights()
     {
-        //TODO - generate resource group where each resource
-        // value corresponds to 0:100 representing necessity,
-        // where 0 is not necessary at all.
         int totalResources = resources.food + resources.energy + resources.ore;
         ResourceGroup necessityWeights;
 

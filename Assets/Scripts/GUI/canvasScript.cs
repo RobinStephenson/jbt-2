@@ -9,6 +9,7 @@ public class canvasScript : MonoBehaviour
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
     public marketScript marketScript;
+    public GameObject endPhaseButton;
 
     #region Resource Labels
     public Text foodLabel;
@@ -23,6 +24,16 @@ public class canvasScript : MonoBehaviour
     public void EndPhase()
     {
         humanGui.EndPhase();
+    }
+
+    public void DisableEndPhaseButton()
+    {
+        endPhaseButton.SetActive(false);
+    }
+
+    public void EnableEndPhaseButton()
+    {
+        endPhaseButton.SetActive(true);
     }
 
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
