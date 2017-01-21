@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class HumanGui
 {
     public static GameObject humanGuiGameObject;
-    private const string humanGuiGameObjectPath = "Prefabs/Player GUI Canvas";
+    private const string humanGuiGameObjectPath = "Prefabs/GUI/Player GUI Canvas";
 
     private Human currentHuman;
     private GameManager.States currentPhase;
@@ -16,6 +16,11 @@ public class HumanGui
     public HumanGui()
     {
         humanGuiGameObject = (GameObject)Resources.Load(humanGuiGameObjectPath);
+
+        if(humanGuiGameObject == null)
+        {
+            throw new System.ArgumentException("Could not find human GUI GameObject at the specified path.");
+        }
     }
 
 	public void DisplayGui(Human human, GameManager.States phase)
@@ -61,7 +66,9 @@ public class HumanGui
 
             for(int i = 0; i < roboticonsToBuy; i ++)
             {
-                currentHuman.AcquireRoboticon(new Roboticon(new ResourceGroup()));
+                Roboticon newRoboticon = new Roboticon(new ResourceGroup());
+                currentHuman.AcquireRoboticon(newRoboticon);
+                canvas.AddRoboticonToList(newRoboticon);
             }
 
             ResourceGroup currentResources = currentHuman.GetResources();
@@ -109,6 +116,11 @@ public class HumanGui
         }
     }
 
+    public List<Roboticon> GetCurrentHumanRoboticonList()
+    {
+        return currentHuman.GetRoboticons();
+    }
+
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -135,9 +147,9 @@ public class HumanGui
 
     }
 
-    private void DisplayTileInfo(Tile tile)
+    public void DisplayTileInfo(Tile tile)
     {
-
+        canvas.ShowTileInfoWindow(tile);
     }
 
     private void ShowHelpBox()

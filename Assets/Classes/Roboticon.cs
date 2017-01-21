@@ -13,10 +13,17 @@ public class Roboticon
     const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
 
     private ResourceGroup upgrades;
+    private string name;
 
     public Roboticon(ResourceGroup upgrades)
     {
         this.upgrades = upgrades;
+        this.name = "RBN#" + (Random.Range(100, 999)).ToString();
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
     public void Upgrade(RoboticonUpgrade upgradeType)

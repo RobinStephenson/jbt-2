@@ -7,6 +7,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class GameHandler
 {
+    public static GameManager gameManager;
+
     /// <summary>
     /// Throws System.ArgumentException if given a list of players not containing any
     /// Human players.
@@ -14,9 +16,9 @@ public static class GameHandler
     /// <param name="gameName"></param>
     /// <param name="players"></param>
     /// <returns></returns>
-    public static GameManager CreateNew(string gameName, List<Player> players)
+    public static void CreateNew(string gameName, List<Player> players)
     {
-        return new GameManager(gameName, players);
+        gameManager = new GameManager(gameName, players);
     }
 
     public static void Save(GameManager gameManagerToSave, string filePath)
@@ -37,5 +39,10 @@ public static class GameHandler
         stream.Close();
 
         return returnedGameManager;
+    }
+
+    public static GameManager GetGameManager()
+    {
+        return gameManager;
     }
 }

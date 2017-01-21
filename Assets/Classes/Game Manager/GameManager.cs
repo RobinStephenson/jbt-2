@@ -40,6 +40,14 @@ public class GameManager : System.Object
 
     public void StartGame()
     {
+        SetUpGui();
+        SetUpMap();
+
+        PlayerAct();
+    }
+
+    private void SetUpGui()
+    {
         humanGui = new HumanGui();
         GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
         MonoBehaviour.DontDestroyOnLoad(guiGameObject);
@@ -60,7 +68,12 @@ public class GameManager : System.Object
         }
 
         humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
-        PlayerAct();
+    }
+
+    private void SetUpMap()
+    {
+        map = new Map();
+        map.Instantiate();
     }
 
     public void CurrentPlayerEndTurn()
@@ -86,8 +99,6 @@ public class GameManager : System.Object
 
             currentPlayerIndex = 0;
 		}
-
-        MonoBehaviour.print("Calling act on player:  " + currentPlayerIndex + "Human?   " + (players[currentPlayerIndex].GetType() == typeof(Human)) );
 
         //Call the Act function for the current player, passing the state to it.
         Player currentPlayer = players[currentPlayerIndex];
@@ -183,5 +194,11 @@ public class GameManager : System.Object
         {
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
+    }
+
+
+    public HumanGui GetHumanGui()
+    {
+        return humanGui;
     }
 }

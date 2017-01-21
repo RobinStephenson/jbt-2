@@ -8,8 +8,10 @@ public class canvasScript : MonoBehaviour
 
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public roboticonWindowScript roboticonList;
     public marketScript marketScript;
     public GameObject endPhaseButton;
+    public tileInfoWindowScript tileWindow;
 
     #region Resource Labels
     public Text foodLabel;
@@ -64,6 +66,38 @@ public class canvasScript : MonoBehaviour
     public void HideOptionsMenu()
     {
         optionsMenu.SetActive(false);
+    }
+
+    public void ShowTileInfoWindow(Tile tile)
+    {
+        tileWindow.Show(tile);
+    }
+
+    public void HideTileInfoWindow()
+    {
+        tileWindow.Hide();
+    }
+
+    public void ShowRoboticonList()
+    {
+        roboticonList.DisplayRoboticonList(humanGui.GetCurrentHumanRoboticonList());
+    }
+
+    /// <summary>
+    /// Adds a roboticon to the roboticon display list if it is currently
+    /// being displayed.
+    /// </summary>
+    public void AddRoboticonToList(Roboticon roboticon)
+    {
+        if (roboticonList.isActiveAndEnabled)
+        {
+            roboticonList.AddRoboticon(roboticon);
+        }
+    }
+
+    public void HideRoboticonList()
+    {
+        roboticonList.HideRoboticonList();
     }
 
     public void ShowHelpBox(string helpBoxText)

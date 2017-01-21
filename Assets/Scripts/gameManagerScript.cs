@@ -8,8 +8,6 @@ public class gameManagerScript : MonoBehaviour
     public const int GAME_SCENE_INDEX = 1;
     public string gameName = "game";
 
-    private GameManager gameManager;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -23,15 +21,10 @@ public class gameManagerScript : MonoBehaviour
         players.Add(new Human(new ResourceGroup(), 0));
         players.Add(new AI(new ResourceGroup(), 0));
 
-        gameManager = GameHandler.CreateNew(gameName, players);
-        gameManager.StartGame();
+        GameHandler.CreateNew(gameName, players);
+        GameHandler.GetGameManager().StartGame();
 
         SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous
         ///
 	}
-
-    public GameManager GetGameManager()
-    {
-        return gameManager;
-    }
 }

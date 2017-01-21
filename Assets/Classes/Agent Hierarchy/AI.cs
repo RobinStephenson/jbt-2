@@ -17,16 +17,11 @@ public class AI : Player
     public AI(ResourceGroup resources, int money)
     {
         this.resources = resources;
-
-        //TEMP
-        ResourceGroup testr = GetResourceNecessityWeights();
-        MonoBehaviour.print("Necessities: " + testr.food + " , " + testr.energy + " , " + testr.ore);
     }
 
     public override void Act(GameManager.States state)
     {
         //TODO - AI action
-
         gameManager.CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 

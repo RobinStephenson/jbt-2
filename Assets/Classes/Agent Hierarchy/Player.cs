@@ -57,6 +57,11 @@ public abstract class Player : Agent
         ownedTiles.Add(tile);
     }
 
+    public List<Roboticon> GetRoboticons()
+    {
+        return ownedRoboticons;
+    }
+
     public void AcquireRoboticon(Roboticon roboticon)
     {
         ownedRoboticons.Add(roboticon);
