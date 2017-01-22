@@ -109,6 +109,12 @@ public class Market : Agent
         }
     }
 
+
+    public int GetNumRoboticonsForSale()
+    {
+        return numRoboticonsForSale;
+    }
+
     public ResourceGroup GetResourceBuyingPrices()
     {
         return resourceBuyingPrices;
