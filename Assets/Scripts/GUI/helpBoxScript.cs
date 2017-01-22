@@ -5,21 +5,8 @@ using UnityEngine.UI;
 public class helpBoxScript : MonoBehaviour
 {
 
-    private Animator helpBoxAnimator;
-    private Text helpBoxText;
-
-	// Use this for initialization
-	void Start ()
-    {
-        helpBoxAnimator = GetComponent<Animator>();
-        helpBoxText = GetComponentInChildren<Text>();
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public Animator helpBoxAnimator;
+    public Text helpBoxText;
 
     public void ShowHelpBox(string text = "")
     {

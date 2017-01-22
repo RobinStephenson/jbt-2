@@ -8,7 +8,10 @@ public class canvasScript : MonoBehaviour
 
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public roboticonWindowScript roboticonList;
     public marketScript marketScript;
+    public GameObject endPhaseButton;
+    public tileInfoWindowScript tileWindow;
 
     #region Resource Labels
     public Text foodLabel;
@@ -20,25 +23,21 @@ public class canvasScript : MonoBehaviour
     public Text moneyLabel;
     #endregion
 
-    bool tempFireOnce = true;
-
-    // Use this for initialization
-    void Start ()
+    public void EndPhase()
     {
-        humanGui = new HumanGui();
+        humanGui.EndPhase();
     }
 
-    // Update is called once per frame
-    void Update ()
+    public void DisableEndPhaseButton()
     {
-	    if(tempFireOnce)
-        {
-            AI ai = new AI(new ResourceGroup(550, 500, 550));
-            humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999), 550), HumanGui.GamePhase.PRODUCTION);
-            tempFireOnce = false;
-        }
+        endPhaseButton.SetActive(false);
     }
-   
+
+    public void EnableEndPhaseButton()
+    {
+        endPhaseButton.SetActive(true);
+    }
+
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
@@ -69,6 +68,43 @@ public class canvasScript : MonoBehaviour
         optionsMenu.SetActive(false);
     }
 
+    public void PurchaseTile(Tile tile)
+    {
+        humanGui.PurchaseTile(tile);
+    }
+
+    public void ShowTileInfoWindow(Tile tile)
+    {
+        tileWindow.Show(tile, GameHandler.GetGameManager().GetCurrentState());
+    }
+
+    public void HideTileInfoWindow()
+    {
+        tileWindow.Hide();
+    }
+
+    public void ShowRoboticonList()
+    {
+        roboticonList.DisplayRoboticonList(humanGui.GetCurrentHumanRoboticonList());
+    }
+
+    /// <summary>
+    /// Adds a roboticon to the roboticon display list if it is currently
+    /// being displayed.
+    /// </summary>
+    public void AddRoboticonToList(Roboticon roboticon)
+    {
+        if (roboticonList.isActiveAndEnabled)
+        {
+            roboticonList.AddRoboticon(roboticon);
+        }
+    }
+
+    public void HideRoboticonList()
+    {
+        roboticonList.HideRoboticonList();
+    }
+
     public void ShowHelpBox(string helpBoxText)
     {
         helpBox.ShowHelpBox(helpBoxText);
@@ -92,6 +128,16 @@ public class canvasScript : MonoBehaviour
         foodChangeLabel.text = FormatResourceChangeLabel(resources.food);
         energyChangeLabel.text = FormatResourceChangeLabel(resources.energy);
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
+    }
+
+    public void SetHumanGui(HumanGui gui)
+    {
+        humanGui = gui;
+    }
+
+    public HumanGui GetHumanGui()
+    {
+        return humanGui;
     }
 
     private string FormatResourceChangeLabel(int changeAmount)

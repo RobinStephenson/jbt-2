@@ -4,27 +4,26 @@ using System.Collections.Generic;
 
 public class HumanGui
 {
-    public enum GamePhase
-    {
-        ACQUISITION,
-        PURCHASE,
-        INSTALLATION,
-        AUCTION,
-        PRODUCTION
-    }
+    public static GameObject humanGuiGameObject;
+    private const string humanGuiGameObjectPath = "Prefabs/GUI/Player GUI Canvas";
 
-    private float guiScale = 1;
     private Human currentHuman;
-    private GamePhase currentPhase;
+    private GameManager.States currentPhase;
+    private GameManager gameManager;
 
     private canvasScript canvas;
 
     public HumanGui()
     {
-        canvas = GameObject.FindGameObjectWithTag("uiCanvas").GetComponent<canvasScript>();
+        humanGuiGameObject = (GameObject)Resources.Load(humanGuiGameObjectPath);
+
+        if(humanGuiGameObject == null)
+        {
+            throw new System.ArgumentException("Could not find human GUI GameObject at the specified path.");
+        }
     }
 
-	public void DisplayGui(Human human, GamePhase phase)
+	public void DisplayGui(Human human, GameManager.States phase)
     {
         currentHuman = human;
         currentPhase = phase;
@@ -32,24 +31,62 @@ public class HumanGui
         ShowHelpBox();
 
         UpdateResourceBar();
+        canvas.EnableEndPhaseButton();
+    }
+
+    public void EndPhase()
+    {
+        gameManager.CurrentPlayerEndTurn();
+    }
+
+    public void DisableGui()
+    {
+        currentHuman = new Human(new ResourceGroup(), "", 0);
+        UpdateResourceBar();    //This will reset all resource values to 0.
+
+        canvas.DisableEndPhaseButton();
+    }
+
+    public void PurchaseTile(Tile tile)
+    {
+        if(tile.GetPrice() < currentHuman.GetMoney())
+        {
+            currentHuman.SetMoney(currentHuman.GetMoney() - tile.GetPrice());
+            currentHuman.AcquireTile(tile);
+            UpdateResourceBar();
+        }
+        else
+        {
+            canvas.tileWindow.PlayPurchaseDeclinedAnimation();
+        }
     }
 
     public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)
     {
         if(currentHuman.GetMoney() >= buyPrice)
         {
+            try
+            {
+                gameManager.market.BuyFrom(resourcesToBuy, buyPrice);
+            }
+            catch (System.ArgumentException e)
+            {
+                //TODO - Implement separate animation for when the market does not have enough resources
+                canvas.marketScript.PlayPurchaseDeclinedAnimation();
+                return;
+            }
+
             currentHuman.SetMoney(currentHuman.GetMoney() - buyPrice);
 
-            //TODO - Replace with overloaded ResourceGroup operations
+            for(int i = 0; i < roboticonsToBuy; i ++)
+            {
+                Roboticon newRoboticon = new Roboticon(new ResourceGroup());
+                currentHuman.AcquireRoboticon(newRoboticon);
+                canvas.AddRoboticonToList(newRoboticon);
+            }
+
             ResourceGroup currentResources = currentHuman.GetResources();
-            ResourceGroup newResources = new ResourceGroup();
-
-            newResources.food   = currentResources.food   + resourcesToBuy.food;
-            newResources.energy = currentResources.energy + resourcesToBuy.energy;
-            newResources.ore    = currentResources.ore    + resourcesToBuy.ore;
-
-            currentHuman.SetResources(newResources);
-            //TODO - Call market BuyFrom method.
+            currentHuman.SetResources(currentResources + resourcesToBuy);
 
             UpdateResourceBar();
         }
@@ -61,7 +98,6 @@ public class HumanGui
 
     public void SellToMarket(ResourceGroup resourcesToSell, int sellPrice)
     {
-        //TODO Interface with market - market has finite money?
         ResourceGroup humanResources = currentHuman.GetResources();
         bool humanHasEnoughResources =
             humanResources.food   >= resourcesToSell.food &&
@@ -70,18 +106,21 @@ public class HumanGui
 
         if(humanHasEnoughResources)
         {
+            try
+            {
+                gameManager.market.SellTo(resourcesToSell, sellPrice);
+            }
+            catch (System.ArgumentException e)
+            {
+                //TODO - Implement separate animation for when the market does not have enough resources
+                canvas.marketScript.PlaySaleDeclinedAnimation();
+                return;
+            }
+
             currentHuman.SetMoney(currentHuman.GetMoney() + sellPrice);
 
-            //TODO - Replace with overloaded ResourceGroup operations
             ResourceGroup currentResources = currentHuman.GetResources();
-            ResourceGroup newResources = new ResourceGroup();
-
-            newResources.food = currentResources.food - resourcesToSell.food;
-            newResources.energy = currentResources.energy - resourcesToSell.energy;
-            newResources.ore = currentResources.ore - resourcesToSell.ore;
-
-            currentHuman.SetResources(newResources);
-            //TODO - Call market SellFrom method.
+            currentHuman.SetResources(currentResources - resourcesToSell);
 
             UpdateResourceBar();
         }
@@ -91,25 +130,35 @@ public class HumanGui
         }
     }
 
+    public List<Roboticon> GetCurrentHumanRoboticonList()
+    {
+        return currentHuman.GetRoboticons();
+    }
+
+    public Human GetCurrentHuman()
+    {
+        return currentHuman;
+    }
+
+    public void SetGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
+    public void SetCanvasScript(canvasScript canvas)
+    {
+        this.canvas = canvas;
+    }
+
     private void UpdateResourceBar()
     {
         canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
         canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
     }
 
-    private void DisplayRoboticonList(List<Roboticon> roboticons)
+    public void DisplayTileInfo(Tile tile)
     {
-
-    }
-
-    private void DisplayRoboticonInfo(Roboticon roboticon)
-    {
-
-    }
-
-    private void DisplayTileInfo(Tile tile)
-    {
-
+        canvas.ShowTileInfoWindow(tile);
     }
 
     private void ShowHelpBox()

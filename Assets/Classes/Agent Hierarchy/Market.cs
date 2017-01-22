@@ -6,40 +6,76 @@ public class Market : Agent
     private Casino casino;
     private ResourceGroup resourceSellingPrices { get; set;  }
     private ResourceGroup resourceBuyingPrices { get; set; }
-    private ResourceGroup resourceAmounts { get; set; }
     private int numRoboticonsForSale { get; set; }
-    private int marketMoney { get; set; }
+
+    #region Market Starting Constants
     private const int STARTING_FOOD_AMOUNT = 16;
     private const int STARTING_ENERGY_AMOUNT = 16;
     private const int STARTING_ORE_AMOUNT = 0;
     private const int STARTING_ROBOTICON_AMOUNT = 12;
 
-    public Market(ResourceGroup resourceSellingPrices, ResourceGroup resourceBuyingPrices, int marketMoney)
+    private const int STARTING_FOOD_BUY_PRICE = 10;
+    private const int STARTING_ORE_BUY_PRICE = 10;
+    private const int STARTING_ENERGY_BUY_PRICE = 10;
+    private const int STARTING_FOOD_SELL_PRICE = 10;
+    private const int STARTING_ORE_SELL_PRICE = 10;
+    private const int STARTING_ENERGY_SELL_PRICE = 10;
+
+    private const int STARTING_MONEY = 100;
+    #endregion
+
+    private const int ROBOTICON_PRODUCTION_COST = 12;
+
+    public Market()
     {
-        this.resourceSellingPrices = resourceSellingPrices;
-        this.resourceBuyingPrices = resourceBuyingPrices;
-        this.resourceAmounts = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
+        this.resourceSellingPrices = new ResourceGroup(STARTING_FOOD_BUY_PRICE, STARTING_ENERGY_BUY_PRICE, STARTING_ORE_BUY_PRICE);
+        this.resourceBuyingPrices = new ResourceGroup(STARTING_FOOD_SELL_PRICE, STARTING_ENERGY_SELL_PRICE, STARTING_ORE_SELL_PRICE);
+        this.resources = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
         this.numRoboticonsForSale = STARTING_ROBOTICON_AMOUNT;
-        this.marketMoney = marketMoney;
+        this.money = STARTING_MONEY;
     }
     
-    public bool BuyFrom(ResourceGroup resources, int price)
+    /// <summary>
+    /// Throws System.ArgumentException if the market does not have enough resources 
+    /// to complete the transaction.
+    /// </summary>
+    /// <param name="resources"></param>
+    /// <param name="price"></param>
+    public void BuyFrom(ResourceGroup resourcesToBuy, int price)
     {
-        bool hasEnoughResources = !(resources.food > this.resourceAmounts.food 
-            || resourceAmounts.energy > this.resourceAmounts.energy 
-            || resourcesAmounts.ore > this.resourceAmounts.ore);
-        if (hasEnoughResource)
+        bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food 
+            || resourcesToBuy.energy > this.resources.energy 
+            || resourcesToBuy.ore > this.resources.ore);
+
+        if (hasEnoughResources)
         {
-            this.resourceAmounts -= resources; //Requires subtraction overload
-            this.marketMoney = this.marketMoney + (resources * resourceSellingPrices).Sum(); //Overloading * to perform dot product to get total gain 
+            this.resources -= resourcesToBuy; //Requires subtraction overload
+            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
         }  
+        else
+        {
+            throw new System.ArgumentException("Market does not have enough resources to perform this transaction.");
+        }
         
     }
 
-    public void SellTo(ResourceGroup resource, int price)
+    /// <summary>
+    /// Throws System.ArgumentException if the market does not have enough money
+    /// to complete the transaction.
+    /// </summary>
+    /// <param name="resource"></param>
+    /// <param name="price"></param>
+    public void SellTo(ResourceGroup resourcesToSell, int price)
     {
-        this.resourceAmounts += resources;
-        this.marketMoney = this.marketMoney - (resources * resourceSellingPrices).Sum(); //Overloading * to perform dot product to get total expenditure
+        if (price <= money)
+        {
+            resources += resourcesToSell;
+            money = money - (resourcesToSell * resourceBuyingPrices).Sum(); //Overloading * to perform element-wise product to get total expenditure
+        }
+        else
+        {
+            throw new System.ArgumentException("Market does not have enough money to perform this transaction.");
+        }
     }
 
     public void UpdatePrices()
@@ -49,10 +85,10 @@ public class Market : Agent
 
     private void ProduceRoboticon()
     {  
-        if (resources.ore >= 12)
+        if (resources.ore >= ROBOTICON_PRODUCTION_COST)
         {
+            resources.ore -= ROBOTICON_PRODUCTION_COST;
             numRoboticonsForSale++;
-            resources.ore -= 12;
         }  
     }
 }

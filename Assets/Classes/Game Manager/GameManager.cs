@@ -1,4 +1,4 @@
-﻿cusing UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -6,81 +6,152 @@ using System;
 [Serializable]
 public class GameManager : System.Object
 {
-    public string gameName;
-    private List<Player> players;
-    private int currentPlayer;
-
-    private Market market;
-	private RandomEventFactory factory;
-	private Map map;
-
-    enum States : int
+    public enum States : int
     {
         ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
     };
 
-    private States currentState = States.ACQUISITION;
+    public string gameName;
+    private List<Player> players;
+    private int currentPlayerIndex;
 
+    public Market market;
+	private RandomEventFactory randomEventFactory;
+	private Map map;
+
+    private States currentState = States.ACQUISITION;
+    private HumanGui humanGui;
+
+    /// <summary>
+    /// Don't use this constructor. Use the CreateNew method of the GameHandler object.
+    /// Throws System.ArgumentException if given a player list with no human players.
+    /// </summary>
+    /// <param name="gameName"></param>
+    /// <param name="players"></param>
     public GameManager(string gameName, List<Player> players)
     {
         this.gameName = gameName;
         this.players = players;
-		this.market = new Market(new ResourceGroup(100, 100, 100), new ResourceGroup(100, 100, 100), 200);
+        FormatPlayerList(this.players);
+		this.market = new Market();
 		this.randomEventFactory = new RandomEventFactory();
 		this.map = new Map();
     }
 
-    public void NextState()
+    public void StartGame()
     {
-	   currentState++;
-	}
+        SetUpGui();
+        SetUpMap();
 
-	public void PlayerAct()
+        PlayerAct();
+    }
+
+    private void SetUpGui()
+    {
+        humanGui = new HumanGui();
+        GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
+        MonoBehaviour.DontDestroyOnLoad(guiGameObject);
+
+        canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
+        humanGui.SetCanvasScript(canvas);
+        humanGui.SetGameManager(this);
+        canvas.SetHumanGui(humanGui);
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            if (player.GetType() == typeof(Human))
+            {
+                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
+            }
+        }
+
+        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
+    }
+
+    private void SetUpMap()
+    {
+        map = new Map();
+        map.Instantiate();
+    }
+
+    public void CurrentPlayerEndTurn()
+    {
+        PlayerAct();
+    }
+
+    public GameManager.States GetCurrentState()
+    {
+        return currentState;
+    }
+
+    public Player GetCurrentPlayer()
+    {
+        if (currentPlayerIndex == 0)
+        {
+            return players[players.Count - 1];
+        }
+        else
+        {
+            return players[currentPlayerIndex - 1];
+        }
+    }
+
+	private void PlayerAct()
 	{
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
-		if (currentPlayer >= players.Count)
+		if (currentPlayerIndex >= players.Count)
 		{
-			//If we've moved on to the production phase then run the function that handles the logic for the production phase.
-			if(currentState == States.PRODUCTION)
-			{
-				ProcessProductionPhase();
-			}
+            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == States.PRODUCTION)
+            {
+                ProcessProductionPhase();
+                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+            }
+            else
+            {
+                currentState++;
+            }
 
-			currentState++;
+            currentPlayerIndex = 0;
 		}
 
         //Call the Act function for the current player, passing the state to it.
-		players[currentPlayer].Act(currentState);
-		currentPlayer++;
+        Player currentPlayer = players[currentPlayerIndex];
+
+        humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
+        currentPlayerIndex++;
+
+        currentPlayer.Act(currentState);
+        map.UpdateMap();
 	}
 
 	private Player GetWinnerIfGameHasEnded()
 	{
-		//Game ends if there are no remaining tiles (Req 2.3.a)
-		if(map.GetRemainingTiles() == 0)
+		//Game ends if there are no remaining unowned tiles (Req 2.3.a)
+		if(map.GetNumUnownedTilesRemaining() == 0)
 		{
-			highestScore = Mathf.NegativeInfinity;
-			winner = Mathf.Infinity;
+			float highestScore = Mathf.NegativeInfinity;
+            Player winner = null;
 
 			for(int i = 0; i < players.Count; i++)
 			{
-				//Player with the highest score wins (Req 2.3.c)
-				if(players[i].GetScore() > highestScore)
+                //Player with the highest score wins (Req 2.3.c)
+                int currentScore = players[i].CalculateScore();
+				if(currentScore > highestScore)
 				{
-					highestScore = players[i].GetScore();
-					winner = i;
+                    highestScore = currentScore;
+                    winner = players[i];
 				}
 			}
 
 			if(highestScore != Mathf.NegativeInfinity)
 			{
-				return players[winner];
-			}
-			else
-			{
-				return null;
+				return winner;
 			}
 		}
+
+        return null;
 	}
 
 	private void ShowWinner(Player player)
@@ -88,9 +159,9 @@ public class GameManager : System.Object
 		//Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
 	}
 
-    public void ProcessProductionPhase()
+    private void ProcessProductionPhase()
     {
-        winner = GetWinnerIfGameHasEnded();
+        Player winner = GetWinnerIfGameHasEnded();
         if(winner != null)
         {
             ShowWinner(winner);
@@ -102,8 +173,49 @@ public class GameManager : System.Object
             players[i].Produce();
         }
 
-		//Instantiate a random event (probability handled in the randomEventFactory) (Req 2.5.a, 2.5.b)
-		randomEventFactory.Create(Random.Range(0, 101)).Instantiate();
+        //Instantiate a random event (probability handled in the randomEventFactory) (Req 2.5.a, 2.5.b)
+        GameObject randomEventGameObject = randomEventFactory.Create(UnityEngine.Random.Range(0, 101));
+
+        if (randomEventGameObject != null)
+        {
+            GameObject.Instantiate(randomEventGameObject);
+        }
+
 		market.UpdatePrices();
-  }
+    }
+
+    /// <summary>
+    /// Sorts the player list so that human players always go first. Mutates players.
+    /// </summary>
+    /// <param name="players"></param>
+    /// <returns></returns>
+    private void FormatPlayerList(List<Player> players)
+    {
+        players.Sort(delegate(Player p1, Player p2)
+        {
+            if (p1.IsHuman() && p2.IsHuman())
+            {
+                return 0;
+            }
+            else if(p1.IsHuman())
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        });
+        
+        if (!players[0].IsHuman())
+        {
+            throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
+        }
+    }
+
+
+    public HumanGui GetHumanGui()
+    {
+        return humanGui;
+    }
 }

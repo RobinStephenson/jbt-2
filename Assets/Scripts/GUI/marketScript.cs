@@ -56,20 +56,14 @@ public class marketScript : MonoBehaviour
         SetShownMarketPrices(new ResourceGroup(5, 10, 3), new ResourceGroup(2, 6, 1), 20);
         ///
 
-        foodBuyAmount.onValidateInput   += ValidatePositiveInput;
-        energyBuyAmount.onValidateInput += ValidatePositiveInput;
+        foodBuyAmount.onValidateInput   += ValidatePositiveInput;       //Add the ValidatePositiveInput function to
+        energyBuyAmount.onValidateInput += ValidatePositiveInput;       //each GUI Text.
         oreBuyAmount.onValidateInput    += ValidatePositiveInput;
 
-        foodSellAmount.onValidateInput += ValidatePositiveInput;
+        foodSellAmount.onValidateInput  += ValidatePositiveInput;
         energySellAmount.onValidateInput += ValidatePositiveInput;
-        oreSellAmount.onValidateInput += ValidatePositiveInput;
+        oreSellAmount.onValidateInput   += ValidatePositiveInput;
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-	
-	}
 
     public void OnBuyButtonPress()
     {

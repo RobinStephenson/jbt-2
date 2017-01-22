@@ -7,7 +7,7 @@ public class RandomEvent
 
     public RandomEvent(int craziness)
     {
-        eventGameObject = new RandomEventFactory().create(craziness);
+        eventGameObject = new RandomEventFactory().Create(craziness);
     }
 
     public void Instantiate()
