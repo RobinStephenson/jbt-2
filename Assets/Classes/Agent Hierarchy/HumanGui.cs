@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class HumanGui
 {
     public static GameObject humanGuiGameObject;
-    private const string humanGuiGameObjectPath = "Prefabs/GUI/Player GUI Canvas";
 
     private Human currentHuman;
     private GameManager.States currentPhase;
@@ -15,6 +14,7 @@ public class HumanGui
     private Tile currentSelectedTile;
 
     public const string ANIM_TRIGGER_FLASH_RED = "Flash Red";
+    private const string humanGuiGameObjectPath = "Prefabs/GUI/Player GUI Canvas";
 
     public HumanGui()
     {
@@ -34,9 +34,10 @@ public class HumanGui
         ShowHelpBox();
 
         UpdateResourceBar();
-        canvas.UpdateRoboticonList();
+        canvas.RefreshRoboticonList();
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
+        canvas.HideMarketWindow();
     }
 
     public void SetCurrentPlayerName(string name)
@@ -161,12 +162,6 @@ public class HumanGui
         this.canvas = canvas;
     }
 
-    private void UpdateResourceBar()
-    {
-        canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
-        canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
-    }
-
     public void DisplayTileInfo(Tile tile)
     {
         currentSelectedTile = tile;     //Selection of a tile always passes through here
@@ -215,6 +210,12 @@ public class HumanGui
         {
             throw new System.Exception("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
         }
+    }
+
+    private void UpdateResourceBar()
+    {
+        canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
+        canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
     }
 
     private void ShowHelpBox()

@@ -91,6 +91,11 @@ public class tileInfoWindowScript : MonoBehaviour
         }
     }
 
+    public void InstallRoboticon()
+    {
+        uiCanvas.ShowRoboticonList();
+    }
+
     public void PlayPurchaseDeclinedAnimation()
     {
         priceText.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class canvasScript : MonoBehaviour
 {
-    private HumanGui humanGui;
-
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
     public roboticonWindowScript roboticonList;
@@ -25,6 +23,8 @@ public class canvasScript : MonoBehaviour
     public Text oreChangeLabel;
     public Text moneyLabel;
     #endregion
+
+    private HumanGui humanGui;
 
     public void EndPhase()
     {
@@ -53,7 +53,14 @@ public class canvasScript : MonoBehaviour
 
     public void ShowMarketWindow()
     {
-        marketScript.gameObject.SetActive(true);
+        if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
+        {
+            marketScript.gameObject.SetActive(true);
+        }
+        else
+        {
+            //TODO - Error message "Market cannot be accessed in this phase."
+        }
     }
 
     public void HideMarketWindow()
@@ -93,7 +100,10 @@ public class canvasScript : MonoBehaviour
 
     public void RefreshRoboticonList()
     {
-        ShowRoboticonList();
+        if (roboticonList.isActiveAndEnabled)
+        {
+            ShowRoboticonList();
+        }
     }
 
     public void ShowRoboticonList()
@@ -123,11 +133,6 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonList()
     {
         roboticonList.HideRoboticonList();
-    }
-
-    public void UpdateRoboticonList()
-    {
-        roboticonList.DisplayRoboticonList(GameHandler.GetGameManager().GetCurrentPlayer().GetRoboticons());
     }
 
     public void ShowRoboticonUpgradesWindow(Roboticon roboticon)
