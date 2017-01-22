@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Roboticon
 {
-    private const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+    public const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
 
     private ResourceGroup upgrades;
     private string name;
