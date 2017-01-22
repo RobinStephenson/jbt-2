@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Map
 {
     public Vector2 MAP_DIMENSIONS = new Vector2(10, 10);
-    public Vector3 MAP_POSITION = new Vector3(-70, 59, 50);
+    public Vector3 MAP_POSITION = new Vector3(-70, 61, 50);
 
     private List<Tile> tiles = new List<Tile>();
 
