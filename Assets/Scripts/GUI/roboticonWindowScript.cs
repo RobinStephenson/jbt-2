@@ -4,26 +4,12 @@ using System.Collections.Generic;
 
 public class roboticonWindowScript : MonoBehaviour
 {
+    public canvasScript canvas;
     public GameObject roboticonIconsList;   //Roboticon gui elements are added to this GUI content
+
     private GameObject roboticonTemplate;
-    List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
-
+    private List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
     private const string ROBOTICON_TEMPLATE_PATH = "Prefabs/GUI/TemplateRoboticon";
-
-    private const int ROBOTICON_GUI_ELEMENT_HEIGHT = 30;
-    private const int ROBOTICON_GUI_ELEMENT_PADDING = 5;
-
-    // Use this for initialization
-    void Start ()
-    {
-
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
 
     /// <summary>
     /// Display a new set of roboticons to the GUI. Overwrite any previously displayed
@@ -40,10 +26,29 @@ public class roboticonWindowScript : MonoBehaviour
         {
             AddRoboticon(roboticon);
         }
+
+        GameManager.States currentState = GameHandler.GetGameManager().GetCurrentState();
+        if (currentState == GameManager.States.PURCHASE)
+        {
+            ShowRoboticonUpgradeButtons();
+        }
+        else if(currentState == GameManager.States.INSTALLATION)
+        {
+            HumanGui humanGui = canvas.GetHumanGui();
+            if (humanGui.GetCurrentSelectedTile().GetOwner() == humanGui.GetCurrentHuman())
+            {
+                ShowRoboticonInstallButtons();
+            }
+        }
+        else
+        {
+            HideInstallAndUpgradeButtons();
+        }
     }
 
     public void HideRoboticonList()
     {
+        ClearRoboticonList();
         currentlyDisplayedRoboticons = new List<GameObject>();
         gameObject.SetActive(false);
     }
@@ -61,14 +66,71 @@ public class roboticonWindowScript : MonoBehaviour
         GameObject roboticonGuiObject = (GameObject)GameObject.Instantiate(roboticonTemplate);
         roboticonGuiObject.transform.SetParent(roboticonIconsList.transform, true);
         RectTransform guiObjectTransform = roboticonGuiObject.GetComponent<RectTransform>();
-        int elementHeight = -currentlyDisplayedRoboticons.Count * (ROBOTICON_GUI_ELEMENT_HEIGHT + ROBOTICON_GUI_ELEMENT_PADDING);
 
-        guiObjectTransform.offsetMax = new Vector2(-1, elementHeight);
-        guiObjectTransform.offsetMin = new Vector2(1, elementHeight-ROBOTICON_GUI_ELEMENT_HEIGHT);
         guiObjectTransform.localScale = new Vector3(1, 1, 1);               //Undo Unity's instantiation meddling
 
-        guiObjectTransform.GetComponent<roboticonGuiElementScript>().SetRoboticonName(roboticon.GetName());
+        roboticonGuiElementScript roboticonElementScript = guiObjectTransform.GetComponent<roboticonGuiElementScript>();
+        roboticonElementScript.SetRoboticon(roboticon);
+        roboticonElementScript.SetButtonEventListeners(this);
+
         currentlyDisplayedRoboticons.Add(roboticonGuiObject);
+    }
+
+    /// <summary>
+    /// Show the Upgrade button for each roboticon in the window.
+    /// </summary>
+    public void ShowRoboticonUpgradeButtons()
+    {
+        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        {
+            roboticonElement.GetComponent<roboticonGuiElementScript>().ShowUpgradeButton();
+        } 
+    }
+
+    /// <summary>
+    /// Show the install button for each roboticon in the window.
+    /// </summary>
+    public void ShowRoboticonInstallButtons()
+    {
+        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        {
+            roboticonElement.GetComponent<roboticonGuiElementScript>().ShowInstallButton();
+        }
+    }
+
+    public void HideInstallAndUpgradeButtons()
+    {
+        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        {
+            roboticonElement.GetComponent<roboticonGuiElementScript>().HideButtons();
+        }
+    }
+
+    public void UpgradeRoboticon(Roboticon roboticon)
+    {
+        canvas.ShowRoboticonUpgradesWindow(roboticon);
+    }
+
+    /// <summary>
+    /// Install the given roboticon to the current selected tile.
+    /// </summary>
+    /// <param name="roboticon"></param>
+    public void InstallRoboticon(Roboticon roboticon)
+    {
+        canvas.InstallRoboticon(roboticon);
+    }
+
+    private void ClearRoboticonList()
+    {
+        if (currentlyDisplayedRoboticons.Count > 0)
+        {
+            for (int i = currentlyDisplayedRoboticons.Count - 1; i >= 0; i--)
+            {
+                Destroy(currentlyDisplayedRoboticons[i]);
+            }
+
+            currentlyDisplayedRoboticons = new List<GameObject>();
+        }
     }
 
     /// <summary>
@@ -84,19 +146,6 @@ public class roboticonWindowScript : MonoBehaviour
             {
                 throw new System.ArgumentException("Cannot find roboticon template at the specified path.");
             }
-        }
-    }
-
-    private void ClearRoboticonList()
-    {
-        if (currentlyDisplayedRoboticons.Count > 0)
-        {
-            for (int i = currentlyDisplayedRoboticons.Count - 1; i >= 0; i--)
-            {
-                Destroy(currentlyDisplayedRoboticons[i]);
-            }
-
-            currentlyDisplayedRoboticons = new List<GameObject>();
         }
     }
 }

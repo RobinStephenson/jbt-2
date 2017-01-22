@@ -4,9 +4,10 @@ using System.Collections;
 public class Market : Agent
 {
     private Casino casino;
-    private ResourceGroup resourceSellingPrices { get; set;  }
-    private ResourceGroup resourceBuyingPrices { get; set; }
-    private int numRoboticonsForSale { get; set; }
+    private ResourceGroup resourceSellingPrices;
+    private ResourceGroup resourceBuyingPrices;
+    private int numRoboticonsForSale;
+    private int roboticonBuyingPrice = 15;
 
     #region Market Starting Constants
     private const int STARTING_FOOD_AMOUNT = 16;
@@ -30,11 +31,11 @@ public class Market : Agent
     {
         this.resourceSellingPrices = new ResourceGroup(STARTING_FOOD_BUY_PRICE, STARTING_ENERGY_BUY_PRICE, STARTING_ORE_BUY_PRICE);
         this.resourceBuyingPrices = new ResourceGroup(STARTING_FOOD_SELL_PRICE, STARTING_ENERGY_SELL_PRICE, STARTING_ORE_SELL_PRICE);
-        this.resources = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
+        this.resources = new ResourceGroup(STARTING_FOOD_AMOUNT, STARTING_ENERGY_AMOUNT, STARTING_ORE_AMOUNT);
         this.numRoboticonsForSale = STARTING_ROBOTICON_AMOUNT;
         this.money = STARTING_MONEY;
     }
-    
+
     /// <summary>
     /// Throws System.ArgumentException if the market does not have enough resources 
     /// to complete the transaction.
@@ -43,20 +44,20 @@ public class Market : Agent
     /// <param name="price"></param>
     public void BuyFrom(ResourceGroup resourcesToBuy, int price)
     {
-        bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food 
-            || resourcesToBuy.energy > this.resources.energy 
+        bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
+            || resourcesToBuy.energy > this.resources.energy
             || resourcesToBuy.ore > this.resources.ore);
 
         if (hasEnoughResources)
         {
             this.resources -= resourcesToBuy; //Requires subtraction overload
             this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
-        }  
+        }
         else
         {
             throw new System.ArgumentException("Market does not have enough resources to perform this transaction.");
         }
-        
+
     }
 
     /// <summary>
@@ -84,11 +85,26 @@ public class Market : Agent
     }
 
     private void ProduceRoboticon()
-    {  
+    {
         if (resources.ore >= ROBOTICON_PRODUCTION_COST)
         {
             resources.ore -= ROBOTICON_PRODUCTION_COST;
             numRoboticonsForSale++;
-        }  
+        }
+    }
+
+    public ResourceGroup GetResourceBuyingPrices()
+    {
+        return resourceBuyingPrices;
+    }
+
+    public ResourceGroup GetResourceSellingPrices()
+    {
+        return resourceSellingPrices;
+    }
+
+    public int GetRoboticonSellingPrice()
+    {
+        return roboticonBuyingPrice;
     }
 }

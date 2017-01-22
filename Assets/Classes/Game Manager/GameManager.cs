@@ -11,14 +11,13 @@ public class GameManager : System.Object
         ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
     };
 
+    public Market market;
     public string gameName;
+
     private List<Player> players;
     private int currentPlayerIndex;
-
-    public Market market;
 	private RandomEventFactory randomEventFactory;
 	private Map map;
-
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
 
@@ -44,6 +43,28 @@ public class GameManager : System.Object
         SetUpMap();
 
         PlayerAct();
+    }
+
+    public void CurrentPlayerEndTurn()
+    {
+        PlayerAct();
+    }
+
+    public GameManager.States GetCurrentState()
+    {
+        return currentState;
+    }
+
+    public Player GetCurrentPlayer()
+    {
+        if (currentPlayerIndex == 0)
+        {
+            return players[players.Count - 1];
+        }
+        else
+        {
+            return players[currentPlayerIndex - 1];
+        }
     }
 
     private void SetUpGui()
@@ -75,29 +96,7 @@ public class GameManager : System.Object
         map.Instantiate();
     }
 
-    public void CurrentPlayerEndTurn()
-    {
-        PlayerAct();
-    }
-
-    public GameManager.States GetCurrentState()
-    {
-        return currentState;
-    }
-
-    public Player GetCurrentPlayer()
-    {
-        if (currentPlayerIndex == 0)
-        {
-            return players[players.Count - 1];
-        }
-        else
-        {
-            return players[currentPlayerIndex - 1];
-        }
-    }
-
-	private void PlayerAct()
+    private void PlayerAct()
 	{
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
 		if (currentPlayerIndex >= players.Count)
@@ -120,6 +119,7 @@ public class GameManager : System.Object
         Player currentPlayer = players[currentPlayerIndex];
 
         humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
+        humanGui.SetCurrentPlayerName(currentPlayer.GetName());
         currentPlayerIndex++;
 
         currentPlayer.Act(currentState);
@@ -213,6 +213,11 @@ public class GameManager : System.Object
         }
     }
 
+
+    public Map GetMap()
+    {
+        return map;
+    }
 
     public HumanGui GetHumanGui()
     {
