@@ -14,6 +14,7 @@ public class canvasScript : MonoBehaviour
     public GameObject endPhaseButton;
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
+    public roboticonUpgradesWindowScript roboticonUpgradesWindow;
 
     #region Resource Labels
     public Text foodLabel;
@@ -90,6 +91,11 @@ public class canvasScript : MonoBehaviour
         tileWindow.Hide();
     }
 
+    public void RefreshRoboticonList()
+    {
+        ShowRoboticonList();
+    }
+
     public void ShowRoboticonList()
     {
         List<Roboticon> roboticonsToDisplay = new List<Roboticon>();
@@ -122,6 +128,26 @@ public class canvasScript : MonoBehaviour
     public void UpdateRoboticonList()
     {
         roboticonList.DisplayRoboticonList(GameHandler.GetGameManager().GetCurrentPlayer().GetRoboticons());
+    }
+
+    public void ShowRoboticonUpgradesWindow(Roboticon roboticon)
+    {
+        roboticonUpgradesWindow.Show(roboticon);
+    }
+
+    public void HideRoboticonUpgradesWindow()
+    {
+        roboticonUpgradesWindow.Hide();
+    }
+
+    public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrades)
+    {
+        humanGui.UpgradeRoboticon(roboticon, upgrades);
+    }
+
+    public void InstallRoboticon(Roboticon roboticon)
+    {
+        humanGui.InstallRoboticon(roboticon);
     }
 
     public void SetCurrentPlayerName(string name)

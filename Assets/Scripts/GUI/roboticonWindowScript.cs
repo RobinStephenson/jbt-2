@@ -36,7 +36,7 @@ public class roboticonWindowScript : MonoBehaviour
         else if(currentState == GameManager.States.INSTALLATION)
         {
             HumanGui humanGui = canvas.GetHumanGui();
-            if (humanGui.GetCurrentSelectedTile().GetOwner() != humanGui.GetCurrentHuman())
+            if (humanGui.GetCurrentSelectedTile().GetOwner() == humanGui.GetCurrentHuman())
             {
                 ShowRoboticonInstallButtons();
             }
@@ -125,7 +125,7 @@ public class roboticonWindowScript : MonoBehaviour
 
     public void UpgradeRoboticon(Roboticon roboticon)
     {
-
+        canvas.ShowRoboticonUpgradesWindow(roboticon);
     }
 
     /// <summary>
@@ -134,14 +134,7 @@ public class roboticonWindowScript : MonoBehaviour
     /// <param name="roboticon"></param>
     public void InstallRoboticon(Roboticon roboticon)
     {
-        HumanGui humanGui = canvas.GetHumanGui();
-        Tile currentSelectedTile = humanGui.GetCurrentSelectedTile();
-        Human currentHuman = humanGui.GetCurrentHuman();
-
-        if (currentSelectedTile.GetOwner() == currentHuman)
-        {
-            currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
-        }
+        canvas.InstallRoboticon(roboticon);
     }
 
     private void ClearRoboticonList()

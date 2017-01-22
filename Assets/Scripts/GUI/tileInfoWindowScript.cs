@@ -27,6 +27,7 @@ public class tileInfoWindowScript : MonoBehaviour
         UpdateResourceTexts();
         UpdateOwnerText(tile.GetOwner());
         UpdatePriceText(tile.GetPrice());
+        uiCanvas.RefreshRoboticonList();
 
         GameManager.States gamePhase = GameHandler.GetGameManager().GetCurrentState();
 
@@ -71,6 +72,7 @@ public class tileInfoWindowScript : MonoBehaviour
     {
         if(currentTile != null)
         {
+            uiCanvas.RefreshRoboticonList();
             Show(currentTile);
         }
     }

@@ -53,6 +53,7 @@ public class HumanGui
     {
         currentHuman = new Human(new ResourceGroup(), "", 0);
         UpdateResourceBar();    //This will reset all resource values to 0.
+        canvas.HideRoboticonUpgradesWindow();
 
         canvas.DisableEndPhaseButton();
     }
@@ -175,6 +176,45 @@ public class HumanGui
     public Tile GetCurrentSelectedTile()
     {
         return currentSelectedTile;
+    }
+
+    public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrades)
+    {
+        Player currentPlayer = GameHandler.GetGameManager().GetCurrentPlayer();
+        int upgradeCost = (upgrades * Roboticon.UPGRADEVALUE).Sum();
+
+        if (currentPlayer.GetMoney() >= upgradeCost)
+        {
+            currentPlayer.SetMoney(currentPlayer.GetMoney() - upgradeCost);
+            roboticon.Upgrade(upgrades);
+            UpdateResourceBar();
+            canvas.ShowRoboticonUpgradesWindow(roboticon);
+            canvas.RefreshTileInfoWindow();
+        }
+        else
+        {
+            //TODO - Purchase decline anim
+        }
+    }
+
+    public void InstallRoboticon(Roboticon roboticon)
+    {
+        if (currentSelectedTile.GetOwner() == currentHuman)
+        {
+            try
+            {
+                currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
+                canvas.RefreshTileInfoWindow();
+            }
+            catch(System.Exception)
+            {
+                //TODO - Play "roboticon already installed to tile" animation
+            }
+        }
+        else
+        {
+            throw new System.Exception("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
+        }
     }
 
     private void ShowHelpBox()

@@ -212,8 +212,6 @@ public class GameManager : System.Object
         {
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
-        MonoBehaviour.print("p1: " + players[0].GetName());
-        MonoBehaviour.print("p2: " + players[1].GetName());
     }
 
     public Map GetMap()
