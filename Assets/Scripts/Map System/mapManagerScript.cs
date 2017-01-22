@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class mapManagerScript : MonoBehaviour
 {
     private Map map;
     private const int LEFT_MOUSE_BUTTON = 0;
-
+    
     private Tile lastTileHovered;
+    private Tile currentTileSelected;
+    private EventSystem eventSystem;
+
+    void Start()
+    {
+        eventSystem = EventSystem.current;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -17,26 +25,34 @@ public class mapManagerScript : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))   //Ray hit something
+            if (Physics.Raycast(ray, out hit) && !eventSystem.IsPointerOverGameObject() )   //Ray hit something and cursor is not over GUI object
             {
                 if (hit.collider.tag == "mapTile")
                 {
                     Tile hitTile = map.GetTile(hit.collider.GetComponent<mapTileScript>().GetTileId());
 
-                    if (lastTileHovered != null)
+                    if (hitTile != currentTileSelected)
                     {
-                        lastTileHovered.TileNormal();
-                    }
+                        if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
+                        {
+                            if (currentTileSelected != null)
+                            {
+                                currentTileSelected.TileNormal();
+                            }
 
-                    lastTileHovered = hitTile;
+                            currentTileSelected = hitTile;
+                            hitTile.TileSelected();
+                        }
+                        else
+                        {
+                            if (lastTileHovered != null && lastTileHovered != currentTileSelected)
+                            {
+                                lastTileHovered.TileNormal();
+                            }
 
-                    if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
-                    {
-                        hitTile.TileSelected();
-                    }
-                    else
-                    {
-                        hitTile.TileHovered();
+                            lastTileHovered = hitTile;
+                            hitTile.TileHovered();
+                        }
                     }
                 }
             }

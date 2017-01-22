@@ -5,8 +5,11 @@ public class TileObject
 {
     private static GameObject TILE_GRID_GAMEOBJECT;
     private const string TILE_GRID_PREFAB_PATH = "Prefabs/Map/Tile Grid/tileGridPrefab";
-    private Color TILE_DEFAULT_COLOUR = new Color(1, 1, 1);   //Cyan
-    private Color TILE_HOVER_COLOUR = new Color(255, 255, 0);   //Yellow
+    private Color TILE_DEFAULT_COLOUR = new Color(1, 1, 1);   //White
+    private Color TILE_DEFAULT_ENEMY = new Color(1, 0, 0);    //Red
+    private Color TILE_DEFAULT_OWNED = new Color(0, 0, 1);    //Blue
+    private Color TILE_HOVER_COLOUR = new Color(1, 1, 0);     //Yellow
+    private Color TILE_SELECT_COLOUR = new Color(0, 1, 0);    //Green
     private static Vector3 tileGridPrefabSize;
 
     private Vector2 position;
@@ -14,6 +17,13 @@ public class TileObject
     private int tileId;
 
     private GameObject tileGameObjectInScene;
+
+    public enum TILE_OWNER_TYPE
+    {
+        CURRENT_PLAYER,
+        ENEMY,
+        UNOWNED
+    };
 
     public TileObject(int id, Vector2 position, Vector2 dimensions)
     {
@@ -35,7 +45,7 @@ public class TileObject
                                                     "Check the file path for the tile grid gameobject prefab.");
         }
 
-        Vector3 tilePositionInScene = new Vector3(position.x * size.x * tileGridPrefabSize.x, 0, position.y * size.y * tileGridPrefabSize.z);
+        Vector3 tilePositionInScene = new Vector3(position.x * size.x * (tileGridPrefabSize.x + 0.1f), 0, position.y * size.y * (tileGridPrefabSize.z + 0.1f));
         tilePositionInScene += mapCenterPosition;
         tileGameObjectInScene = (GameObject)GameObject.Instantiate(TILE_GRID_GAMEOBJECT, tilePositionInScene, Quaternion.identity);
         MonoBehaviour.DontDestroyOnLoad(tileGameObjectInScene);             //Instantiated in the main menu scene and carried over into the game scene.
@@ -49,6 +59,14 @@ public class TileObject
         tileGameObjectInScene.AddComponent<mapTileScript>().SetTileId(tileId);
     }
 
+    public void OnTileSelected()
+    {
+        if (tileGameObjectInScene != null)
+        {
+            tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_SELECT_COLOUR;
+        }
+    }
+
     public void OnTileHover()
     {
         if(tileGameObjectInScene != null)
@@ -57,11 +75,24 @@ public class TileObject
         }
     }
     
-    public void OnTileNormal()
+    public void OnTileNormal(TILE_OWNER_TYPE ownerType)
     {
         if (tileGameObjectInScene != null)
         {
-            tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_COLOUR;
+            switch (ownerType)
+            {
+                case TILE_OWNER_TYPE.CURRENT_PLAYER:
+                    tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_OWNED;
+                    break;
+
+                case TILE_OWNER_TYPE.ENEMY:
+                    tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
+                    break;
+
+                case TILE_OWNER_TYPE.UNOWNED:
+                    tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_COLOUR;
+                    break;
+            }
         }
     }
 

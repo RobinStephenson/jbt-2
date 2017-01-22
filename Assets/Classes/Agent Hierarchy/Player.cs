@@ -8,7 +8,6 @@ public abstract class Player : Agent
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
     protected List<Tile> ownedTiles = new List<Tile>();
-    protected GameManager gameManager;
 
     public int CalculateScore()
     {
@@ -48,13 +47,20 @@ public abstract class Player : Agent
         {
             totalResources += tile.GetTotalResourcesGenerated();
         }
-
         return totalResources;
     }
 
     public void AcquireTile(Tile tile)
     {
-        ownedTiles.Add(tile);
+        if (!ownedTiles.Contains(tile))
+        {
+            ownedTiles.Add(tile);
+            tile.SetOwner(this);
+        }
+        else
+        {
+            throw new System.Exception("Tried to acquire a tile which is already owned by this player.");
+        }
     }
 
     public List<Roboticon> GetRoboticons()
@@ -93,9 +99,9 @@ public abstract class Player : Agent
         return this.GetType().ToString() == "Human";
     }
 
-    public void SetGameManager(GameManager gameManager)
+    public string GetName()
     {
-        this.gameManager = gameManager;
+        return name;
     }
 
     public abstract void Act(GameManager.States state);

@@ -32,11 +32,13 @@ public class roboticonWindowScript : MonoBehaviour
     /// <param name="roboticonsToDisplay"></param>
     public void DisplayRoboticonList(List<Roboticon> roboticonsToDisplay)
     {
+        ClearRoboticonList();
+
         gameObject.SetActive(true);
 
         foreach (Roboticon roboticon in roboticonsToDisplay)
         {
-            currentlyDisplayedRoboticons.Add(AddRoboticon(roboticon));
+            AddRoboticon(roboticon);
         }
     }
 
@@ -52,7 +54,7 @@ public class roboticonWindowScript : MonoBehaviour
     /// </summary>
     /// <param name="roboticon"></param>
     /// <returns></returns>
-    public GameObject AddRoboticon(Roboticon roboticon)
+    public void AddRoboticon(Roboticon roboticon)
     {
         LoadRoboticonTemplate();
 
@@ -66,7 +68,7 @@ public class roboticonWindowScript : MonoBehaviour
         guiObjectTransform.localScale = new Vector3(1, 1, 1);               //Undo Unity's instantiation meddling
 
         guiObjectTransform.GetComponent<roboticonGuiElementScript>().SetRoboticonName(roboticon.GetName());
-        return roboticonGuiObject;
+        currentlyDisplayedRoboticons.Add(roboticonGuiObject);
     }
 
     /// <summary>
@@ -82,6 +84,19 @@ public class roboticonWindowScript : MonoBehaviour
             {
                 throw new System.ArgumentException("Cannot find roboticon template at the specified path.");
             }
+        }
+    }
+
+    private void ClearRoboticonList()
+    {
+        if (currentlyDisplayedRoboticons.Count > 0)
+        {
+            for (int i = currentlyDisplayedRoboticons.Count - 1; i >= 0; i--)
+            {
+                Destroy(currentlyDisplayedRoboticons[i]);
+            }
+
+            currentlyDisplayedRoboticons = new List<GameObject>();
         }
     }
 }

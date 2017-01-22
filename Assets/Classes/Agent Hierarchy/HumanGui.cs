@@ -41,10 +41,24 @@ public class HumanGui
 
     public void DisableGui()
     {
-        currentHuman = new Human(new ResourceGroup(), 0);
+        currentHuman = new Human(new ResourceGroup(), "", 0);
         UpdateResourceBar();    //This will reset all resource values to 0.
 
         canvas.DisableEndPhaseButton();
+    }
+
+    public void PurchaseTile(Tile tile)
+    {
+        if(tile.GetPrice() < currentHuman.GetMoney())
+        {
+            currentHuman.SetMoney(currentHuman.GetMoney() - tile.GetPrice());
+            currentHuman.AcquireTile(tile);
+            UpdateResourceBar();
+        }
+        else
+        {
+            canvas.tileWindow.PlayPurchaseDeclinedAnimation();
+        }
     }
 
     public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)
@@ -121,6 +135,11 @@ public class HumanGui
         return currentHuman.GetRoboticons();
     }
 
+    public Human GetCurrentHuman()
+    {
+        return currentHuman;
+    }
+
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -135,16 +154,6 @@ public class HumanGui
     {
         canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
         canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
-    }
-
-    private void DisplayRoboticonList(List<Roboticon> roboticons)
-    {
-
-    }
-
-    private void DisplayRoboticonInfo(Roboticon roboticon)
-    {
-
     }
 
     public void DisplayTileInfo(Tile tile)

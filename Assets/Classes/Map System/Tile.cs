@@ -11,9 +11,8 @@ public class Tile
     private TileObject tileObject;
     private Map map;
     private bool tileIsSelected = false;
-    private GameManager gameManager;
 
-    public const int TILE_SIZE = 5;
+    public const float TILE_SIZE = 1.75f;
     public const int ROBOTICON_UPGRADE_WEIGHT = 5;  //Currently each roboticon upgrade adds this amount to the production of its resource
 
     public Tile(ResourceGroup resources, Map map, int tileId, Player owner = null)
@@ -33,6 +32,7 @@ public class Tile
     public void TileSelected()
     {
         GameHandler.GetGameManager().GetHumanGui().DisplayTileInfo(this);
+        tileObject.OnTileSelected();
     }
 
     public void TileHovered()
@@ -41,13 +41,24 @@ public class Tile
     }
 
     /// <summary>
-    /// Call when a tile is no longer being hovered upon.
+    /// Call to refresh a tile to its default colour based on ownership.
     /// </summary>
     public void TileNormal()
     {
         if (!tileIsSelected)
         {
-            tileObject.OnTileNormal();
+            if (owner == null)
+            {
+                tileObject.OnTileNormal(TileObject.TILE_OWNER_TYPE.UNOWNED);
+            }
+            else if(owner == GameHandler.GetGameManager().GetCurrentPlayer())
+            {
+                tileObject.OnTileNormal(TileObject.TILE_OWNER_TYPE.CURRENT_PLAYER);
+            }
+            else
+            {
+                tileObject.OnTileNormal(TileObject.TILE_OWNER_TYPE.ENEMY);
+            }
         }
     }
 
@@ -137,16 +148,11 @@ public class Tile
     {
         tileObject.Instantiate(mapCenterPosition);
     }
-
-
-    public void SetGameManager(GameManager gameManager)
-    {
-        this.gameManager = gameManager;
-    }
-
+    
     public void SetOwner(Player player)
     {
         this.owner = player;
+        TileNormal();
     }
 
     public Player GetOwner()

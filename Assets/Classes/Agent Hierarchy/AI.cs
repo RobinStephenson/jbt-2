@@ -14,15 +14,16 @@ public class AI : Player
     private DifficultyLevel difficulty;
     private ResourceGroup optimalResourceFractions = new ResourceGroup(33, 33, 34);     //The AI will attempt to meet this resource distribution.
 
-    public AI(ResourceGroup resources, int money)
+    public AI(ResourceGroup resources, string name, int money)
     {
+        this.name = name;
         this.resources = resources;
     }
 
     public override void Act(GameManager.States state)
     {
         //TODO - AI action
-        gameManager.CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
+        GameHandler.GetGameManager().CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 
     private Tile ChooseTileToAcquire()

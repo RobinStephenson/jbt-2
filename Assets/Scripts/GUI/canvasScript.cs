@@ -68,9 +68,14 @@ public class canvasScript : MonoBehaviour
         optionsMenu.SetActive(false);
     }
 
+    public void PurchaseTile(Tile tile)
+    {
+        humanGui.PurchaseTile(tile);
+    }
+
     public void ShowTileInfoWindow(Tile tile)
     {
-        tileWindow.Show(tile);
+        tileWindow.Show(tile, GameHandler.GetGameManager().GetCurrentState());
     }
 
     public void HideTileInfoWindow()
@@ -128,6 +133,11 @@ public class canvasScript : MonoBehaviour
     public void SetHumanGui(HumanGui gui)
     {
         humanGui = gui;
+    }
+
+    public HumanGui GetHumanGui()
+    {
+        return humanGui;
     }
 
     private string FormatResourceChangeLabel(int changeAmount)

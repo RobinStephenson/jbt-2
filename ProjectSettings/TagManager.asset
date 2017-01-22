@@ -6,6 +6,7 @@ TagManager:
   tags:
   - uiCanvas
   - gameManager
+  - mapTile
   layers:
   - Default
   - TransparentFX

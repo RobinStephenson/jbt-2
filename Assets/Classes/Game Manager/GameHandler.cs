@@ -38,6 +38,8 @@ public static class GameHandler
         GameManager returnedGameManager = (GameManager)formatter.Deserialize(stream);
         stream.Close();
 
+        gameManager = returnedGameManager;
+
         return returnedGameManager;
     }
 

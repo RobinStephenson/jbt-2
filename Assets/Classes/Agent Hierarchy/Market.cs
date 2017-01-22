@@ -7,7 +7,6 @@ public class Market : Agent
     private ResourceGroup resourceSellingPrices { get; set;  }
     private ResourceGroup resourceBuyingPrices { get; set; }
     private int numRoboticonsForSale { get; set; }
-    private int marketMoney { get; set; }
 
     #region Market Starting Constants
     private const int STARTING_FOOD_AMOUNT = 16;
@@ -33,7 +32,7 @@ public class Market : Agent
         this.resourceBuyingPrices = new ResourceGroup(STARTING_FOOD_SELL_PRICE, STARTING_ENERGY_SELL_PRICE, STARTING_ORE_SELL_PRICE);
         this.resources = new ResourceGroup(STARTING_FOOD_AMOUNT,STARTING_ENERGY_AMOUNT,STARTING_ORE_AMOUNT);
         this.numRoboticonsForSale = STARTING_ROBOTICON_AMOUNT;
-        this.marketMoney = STARTING_MONEY;
+        this.money = STARTING_MONEY;
     }
     
     /// <summary>
@@ -51,7 +50,7 @@ public class Market : Agent
         if (hasEnoughResources)
         {
             this.resources -= resourcesToBuy; //Requires subtraction overload
-            this.marketMoney = this.marketMoney + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
+            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
         }  
         else
         {
@@ -68,10 +67,10 @@ public class Market : Agent
     /// <param name="price"></param>
     public void SellTo(ResourceGroup resourcesToSell, int price)
     {
-        if (price <= marketMoney)
+        if (price <= money)
         {
-            this.resources += resourcesToSell;
-            this.marketMoney = this.marketMoney - (resourcesToSell * resourceBuyingPrices).Sum(); //Overloading * to perform element-wise product to get total expenditure
+            resources += resourcesToSell;
+            money = money - (resourcesToSell * resourceBuyingPrices).Sum(); //Overloading * to perform element-wise product to get total expenditure
         }
         else
         {

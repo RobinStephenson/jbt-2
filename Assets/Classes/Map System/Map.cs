@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Map
 {
     public Vector2 MAP_DIMENSIONS = new Vector2(10, 10);
-    public Vector3 MAP_POSITION = new Vector3(-250, -160, 150);
+    public Vector3 MAP_POSITION = new Vector3(-70, 59, 50);
 
     private List<Tile> tiles = new List<Tile>();
 
@@ -63,6 +63,17 @@ public class Map
         mapManagerScript mapManager = new GameObject("Map Manager").AddComponent<mapManagerScript>();
         MonoBehaviour.DontDestroyOnLoad(mapManager);
         mapManager.SetMap(this);
+    }
+
+    /// <summary>
+    /// Refreshes all tiles in the map.
+    /// </summary>
+    public void UpdateMap()
+    {
+        foreach(Tile tile in tiles)
+        {
+            tile.TileNormal();
+        }
     }
 
     /// <summary>

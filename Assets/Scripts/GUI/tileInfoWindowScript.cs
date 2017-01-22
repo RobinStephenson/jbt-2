@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class tileInfoWindowScript : MonoBehaviour
 {
+    public canvasScript uiCanvas;
+    public GameObject acquireTileButton;
+    public GameObject installRoboticonButton;
+    public Text ownerText;
+
     #region Resource Labels
     public Text foodBase;
     public Text energyBase;
@@ -13,10 +18,74 @@ public class tileInfoWindowScript : MonoBehaviour
     public Text oreTotal;
     #endregion
 
-    public void Show(Tile tile)
+    private Tile currentTile;
+
+    public void Show(Tile tile, GameManager.States gamePhase)
     {
-        ResourceGroup tileBaseResources = tile.GetBaseResourcesGenerated();
-        ResourceGroup tileTotalResources = tile.GetTotalResourcesGenerated();
+        currentTile = tile;
+        UpdateResourceTexts();
+        UpdateOwnerText(tile.GetOwner());
+
+        switch (gamePhase)
+        {
+            case GameManager.States.ACQUISITION:
+                installRoboticonButton.SetActive(false);
+
+                if (tile.GetOwner() == null)
+                {
+                    acquireTileButton.SetActive(true);
+                }
+                else
+                {
+                    acquireTileButton.SetActive(false);
+                }
+                break;
+
+            case GameManager.States.INSTALLATION:
+                acquireTileButton.SetActive(false);
+
+                if (tile.GetOwner() == uiCanvas.GetHumanGui().GetCurrentHuman())
+                {
+                    installRoboticonButton.SetActive(true);
+                }
+                else
+                {
+                    installRoboticonButton.SetActive(false);
+                }
+                break;
+
+            default:
+                installRoboticonButton.SetActive(false);
+                acquireTileButton.SetActive(false);
+                break;
+        }
+
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void AcquireTile()
+    {
+        if (currentTile != null)
+        {
+            uiCanvas.PurchaseTile(currentTile);
+            UpdateOwnerText(currentTile.GetOwner());
+        }
+    }
+
+    public void PlayPurchaseDeclinedAnimation()
+    {
+        //TODO
+    }
+
+    private void UpdateResourceTexts()
+    {
+        ResourceGroup tileBaseResources = currentTile.GetBaseResourcesGenerated();
+        ResourceGroup tileTotalResources = currentTile.GetTotalResourcesGenerated();
 
         foodBase.text = tileBaseResources.getFood().ToString();
         energyBase.text = tileBaseResources.getEnergy().ToString();
@@ -25,12 +94,21 @@ public class tileInfoWindowScript : MonoBehaviour
         foodTotal.text = tileTotalResources.getFood().ToString();
         energyTotal.text = tileTotalResources.getEnergy().ToString();
         oreTotal.text = tileTotalResources.getOre().ToString();
-
-        gameObject.SetActive(true);
     }
 
-    public void Hide()
+    private void UpdateOwnerText(Player owner)
     {
-        gameObject.SetActive(false);
+        if (owner == null)
+        {
+            ownerText.text = "Unowned";
+        }
+        else if (owner == GameHandler.GetGameManager().GetCurrentPlayer())
+        {
+            ownerText.text = "You";
+        }
+        else
+        { 
+            ownerText.text = owner.GetName();
+        }
     }
 }

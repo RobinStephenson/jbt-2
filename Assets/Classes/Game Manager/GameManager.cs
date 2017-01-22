@@ -60,7 +60,6 @@ public class GameManager : System.Object
         for (int i = 0; i < players.Count; i++)
         {
             Player player = players[i];
-            player.SetGameManager(this);
             if (player.GetType() == typeof(Human))
             {
                 ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
@@ -79,6 +78,23 @@ public class GameManager : System.Object
     public void CurrentPlayerEndTurn()
     {
         PlayerAct();
+    }
+
+    public GameManager.States GetCurrentState()
+    {
+        return currentState;
+    }
+
+    public Player GetCurrentPlayer()
+    {
+        if (currentPlayerIndex == 0)
+        {
+            return players[players.Count - 1];
+        }
+        else
+        {
+            return players[currentPlayerIndex - 1];
+        }
     }
 
 	private void PlayerAct()
@@ -107,6 +123,7 @@ public class GameManager : System.Object
         currentPlayerIndex++;
 
         currentPlayer.Act(currentState);
+        map.UpdateMap();
 	}
 
 	private Player GetWinnerIfGameHasEnded()
