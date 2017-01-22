@@ -1,0 +1,124 @@
+﻿using System;
+using UnityEngine;
+
+public class ResourceGroupUnitTest
+{
+	public ResourceGroupUnitTest()
+	{
+	}
+
+    public void RoboticonTest()
+    {
+        ResourceGroup TestGroup1 = new ResourceGroup();
+        ResourceGroup TestGroup2 = new ResourceGroup(10, 10, 10);
+        ResourceGroup TestGroup3 = new ResourceGroup(25, 25, 25);
+        ResourceGroup TestGroup4 = new ResourceGroup(0, 0, 0);
+        ResourceGroup TestGroup5 = new ResourceGroup(100, 100, 100);
+        ResourceGroup TestGroup6 = new ResourceGroup(-1, -1, -1);
+        string errorString = "";
+
+        if (TestGroup1.getFood != 0     ||
+            TestGroup1.getEnergy() != 0 ||
+            TestGroup1.getOre() != 0)
+        {
+            errorString += "Resource Group resouce value is incorrect for test 1.3.0.0\nShould read {0,0,0}, actually reads " + (TestGroup1.getFood()).toString() + (TestGroup1.getEnergy()).toString() + (TestGroup1.getOre()).toString();
+        }
+
+        if (TestGroup2.getFood != 10 ||
+            TestGroup2.getEnergy() != 10 ||
+            TestGroup2.getOre() != 10)
+        {
+            errorString += "Resource Group resouce value is incorrect for test 1.3.0.1\nShould read {10,10,10}, actually reads " + (TestGroup1.getFood()).toString() + (TestGroup1.getEnergy()).toString() + (TestGroup1.getOre()).toString();
+        }
+        
+
+        errorString += ResourceChecker(TestGroup7, -1, -1, -1, "1.3.0.2");
+
+        // Addition tests
+        TestGroup1 = TestGroup2 + TestGroup3;
+        errorString += ResourceChecker(TestGroup1, 35, 35, 35, "1.3.0.3");
+        TestGroup1 = TestGroup2 + TestGroup4;
+        errorString += ResourceChecker(TestGroup1, 10, 10, 10, "1.3.0.4");
+        TestGroup1 = TestGroup2 + TestGroup5;
+        errorString += ResourceChecker(TestGroup1, 110, 110, 110, "1.3.0.5");
+        TestGroup1 = TestGroup4 + TestGroup6;
+        errorString += ResourceChecker(TestGroup1, -1, -1, -1, "1.3.0.6");
+
+        // Minus Tests
+        TestGroup1 = TestGroup2 - TestGroup3;
+        errorString += ResourceChecker(TestGroup1, -15, -15, -15, "1.3.0.7");
+        TestGroup1 = TestGroup2 - TestGroup4;
+        errorString += ResourceChecker(TestGroup1, 10, 10, 10, "1.3.0.8");
+        TestGroup1 = TestGroup2 - TestGroup5;
+        errorString += ResourceChecker(TestGroup1, -90, -90, -90, "1.3.0.9");
+        TestGroup1 = TestGroup4 - TestGroup6;
+        errorString += ResourceChecker(TestGroup1, 1, 1, 1, "1.3.1.1");
+
+        // Multiplication Tests
+        TestGroup1 = TestGroup2 * TestGroup3;
+        errorString += ResourceChecker(TestGroup1, 250, 250, 250, "1.3.1.2");
+        TestGroup1 = TestGroup2 * TestGroup4;
+        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.3");
+        TestGroup1 = TestGroup2 * TestGroup5;
+        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.1.4");
+        TestGroup1 = TestGroup4 * TestGroup6;
+        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.5");
+
+        // Scalar Multiplication Tests
+        TestGroup1 = TestGroup2 * 10;
+        errorString += ResourceChecker(TestGroup1, 250, 250, 250, "1.3.1.6");
+        TestGroup1 = TestGroup2 * -5;
+        errorString += ResourceChecker(TestGroup1, -50, -50, -50, "1.3.1.7");
+        TestGroup1 = TestGroup2 * 100;
+        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.1.8");
+        TestGroup1 = TestGroup4 * 0;
+        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.9");
+
+        // Sum tests
+        if (TestGroup2.Sum() != 30)
+        {
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 30, actual value: " + (TestGroup2.Sum()).toString();
+        }
+        if (TestGroup3.Sum() != 75)
+        {
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 75, actual value: " + (TestGroup3.Sum()).toString();
+        }
+        if (TestGroup4.Sum() != 0)
+        {
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 0, actual value: " + (TestGroup4.Sum()).toString();
+        }
+        if (TestGroup5.Sum() != 300)
+        {
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 300, actual value: " + (TestGroup5.Sum()).toString();
+        }
+        if (TestGroup6.Sum() != -3)
+        {
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: -3, actual value: " + (TestGroup6.Sum()).toString();
+        }
+
+
+
+
+
+
+    }
+    public string ResourceChecker(ResourceGroup resources, int expectedFood, int expectedEnergy, int expectedOre, string testId)
+    {
+        string errorString = ("");
+        if (resources.getFood != expectedFood)
+        {
+            errorString += $"Food resource is incorrect for test {testId}\nShould read {expectedFood}, actually reads {resources.food}\n\n";
+        }
+
+        if (resources.getEnergy != expectedEnergy)
+        {
+            errorString += $"Energy resource is incorrect for test {testId}\nShould read {expectedEnergy}, actually reads {resources.energy}\n\n";
+        }
+
+        if (resources.getOre != expectedOre)
+        {
+            errorString += $"Ore resource is incorrect for test {testId}\nShould read {expectedOre}, actually reads {resources.ore}\n\n";
+        }
+        return (errorString);
+    }
+}
