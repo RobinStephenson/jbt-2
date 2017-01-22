@@ -33,8 +33,6 @@ public class marketScript : MonoBehaviour
     public InputField roboticonBuyAmount;
     #endregion
 
-    private const string ANIM_TRIGGER_FLASH_RED = "Flash Red";
-
     public char ValidatePositiveInput(string text, int charIndex, char addedChar)
     {
         int tryParseResult;
@@ -52,9 +50,8 @@ public class marketScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //TEMP
-        SetShownMarketPrices(new ResourceGroup(5, 10, 3), new ResourceGroup(2, 6, 1), 20);
-        ///
+        Market market = GameHandler.GetGameManager().market;
+        SetShownMarketPrices(market.GetResourceBuyingPrices(), market.GetResourceSellingPrices(), market.GetRoboticonSellingPrice());
 
         foodBuyAmount.onValidateInput   += ValidatePositiveInput;       //Add the ValidatePositiveInput function to
         energyBuyAmount.onValidateInput += ValidatePositiveInput;       //each GUI Text.
@@ -92,12 +89,12 @@ public class marketScript : MonoBehaviour
 
     public void PlayPurchaseDeclinedAnimation()
     {
-        totalBuyPrice.GetComponent<Animator>().SetTrigger(ANIM_TRIGGER_FLASH_RED);
+        totalBuyPrice.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);
     }
 
     public void PlaySaleDeclinedAnimation()
     {
-        totalSellPrice.GetComponent<Animator>().SetTrigger(ANIM_TRIGGER_FLASH_RED);
+        totalSellPrice.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);
     }
 
     public void SetShownMarketPrices(ResourceGroup buyingPrices, ResourceGroup sellingPrices, int roboticonPrice)
@@ -136,7 +133,7 @@ public class marketScript : MonoBehaviour
         energyBuyPrice.text    = "£" + marketBuyingPrices.energy.ToString();
         oreBuyPrice.text       = "£" + marketBuyingPrices.ore.ToString();
         roboticonBuyPrice.text = "£" + marketRoboticonPrice.ToString();
-
+        
         foodSellPrice.text     = "£" + marketSellingPrices.food.ToString();
         energySellPrice.text   = "£" + marketSellingPrices.energy.ToString();
         oreSellPrice.text      = "£" + marketSellingPrices.ore.ToString();

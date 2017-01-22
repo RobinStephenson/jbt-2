@@ -7,6 +7,7 @@ public class tileInfoWindowScript : MonoBehaviour
     public canvasScript uiCanvas;
     public GameObject acquireTileButton;
     public GameObject installRoboticonButton;
+    public Text priceText;
     public Text ownerText;
 
     #region Resource Labels
@@ -20,11 +21,14 @@ public class tileInfoWindowScript : MonoBehaviour
 
     private Tile currentTile;
 
-    public void Show(Tile tile, GameManager.States gamePhase)
+    public void Show(Tile tile)
     {
         currentTile = tile;
         UpdateResourceTexts();
         UpdateOwnerText(tile.GetOwner());
+        UpdatePriceText(tile.GetPrice());
+
+        GameManager.States gamePhase = GameHandler.GetGameManager().GetCurrentState();
 
         switch (gamePhase)
         {
@@ -63,6 +67,14 @@ public class tileInfoWindowScript : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void Refresh()
+    {
+        if(currentTile != null)
+        {
+            Show(currentTile);
+        }
+    }
+
     public void Hide()
     {
         gameObject.SetActive(false);
@@ -79,7 +91,7 @@ public class tileInfoWindowScript : MonoBehaviour
 
     public void PlayPurchaseDeclinedAnimation()
     {
-        //TODO
+        priceText.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);
     }
 
     private void UpdateResourceTexts()
@@ -94,6 +106,11 @@ public class tileInfoWindowScript : MonoBehaviour
         foodTotal.text = tileTotalResources.getFood().ToString();
         energyTotal.text = tileTotalResources.getEnergy().ToString();
         oreTotal.text = tileTotalResources.getOre().ToString();
+    }
+
+    private void UpdatePriceText(int price)
+    {
+        priceText.text = "£" + price.ToString();
     }
 
     private void UpdateOwnerText(Player owner)

@@ -120,6 +120,7 @@ public class GameManager : System.Object
         Player currentPlayer = players[currentPlayerIndex];
 
         humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
+        humanGui.SetCurrentPlayerName(currentPlayer.GetName());
         currentPlayerIndex++;
 
         currentPlayer.Act(currentState);
@@ -211,8 +212,14 @@ public class GameManager : System.Object
         {
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
+        MonoBehaviour.print("p1: " + players[0].GetName());
+        MonoBehaviour.print("p2: " + players[1].GetName());
     }
 
+    public Map GetMap()
+    {
+        return map;
+    }
 
     public HumanGui GetHumanGui()
     {

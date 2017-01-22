@@ -23,19 +23,34 @@ public class AI : Player
     public override void Act(GameManager.States state)
     {
         //TODO - AI action
+        switch(state)
+        {
+            case GameManager.States.ACQUISITION:
+                Tile tileToAcquire = ChooseTileToAcquire();
+
+                if (tileToAcquire.GetOwner() == null)
+                {
+                    AcquireTile(tileToAcquire);
+                }
+                break;
+        }
+
         GameHandler.GetGameManager().CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 
     private Tile ChooseTileToAcquire()
     {
         //TODO - intelligent decision of best tile in map.
-        return null;
+        Map map = GameHandler.GetGameManager().GetMap();
+        int numTiles = (int)(map.MAP_DIMENSIONS.x * map.MAP_DIMENSIONS.y);
+
+        return map.GetTile(UnityEngine.Random.Range(0, numTiles));
     }
 
-    private Roboticon.RoboticonUpgrade ChooseBestRoboticonUpgrade(Roboticon roboticon)
+    private ResourceGroup ChooseBestRoboticonUpgrade(Roboticon roboticon)
     {
         //TODO - intelligent decision of best upgrade.
-        return Roboticon.RoboticonUpgrade.ENERGY;
+        return new ResourceGroup(1, 0, 0);
     }
 
     /// <summary>

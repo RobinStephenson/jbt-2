@@ -9,18 +9,16 @@ public class Tile
     private Player owner;
     private List<Roboticon> installedRoboticons = new List<Roboticon>();
     private TileObject tileObject;
-    private Map map;
     private bool tileIsSelected = false;
 
     public const float TILE_SIZE = 1.75f;
-    public const int ROBOTICON_UPGRADE_WEIGHT = 5;  //Currently each roboticon upgrade adds this amount to the production of its resource
+    public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
 
     public Tile(ResourceGroup resources, Map map, int tileId, Player owner = null)
     {
         this.resourcesGenerated = resources;
         this.owner = owner;
         this.tileId = tileId;
-        this.map = map;
         
         Vector2 tilePosition = new Vector2(tileId % map.MAP_DIMENSIONS.x, (int)(tileId / map.MAP_DIMENSIONS.y));
         this.tileObject = new TileObject(tileId, tilePosition, new Vector2(TILE_SIZE, TILE_SIZE));
@@ -68,17 +66,11 @@ public class Tile
     /// <param name="roboticon"></param>
     public void InstallRoboticon(Roboticon roboticon)
     {
-        for(int i = 0; i < installedRoboticons.Count; i++)
+        if (installedRoboticons.Contains(roboticon))
         {
-            if(this.installedRoboticons[i] == roboticon)
-            {
-                throw new System.Exception("Roboticon already exists on this tile\n");
-            }
-            else
-            {
-                installedRoboticons.Add(roboticon);
-            }
+            throw new System.Exception("Roboticon already exists on this tile\n");
         }
+        installedRoboticons.Add(roboticon);
     }
 
     /// <summary>
@@ -87,17 +79,13 @@ public class Tile
     /// <param name="roboticon"></param>
     public void UninstallRoboticon(Roboticon roboticon)
     {
-      for(int i = 0; i < installedRoboticons.Count; i++)
-      {
-          if(this.installedRoboticons[i] == roboticon)
-          {
-              this.installedRoboticons.Remove(roboticon);
-          }
-          else
-          {
-              throw new System.Exception("Roboticon doesn't exist on this tile\n");
-          }
-      }
+        if (!installedRoboticons.Contains(roboticon))
+        {
+            throw new System.Exception("Roboticon doesn't exist on this tile\n");
+        }
+
+        this.installedRoboticons.Remove(roboticon);
+
     }
 
     public List<Roboticon> GetInstalledRoboticons()

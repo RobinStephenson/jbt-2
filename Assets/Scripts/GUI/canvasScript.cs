@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class canvasScript : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class canvasScript : MonoBehaviour
     public marketScript marketScript;
     public GameObject endPhaseButton;
     public tileInfoWindowScript tileWindow;
+    public Text currentPlayerText;
 
     #region Resource Labels
     public Text foodLabel;
@@ -75,7 +77,12 @@ public class canvasScript : MonoBehaviour
 
     public void ShowTileInfoWindow(Tile tile)
     {
-        tileWindow.Show(tile, GameHandler.GetGameManager().GetCurrentState());
+        tileWindow.Show(tile);
+    }
+
+    public void RefreshTileInfoWindow()
+    {
+        tileWindow.Refresh();
     }
 
     public void HideTileInfoWindow()
@@ -85,7 +92,14 @@ public class canvasScript : MonoBehaviour
 
     public void ShowRoboticonList()
     {
-        roboticonList.DisplayRoboticonList(humanGui.GetCurrentHumanRoboticonList());
+        List<Roboticon> roboticonsToDisplay = new List<Roboticon>();
+
+        foreach(Roboticon roboticon in humanGui.GetCurrentHumanRoboticonList())
+        {
+            roboticonsToDisplay.Add(roboticon);
+        }
+
+        roboticonList.DisplayRoboticonList(roboticonsToDisplay);
     }
 
     /// <summary>
@@ -103,6 +117,16 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonList()
     {
         roboticonList.HideRoboticonList();
+    }
+
+    public void UpdateRoboticonList()
+    {
+        roboticonList.DisplayRoboticonList(GameHandler.GetGameManager().GetCurrentPlayer().GetRoboticons());
+    }
+
+    public void SetCurrentPlayerName(string name)
+    {
+        currentPlayerText.text = name;
     }
 
     public void ShowHelpBox(string helpBoxText)

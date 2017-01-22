@@ -12,6 +12,9 @@ public class HumanGui
     private GameManager gameManager;
 
     private canvasScript canvas;
+    private Tile currentSelectedTile;
+
+    public const string ANIM_TRIGGER_FLASH_RED = "Flash Red";
 
     public HumanGui()
     {
@@ -31,7 +34,14 @@ public class HumanGui
         ShowHelpBox();
 
         UpdateResourceBar();
+        canvas.UpdateRoboticonList();
         canvas.EnableEndPhaseButton();
+        canvas.RefreshTileInfoWindow();
+    }
+
+    public void SetCurrentPlayerName(string name)
+    {
+        canvas.SetCurrentPlayerName(name);
     }
 
     public void EndPhase()
@@ -80,7 +90,7 @@ public class HumanGui
 
             for(int i = 0; i < roboticonsToBuy; i ++)
             {
-                Roboticon newRoboticon = new Roboticon(new ResourceGroup());
+                Roboticon newRoboticon = new Roboticon();
                 currentHuman.AcquireRoboticon(newRoboticon);
                 canvas.AddRoboticonToList(newRoboticon);
             }
@@ -158,7 +168,13 @@ public class HumanGui
 
     public void DisplayTileInfo(Tile tile)
     {
+        currentSelectedTile = tile;     //Selection of a tile always passes through here
         canvas.ShowTileInfoWindow(tile);
+    }
+
+    public Tile GetCurrentSelectedTile()
+    {
+        return currentSelectedTile;
     }
 
     private void ShowHelpBox()
