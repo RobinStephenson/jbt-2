@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MapTests : Map {
 
-    public void TileObjectTest()
+    public string TestMap()
     {
-
+        return MapTest() + TileTest();
     }
 
-    public void MapTest()
+    public string MapTest()
     {
         Map map = new Map();
         string errorString = "";
@@ -65,9 +65,10 @@ public class MapTests : Map {
             }
         }
 
+        return errorString;
     }
 
-    public void TileTest()
+    public string TileTest()
     {
         Tile tile = new Tile(new ResourceGroup(10, 10, 10), new Vector2(3, 3), 7);
 
@@ -75,7 +76,7 @@ public class MapTests : Map {
         Vector2 pos = tile.tileObject.GetTilePosition();
         if(pos.x != 1 || pos.y != 2)
         {
-            errorString += ($"Tile position calculated improperly for test 2.1.0.1\nShould have been \{1,1\}, was actually {pos.x}, {pos.y}\n\n");
+            errorString += ($"Tile position calculated improperly for test 2.1.0.1\nShould have been (1,1) was actually {pos.x}, {pos.y}\n\n");
         }
 
         //test InstallRoboticon
@@ -131,11 +132,7 @@ public class MapTests : Map {
         {
             errorString += ($"Amount of resources for 2.1.5.1\nShould read {actualResources}, actually reads {resources}\n\n");
         }
-    }
 
-    public void TileObjectTest()
-    {
-
+        return errorString;
     }
-	
 }
