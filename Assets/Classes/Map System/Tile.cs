@@ -14,13 +14,13 @@ public class Tile
     public const float TILE_SIZE = 1.75f;
     public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
 
-    public Tile(ResourceGroup resources, Map map, int tileId, Player owner = null)
+    public Tile(ResourceGroup resources, Vector2 mapDimensions, int tileId, Player owner = null)
     {
         this.resourcesGenerated = resources;
         this.owner = owner;
         this.tileId = tileId;
         
-        Vector2 tilePosition = new Vector2(tileId % map.MAP_DIMENSIONS.x, (int)(tileId / map.MAP_DIMENSIONS.y));
+        Vector2 tilePosition = new Vector2(tileId % mapDimensions.x, (int)(tileId / mapDimensions.y));
         this.tileObject = new TileObject(tileId, tilePosition, new Vector2(TILE_SIZE, TILE_SIZE));
     }
 
