@@ -196,14 +196,14 @@ public class HumanGui
     {
         if (currentSelectedTile.GetOwner() == currentHuman)
         {
-            try
+            if (roboticon.IsInstalledToTile())
+            {
+                //TOFO - Play "roboticon is already installed to a tile "animation"
+            }
+            else
             {
                 currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
                 canvas.RefreshTileInfoWindow();
-            }
-            catch(System.Exception)
-            {
-                //TODO - Play "roboticon already installed to tile" animation
             }
         }
         else

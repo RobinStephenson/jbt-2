@@ -16,10 +16,10 @@ public class gameManagerScript : MonoBehaviour
 
         ///TEMP
         List<Player> players = new List<Player>();
-        players.Add(new AI(new ResourceGroup(), "Bilbo", 0));
         players.Add(new Human(new ResourceGroup(50, 999, 50), "Buddy", 999));
-        players.Add(new Human(new ResourceGroup(999, 8, 9), "Ozzy", 500));
-        players.Add(new AI(new ResourceGroup(), "Geoffrey", 0));
+       // players.Add(new Human(new ResourceGroup(5, 8, 9), "Joe", 10));
+        //players.Add(new Human(new ResourceGroup(55, 8, 9), "Hugo", 10));
+        //players.Add(new Human(new ResourceGroup(5, 8, 9), "Richard", 10));
 
         GameHandler.CreateNew(gameName, players);
         GameHandler.GetGameManager().StartGame();
