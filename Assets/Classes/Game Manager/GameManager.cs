@@ -120,6 +120,7 @@ public class GameManager : System.Object
         Player currentPlayer = players[currentPlayerIndex];
 
         humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
+        humanGui.SetCurrentPlayerName(currentPlayer.GetName());
         currentPlayerIndex++;
 
         currentPlayer.Act(currentState);
@@ -213,6 +214,10 @@ public class GameManager : System.Object
         }
     }
 
+    public Map GetMap()
+    {
+        return map;
+    }
 
     public HumanGui GetHumanGui()
     {

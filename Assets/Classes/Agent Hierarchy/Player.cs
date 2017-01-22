@@ -73,7 +73,7 @@ public abstract class Player : Agent
         ownedRoboticons.Add(roboticon);
     }
 
-    public void UpgradeRoboticon(Roboticon roboticon, Roboticon.RoboticonUpgrade upgrade)
+    public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrade)
     {
         roboticon.Upgrade(upgrade);
     }
