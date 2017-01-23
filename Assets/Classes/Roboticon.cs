@@ -7,6 +7,7 @@ public class Roboticon
 
     private ResourceGroup upgrades;
     private string name;
+    private bool isInstalledToTile = false;
 
     public Roboticon()
     {
@@ -37,5 +38,20 @@ public class Roboticon
     public ResourceGroup GetUpgrades()
     {
         return upgrades;
+    }
+
+    public void InstallRoboticonToTile()
+    {
+        isInstalledToTile = true;
+    }
+
+    public void UninstallRoboticonToTile()
+    {
+        isInstalledToTile = false;
+    }
+    
+    public bool IsInstalledToTile()
+    {
+        return isInstalledToTile;
     }
 }
