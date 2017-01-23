@@ -46,35 +46,6 @@ public class GameManager : System.Object
         PlayerAct();
     }
 
-    private void SetUpGui()
-    {
-        humanGui = new HumanGui();
-        GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
-        MonoBehaviour.DontDestroyOnLoad(guiGameObject);
-
-        canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
-        humanGui.SetCanvasScript(canvas);
-        humanGui.SetGameManager(this);
-        canvas.SetHumanGui(humanGui);
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            Player player = players[i];
-            if (player.GetType() == typeof(Human))
-            {
-                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
-            }
-        }
-
-        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
-    }
-
-    private void SetUpMap()
-    {
-        map = new Map();
-        map.Instantiate();
-    }
-
     public void CurrentPlayerEndTurn()
     {
         PlayerAct();
@@ -97,7 +68,35 @@ public class GameManager : System.Object
         }
     }
 
-	private void PlayerAct()
+    public Player GetWinnerIfGameHasEnded()
+    {
+        //Game ends if there are no remaining unowned tiles (Req 2.3.a)
+        if (map.GetNumUnownedTilesRemaining() == 0)
+        {
+            float highestScore = Mathf.NegativeInfinity;
+            Player winner = null;
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                //Player with the highest score wins (Req 2.3.c)
+                int currentScore = players[i].CalculateScore();
+                if (currentScore > highestScore)
+                {
+                    highestScore = currentScore;
+                    winner = players[i];
+                }
+            }
+
+            if (highestScore != Mathf.NegativeInfinity)
+            {
+                return winner;
+            }
+        }
+
+        return null;
+    }
+
+    private void PlayerAct()
 	{
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
 		if (currentPlayerIndex >= players.Count)
@@ -125,34 +124,6 @@ public class GameManager : System.Object
 
         currentPlayer.Act(currentState);
         map.UpdateMap();
-	}
-
-	private Player GetWinnerIfGameHasEnded()
-	{
-		//Game ends if there are no remaining unowned tiles (Req 2.3.a)
-		if(map.GetNumUnownedTilesRemaining() == 0)
-		{
-			float highestScore = Mathf.NegativeInfinity;
-            Player winner = null;
-
-			for(int i = 0; i < players.Count; i++)
-			{
-                //Player with the highest score wins (Req 2.3.c)
-                int currentScore = players[i].CalculateScore();
-				if(currentScore > highestScore)
-				{
-                    highestScore = currentScore;
-                    winner = players[i];
-				}
-			}
-
-			if(highestScore != Mathf.NegativeInfinity)
-			{
-				return winner;
-			}
-		}
-
-        return null;
 	}
 
 	private void ShowWinner(Player player)
@@ -213,6 +184,36 @@ public class GameManager : System.Object
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
     }
+
+    private void SetUpGui()
+    {
+        humanGui = new HumanGui();
+        GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
+        MonoBehaviour.DontDestroyOnLoad(guiGameObject);
+
+        canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
+        humanGui.SetCanvasScript(canvas);
+        humanGui.SetGameManager(this);
+        canvas.SetHumanGui(humanGui);
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            if (player.GetType() == typeof(Human))
+            {
+                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
+            }
+        }
+
+        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
+    }
+
+    private void SetUpMap()
+    {
+        map = new Map();
+        map.Instantiate();
+    }
+
 
     public Map GetMap()
     {

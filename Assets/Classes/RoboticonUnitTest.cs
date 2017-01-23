@@ -2,19 +2,15 @@
 
 public class RoboticonUnitTest
 {
-	public RoboticonUnitTest()
-	{
-	}
-
-    public void RoboticonTest()
+    public void TestRoboticon()
     {
-        Roboticon testRbt1 = new Roboticon(0, 0, 0);
-        Roboticon testRbt2 = new Roboticon(1, 1, 1);
-        Roboticon testRbt3 = new Roboticon(-1, -1, -1);
-        Roboticon testRbt4 = new Roboticon(1, 1, 1);
-        Roboticon testRbt5 = new Roboticon(5, 5, 5);
-        Roboticon testRbt6 = new Roboticon(0, 0, 0);
-        Roboticon testRbt7 = new Roboticon(0, 0, 0);
+        Roboticon testRbt1 = new Roboticon(new ResourceGroup(0, 0, 0));
+        Roboticon testRbt2 = new Roboticon(new ResourceGroup(1, 1, 1));
+        Roboticon testRbt3 = new Roboticon(new ResourceGroup(-1, -1, -1));
+        Roboticon testRbt4 = new Roboticon(new ResourceGroup(1, 1, 1));
+        Roboticon testRbt5 = new Roboticon(new ResourceGroup(5, 5, 5));
+        Roboticon testRbt6 = new Roboticon(new ResourceGroup(0, 0, 0));
+        Roboticon testRbt7 = new Roboticon(new ResourceGroup(0, 0, 0));
         string errorString = "";
 
         try
@@ -23,27 +19,27 @@ public class RoboticonUnitTest
         }
         catch(ArgumentException e)
         {
-            errorString += ($"TestRbt1's name has not been set correctly in test 1.4.0.1");
+            errorString += (string.Format("TestRbt1's name has not been set correctly in test 1.4.0.1"));
         }
 
         //Upgrade Tests
-        testRbt2.Upgrade(0);
+        testRbt2.Upgrade(new ResourceGroup(1, 0, 0));
         errorString += UpgradeChecker(testRbt2, 2, 1, 1, "1.4.0.1");
-        testRbt2.Upgrade(0);
+        testRbt2.Upgrade(new ResourceGroup(1, 0, 0));
         errorString += UpgradeChecker(testRbt2, 3, 1, 1, "1.4.0.2");
-        testRbt2.Upgrade(1);
+        testRbt2.Upgrade(new ResourceGroup(0, 1, 0));
         errorString += UpgradeChecker(testRbt2, 3, 2, 1, "1.4.0.3");
-        testRbt2.Upgrade(3);
+        testRbt2.Upgrade(new ResourceGroup(0, 0, 1));
         errorString += UpgradeChecker(testRbt2, 3, 2, 2, "1.4.0.4");
 
         //Downgrade Tests
-        testRbt2.Downgrade(0);
+        testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
         errorString += UpgradeChecker(testRbt2, 2, 2, 2, "1.4.0.5");
-        testRbt2.Downgrade(0);
+        testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
         errorString += UpgradeChecker(testRbt2, 1, 2, 2, "1.4.0.6");
         try
         {
-            testRbt2.Downgrade(0);
+            testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
         }
         catch (ArgumentException)
         {
@@ -60,23 +56,25 @@ public class RoboticonUnitTest
         errorString += UpgradeChecker(testRbt4, 0, 0, 0, "1.4.1.0");
     }
 
-    public string UpgradeChecker(RoboticonUnitTest rbt, int expectedFood, int expectedEnergy, int expectedOre, string testId)
+    public string UpgradeChecker(Roboticon rbt, int expectedFood, int expectedEnergy, int expectedOre, string testId)
     {
         string errorString = ("");
-        if (rbt.upgrades.getFood() != expectedFood)
+        ResourceGroup upgrades = rbt.GetUpgrades();
+
+        if (upgrades.getFood() != expectedFood)
         {
-            errorString += $"Food resource is incorrect for test {testId}\nShould read {expectedFood}, actually reads {resources.food}\n\n";
+            errorString += string.Format("Food resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedFood, upgrades.food);
         }
 
-        if (rbt.upgrades.getEnergy() != expectedEnergy)
+        if (upgrades.getEnergy() != expectedEnergy)
         {
-            errorString += $"Energy resource is incorrect for test {testId}\nShould read {expectedEnergy}, actually reads {resources.energy}\n\n";
+            errorString += string.Format("Energy resource is incorrect for test {testId}\nShould read {1}, actually reads {2}\n\n", testId, expectedEnergy, upgrades.energy);
         }
 
-        if (rbt.upgrades.getOre() != expectedOre)
+        if (upgrades.getOre() != expectedOre)
         {
-            errorString += $"Ore resource is incorrect for test {testId}\nShould read {expectedOre}, actually reads {resources.ore}\n\n";
+            errorString += string.Format("Ore resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedOre, upgrades.ore);
         }
-        return (errorString);
+        return errorString;
     }
 }
