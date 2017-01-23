@@ -12,6 +12,7 @@ public class canvasScript : MonoBehaviour
     public GameObject endPhaseButton;
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
+    public Text currentPhaseText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
 
     #region Resource Labels
@@ -39,6 +40,11 @@ public class canvasScript : MonoBehaviour
     public void EnableEndPhaseButton()
     {
         endPhaseButton.SetActive(true);
+    }
+
+    public void SetCurrentPhaseText(string text)
+    {
+        currentPhaseText.text = text;
     }
 
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)

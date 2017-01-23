@@ -10,6 +10,13 @@ public class GameManager : System.Object
     {
         ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
     };
+    public static string[] stateNames = new string[5] {
+        "Acquisition",
+        "Purchase",
+        "Installation",
+        "Production",
+        "Auction"
+        };
 
     public Market market;
     public string gameName;
@@ -17,9 +24,14 @@ public class GameManager : System.Object
     private List<Player> players;
     private int currentPlayerIndex;
     private RandomEventFactory randomEventFactory;
-	  private Map map;
+    private Map map;
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
+
+    public static string StateToPhaseName(States state)
+    {
+        return GameManager.stateNames[(int)state];
+    }
 
     /// <summary>
     /// Don't use this constructor. Use the CreateNew method of the GameHandler object.
@@ -93,6 +105,7 @@ public class GameManager : System.Object
         }
 
         return null;
+    }
 
     private void SetUpGui()
     {

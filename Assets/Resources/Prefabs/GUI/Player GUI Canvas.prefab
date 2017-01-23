@@ -4767,6 +4767,7 @@ MonoBehaviour:
   endPhaseButton: {fileID: 1000014289324614}
   tileWindow: {fileID: 114000013143699044}
   currentPlayerText: {fileID: 114000011660904124}
+  currentPhaseText: {fileID: 114000013720547060}
   roboticonUpgradesWindow: {fileID: 114000011465108126}
   foodLabel: {fileID: 114000010675805944}
   foodChangeLabel: {fileID: 114000011348724816}

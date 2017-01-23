@@ -38,6 +38,8 @@ public class HumanGui
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
         canvas.HideMarketWindow();
+
+        canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
 
     public void SetCurrentPlayerName(string name)
