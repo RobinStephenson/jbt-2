@@ -34,6 +34,11 @@ public class TileObject
         this.tileId = id;
     }
 
+    public Vector2 GetTilePosition()
+    {
+        return this.position;
+    }
+
     /// <summary>
     /// Instantiate the tile object at its stored position and size in the current scene.
     /// </summary>

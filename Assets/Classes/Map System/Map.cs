@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleToAttribute("MapTests")]
 
 public class Map
 {
@@ -17,7 +20,7 @@ public class Map
 
         for(int i = 0; i < numTiles; i ++)
         {
-            Tile tile = new Tile(GetRandomTileResources(), this, i);
+            Tile tile = new Tile(GetRandomTileResources(), MAP_DIMENSIONS, i);
             tiles.Add(tile);
         }
     }
@@ -74,6 +77,11 @@ public class Map
         {
             tile.TileNormal();
         }
+    }
+
+    public List<Tile> GetTiles()
+    {
+        return tiles;
     }
 
     /// <summary>

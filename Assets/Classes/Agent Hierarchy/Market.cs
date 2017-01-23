@@ -68,25 +68,27 @@ public class Market : Agent
     /// <param name="price"></param>
     public void SellTo(ResourceGroup resourcesToSell)
     {
-        if (resourcesToSell.getFood < 0)
+        if (resourcesToSell.getFood() < 0)
         {
             throw new System.ArgumentException("Negative food values cannot be sold.");
         }
 
-        if (resourcesToSell.getEnergy < 0)
+        if (resourcesToSell.getEnergy() < 0)
         {
             throw new System.ArgumentException("Negative energy values cannot be sold.");
         }
 
-        if (resourcesToSell.getOre < 0)
+        if (resourcesToSell.getOre() < 0)
         {
             throw new System.ArgumentException("Negtaive ore values cannot be sold.");
         }
 
+        int price = (resourcesToSell * resourceBuyingPrices).Sum();
+
         if (price <= money)
         {
             resources += resourcesToSell;
-            money = money - (resourcesToSell * resourceBuyingPrices).Sum(); //Overloading * to perform element-wise product to get total expenditure
+            money = money - price; //Overloading * to perform element-wise product to get total expenditure
         }
         else
         {
@@ -107,6 +109,12 @@ public class Market : Agent
             resources.ore -= ROBOTICON_PRODUCTION_COST;
             numRoboticonsForSale++;
         }
+    }
+
+
+    public int GetNumRoboticonsForSale()
+    {
+        return numRoboticonsForSale;
     }
 
     public ResourceGroup GetResourceBuyingPrices()
