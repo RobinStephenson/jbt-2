@@ -102,7 +102,7 @@ public class Market : Agent
         //Skeleton for later use when adding supply & demand
     }
 
-    private void ProduceRoboticon()
+    public void ProduceRoboticon()
     {
         if (resources.ore >= ROBOTICON_PRODUCTION_COST)
         {

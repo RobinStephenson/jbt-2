@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTests : Map
+public class MapUnitTests : Map
 {
     public string TestMap()
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class RoboticonUnitTest
+public class RoboticonUnitTests
 {
-    public void TestRoboticon()
+    public string TestRoboticon()
     {
         Roboticon testRbt1 = new Roboticon(new ResourceGroup(0, 0, 0));
         Roboticon testRbt2 = new Roboticon(new ResourceGroup(1, 1, 1));
@@ -46,34 +46,43 @@ public class RoboticonUnitTest
             errorString += "Error should be caught, caught because attempt to downgrade to a negative value. Test 1.4.0.7";
         }
 
-
         //Price Tests
-        testRbt4.GetPrice();
-        errorString += UpgradeChecker(testRbt2, 50, 50, 50, "1.4.0.8");
-        testRbt5.GetPrice();
-        errorString += UpgradeChecker(testRbt3, 250, 250, 250, "1.4.0.9");
-        testRbt6.GetPrice();
-        errorString += UpgradeChecker(testRbt4, 0, 0, 0, "1.4.1.0");
+        if (testRbt4.GetPrice() != 150)
+        {
+            errorString += string.Format("Price incorrect for test 1.4.0.8.\r\nShould read 150, actually reads {0}\r\n\r\n", testRbt4.GetPrice());
+        }
+
+        if (testRbt5.GetPrice() != 750)
+        {
+            errorString += string.Format("Price incorrect for test 1.4.0.9.\r\nShould read 750, actually reads {0}\r\n\r\n", testRbt5.GetPrice());
+        }
+
+        if (testRbt6.GetPrice() != 0)
+        {
+            errorString += string.Format("Price incorrect for test 1.4.1.0.\r\nShould read 0, actually reads {0}\r\n\r\n", testRbt6.GetPrice());
+        }
+
+        return errorString;
     }
 
-    public string UpgradeChecker(Roboticon rbt, int expectedFood, int expectedEnergy, int expectedOre, string testId)
+    private string UpgradeChecker(Roboticon rbt, int expectedFood, int expectedEnergy, int expectedOre, string testId)
     {
         string errorString = ("");
         ResourceGroup upgrades = rbt.GetUpgrades();
 
         if (upgrades.getFood() != expectedFood)
         {
-            errorString += string.Format("Food resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedFood, upgrades.food);
+            errorString += string.Format("Food resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedFood, upgrades.food);
         }
 
         if (upgrades.getEnergy() != expectedEnergy)
         {
-            errorString += string.Format("Energy resource is incorrect for test {testId}\nShould read {1}, actually reads {2}\n\n", testId, expectedEnergy, upgrades.energy);
+            errorString += string.Format("Energy resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedEnergy, upgrades.energy);
         }
 
         if (upgrades.getOre() != expectedOre)
         {
-            errorString += string.Format("Ore resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedOre, upgrades.ore);
+            errorString += string.Format("Ore resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedOre, upgrades.ore);
         }
         return errorString;
     }

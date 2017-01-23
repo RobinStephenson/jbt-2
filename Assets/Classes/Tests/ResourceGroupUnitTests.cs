@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ResourceGroupUnitTest
+public class ResourceGroupUnitTests
 {
     public string TestResourceGroup()
     {
@@ -13,18 +13,18 @@ public class ResourceGroupUnitTest
         ResourceGroup TestGroup6 = new ResourceGroup(-1, -1, -1);
         string errorString = "";
 
-        if (TestGroup1.getFood() != 0     ||
+        if (TestGroup1.getFood() != 0   ||
             TestGroup1.getEnergy() != 0 ||
             TestGroup1.getOre() != 0)
         {
-            errorString += "Resource Group resouce value is incorrect for test 1.3.0.0\nShould read {0,0,0}, actually reads " + TestGroup1.getFood() + TestGroup1.getEnergy() + TestGroup1.getOre();
+            errorString += "Resource Group resouce value is incorrect for test 1.3.0.0\r\nShould read {0,0,0}, actually reads " + TestGroup1.getFood() + TestGroup1.getEnergy() + TestGroup1.getOre();
         }
 
         if (TestGroup2.getFood() != 10 ||
             TestGroup2.getEnergy() != 10 ||
             TestGroup2.getOre() != 10)
         {
-            errorString += "Resource Group resouce value is incorrect for test 1.3.0.1\nShould read {10,10,10}, actually reads " + TestGroup1.getFood() + TestGroup1.getEnergy() + TestGroup1.getOre();
+            errorString += "Resource Group resouce value is incorrect for test 1.3.0.1\r\nShould read {10,10,10}, actually reads " + TestGroup1.getFood() + TestGroup1.getEnergy() + TestGroup1.getOre();
         }
         
 
@@ -62,7 +62,7 @@ public class ResourceGroupUnitTest
 
         // Scalar Multiplication Tests
         TestGroup1 = TestGroup2 * 10;
-        errorString += ResourceChecker(TestGroup1, 250, 250, 250, "1.3.1.6");
+        errorString += ResourceChecker(TestGroup1, 100, 100, 100, "1.3.1.6");
         TestGroup1 = TestGroup2 * -5;
         errorString += ResourceChecker(TestGroup1, -50, -50, -50, "1.3.1.7");
         TestGroup1 = TestGroup2 * 100;
@@ -100,17 +100,17 @@ public class ResourceGroupUnitTest
         string errorString = ("");
         if (resources.getFood() != expectedFood)
         {
-            errorString += string.Format("Food resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedFood, resources.food);
+            errorString += string.Format("Food resource is incorrect for test {0}\r\r\nShould read {1}, actually reads {2}\r\r\n\r\r\n", testId, expectedFood, resources.food);
         }
 
         if (resources.getEnergy() != expectedEnergy)
         {
-            errorString += string.Format("Energy resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedEnergy, resources.energy);
+            errorString += string.Format("Energy resource is incorrect for test {0}\r\r\nShould read {1}, actually reads {2}\r\r\n\r\r\n", testId, expectedEnergy, resources.energy);
         }
 
         if (resources.getOre() != expectedOre)
         {
-            errorString += string.Format("Ore resource is incorrect for test {0}\nShould read {1}, actually reads {2}\n\n", testId, expectedOre, resources.ore);
+            errorString += string.Format("Ore resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedOre, resources.ore);
         }
         return (errorString);
     }

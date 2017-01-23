@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerTest{
-
+public class GameManagerUnitTests
+{ 
     public string TestGameManager()
     {
 
@@ -13,15 +13,26 @@ public class GameManagerTest{
 
         List<Player> playerList = new List<Player>();
         playerList.Add(new Human(new ResourceGroup(10, 10, 10), "dave", 100));
-        playerList.Add(new Human(new ResourceGroup(10, 10, 10), "tim", 100));
+        playerList.Add(new AI(new ResourceGroup(10, 10, 10), "tim", 100));
         playerList[1].AcquireRoboticon(new Roboticon());    //A roboticon always adds an amount > 0 to player score so this player should always win.
 
-        GameManager gameManager = new GameManager("test", playerList);
+        GameHandler.CreateNew("test", playerList);
+        GameManager gameManager = GameHandler.GetGameManager();
 
-        Player winner = gameManager.GetWinnerIfGameHasEnded();
-        if(winner != playerList[1])
+        foreach (Tile tile in gameManager.GetMap().GetTiles())
         {
-            errorString += "GetWinnerIfGameHasEnded selected the wrong winner for test 3.2.1. Selected player: {}, should have selected player: tim";
+            tile.SetOwner(playerList[1]);       //Set all tiles to owned so that the game ends
+        }
+           
+        Player winner = gameManager.GetWinnerIfGameHasEnded();
+
+        if(winner == null)
+        {
+            errorString += "GetWinnerIfGameHasEnded incorrectly decided that game has not yet ended.";
+        }
+        else if(winner != playerList[1])
+        {
+            errorString += string.Format("GetWinnerIfGameHasEnded selected the wrong winner for test 3.2.1. Selected player: {0}, should have selected player: {1}", winner.GetName(), playerList[1].GetName());
         }
 
         //test initial game setup (FormatPlayerList)
