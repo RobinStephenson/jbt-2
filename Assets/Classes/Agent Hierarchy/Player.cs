@@ -86,6 +86,7 @@ public abstract class Player : Agent
     public void InstallRoboticon(Roboticon roboticon, Tile tile)
     {
         tile.InstallRoboticon(roboticon);
+        roboticon.InstallRoboticonToTile();
     }
 
     public void PutItemUpForAuction()

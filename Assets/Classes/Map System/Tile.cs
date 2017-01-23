@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 public class Tile
 {
+    public const float TILE_SIZE = 1.75f;
+    public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
+
     private int tileId;
     private ResourceGroup resourcesGenerated;
     private Player owner;
     private List<Roboticon> installedRoboticons = new List<Roboticon>();
     private TileObject tileObject;
     private bool tileIsSelected = false;
-
-    public const float TILE_SIZE = 1.75f;
-    public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
 
     public Tile(ResourceGroup resources, Vector2 mapDimensions, int tileId, Player owner = null)
     {

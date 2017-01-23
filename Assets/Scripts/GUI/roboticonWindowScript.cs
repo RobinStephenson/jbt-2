@@ -5,11 +5,10 @@ using System.Collections.Generic;
 public class roboticonWindowScript : MonoBehaviour
 {
     public canvasScript canvas;
-
     public GameObject roboticonIconsList;   //Roboticon gui elements are added to this GUI content
-    private GameObject roboticonTemplate;
-    List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
 
+    private GameObject roboticonTemplate;
+    private List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
     private const string ROBOTICON_TEMPLATE_PATH = "Prefabs/GUI/TemplateRoboticon";
 
     /// <summary>
@@ -107,22 +106,6 @@ public class roboticonWindowScript : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Loads the roboticon template if not already loaded.
-    /// </summary>
-    private void LoadRoboticonTemplate()
-    {
-        if (roboticonTemplate == null)
-        {
-            roboticonTemplate = (GameObject)Resources.Load(ROBOTICON_TEMPLATE_PATH);
-
-            if (roboticonTemplate == null)
-            {
-                throw new System.ArgumentException("Cannot find roboticon template at the specified path.");
-            }
-        }
-    }
-
     public void UpgradeRoboticon(Roboticon roboticon)
     {
         canvas.ShowRoboticonUpgradesWindow(roboticon);
@@ -147,6 +130,22 @@ public class roboticonWindowScript : MonoBehaviour
             }
 
             currentlyDisplayedRoboticons = new List<GameObject>();
+        }
+    }
+
+    /// <summary>
+    /// Loads the roboticon template if not already loaded.
+    /// </summary>
+    private void LoadRoboticonTemplate()
+    {
+        if (roboticonTemplate == null)
+        {
+            roboticonTemplate = (GameObject)Resources.Load(ROBOTICON_TEMPLATE_PATH);
+
+            if (roboticonTemplate == null)
+            {
+                throw new System.ArgumentException("Cannot find roboticon template at the specified path.");
+            }
         }
     }
 }

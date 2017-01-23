@@ -11,14 +11,13 @@ public class GameManager : System.Object
         ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
     };
 
+    public Market market;
     public string gameName;
+
     private List<Player> players;
     private int currentPlayerIndex;
-
-    public Market market;
-	private RandomEventFactory randomEventFactory;
-	private Map map;
-
+    private RandomEventFactory randomEventFactory;
+	  private Map map;
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
 
@@ -33,9 +32,9 @@ public class GameManager : System.Object
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);
-		this.market = new Market();
-		this.randomEventFactory = new RandomEventFactory();
-		this.map = new Map();
+		    this.market = new Market();
+		    this.randomEventFactory = new RandomEventFactory();
+		    this.map = new Map();
     }
 
     public void StartGame()
@@ -94,26 +93,54 @@ public class GameManager : System.Object
         }
 
         return null;
+
+    private void SetUpGui()
+    {
+        humanGui = new HumanGui();
+        GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
+        MonoBehaviour.DontDestroyOnLoad(guiGameObject);
+
+        canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
+        humanGui.SetCanvasScript(canvas);
+        humanGui.SetGameManager(this);
+        canvas.SetHumanGui(humanGui);
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            if (player.GetType() == typeof(Human))
+            {
+                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
+            }
+        }
+
+        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
+    }
+
+    private void SetUpMap()
+    {
+        map = new Map();
+        map.Instantiate();
     }
 
     private void PlayerAct()
-	{
-        //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
-		if (currentPlayerIndex >= players.Count)
-		{
-            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-            if (currentState == States.PRODUCTION)
-            {
-                ProcessProductionPhase();
-                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
-            }
-            else
-            {
-                currentState++;
-            }
+	  {
+          //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
+        if (currentPlayerIndex >= players.Count)
+        {
+              //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+              if (currentState == States.PRODUCTION)
+              {
+                  ProcessProductionPhase();
+                  currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+              }
+              else
+              {
+                  currentState++;
+              }
 
-            currentPlayerIndex = 0;
-		}
+              currentPlayerIndex = 0;
+		  }
 
         //Call the Act function for the current player, passing the state to it.
         Player currentPlayer = players[currentPlayerIndex];
@@ -184,36 +211,6 @@ public class GameManager : System.Object
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
     }
-
-    private void SetUpGui()
-    {
-        humanGui = new HumanGui();
-        GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
-        MonoBehaviour.DontDestroyOnLoad(guiGameObject);
-
-        canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
-        humanGui.SetCanvasScript(canvas);
-        humanGui.SetGameManager(this);
-        canvas.SetHumanGui(humanGui);
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            Player player = players[i];
-            if (player.GetType() == typeof(Human))
-            {
-                ((Human)players[i]).SetHumanGui(humanGui);  //Set a reference to the humanGui in each human player
-            }
-        }
-
-        humanGui.DisplayGui((Human)players[0], currentState); //players[0] will always be a human player. (See FormatPlayerList)
-    }
-
-    private void SetUpMap()
-    {
-        map = new Map();
-        map.Instantiate();
-    }
-
 
     public Map GetMap()
     {
