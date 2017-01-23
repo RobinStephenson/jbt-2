@@ -42,6 +42,30 @@ public class ResourceGroup
                                  r.getOre() * s);
     }
 
+    public override string ToString()
+    {
+        return "ResourceGroup(" + food + ", " + energy + ", " + ore + ")";
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        ResourceGroup resourcesToCompare = (ResourceGroup)obj;
+
+        return (food == resourcesToCompare.food && 
+                energy == resourcesToCompare.energy &&
+                ore == resourcesToCompare.ore);
+    }
+
+    public override int GetHashCode()
+    {
+        return food.GetHashCode() ^ energy.GetHashCode() << 2 ^ ore.GetHashCode() >> 2;
+    }
+
     public int Sum()
     {
         return this.food + this.energy + this.ore;

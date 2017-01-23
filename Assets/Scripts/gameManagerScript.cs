@@ -14,7 +14,7 @@ public class gameManagerScript : MonoBehaviour
         //TODO - Implement main menu and loading/saving.
         DontDestroyOnLoad(this);
 
-        ///TEMP
+        ///TEMP - TODO - Implement player screen
         List<Player> players = new List<Player>();
         players.Add(new AI(new ResourceGroup(), "Bilbo", 0));
         players.Add(new Human(new ResourceGroup(50, 999, 50), "Buddy", 999));
