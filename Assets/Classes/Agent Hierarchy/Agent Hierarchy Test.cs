@@ -197,7 +197,117 @@ public class AgentHierarchyTest : Agent
 
 
     
-    public string ResourceChecker(ResourceGroup resources, int expectedFood, int expectedEnergy, int expectedOre, string testId )
+    
+
+    public void HumanPlayerTest()
+    {
+        //As player is an abstract class, a choice was made to instantiate player as a human (1.4), therefore testing of these two Classes will be done concurrently
+        ResourceGroup humanResources = new ResourceGroup(50, 50, 50);
+        ResourceGroup testGroup = new Resourcegroup(2, 2, 2);
+        Human testHuman = new Human(humanResources, "Test", 500);
+        Tile testTile1 = new Tile(testGroup, new Vector2(0, 0), 1);
+        Tile testTile2 = new Tile(testGroup, new Vector2(0, 1), 2);
+        Tile testTile3 = new Tile(testGroup, new Vector2(1, 0), 3);
+        Roboticon testRoboticon1 = new Roboticon();
+
+
+        //No tests implemented for 1.1.1
+
+        //Tests 1.1.(2,3,4,5,6,7,8).x will be implemented out of order due to their interdependancy, comments will be given for clarity
+
+        //Tests for 1.1.5
+        //1.1.5.1
+        testHuman.AquireTile(testTile1);
+        if (testHuman.GetOwnedTiles()[0] != testTile1)
+        {
+            errorString += $"Owned tiles is not equal to expected value for test 1.1.5.1\nShould read {testTile1.GetId()} for owned tile ID, actually reads {testHuman.GetOwnedTiles()[0].GetID()}\n\n";
+        }
+
+        //1.1.5.2
+        try
+        {
+            testHuman.AquireTile(testTile1);
+        }
+        catch(Exception e)
+        {
+            returnedError = true;
+        }
+        finally
+        {
+            if (!returnedError)
+            {
+                errorString += $"Exception for owned Tile aquisition has not been thrown in test 1.1.5.2\n\n";
+            }
+        }
+
+        //Tests for 1.1.6
+        //1.1.6.1
+        testHuman.aquireRoboticon(testRoboticon1);
+        if (testHuman.getRoboticons[0] != testRoboticon1)
+        {
+            errorString += $"Owned Roboticons is not equal to expected value for test 1.1.6.1\nShould read {testRoboticon1.GetName()}, actually reads {testHuman.getRoboticons[0].GetName()}\n\n";
+        }
+
+        //1.1.6.2
+        try
+        {
+            testHuman.AquireRoboticon(testRoboticon1);
+        }
+        catch(Exception e)
+        {
+            returnedError = true;
+        }
+        finally
+        {
+            if (!returnedError)
+            {
+                errorstring += $"Exception for owned Roboticon has not been thrown in test 1.1.6.2\n\n";
+            }
+        }
+
+        //Tests for 1.1.7
+        //1.1.7.1
+        ResourceGroup roboticonValues = testRoboticon1.GetUpgrades();
+        testHuman.UpgradeRoboticon(testRoboticon1, testGroup);
+
+        errorString += ResourceChecker(testRoboticon1.GetUpgrades(), (roboticonValues.getFood())+2, (roboticonValues.getEnergy())+2, (roboticonValues.getOre)+2, "1.1.7.1");
+
+        //Tests for 1.1.8
+        //1.1.8.1
+        testHuman.InstallRoboticon(testRoboticon1, testTile1);
+        if (testTile1.GetInstalledRoboticons()[0] != testRoboticon1)
+        {
+            errorString += $"Installed robotcons on test tile is not equal to expected value for test 1.1.8.1\nShould read {testRoboticon1.GetName()}, actually reads {testTile1.GetInstalledRoboticons()[0]}\n\n";
+        }
+
+        //Tests for 1.1.4
+        //1.1.4.1
+        errorString += ResourceChecker(testHuman.CalculateTotalResourcesGenerated(), 2+testRoboticon1.getupgrades().getFood(),2+testRoboticon1.getUpgrade().getEnergy() ,2+testRoboticon1.getUpgrade().getOre());
+
+        //Tests for 1.1.3
+        //1.1.3.1
+        int testScore = ((2 + testRoboticon1.getupgrades().getFood()) + (2 + testRoboticon1.getUpgrade().getEnergy()) + (2 + testRoboticon1.getUpgrade().getOre()));
+        if (testHuman.CalculateScore() != testScore)
+        {
+            errorString += $"Score is not equal to expected value for test 1.1.3.1\nShould read {testScore}, actually reads {testHuman.CalculateScore()}\n\n";
+        }
+
+        //Tests for 1.1.2
+        //1.1.2.1
+        
+
+        //Tests for 1.1.9
+        //1.1.9.1
+
+        if (testHuman.IsHuman() == false)
+        {
+            errorString += $"testHuman has not bee initialised as Human in test 1.1.9.1"
+        }
+
+
+    }
+
+    public string ResourceChecker(ResourceGroup resources, int expectedFood, int expectedEnergy, int expectedOre, string testId)
     {
         string errorString = ("");
         if (resources.getFood != expectedFood)
@@ -216,12 +326,6 @@ public class AgentHierarchyTest : Agent
         }
         return (errorString);
     }
-
-    public void PlayerTest()
-    {
-
-    }
-
 }
 	
 	

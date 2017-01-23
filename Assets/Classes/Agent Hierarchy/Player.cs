@@ -63,6 +63,11 @@ public abstract class Player : Agent
         }
     }
 
+    public List<Tile> GetOwnedTiles()
+    {
+        return ownedTiles;
+    }
+
     public List<Roboticon> GetRoboticons()
     {
         return ownedRoboticons;
