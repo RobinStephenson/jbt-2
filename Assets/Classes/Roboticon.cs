@@ -3,59 +3,66 @@ using System.Collections;
 
 public class Roboticon
 {
-    public enum RoboticonUpgrade
-    {
-        FOOD,
-        ENERGY,
-        ORE
-    }
-
-    const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+    public const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
 
     private ResourceGroup upgrades;
+    private string name;
+    private bool isInstalledToTile = false;
 
-    public Roboticon(ResourceGroup upgrades = new ResourceGroup(0,0,0))
+    public Roboticon()
     {
+        this.name = "RBN#" + (Random.Range(1000, 9999)).ToString();
+        this.upgrades = new ResourceGroup(Random.Range(1, 4), Random.Range(1, 4), Random.Range(1, 4));
+    }
+
+    public Roboticon(ResourceGroup upgrades, string name = "")
+    {
+        this.name = name;
         this.upgrades = upgrades;
     }
 
-    public void Upgrade(RoboticonUpgrade upgradeType)
+    public string GetName()
     {
-        switch (upgradeType)
+        if(name == null)
         {
-            case RoboticonUpgrade.FOOD:
-                this.upgrades = this.upgrades + new ResourceGroup(1, 0, 0);
-                break;
-            case RoboticonUpgrade.ENERGY:
-                this.upgrades = this.upgrades + new ResourceGroup(0, 1, 0);
-                break;
-            case RoboticonUpgrade.ORE:
-                this.upgrades = this.upgrades + new ResourceGroup(0, 0, 1);
-                break;
+            throw new System.ArgumentNullException("Name not set in roboticon.");
         }
+
+        return name;
     }
 
-    public void Downgrade(RoboticonUpgrade downGradeType)
+    public void Upgrade(ResourceGroup upgrades)
     {
-        switch (upgradeType)
-        {
-            case RoboticonUpgrade.FOOD:
-                this.upgrades = this.upgrades + new ResourceGroup(-1, 0, 0);
-                break;
-            case RoboticonUpgrade.ENERGY:
-                this.upgrades = this.upgrades + new ResourceGroup(0, -1, 0);
-                break;
-            case RoboticonUpgrade.ORE:
-                this.upgrades = this.upgrades + new ResourceGroup(0, 0, -1);
-                break;
-        }
+        this.upgrades += upgrades;
+    }
+
+    public void Downgrade(ResourceGroup downgrades)
+    {
+        this.upgrades -= downgrades;
     }
 
     public int GetPrice()
     {
-        return (this.upgrades.getFood()   * UPGRADEVALUE) +
-               (this.upgrades.getEnergy() * UPGRADEVALUE) +
-               (this.upgrades.getOre()    * UPGRADEVALUE);
+        return (this.upgrades * UPGRADEVALUE).Sum();
     }
 
+    public ResourceGroup GetUpgrades()
+    {
+        return upgrades;
+    }
+
+    public void InstallRoboticonToTile()
+    {
+        isInstalledToTile = true;
+    }
+
+    public void UninstallRoboticonToTile()
+    {
+        isInstalledToTile = false;
+    }
+    
+    public bool IsInstalledToTile()
+    {
+        return isInstalledToTile;
+    }
 }

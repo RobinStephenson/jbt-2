@@ -6,15 +6,15 @@ public abstract class Player : Agent
 {
     protected string name;
     protected int score;
-    protected List<Roboticon> ownedRoboticons;
-    protected List<Tile> ownedTiles;
+    protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
+    protected List<Tile> ownedTiles = new List<Tile>();
 
     public int CalculateScore()
     {
         int scoreFromTiles = 0;
         foreach(Tile tile in ownedTiles)
         {
-            ResourceGroup tileResources = tile.GetResourcesGenerated();
+            ResourceGroup tileResources = tile.GetTotalResourcesGenerated();
             scoreFromTiles += tileResources.energy + tileResources.food + tileResources.ore;
         }
 
@@ -27,15 +27,50 @@ public abstract class Player : Agent
         return scoreFromRoboticons + scoreFromTiles;
     }
 
+    /// <summary>
+    /// Adds the total resources for all tiles owned by the player to the player's resources.
+    /// </summary>
+    public void Produce()
+    {
+        resources += CalculateTotalResourcesGenerated();
+    }
+
+    /// <summary>
+    /// Returns the sum of all tile-generated resources.
+    /// </summary>
+    /// <returns></returns>
     public ResourceGroup CalculateTotalResourcesGenerated()
     {
-        //TODO
-        return new ResourceGroup(5, 67, -69);
+        ResourceGroup totalResources = new ResourceGroup();
+
+        foreach (Tile tile in ownedTiles)
+        {
+            totalResources += tile.GetTotalResourcesGenerated();
+        }
+        return totalResources;
     }
 
     public void AcquireTile(Tile tile)
     {
-        ownedTiles.Add(tile);
+        if (!ownedTiles.Contains(tile))
+        {
+            ownedTiles.Add(tile);
+            tile.SetOwner(this);
+        }
+        else
+        {
+            throw new System.Exception("Tried to acquire a tile which is already owned by this player.");
+        }
+    }
+
+    public List<Tile> GetOwnedTiles()
+    {
+        return ownedTiles;
+    }
+
+    public List<Roboticon> GetRoboticons()
+    {
+        return ownedRoboticons;
     }
 
     public void AcquireRoboticon(Roboticon roboticon)
@@ -43,7 +78,7 @@ public abstract class Player : Agent
         ownedRoboticons.Add(roboticon);
     }
 
-    public void UpgradeRoboticon(Roboticon roboticon, Roboticon.RoboticonUpgrade upgrade)
+    public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrade)
     {
         roboticon.Upgrade(upgrade);
     }
@@ -51,6 +86,7 @@ public abstract class Player : Agent
     public void InstallRoboticon(Roboticon roboticon, Tile tile)
     {
         tile.InstallRoboticon(roboticon);
+        roboticon.InstallRoboticonToTile();
     }
 
     public void PutItemUpForAuction()
@@ -64,5 +100,15 @@ public abstract class Player : Agent
         return true;
     }
 
-    public abstract void Act();
+    public bool IsHuman()
+    {
+        return this.GetType().ToString() == "Human";
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public abstract void Act(GameManager.States state);
 }

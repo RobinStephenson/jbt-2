@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class canvasScript : MonoBehaviour
 {
-    private HumanGui humanGui;
-
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public roboticonWindowScript roboticonList;
     public marketScript marketScript;
+    public GameObject endPhaseButton;
+    public tileInfoWindowScript tileWindow;
+    public Text currentPlayerText;
+    public Text currentPhaseText;
+    public roboticonUpgradesWindowScript roboticonUpgradesWindow;
 
     #region Resource Labels
     public Text foodLabel;
@@ -20,25 +25,28 @@ public class canvasScript : MonoBehaviour
     public Text moneyLabel;
     #endregion
 
-    bool tempFireOnce = true;
+    private HumanGui humanGui;
 
-    // Use this for initialization
-    void Start ()
+    public void EndPhase()
     {
-        humanGui = new HumanGui();
+        humanGui.EndPhase();
     }
 
-    // Update is called once per frame
-    void Update ()
+    public void DisableEndPhaseButton()
     {
-	    if(tempFireOnce)
-        {
-            AI ai = new AI(new ResourceGroup(550, 500, 550));
-            humanGui.DisplayGui(new Human(new ResourceGroup(999, 999, 999), 550), HumanGui.GamePhase.PRODUCTION);
-            tempFireOnce = false;
-        }
+        endPhaseButton.SetActive(false);
     }
-   
+
+    public void EnableEndPhaseButton()
+    {
+        endPhaseButton.SetActive(true);
+    }
+
+    public void SetCurrentPhaseText(string text)
+    {
+        currentPhaseText.text = text;
+    }
+
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
@@ -51,7 +59,14 @@ public class canvasScript : MonoBehaviour
 
     public void ShowMarketWindow()
     {
-        marketScript.gameObject.SetActive(true);
+        if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
+        {
+            marketScript.gameObject.SetActive(true);
+        }
+        else
+        {
+            //TODO - Error message "Market cannot be accessed in this phase."
+        }
     }
 
     public void HideMarketWindow()
@@ -67,6 +82,88 @@ public class canvasScript : MonoBehaviour
     public void HideOptionsMenu()
     {
         optionsMenu.SetActive(false);
+    }
+
+    public void PurchaseTile(Tile tile)
+    {
+        humanGui.PurchaseTile(tile);
+    }
+
+    public void ShowTileInfoWindow(Tile tile)
+    {
+        tileWindow.Show(tile);
+    }
+
+    public void RefreshTileInfoWindow()
+    {
+        tileWindow.Refresh();
+    }
+
+    public void HideTileInfoWindow()
+    {
+        tileWindow.Hide();
+    }
+
+    public void RefreshRoboticonList()
+    {
+        if (roboticonList.isActiveAndEnabled)
+        {
+            ShowRoboticonList();
+        }
+    }
+
+    public void ShowRoboticonList()
+    {
+        List<Roboticon> roboticonsToDisplay = new List<Roboticon>();
+
+        foreach(Roboticon roboticon in humanGui.GetCurrentHumanRoboticonList())
+        {
+            roboticonsToDisplay.Add(roboticon);
+        }
+
+        roboticonList.DisplayRoboticonList(roboticonsToDisplay);
+    }
+
+    /// <summary>
+    /// Adds a roboticon to the roboticon display list if it is currently
+    /// being displayed.
+    /// </summary>
+    public void AddRoboticonToList(Roboticon roboticon)
+    {
+        if (roboticonList.isActiveAndEnabled)
+        {
+            roboticonList.AddRoboticon(roboticon);
+        }
+    }
+
+    public void HideRoboticonList()
+    {
+        roboticonList.HideRoboticonList();
+    }
+
+    public void ShowRoboticonUpgradesWindow(Roboticon roboticon)
+    {
+        roboticonUpgradesWindow.Show(roboticon);
+    }
+
+    public void HideRoboticonUpgradesWindow()
+    {
+        roboticonUpgradesWindow.Hide();
+    }
+
+    public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrades)
+    {
+        humanGui.UpgradeRoboticon(roboticon, upgrades);
+    }
+
+    public void InstallRoboticon(Roboticon roboticon)
+    {
+        humanGui.InstallRoboticon(roboticon);
+    }
+
+    public void SetCurrentPlayerName(string name)
+    {
+        currentPlayerText.text = name;
     }
 
     public void ShowHelpBox(string helpBoxText)
@@ -92,6 +189,16 @@ public class canvasScript : MonoBehaviour
         foodChangeLabel.text = FormatResourceChangeLabel(resources.food);
         energyChangeLabel.text = FormatResourceChangeLabel(resources.energy);
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
+    }
+
+    public void SetHumanGui(HumanGui gui)
+    {
+        humanGui = gui;
+    }
+
+    public HumanGui GetHumanGui()
+    {
+        return humanGui;
     }
 
     private string FormatResourceChangeLabel(int changeAmount)

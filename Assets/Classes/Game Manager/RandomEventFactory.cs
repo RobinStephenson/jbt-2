@@ -4,17 +4,17 @@ using System;
 
 public class RandomEventFactory
 {
-    private RandomEventStore Store = new RandomEventStore();
-    public GameObject create(int craziness)
+    private RandomEventStore randomEventStore = new RandomEventStore();
+
+    public GameObject Create(int craziness)
     {
-        Random rnd = new Random();
-        if (rnd.Next(2) == 0)           //TODO correct percentage chance of event occuring - 50% currently
+        if (UnityEngine.Random.Range(0, 2) == 0)           //TODO correct percentage chance of event occuring - 50% currently
         {
-            return Store.chooseEvent(craziness);    
+            return randomEventStore.chooseEvent(craziness);    
         }
         else
         {
-            return new GameObject();    // Return empty gameobject indicating no event should take place
+            return null;    // Return null indicating no event should take place
         }
     }
 }

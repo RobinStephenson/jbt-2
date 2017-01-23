@@ -7,10 +7,6 @@ public class marketScript : MonoBehaviour
     public canvasScript uiCanvas;
 
     #region Resource price labels
-    private ResourceGroup marketBuyingPrices;
-    private ResourceGroup marketSellingPrices;
-    private int marketRoboticonPrice;
-
     public Text foodBuyPrice;
     public Text foodSellPrice;
     public Text energyBuyPrice;
@@ -33,7 +29,7 @@ public class marketScript : MonoBehaviour
     public InputField roboticonBuyAmount;
     #endregion
 
-    private const string ANIM_TRIGGER_FLASH_RED = "Flash Red";
+    private Market market;
 
     public char ValidatePositiveInput(string text, int charIndex, char addedChar)
     {
@@ -52,24 +48,17 @@ public class marketScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //TEMP
-        SetShownMarketPrices(new ResourceGroup(5, 10, 3), new ResourceGroup(2, 6, 1), 20);
-        ///
+        market = GameHandler.GetGameManager().market;
+        SetShownMarketPrices();
 
-        foodBuyAmount.onValidateInput   += ValidatePositiveInput;
-        energyBuyAmount.onValidateInput += ValidatePositiveInput;
+        foodBuyAmount.onValidateInput   += ValidatePositiveInput;       //Add the ValidatePositiveInput function to
+        energyBuyAmount.onValidateInput += ValidatePositiveInput;       //each GUI Text.
         oreBuyAmount.onValidateInput    += ValidatePositiveInput;
 
-        foodSellAmount.onValidateInput += ValidatePositiveInput;
+        foodSellAmount.onValidateInput  += ValidatePositiveInput;
         energySellAmount.onValidateInput += ValidatePositiveInput;
-        oreSellAmount.onValidateInput += ValidatePositiveInput;
+        oreSellAmount.onValidateInput   += ValidatePositiveInput;
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-	
-	}
 
     public void OnBuyButtonPress()
     {
@@ -98,20 +87,16 @@ public class marketScript : MonoBehaviour
 
     public void PlayPurchaseDeclinedAnimation()
     {
-        totalBuyPrice.GetComponent<Animator>().SetTrigger(ANIM_TRIGGER_FLASH_RED);
+        totalBuyPrice.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);
     }
 
     public void PlaySaleDeclinedAnimation()
     {
-        totalSellPrice.GetComponent<Animator>().SetTrigger(ANIM_TRIGGER_FLASH_RED);
+        totalSellPrice.GetComponent<Animator>().SetTrigger(HumanGui.ANIM_TRIGGER_FLASH_RED);
     }
 
-    public void SetShownMarketPrices(ResourceGroup buyingPrices, ResourceGroup sellingPrices, int roboticonPrice)
+    public void SetShownMarketPrices()
     {
-        marketBuyingPrices = buyingPrices;
-        marketSellingPrices = sellingPrices;
-        marketRoboticonPrice = roboticonPrice;
-
         UpdateShownMarketPrices();
         UpdateTotalBuyPrice();
         UpdateTotalSellPrice();
@@ -119,32 +104,39 @@ public class marketScript : MonoBehaviour
 
     public void UpdateTotalBuyPrice()
     {
-        int foodPrice = int.Parse(foodBuyAmount.text) * marketBuyingPrices.food;
-        int energyPrice = int.Parse(energyBuyAmount.text) * marketBuyingPrices.energy;
-        int orePrice = int.Parse(oreBuyAmount.text) * marketBuyingPrices.ore;
-        int roboticonPrice = int.Parse(roboticonBuyAmount.text) * marketRoboticonPrice;
+        ResourceGroup buyingPrices = market.GetResourceBuyingPrices();
+
+        int foodPrice = int.Parse(foodBuyAmount.text) * buyingPrices.food;
+        int energyPrice = int.Parse(energyBuyAmount.text) * buyingPrices.energy;
+        int orePrice = int.Parse(oreBuyAmount.text) * buyingPrices.ore;
+        int roboticonPrice = int.Parse(roboticonBuyAmount.text) * market.GetRoboticonSellingPrice();
 
         totalBuyPrice.text = "£" + (foodPrice + energyPrice + orePrice + roboticonPrice).ToString();
     }
 
     public void UpdateTotalSellPrice()
     {
-        int foodPrice = int.Parse(foodSellAmount.text) * marketSellingPrices.food;
-        int energyPrice = int.Parse(energySellAmount.text) * marketSellingPrices.energy;
-        int orePrice = int.Parse(oreSellAmount.text) * marketSellingPrices.ore;
+        ResourceGroup sellingPrices = market.GetResourceSellingPrices();
+
+        int foodPrice = int.Parse(foodSellAmount.text) * sellingPrices.food;
+        int energyPrice = int.Parse(energySellAmount.text) * sellingPrices.energy;
+        int orePrice = int.Parse(oreSellAmount.text) * sellingPrices.ore;
 
         totalSellPrice.text = "£" + (foodPrice + energyPrice + orePrice).ToString();
     }
 
     private void UpdateShownMarketPrices()
     {
-        foodBuyPrice.text      = "£" + marketBuyingPrices.food.ToString();
-        energyBuyPrice.text    = "£" + marketBuyingPrices.energy.ToString();
-        oreBuyPrice.text       = "£" + marketBuyingPrices.ore.ToString();
-        roboticonBuyPrice.text = "£" + marketRoboticonPrice.ToString();
+        ResourceGroup sellingPrices = market.GetResourceSellingPrices();
+        ResourceGroup buyingPrices = market.GetResourceBuyingPrices();
 
-        foodSellPrice.text     = "£" + marketSellingPrices.food.ToString();
-        energySellPrice.text   = "£" + marketSellingPrices.energy.ToString();
-        oreSellPrice.text      = "£" + marketSellingPrices.ore.ToString();
+        foodBuyPrice.text      = "£" + buyingPrices.food.ToString();
+        energyBuyPrice.text    = "£" + buyingPrices.energy.ToString();
+        oreBuyPrice.text       = "£" + buyingPrices.ore.ToString();
+        roboticonBuyPrice.text = "£" + market.GetRoboticonSellingPrice().ToString();
+        
+        foodSellPrice.text     = "£" + sellingPrices.food.ToString();
+        energySellPrice.text   = "£" + sellingPrices.energy.ToString();
+        oreSellPrice.text      = "£" + sellingPrices.ore.ToString();
     }
 }

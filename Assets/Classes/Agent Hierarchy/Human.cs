@@ -3,15 +3,22 @@ using System.Collections;
 
 public class Human : Player
 {
-    public Human(ResourceGroup resources, int money)
+    private HumanGui humanGui;
+
+    public Human(ResourceGroup resources, string name, int money)
     {
         this.resources = resources;
         this.money = money;
+        this.name = name;
     }
 
-    public override void Act()
+    public void SetHumanGui(HumanGui gui)
     {
-        //TODO - Interface with HumanGui to provide
-        // Human actions.
+        humanGui = gui;
+    }
+
+    public override void Act(GameManager.States state)
+    {
+        humanGui.DisplayGui(this, state);
     }
 }

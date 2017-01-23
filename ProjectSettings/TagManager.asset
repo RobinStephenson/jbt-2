@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - uiCanvas
+  - gameManager
+  - mapTile
   layers:
   - Default
   - TransparentFX
