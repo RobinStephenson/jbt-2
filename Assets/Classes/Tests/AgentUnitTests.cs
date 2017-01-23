@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -184,7 +186,7 @@ public class AgentUnitTests
 
         //Update Price tests should be written later
 
-        //Produce Roboitcon tests
+        //Produce Roboticon tests
         int tempOre = testMarket.GetResources().getOre();
         testMarket.ProduceRoboticon();
         if (testMarket.GetNumRoboticonsForSale() != 12)
@@ -307,7 +309,7 @@ public class AgentUnitTests
 
         if (testHuman.IsHuman() == false)
         {
-            errorString += "testHuman has not bee initialised as Human in test 1.1.9.1";
+            errorString += "testHuman has not been initialised as Human in test 1.1.9.1";
         }
 
         return errorString;

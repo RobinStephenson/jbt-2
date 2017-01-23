@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+
+using System;
 using UnityEngine;
 
 public class ResourceGroupUnitTests
@@ -77,19 +79,19 @@ public class ResourceGroupUnitTests
         }
         if (TestGroup3.Sum() != 75)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 75, actual value: " + TestGroup3.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.1, expected value: 75, actual value: " + TestGroup3.Sum();
         }
         if (TestGroup4.Sum() != 0)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 0, actual value: " + TestGroup4.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.2, expected value: 0, actual value: " + TestGroup4.Sum();
         }
         if (TestGroup5.Sum() != 300)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 300, actual value: " + TestGroup5.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.3, expected value: 300, actual value: " + TestGroup5.Sum();
         }
         if (TestGroup6.Sum() != -3)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: -3, actual value: " + TestGroup6.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.4, expected value: -3, actual value: " + TestGroup6.Sum();
         }
 
         return errorString;

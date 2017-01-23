@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+
+using UnityEngine;
 using System.Collections;
 
 public class sunRiseScript : MonoBehaviour
@@ -19,6 +21,8 @@ public class sunRiseScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        //Linearly interpolate between current position and target position by a time-constant amount each frame.
+        //Gives a smooth transition 
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationQuat, Time.deltaTime * riseSpeed);
 	}
 }
