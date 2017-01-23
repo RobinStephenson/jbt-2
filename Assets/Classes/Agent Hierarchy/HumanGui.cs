@@ -26,7 +26,7 @@ public class HumanGui
         }
     }
 
-	public void DisplayGui(Human human, GameManager.States phase)
+    public void DisplayGui(Human human, GameManager.States phase)
     {
         currentHuman = human;
         currentPhase = phase;

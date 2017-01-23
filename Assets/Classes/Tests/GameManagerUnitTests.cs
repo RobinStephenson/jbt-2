@@ -6,7 +6,6 @@ public class GameManagerUnitTests
 { 
     public string TestGameManager()
     {
-
         string errorString = "";
 
         //test GetWinnerIfGameHasEnded

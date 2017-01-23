@@ -137,7 +137,7 @@ public class GameManager : System.Object
     }
 
     private void PlayerAct()
-	  {
+    {
           //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
@@ -153,7 +153,7 @@ public class GameManager : System.Object
               }
 
               currentPlayerIndex = 0;
-		  }
+        }
 
         //Call the Act function for the current player, passing the state to it.
         Player currentPlayer = players[currentPlayerIndex];
@@ -164,12 +164,12 @@ public class GameManager : System.Object
 
         currentPlayer.Act(currentState);
         map.UpdateMap();
-	}
+    }
 
-	private void ShowWinner(Player player)
-	{
-		//Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
-	}
+    private void ShowWinner(Player player)
+    {
+        //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
+    }
 
     private void ProcessProductionPhase()
     {
@@ -193,7 +193,7 @@ public class GameManager : System.Object
             GameObject.Instantiate(randomEventGameObject);
         }
 
-		market.UpdatePrices();
+        market.UpdatePrices();
     }
 
     /// <summary>
