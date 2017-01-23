@@ -79,7 +79,7 @@ public class HumanGui
         {
             try
             {
-                gameManager.market.BuyFrom(resourcesToBuy, buyPrice);
+                gameManager.market.BuyFrom(resourcesToBuy);
             }
             catch (System.ArgumentException e)
             {
@@ -120,7 +120,7 @@ public class HumanGui
         {
             try
             {
-                gameManager.market.SellTo(resourcesToSell, sellPrice);
+                gameManager.market.SellTo(resourcesToSell);
             }
             catch (System.ArgumentException e)
             {

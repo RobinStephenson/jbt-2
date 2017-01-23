@@ -16,8 +16,8 @@ public class GameManager : System.Object
 
     private List<Player> players;
     private int currentPlayerIndex;
-	private RandomEventFactory randomEventFactory;
-	private Map map;
+    private RandomEventFactory randomEventFactory;
+	  private Map map;
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
 
@@ -32,9 +32,9 @@ public class GameManager : System.Object
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);
-		this.market = new Market();
-		this.randomEventFactory = new RandomEventFactory();
-		this.map = new Map();
+		    this.market = new Market();
+		    this.randomEventFactory = new RandomEventFactory();
+		    this.map = new Map();
     }
 
     public void StartGame()
@@ -67,6 +67,33 @@ public class GameManager : System.Object
         }
     }
 
+    public Player GetWinnerIfGameHasEnded()
+    {
+        //Game ends if there are no remaining unowned tiles (Req 2.3.a)
+        if (map.GetNumUnownedTilesRemaining() == 0)
+        {
+            float highestScore = Mathf.NegativeInfinity;
+            Player winner = null;
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                //Player with the highest score wins (Req 2.3.c)
+                int currentScore = players[i].CalculateScore();
+                if (currentScore > highestScore)
+                {
+                    highestScore = currentScore;
+                    winner = players[i];
+                }
+            }
+
+            if (highestScore != Mathf.NegativeInfinity)
+            {
+                return winner;
+            }
+        }
+
+        return null;
+
     private void SetUpGui()
     {
         humanGui = new HumanGui();
@@ -97,23 +124,23 @@ public class GameManager : System.Object
     }
 
     private void PlayerAct()
-	{
-        //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
-		if (currentPlayerIndex >= players.Count)
-		{
-            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-            if (currentState == States.PRODUCTION)
-            {
-                ProcessProductionPhase();
-                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
-            }
-            else
-            {
-                currentState++;
-            }
+	  {
+          //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
+        if (currentPlayerIndex >= players.Count)
+        {
+              //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+              if (currentState == States.PRODUCTION)
+              {
+                  ProcessProductionPhase();
+                  currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+              }
+              else
+              {
+                  currentState++;
+              }
 
-            currentPlayerIndex = 0;
-		}
+              currentPlayerIndex = 0;
+		  }
 
         //Call the Act function for the current player, passing the state to it.
         Player currentPlayer = players[currentPlayerIndex];
@@ -124,34 +151,6 @@ public class GameManager : System.Object
 
         currentPlayer.Act(currentState);
         map.UpdateMap();
-	}
-
-	private Player GetWinnerIfGameHasEnded()
-	{
-		//Game ends if there are no remaining unowned tiles (Req 2.3.a)
-		if(map.GetNumUnownedTilesRemaining() == 0)
-		{
-			float highestScore = Mathf.NegativeInfinity;
-            Player winner = null;
-
-			for(int i = 0; i < players.Count; i++)
-			{
-                //Player with the highest score wins (Req 2.3.c)
-                int currentScore = players[i].CalculateScore();
-				if(currentScore > highestScore)
-				{
-                    highestScore = currentScore;
-                    winner = players[i];
-				}
-			}
-
-			if(highestScore != Mathf.NegativeInfinity)
-			{
-				return winner;
-			}
-		}
-
-        return null;
 	}
 
 	private void ShowWinner(Player player)
@@ -212,7 +211,6 @@ public class GameManager : System.Object
             throw new System.ArgumentException("GameManager was given a player list not containing any Human players.");
         }
     }
-
 
     public Map GetMap()
     {

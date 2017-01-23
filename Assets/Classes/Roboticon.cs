@@ -15,8 +15,19 @@ public class Roboticon
         this.upgrades = new ResourceGroup(Random.Range(1, 4), Random.Range(1, 4), Random.Range(1, 4));
     }
 
+    public Roboticon(ResourceGroup upgrades, string name = "")
+    {
+        this.name = name;
+        this.upgrades = upgrades;
+    }
+
     public string GetName()
     {
+        if(name == null)
+        {
+            throw new System.ArgumentNullException("Name not set in roboticon.");
+        }
+
         return name;
     }
 

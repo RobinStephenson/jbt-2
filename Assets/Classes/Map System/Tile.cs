@@ -85,7 +85,6 @@ public class Tile
         }
 
         this.installedRoboticons.Remove(roboticon);
-
     }
 
     public List<Roboticon> GetInstalledRoboticons()
@@ -146,5 +145,10 @@ public class Tile
     public Player GetOwner()
     {
         return owner;
+    }
+
+    public TileObject GetTileObject()
+    {
+        return tileObject;
     }
 }

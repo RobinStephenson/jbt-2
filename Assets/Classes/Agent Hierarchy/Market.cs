@@ -42,7 +42,7 @@ public class Market : Agent
     /// </summary>
     /// <param name="resources"></param>
     /// <param name="price"></param>
-    public void BuyFrom(ResourceGroup resourcesToBuy, int price)
+    public void BuyFrom(ResourceGroup resourcesToBuy)
     {
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
             || resourcesToBuy.energy > this.resources.energy
@@ -66,17 +66,35 @@ public class Market : Agent
     /// </summary>
     /// <param name="resource"></param>
     /// <param name="price"></param>
-    public void SellTo(ResourceGroup resourcesToSell, int price)
+    public void SellTo(ResourceGroup resourcesToSell)
     {
+        if (resourcesToSell.getFood() < 0)
+        {
+            throw new System.ArgumentException("Negative food values cannot be sold.");
+        }
+
+        if (resourcesToSell.getEnergy() < 0)
+        {
+            throw new System.ArgumentException("Negative energy values cannot be sold.");
+        }
+
+        if (resourcesToSell.getOre() < 0)
+        {
+            throw new System.ArgumentException("Negtaive ore values cannot be sold.");
+        }
+
+        int price = (resourcesToSell * resourceBuyingPrices).Sum();
+
         if (price <= money)
         {
             resources += resourcesToSell;
-            money = money - (resourcesToSell * resourceBuyingPrices).Sum(); //Overloading * to perform element-wise product to get total expenditure
+            money = money - price; //Overloading * to perform element-wise product to get total expenditure
         }
         else
         {
             throw new System.ArgumentException("Market does not have enough money to perform this transaction.");
         }
+
     }
 
     public void UpdatePrices()
@@ -84,13 +102,19 @@ public class Market : Agent
         //Skeleton for later use when adding supply & demand
     }
 
-    private void ProduceRoboticon()
+    public void ProduceRoboticon()
     {
         if (resources.ore >= ROBOTICON_PRODUCTION_COST)
         {
             resources.ore -= ROBOTICON_PRODUCTION_COST;
             numRoboticonsForSale++;
         }
+    }
+
+
+    public int GetNumRoboticonsForSale()
+    {
+        return numRoboticonsForSale;
     }
 
     public ResourceGroup GetResourceBuyingPrices()
