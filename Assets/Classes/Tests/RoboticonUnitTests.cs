@@ -61,7 +61,7 @@ public class RoboticonUnitTests
 
         if (testRbt6.GetPrice() != 0)
         {
-            errorString += string.Format("Price incorrect for test 1.4.1.0.\r\nShould read 0, actually reads {0}\r\n\r\n", testRbt6.GetPrice());
+            errorString += string.Format("Price incorrect for test 1.4.0.10\r\nShould read 0, actually reads {0}\r\n\r\n", testRbt6.GetPrice());
         }
 
         return errorString;
