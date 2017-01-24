@@ -29,11 +29,11 @@ public class GameManagerUnitTests
 
         if(winner == null)
         {
-            errorString += "GetWinnerIfGameHasEnded incorrectly decided that game has not yet ended.";
+            errorString += "GetWinnerIfGameHasEnded incorrectly decided that game has not yet ended for test 3.2.1.1.";
         }
         else if(winner != playerList[1])
         {
-            errorString += string.Format("GetWinnerIfGameHasEnded selected the wrong winner for test 3.2.1. Selected player: {0}, should have selected player: {1}", winner.GetName(), playerList[1].GetName());
+            errorString += string.Format("GetWinnerIfGameHasEnded selected the wrong winner for test 3.2.1.1. Selected player: {0}, should have selected player: {1}", winner.GetName(), playerList[1].GetName());
         }
 
         //test initial game setup (FormatPlayerList)
@@ -52,7 +52,7 @@ public class GameManagerUnitTests
 
         if(playerList2[0].IsHuman() != true)
         {
-            errorString += "FormatPlayerList does not work for test 3.2.2. First player is not a human";
+            errorString += "FormatPlayerList does not work for test 3.2.2.1. First player is not a human";
         }
 
         return errorString;
