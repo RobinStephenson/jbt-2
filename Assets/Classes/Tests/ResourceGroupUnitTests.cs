@@ -50,48 +50,48 @@ public class ResourceGroupUnitTests
         TestGroup1 = TestGroup2 - TestGroup5;
         errorString += ResourceChecker(TestGroup1, -90, -90, -90, "1.3.0.9");
         TestGroup1 = TestGroup4 - TestGroup6;
-        errorString += ResourceChecker(TestGroup1, 1, 1, 1, "1.3.1.1");
+        errorString += ResourceChecker(TestGroup1, 1, 1, 1, "1.3.0.10");
 
         // Multiplication Tests
         TestGroup1 = TestGroup2 * TestGroup3;
-        errorString += ResourceChecker(TestGroup1, 250, 250, 250, "1.3.1.2");
+        errorString += ResourceChecker(TestGroup1, 250, 250, 250, "1.3.0.12");
         TestGroup1 = TestGroup2 * TestGroup4;
         errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.3");
         TestGroup1 = TestGroup2 * TestGroup5;
-        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.1.4");
+        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.0.14");
         TestGroup1 = TestGroup4 * TestGroup6;
-        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.5");
+        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.0.15");
 
         // Scalar Multiplication Tests
         TestGroup1 = TestGroup2 * 10;
-        errorString += ResourceChecker(TestGroup1, 100, 100, 100, "1.3.1.6");
+        errorString += ResourceChecker(TestGroup1, 100, 100, 100, "1.3.0.16");
         TestGroup1 = TestGroup2 * -5;
-        errorString += ResourceChecker(TestGroup1, -50, -50, -50, "1.3.1.7");
+        errorString += ResourceChecker(TestGroup1, -50, -50, -50, "1.3.0.17");
         TestGroup1 = TestGroup2 * 100;
-        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.1.8");
+        errorString += ResourceChecker(TestGroup1, 1000, 1000, 1000, "1.3.0.18");
         TestGroup1 = TestGroup4 * 0;
-        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.1.9");
+        errorString += ResourceChecker(TestGroup1, 0, 0, 0, "1.3.0.19");
 
         // Sum tests
         if (TestGroup2.Sum() != 30)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.0, expected value: 30, actual value: " + TestGroup2.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.0.20, expected value: 30, actual value: " + TestGroup2.Sum();
         }
         if (TestGroup3.Sum() != 75)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.1, expected value: 75, actual value: " + TestGroup3.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.0.21, expected value: 75, actual value: " + TestGroup3.Sum();
         }
         if (TestGroup4.Sum() != 0)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.2, expected value: 0, actual value: " + TestGroup4.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.0.22, expected value: 0, actual value: " + TestGroup4.Sum();
         }
         if (TestGroup5.Sum() != 300)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.3, expected value: 300, actual value: " + TestGroup5.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.0.23, expected value: 300, actual value: " + TestGroup5.Sum();
         }
         if (TestGroup6.Sum() != -3)
         {
-            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.2.4, expected value: -3, actual value: " + TestGroup6.Sum();
+            errorString += "The Sum of TestGroup2 is incorrect. Test 1.3.0.24, expected value: -3, actual value: " + TestGroup6.Sum();
         }
 
         return errorString;
