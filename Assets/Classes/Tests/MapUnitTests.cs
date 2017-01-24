@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,7 +60,7 @@ public class MapUnitTests : Map
         Vector2 pos = tile.GetTileObject().GetTilePosition();
         if(pos.x != 1 || pos.y != 2)
         {
-            errorString += (string.Format("Tile position calculated improperly for test 2.1.0.1\nShould have been (1,1) was actually {0}, {1}\n\n", pos.x, pos.y));
+            errorString += (string.Format("Tile position calculated improperly for test 2.1.0.1\nShould have been (1,2) was actually {0}, {1}\n\n", pos.x, pos.y));
         }
 
         //test InstallRoboticon

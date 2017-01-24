@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+
+using System;
 
 public class RoboticonUnitTests
 {
@@ -19,7 +21,7 @@ public class RoboticonUnitTests
         }
         catch(ArgumentException e)
         {
-            errorString += (string.Format("TestRbt1's name has not been set correctly in test 1.4.0.1"));
+            errorString += (string.Format("TestRbt1's name has not been set correctly in test 1.4.0.0"));
         }
 
         //Upgrade Tests
