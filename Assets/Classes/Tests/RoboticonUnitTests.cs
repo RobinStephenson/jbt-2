@@ -21,47 +21,47 @@ public class RoboticonUnitTests
         }
         catch(ArgumentException e)
         {
-            errorString += (string.Format("TestRbt1's name has not been set correctly in test 1.4.0.0"));
+            errorString += (string.Format("TestRbt1's name has not been set correctly in test 1.4.0.1"));
         }
 
         //Upgrade Tests
         testRbt2.Upgrade(new ResourceGroup(1, 0, 0));
-        errorString += UpgradeChecker(testRbt2, 2, 1, 1, "1.4.0.1");
+        errorString += UpgradeChecker(testRbt2, 2, 1, 1, "1.4.1.1");
         testRbt2.Upgrade(new ResourceGroup(1, 0, 0));
-        errorString += UpgradeChecker(testRbt2, 3, 1, 1, "1.4.0.2");
+        errorString += UpgradeChecker(testRbt2, 3, 1, 1, "1.4.1.2");
         testRbt2.Upgrade(new ResourceGroup(0, 1, 0));
-        errorString += UpgradeChecker(testRbt2, 3, 2, 1, "1.4.0.3");
+        errorString += UpgradeChecker(testRbt2, 3, 2, 1, "1.4.1.3");
         testRbt2.Upgrade(new ResourceGroup(0, 0, 1));
-        errorString += UpgradeChecker(testRbt2, 3, 2, 2, "1.4.0.4");
+        errorString += UpgradeChecker(testRbt2, 3, 2, 2, "1.4.1.4");
 
         //Downgrade Tests
         testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
-        errorString += UpgradeChecker(testRbt2, 2, 2, 2, "1.4.0.5");
+        errorString += UpgradeChecker(testRbt2, 2, 2, 2, "1.4.2.1");
         testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
-        errorString += UpgradeChecker(testRbt2, 1, 2, 2, "1.4.0.6");
+        errorString += UpgradeChecker(testRbt2, 1, 2, 2, "1.4.2.2");
         try
         {
             testRbt2.Downgrade(new ResourceGroup(1, 0, 0));
         }
         catch (ArgumentException)
         {
-            errorString += "Error should be caught, caught because attempt to downgrade to a negative value. Test 1.4.0.7";
+            errorString += "Error should be caught, caught because attempt to downgrade to a negative value. Test 1.4.2.3";
         }
 
         //Price Tests
         if (testRbt4.GetPrice() != 150)
         {
-            errorString += string.Format("Price incorrect for test 1.4.0.8.\r\nShould read 150, actually reads {0}\r\n\r\n", testRbt4.GetPrice());
+            errorString += string.Format("Price incorrect for test 1.4.3.1.\r\nShould read 150, actually reads {0}\r\n\r\n", testRbt4.GetPrice());
         }
 
         if (testRbt5.GetPrice() != 750)
         {
-            errorString += string.Format("Price incorrect for test 1.4.0.9.\r\nShould read 750, actually reads {0}\r\n\r\n", testRbt5.GetPrice());
+            errorString += string.Format("Price incorrect for test 1.4.3.2.\r\nShould read 750, actually reads {0}\r\n\r\n", testRbt5.GetPrice());
         }
 
         if (testRbt6.GetPrice() != 0)
         {
-            errorString += string.Format("Price incorrect for test 1.4.0.10\r\nShould read 0, actually reads {0}\r\n\r\n", testRbt6.GetPrice());
+            errorString += string.Format("Price incorrect for test 1.4.3.3\r\nShould read 0, actually reads {0}\r\n\r\n", testRbt6.GetPrice());
         }
 
         return errorString;
