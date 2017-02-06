@@ -1,9 +1,20 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using System;
+﻿using System;
+using NUnit.Framework;
 
 public class RoboticonUnitTests
 {
+    [Test]
+    public void TestRoboticonName()
+    {
+        Roboticon testRbt1 = new Roboticon();
+        Roboticon testRbt2 = new Roboticon();
+        Roboticon testRbt3 = new Roboticon();
+
+        Assert.AreEqual("RBN#0001", testRbt1.GetName());
+        Assert.AreEqual("RBN#0002", testRbt2.GetName());
+        Assert.AreEqual("RBN#0003", testRbt3.GetName());
+    }
+
     public string TestRoboticon()
     {
         Roboticon testRbt1 = new Roboticon(new ResourceGroup(0, 0, 0));
