@@ -34,6 +34,10 @@ public class mapManagerScript : MonoBehaviour
 
     private void CheckMouseHit()
     {
+        /* jamaican bobsleigh team changes to this method
+         * fixed an issue where the last hovered tile would stay highlighted even when the mouse is not hovering over any tile
+         * fixed an issue where when hovering the selected tile the previously hovered but unselected tile would still have the hover highlight
+         */
         Camera mainCamera = Camera.main;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -44,6 +48,21 @@ public class mapManagerScript : MonoBehaviour
             {
                 Tile hitTile = map.GetTile(hit.collider.GetComponent<mapTileScript>().GetTileId());
 
+                // if the mouse is not on the currently hovered tile (is either on a new tile or the selected tile)
+                if (lastTileHovered != hitTile)
+                {
+                    if (lastTileHovered != null)
+                    {
+                        lastTileHovered.TileNormal();
+                        lastTileHovered = null;
+                    }
+                    if (hitTile != currentTileSelected)
+                    { 
+                        hitTile.TileHovered();
+                        lastTileHovered = hitTile;
+                    }
+                }
+                
                 if (hitTile != currentTileSelected)
                 {
                     if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
@@ -53,21 +72,28 @@ public class mapManagerScript : MonoBehaviour
                             currentTileSelected.TileNormal();   //Reset the previously selected tile before overwriting the variable
                         }
 
+                        // remove the hovering highlight as the selected highlight is more important
+                        lastTileHovered.TileNormal();
+                        lastTileHovered = null;
+
                         currentTileSelected = hitTile;
                         hitTile.TileSelected();
                     }
-                    else
-                    {
-                        if (lastTileHovered != null && lastTileHovered != currentTileSelected)
-                        {
-                            lastTileHovered.TileNormal();       //Reset the previously hovered tile before overwriting the variable, but not if the previous tile is currently selected.
-                        }
-
-                        lastTileHovered = hitTile;
-                        hitTile.TileHovered();
-                    }
                 }
             }
+        }
+        else
+        {
+            // mouse is not hovering on a tile
+            if (lastTileHovered != null)
+            {
+                // reset the previously hovered tile unless its the selected tile
+                if (lastTileHovered != currentTileSelected)
+                {
+                    lastTileHovered.TileNormal();
+                }
+            }
+            lastTileHovered = null;
         }
     }
 }
