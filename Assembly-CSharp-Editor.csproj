@@ -51,7 +51,6 @@
      <Compile Include="Assets\Editor\Tests\MapUnitTests.cs" />
      <Compile Include="Assets\Editor\Tests\ResourceGroupUnitTests.cs" />
      <Compile Include="Assets\Editor\Tests\RoboticonUnitTests.cs" />
-     <Compile Include="Assets\Editor\Tests\unitTestManager.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />

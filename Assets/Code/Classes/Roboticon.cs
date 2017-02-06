@@ -13,7 +13,7 @@ public class Roboticon
     public Roboticon()
     {
         this.name = "RBN#" + (++TotalRoboticons).ToString("0000");
-        this.upgrades = new ResourceGroup(Random.Range(1, 4), Random.Range(1, 4), Random.Range(1, 4));
+        this.upgrades = new ResourceGroup(0,0,0);
     }
 
     public Roboticon(ResourceGroup upgrades, string name = "")
