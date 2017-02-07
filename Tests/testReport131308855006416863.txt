@@ -1,9 +1,0 @@
-TEST REPORT: 
-
-
-Tile amount for test 2.3.0.1
-Should read 100, actually reads 400
-
-Tile amount for test 2.3.2.1
-Should read 100, actually reads 400
-

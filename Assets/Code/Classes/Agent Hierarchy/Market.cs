@@ -12,19 +12,19 @@ public class Market : Agent
     private int roboticonBuyingPrice = 15;
 
     #region Market Starting Constants
-    private const int STARTING_FOOD_AMOUNT = 16;
-    private const int STARTING_ENERGY_AMOUNT = 16;
-    private const int STARTING_ORE_AMOUNT = 0;
-    private const int STARTING_ROBOTICON_AMOUNT = 12;
+    public static int STARTING_FOOD_AMOUNT = 16;
+    public static int STARTING_ENERGY_AMOUNT = 16;
+    public static int STARTING_ORE_AMOUNT = 0;
+    public static int STARTING_ROBOTICON_AMOUNT = 12;
 
-    private const int STARTING_FOOD_BUY_PRICE = 10;
-    private const int STARTING_ORE_BUY_PRICE = 10;
-    private const int STARTING_ENERGY_BUY_PRICE = 10;
-    private const int STARTING_FOOD_SELL_PRICE = 10;
-    private const int STARTING_ORE_SELL_PRICE = 10;
-    private const int STARTING_ENERGY_SELL_PRICE = 10;
+    public static int STARTING_FOOD_BUY_PRICE = 10;
+    public static int STARTING_ORE_BUY_PRICE = 10;
+    public static int STARTING_ENERGY_BUY_PRICE = 10;
+    public static int STARTING_FOOD_SELL_PRICE = 10;
+    public static int STARTING_ORE_SELL_PRICE = 10;
+    public static int STARTING_ENERGY_SELL_PRICE = 10;
 
-    private const int STARTING_MONEY = 100;
+    public static int STARTING_MONEY = 100;
     #endregion
 
     private const int ROBOTICON_PRODUCTION_COST = 12;
@@ -46,6 +46,9 @@ public class Market : Agent
     /// <param name="price"></param>
     public void BuyFrom(ResourceGroup resourcesToBuy)
     {
+        if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0)
+            throw new System.ArgumentException("Cannot buy negative amounts of items");
+
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
             || resourcesToBuy.energy > this.resources.energy
             || resourcesToBuy.ore > this.resources.ore);

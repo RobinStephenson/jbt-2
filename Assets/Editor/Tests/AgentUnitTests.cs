@@ -3,205 +3,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NUnit.Framework;
 
 public class AgentUnitTests
 {
-    public string TestAgentHierarchy()
+    ResourceGroup buyOrderCorrect = new ResourceGroup(2, 2, 0);
+    ResourceGroup buyOrderToZero = new ResourceGroup(14, 14, 0);
+    ResourceGroup buyOrderNegativeFood = new ResourceGroup(1, 0, 0);
+    ResourceGroup buyOrderNegativeEnergy = new ResourceGroup(0, 1, 0);
+    ResourceGroup buyOrderNegativeOre = new ResourceGroup(0, 0, 1);
+    ResourceGroup sellOrderCorrect = new ResourceGroup(1, 1, 1);
+    ResourceGroup sellOrderNegativeFood = new ResourceGroup(-1, 0, 0);
+    ResourceGroup sellOrderNegativeEnergy = new ResourceGroup(0, -1, 0);
+    ResourceGroup sellOrderNegativeOre = new ResourceGroup(0, 0, -1);
+
+    [Test]
+    public void MarketCreate()
     {
-        return TestMarket() + TestMarket();
+        Market m = new Market();
+
+        Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, Market.STARTING_ORE_AMOUNT), m.GetResources());
+        Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_BUY_PRICE, Market.STARTING_ENERGY_BUY_PRICE, Market.STARTING_ORE_BUY_PRICE), m.GetResourceBuyingPrices());
+        Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_SELL_PRICE, Market.STARTING_ENERGY_SELL_PRICE, Market.STARTING_ORE_SELL_PRICE), m.GetResourceSellingPrices());
+        Assert.AreEqual(Market.STARTING_ROBOTICON_AMOUNT, m.GetNumRoboticonsForSale());
+        Assert.AreEqual(Market.STARTING_MONEY, m.GetMoney());
     }
 
-    private string TestMarket()
+    [Test]
+    public void BuyFromMarketSuccess()
     {
-        Market testMarket = new Market();
-        string errorString = "";
-        ResourceGroup buyOrderCorrect = new ResourceGroup(2, 2, 0);
-        ResourceGroup buyOrderToZero = new ResourceGroup(14, 14, 0);
-        ResourceGroup buyOrderNegativeFood = new ResourceGroup(1, 0, 0); 
-        ResourceGroup buyOrderNegativeEnergy = new ResourceGroup(0, 1, 0); 
-        ResourceGroup buyOrderNegativeOre = new ResourceGroup(0, 0, 1);
-        ResourceGroup sellOrderCorrect = new ResourceGroup(1, 1, 1);
-        ResourceGroup sellOrderNegativeFood = new ResourceGroup(-1, 0, 0);
-        ResourceGroup sellOrderNegativeEnergy = new ResourceGroup(0, -1, 0);
-        ResourceGroup sellOrderNegativeOre = new ResourceGroup(0, 0, -1);
+        Market m = new Market();
 
-        //Contruction Tests
-        //Testing Selling and Buying Prices, Amounts, Money, and Roboticons are consistant
-        //with required constants
+        int food = Market.STARTING_FOOD_AMOUNT;
+        m.BuyFrom(new ResourceGroup(1, 0, 0));
+        Assert.AreEqual(new ResourceGroup(food - 1, Market.STARTING_ENERGY_AMOUNT, Market.STARTING_ORE_AMOUNT), m.GetResources());
+    }
 
-        errorString += ResourceChecker(testMarket.GetResourceSellingPrices(), 10, 10, 10, "1.2.0.0");
+    [Test]
+    public void BuyFromMarketFail()
+    {
+        Market m = new Market();
 
-        errorString += ResourceChecker(testMarket.GetResourceBuyingPrices(), 10, 10, 10, "1.2.0.1");
+        int food = Market.STARTING_FOOD_AMOUNT;
+        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(food + 1, 0, 0)));
+        Assert.AreEqual(new ResourceGroup(food, Market.STARTING_ENERGY_AMOUNT, Market.STARTING_ORE_AMOUNT), m.GetResources());
+    }
 
-        errorString += ResourceChecker(testMarket.GetResources(), 16, 16, 0, "1.2.0.2");
+    [Test]
+    public void SellToMarketSuccess()
+    {
+        Market m = new Market();
 
-        if (testMarket.GetNumRoboticonsForSale() != 12)
-        {
-            errorString += (string.Format("Roboticon resource is incorrect for test 1.2.0.3\r\nShould read 12, actually reads {0}\r\n\r\n", testMarket.GetNumRoboticonsForSale()));
-        }
+        int ore = Market.STARTING_ORE_AMOUNT;
+        m.SellTo(new ResourceGroup(0, 0, 2));
+        Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore + 2), m.GetResources());
+    }
 
-        if (testMarket.GetMoney() != 100)
-        {
-            errorString += (string.Format("Market money resource is incorrect for test 1.2.0.4\r\nShould read 100, actually reads {0}\r\n\r\n", testMarket.GetMoney()));
-        }
+    [Test]
+    public void SellToMarketFail()
+    {
+        Market m = new Market();
 
-
-        // BuyFrom Tests
-
-        testMarket.BuyFrom(buyOrderCorrect); //Market now contains [14,14,0] and 140 money, checks below
-
-        errorString += ResourceChecker(testMarket.GetResources(), 14, 14, 0, "1.2.1.0");
-
-
-        if (testMarket.GetMoney() != 140)
-        {
-            errorString += (string.Format("Market money resource is incorrect for test 1.2.1.1\r\nShould read 140, actually reads {0}\r\n\r\n", testMarket.GetMoney()));
-        }
-
-
-        testMarket.BuyFrom(buyOrderToZero); //Market now contains [0,0,0] and 420 money
-
-        errorString += ResourceChecker(testMarket.GetResources(), 0, 0, 0, "1.2.1.2");
-
-        if (testMarket.GetMoney() != 420)
-        {
-            errorString += (string.Format("Market money resource is incorrect for test 1.2.1.3\r\nShould read 420, actually reads {0}\r\n\r\n", testMarket.GetMoney()));
-        }
-
-        bool stillPositive = false;
-
-        try
-        {
-            testMarket.BuyFrom(buyOrderNegativeFood); //This should error and still have [0,0,0] and 420 money
-        }
-        catch(System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (!stillPositive)
-            {
-                errorString += (string.Format("Exception for negative food resource has not been thrown in test 1.2.1.4\r\nFood should read 0, actually reads {0}/n/n", testMarket.GetResources().food));
-            }
-        }
-
-        stillPositive = false;
-
-        try
-        {
-            testMarket.BuyFrom(buyOrderNegativeEnergy); //This should error and still have [0,0,0] and 420 money
-        }
-        catch (System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (!stillPositive)
-            {
-                errorString += (string.Format("Exception for negative energy resource has not been thrown in test 1.2.1.5\r\nFood should read {0}, actually reads {0}/n/n", testMarket.GetResources().energy));
-            }
-        }
-
-        stillPositive = false;
-        try
-        {
-            testMarket.BuyFrom(buyOrderNegativeOre); //This should error and still have [0,0,0] and 420 money
-        }
-        catch (System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (!stillPositive)
-            {
-                errorString += (string.Format("Exception for negative energy resource has not been thrown in test 1.2.1.6\r\nFood should read 0, actually reads {TestMarket.resources.ore}/n/n", testMarket.GetResources().ore));
-            }
-        }
-
-
-        //SellToTests
-
-        testMarket.SellTo(sellOrderCorrect);
-
-        errorString += ResourceChecker(testMarket.GetResources(), 1, 1, 1, "1.2.2.0");
-
-        if (testMarket.GetMoney() != 390)
-        {
-            errorString += (string.Format("Market money resource is incorrect for test 1.2.2.0\r\nShould read 390, actually reads {0}\r\n\r\n", testMarket.GetMoney()));
-        }
-
-        stillPositive = false;
-        try
-        {
-            testMarket.SellTo(sellOrderNegativeFood); //This should error and still have [1,1,1] and 390 money
-        }
-        catch (System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (stillPositive != true)
-            {
-                errorString += (string.Format("Exception for negative food resource has not been thrown in test 1.2.2.1\r\nFood should read 1, actually reads {0}/n/n", testMarket.GetResources().food));
-            }
-        }
-
-        stillPositive = false;
-        try
-        {
-            testMarket.SellTo(sellOrderNegativeEnergy); //This should error and still have [1,1,1] and 390 money
-        }
-        catch (System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (!stillPositive)
-            {
-                errorString += string.Format("Exception for negative energy resource has not been thrown in test 1.2.2.2\r\nFood should read 1, actually reads {0}/n/n", testMarket.GetResources().energy);
-            }
-        }
-
-        stillPositive = false;
-        try
-        {
-            testMarket.SellTo(sellOrderNegativeOre); //This should error and still have [1,1,1] and 390 money
-        }
-        catch (System.ArgumentException e)
-        {
-            stillPositive = true;
-        }
-        finally
-        {
-            if (!stillPositive)
-            {
-                errorString += string.Format("Exception for negative ore resource has not been thrown in test 1.2.2.3\r\nFood should read 1, actually reads {0}/n/n", testMarket.GetResources().ore);
-            }
-        }
-
-        //Update Price tests should be written later
-
-        //Produce Roboticon tests
-        int tempOre = testMarket.GetResources().getOre();
-        testMarket.ProduceRoboticon();
-        if (testMarket.GetNumRoboticonsForSale() != 12)
-        {
-            errorString += string.Format("Roboticon amount has changed unexpectadly in test 1.2.4.0\r\nShould read 12, actually reads {0}/n/n", testMarket.GetNumRoboticonsForSale());
-        }
-
-        testMarket.GetResources().ore = 15;
-        testMarket.ProduceRoboticon();
-        if (testMarket.GetNumRoboticonsForSale() != 13)
-        {
-            errorString += string.Format("Roboticon amount hasn't changed  in test 1.2.4.1\r\nShould read 13, actually reads {0}/n/n", testMarket.GetNumRoboticonsForSale());
-        }
-
-        return errorString;
+        int ore = Market.STARTING_ORE_AMOUNT;
+        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(0, 0, -5)));
+        Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore), m.GetResources());
     }
 
     private string TestHuman()
@@ -313,26 +178,6 @@ public class AgentUnitTests
         }
 
         return errorString;
-    }
-
-    private string ResourceChecker(ResourceGroup resources, int expectedFood, int expectedEnergy, int expectedOre, string testId)
-    {
-        string errorString = ("");
-        if (resources.food != expectedFood)
-        {
-            errorString += string.Format("Food resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedFood, resources.food);
-        }
-
-        if (resources.energy != expectedEnergy)
-        {
-            errorString += string.Format("Energy resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedEnergy, resources.energy);
-        }
-
-        if (resources.ore != expectedOre)
-        {
-            errorString += string.Format("Ore resource is incorrect for test {0}\r\nShould read {1}, actually reads {2}\r\n\r\n", testId, expectedOre, resources.ore);
-        }
-        return (errorString);
     }
 }
 	
