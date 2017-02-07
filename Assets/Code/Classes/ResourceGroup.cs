@@ -94,6 +94,13 @@ public class ResourceGroup
         return this.ore;
     }
 
+    /// <summary>
+    /// Added by JBT for a shorthand method of creating empty ResourceGroups
+    /// </summary>
+    public static ResourceGroup Zero
+    {
+        get { return new ResourceGroup(0, 0, 0); }
+    }
 }
 
 

@@ -60,6 +60,11 @@ public class AgentUnitTests
         Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore), m.GetResources());
     }
 
+    [Test]
+    public void AquireTileTest()
+    {
+        Human testHuman = new Human(new ResourceGroup(), "Test", 500);
+    }
     private string TestHuman()
     {
         //As player is an abstract class, a choice was made to instantiate player as a human (1.4), therefore testing of these two Classes will be done concurrently
