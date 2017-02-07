@@ -24,34 +24,19 @@ public class GameManagerUnitTests
 
         Player winner = gameManager.GetWinnerIfGameHasEnded();
 
-        Assert.AreEqual(playerList[1].CalculateScore(), 5);
-        if(winner == null)
-        {
-            Assert.Fail();
-        }
-        else if (winner != playerList[1])
-        {
-            //errorString += string.Format("GetWinnerIfGameHasEnded selected the wrong winner for test 3.2.1.1. Selected player: {0}, should have selected player: {1}", winner.GetName(), playerList[1].GetName());
-        }
-        else if(winner == playerList[1])
-        {
-            Assert.Fail();
-        }
-        //Assert.AreEqual(winner, playerList[1]);
+        Assert.AreEqual(winner, playerList[1]);
     }
         
-    public void Test2()
+    public void HumanPlayersGoFirstTest()
     { 
-        //test initial game setup (FormatPlayerList)
-
         List<Player> playerList2 = new List<Player>();
         playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo", 100));
-        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo2", 100));
-        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo3", 100));
-        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo4", 100));
         playerList2.Add(new Human(new ResourceGroup(10, 10, 10), "dave", 100));
+        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo2", 100));
         playerList2.Add(new Human(new ResourceGroup(10, 10, 10), "dave2", 100));
+        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo3", 100));
         playerList2.Add(new Human(new ResourceGroup(10, 10, 10), "dave3", 100));
+        playerList2.Add(new AI(new ResourceGroup(10, 10, 10), "leo4", 100));
         playerList2.Add(new Human(new ResourceGroup(10, 10, 10), "dave4", 100));
 
         GameManager gameManager2 = new GameManager("test2", playerList2);
