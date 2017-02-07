@@ -63,8 +63,14 @@ public class AgentUnitTests
     [Test]
     public void AquireTileTest()
     {
-        Human testHuman = new Human(new ResourceGroup(), "Test", 500);
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Tile t = new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1);
+
+        testHuman.AcquireTile(t);
+        Assert.AreEqual(t.GetOwner(), testHuman);
+        Assert.AreEqual(testHuman.GetOwnedTiles()[0], new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1));
     }
+
     private string TestHuman()
     {
         //As player is an abstract class, a choice was made to instantiate player as a human (1.4), therefore testing of these two Classes will be done concurrently

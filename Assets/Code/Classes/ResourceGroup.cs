@@ -97,7 +97,7 @@ public class ResourceGroup
     /// <summary>
     /// Added by JBT for a shorthand method of creating empty ResourceGroups
     /// </summary>
-    public static ResourceGroup Zero
+    public static ResourceGroup Empty
     {
         get { return new ResourceGroup(0, 0, 0); }
     }
