@@ -3,7 +3,7 @@
 /// <summary>
 /// JBT created all new unit tests, as Bugfree chose to create their own testing framework instead of using an existing one
 /// </summary>
-public class ResourceGroupUnitTests
+public class ResourceGroupTest
 {
     ResourceGroup TestGroup1 = new ResourceGroup(5,5,5);
     ResourceGroup TestGroup2 = new ResourceGroup(10, 10, 10);
