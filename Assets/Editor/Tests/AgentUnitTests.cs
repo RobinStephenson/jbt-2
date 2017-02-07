@@ -61,127 +61,75 @@ public class AgentUnitTests
     }
 
     [Test]
-    public void AquireTileTest()
+    public void CreateHumanTest()
+    {
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Assert.IsTrue(testHuman.IsHuman());
+    }
+
+    [Test]
+    public void CreateAITest()
+    {
+        AI testAi = new AI(ResourceGroup.Empty, "bot", 400);
+        Assert.IsFalse(testAi.IsHuman());
+    }
+
+    [Test]
+    public void AcquireTileTest()
     {
         Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
         Tile t = new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1);
 
         testHuman.AcquireTile(t);
-        Assert.AreEqual(t.GetOwner(), testHuman);
-        Assert.AreEqual(testHuman.GetOwnedTiles()[0], new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1));
+        Assert.AreEqual(testHuman, t.GetOwner());
+        Assert.AreEqual(testHuman.GetOwnedTiles()[0],t);
     }
 
-    private string TestHuman()
+    [Test]
+    public void AcquireSameTileTest()
     {
-        //As player is an abstract class, a choice was made to instantiate player as a human (1.4), therefore testing of these two Classes will be done concurrently
-        ResourceGroup humanResources = new ResourceGroup(50, 50, 50);
-        ResourceGroup testGroup = new ResourceGroup(2, 2, 2);
-        Human testHuman = new Human(humanResources, "Test", 500);
-        Tile testTile1 = new Tile(testGroup, new Vector2(0, 0), 1);
-        Tile testTile2 = new Tile(testGroup, new Vector2(0, 1), 2);
-        Tile testTile3 = new Tile(testGroup, new Vector2(1, 0), 3);
-        Roboticon testRoboticon1 = new Roboticon();
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Tile t = new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1);
 
-        string errorString = "";
-
-        //No tests implemented for 1.1.1
-
-        //Tests 1.1.(2,3,4,5,6,7,8).x will be implemented out of order due to their interdependancy, comments will be given for clarity
-
-        //Tests for 1.1.5
-        //1.1.5.1
-        testHuman.AcquireTile(testTile1);
-        if (testHuman.GetOwnedTiles()[0] != testTile1)
-        {
-            errorString += string.Format("Owned tiles is not equal to expected value for test 1.1.5.1\r\nShould read {0} for owned tile ID, actually reads {1}\r\n\r\n", testTile1.GetId(), testHuman.GetOwnedTiles()[0].GetId());
-        }
-
-        //1.1.5.2
-
-        bool returnedError = false;
-        try
-        {
-            testHuman.AcquireTile(testTile1);
-        }
-        catch(System.Exception e)
-        {
-            returnedError = true;
-        }
-        finally
-        {
-            if (!returnedError)
-            {
-                errorString += "Exception for owned Tile aquisition has not been thrown in test 1.1.5.2\r\n\r\n";
-            }
-        }
-
-        //Tests for 1.1.6
-        //1.1.6.1
-        testHuman.AcquireRoboticon(testRoboticon1);
-        if (testHuman.GetRoboticons()[0] != testRoboticon1)
-        {
-            errorString += string.Format("Owned Roboticons is not equal to expected value for test 1.1.6.1\r\nShould read {0}, actually reads {1}\r\n\r\n", testRoboticon1.GetName(), testHuman.GetRoboticons()[0].GetName());
-        }
-
-        //1.1.6.2
-        try
-        {
-            testHuman.AcquireRoboticon(testRoboticon1);
-        }
-        catch(System.Exception e)
-        {
-            returnedError = true;
-        }
-        finally
-        {
-            if (!returnedError)
-            {
-                errorString += "Exception for owned Roboticon has not been thrown in test 1.1.6.2\r\n\r\n";
-            }
-        }
-
-        //Tests for 1.1.7
-        //1.1.7.1
-        ResourceGroup roboticonValues = testRoboticon1.GetUpgrades();
-        testHuman.UpgradeRoboticon(testRoboticon1, testGroup);
-
-
-
-        //Tests for 1.1.8
-        //1.1.8.1
-        testHuman.InstallRoboticon(testRoboticon1, testTile1);
-        if (testTile1.GetInstalledRoboticons()[0] != testRoboticon1)
-        {
-            errorString += string.Format("Installed robotcons on test tile is not equal to expected value for test 1.1.8.1\r\nShould read {0}, actually reads {1}\r\n\r\n", testRoboticon1.GetName(), testTile1.GetInstalledRoboticons()[0]);
-        }
-
-        //Tests for 1.1.4
-        //1.1.4.1
-
-
-        //Tests for 1.1.3
-        //1.1.3.1
-        int testScore = ((2 + testRoboticon1.GetUpgrades().food) + (2 + testRoboticon1.GetUpgrades().energy) + (2 + testRoboticon1.GetUpgrades().ore));
-        if (testHuman.CalculateScore() != testScore)
-        {
-            errorString += string.Format("Score is not equal to expected value for test 1.1.3.1\r\nShould read {0}, actually reads {1}\r\n\r\n", testScore, testHuman.CalculateScore());
-        }
-
-        //Tests for 1.1.2
-        //1.1.2.1
-        
-
-        //Tests for 1.1.9
-        //1.1.9.1
-
-        if (testHuman.IsHuman() == false)
-        {
-            errorString += "testHuman has not been initialised as Human in test 1.1.9.1";
-        }
-
-        return errorString;
+        testHuman.AcquireTile(t);
+        Assert.Throws<System.Exception>(() => testHuman.AcquireTile(t));
     }
-}
-	
-	
+
+    public void AcquireRoboticon()
+    {
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Roboticon r = new Roboticon();
+
+        testHuman.AcquireRoboticon(r);
+        Assert.AreEqual(testHuman.GetRoboticons()[0], r);
+    }
+
+    [Test]
+    public void InstallRoboticonTest()
+    {
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Tile t = new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1);
+        Roboticon r = new Roboticon();
+
+        testHuman.AcquireTile(t);
+        testHuman.AcquireRoboticon(r);
+        testHuman.InstallRoboticon(r, t);
+
+        Assert.AreEqual(testHuman.GetOwnedTiles()[0].GetInstalledRoboticons()[0], r);
+    }
+
+    [Test]
+    public void ScoreTest()
+    {
+        Human testHuman = new Human(ResourceGroup.Empty, "Test", 500);
+        Tile t = new Tile(new ResourceGroup(3,4,7), new Vector2(0, 0), 1);
+        Roboticon r = new Roboticon(new ResourceGroup(1,0,2));
+
+        testHuman.AcquireTile(t);
+        testHuman.AcquireRoboticon(r);
+        testHuman.InstallRoboticon(r, t);
+
+        Assert.AreEqual(testHuman.CalculateScore(), 164);
+    }
+}	
 
