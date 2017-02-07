@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NUnit.Framework;
 
 public class MapUnitTests : Map
 {
-    public string TestMap()
+    [Test]
+    public void InitialiseMap()
     {
-        return MapTest() + TileTest();
+        Map m = new Map;
+
+        if(m.GetTiles().Count != Map.)
     }
 
     private string MapTest()
