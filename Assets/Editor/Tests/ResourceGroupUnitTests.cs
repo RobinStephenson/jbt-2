@@ -1,10 +1,44 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+﻿
+using NUnit.Framework;
 
-using System;
-using UnityEngine;
-
+/// <summary>
+/// JBT created all new unit tests, as Bugfree chose to create their own testing framework instead of using an existing one
+/// </summary>
 public class ResourceGroupUnitTests
 {
+    ResourceGroup TestGroup1 = new ResourceGroup();
+    ResourceGroup TestGroup2 = new ResourceGroup(10, 10, 10);
+    ResourceGroup TestGroup3 = new ResourceGroup(25, 25, 25);
+    ResourceGroup TestGroup4 = new ResourceGroup(0, 0, 0);
+    ResourceGroup TestGroup5 = new ResourceGroup(100, 100, 100);
+
+    [Test]
+    public void CreationTest()
+    {
+        Assert.AreEqual(TestGroup2.food, 10);
+        Assert.AreEqual(TestGroup2.energy, 10);
+        Assert.AreEqual(TestGroup2.ore, 10);
+    }
+
+    [Test]
+    public void NegativeCreationTest()
+    {
+        ResourceGroup r;
+        Assert.Throws<System.ArgumentException>(()=>  r = new ResourceGroup(5, -1, 2));
+    }
+
+    [Test]
+    public void EqualityTest()
+    {
+        Assert.AreEqual(new ResourceGroup(25, 25, 25), TestGroup3);
+    }
+
+    [Test]
+    public void AdditionTest()
+    {
+        Assert.AreEqual(new ResourceGroup(35, 35, 35), TestGroup1 + TestGroup2);
+    }
+
     public string TestResourceGroup()
     {
         ResourceGroup TestGroup1 = new ResourceGroup();

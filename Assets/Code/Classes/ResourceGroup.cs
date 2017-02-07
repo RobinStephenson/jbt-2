@@ -9,6 +9,9 @@ public class ResourceGroup
 
     public ResourceGroup(int food = 0, int energy = 0, int ore = 0)
     {
+        if (food < 0 || energy < 0 || ore < 0)
+            throw new System.ArgumentException("Cannot have negative amounts of a resource");
+
         this.food = food;
         this.energy = energy;
         this.ore = ore;

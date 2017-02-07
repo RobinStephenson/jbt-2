@@ -1,22 +1,13 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
+/// <summary>
+/// JBT created all new unit tests, as Bugfree chose to create their own testing framework instead of using an existing one
+/// </summary>
 public class AgentUnitTests
 {
-    ResourceGroup buyOrderCorrect = new ResourceGroup(2, 2, 0);
-    ResourceGroup buyOrderToZero = new ResourceGroup(14, 14, 0);
-    ResourceGroup buyOrderNegativeFood = new ResourceGroup(1, 0, 0);
-    ResourceGroup buyOrderNegativeEnergy = new ResourceGroup(0, 1, 0);
-    ResourceGroup buyOrderNegativeOre = new ResourceGroup(0, 0, 1);
-    ResourceGroup sellOrderCorrect = new ResourceGroup(1, 1, 1);
-    ResourceGroup sellOrderNegativeFood = new ResourceGroup(-1, 0, 0);
-    ResourceGroup sellOrderNegativeEnergy = new ResourceGroup(0, -1, 0);
-    ResourceGroup sellOrderNegativeOre = new ResourceGroup(0, 0, -1);
-
     [Test]
     public void MarketCreate()
     {
@@ -143,7 +134,7 @@ public class AgentUnitTests
         ResourceGroup roboticonValues = testRoboticon1.GetUpgrades();
         testHuman.UpgradeRoboticon(testRoboticon1, testGroup);
 
-        errorString += ResourceChecker(testRoboticon1.GetUpgrades(), (roboticonValues.food)+2, (roboticonValues.energy)+2, (roboticonValues.ore)+2, "1.1.7.1");
+
 
         //Tests for 1.1.8
         //1.1.8.1
@@ -155,7 +146,7 @@ public class AgentUnitTests
 
         //Tests for 1.1.4
         //1.1.4.1
-        errorString += ResourceChecker(testHuman.CalculateTotalResourcesGenerated(), 2+testRoboticon1.GetUpgrades().food,2+testRoboticon1.GetUpgrades().energy ,2+testRoboticon1.GetUpgrades().ore, "1.1.4.1");
+
 
         //Tests for 1.1.3
         //1.1.3.1
