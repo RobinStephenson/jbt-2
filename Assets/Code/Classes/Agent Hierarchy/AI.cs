@@ -44,7 +44,7 @@ public class AI : Player
     {
         //TODO - intelligent decision of best tile in map.
         Map map = GameHandler.GetGameManager().GetMap();
-        int numTiles = (int)(map.MAP_DIMENSIONS.x * map.MAP_DIMENSIONS.y);
+        int numTiles = (int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y);
 
         return map.GetTile(UnityEngine.Random.Range(0, numTiles));
     }
