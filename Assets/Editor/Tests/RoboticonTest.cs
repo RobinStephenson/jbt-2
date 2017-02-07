@@ -22,7 +22,7 @@ public class RoboticonTest
     }
 
     [Test]
-    public void TestDownGrade()
+    public void TestDowngrade()
     {
         Roboticon rb = new Roboticon(new ResourceGroup(5, 3, 7));
         rb.Downgrade(new ResourceGroup(2, 1, 3));
