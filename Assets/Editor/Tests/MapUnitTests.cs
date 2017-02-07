@@ -3,56 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-public class MapUnitTests : Map
+public class MapUnitTests
 {
     [Test]
     public void InitialiseMap()
     {
-        Map m = new Map;
+        Map m = new Map();
 
-        if(m.GetTiles().Count != Map.)
+        Assert.AreEqual(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y, m.GetTiles().Count);
     }
 
-    private string MapTest()
+    [Test]
+    public void OutOfBoundsTest()
     {
-        Map map = new Map();
-        string errorString = "";
+        Map m = new Map();
 
-        //Test initialisation values
-        if (map.GetTiles().Count != 100)
-        {
-            errorString += (string.Format("Tile amount for test 2.3.0.1\nShould read 100, actually reads {0}\n\n", map.GetTiles().Count));
-        }
-
-        //test GetTile()
-        bool caught = false;
-        try
-        {
-            Tile testTile = map.GetTile(1000);
-        }
-        catch(System.IndexOutOfRangeException e)
-        {
-            caught = true;
-        }
-        finally
-        {
-            if(!caught)
-            {
-                errorString += (string.Format("Exception should have been thrown for test 2.3.1.1 for out of bounds values\n\n"));
-            }
-        }
-
-        //test GetNumUnownedTilesRemaining()
-        //at this point no one should have yet acquired a tile and so the result of this should be 100
-        int result = map.GetNumUnownedTilesRemaining();
-        if (result != 100)
-        {
-            errorString += (string.Format("Tile amount for test 2.3.2.1\nShould read 100, actually reads {0}\n\n", result));
-        }
-
-        return errorString;
+        Assert.Throws<System.IndexOutOfRangeException>(() => m.GetTile((int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y) + 2));
     }
 
+    [Test]
+    public void UnownedTilesRemainingTest()
+    {
+        Map m = new Map();
+
+        Assert.AreEqual(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y, m.GetNumUnownedTilesRemaining());
+    }
+
+    
     private string TileTest()
     {
         Tile tile = new Tile(new ResourceGroup(10, 10, 10), new Vector2(3, 3), 7);
