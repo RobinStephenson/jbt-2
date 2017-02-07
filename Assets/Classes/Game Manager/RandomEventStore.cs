@@ -1,6 +1,7 @@
 ﻿/* JBT Changes to this file:
  * replaced regular and crazyEventLength with Regular CrazyEvents.Count
  * throw an exception when there are no events rather than returning null
+ * made crazy a bool rather than int as thats how it was being used
  */
 
 using System;
@@ -17,25 +18,14 @@ public class RandomEventStore
     {
     }
 
-    public GameObject chooseEvent(int craziness)
+    public GameObject chooseEvent(bool crazy)
     {
         if(RegularEvents.Count == 0 && CrazyEvents.Count == 0)
         {
             throw new InvalidOperationException("No events in the store");
         }
 
-        if (craziness < 50)
-        {
-            if (RegularEvents.Count > 0)
-            {
-                return this.RegularEvents[UnityEngine.Random.Range(0, RegularEvents.Count)];    // Choose a random event from the RegularEvents list
-            }
-            else
-            {
-                return this.CrazyEvents[UnityEngine.Random.Range(0, CrazyEvents.Count)];    // No regular events have been set. Use a crazy event.
-            }
-        }
-        else
+        if (crazy)
         {
             if (CrazyEvents.Count > 0)
             {
@@ -44,6 +34,17 @@ public class RandomEventStore
             else
             {
                 return this.CrazyEvents[UnityEngine.Random.Range(0, RegularEvents.Count)];    // No crazy events have been set. Use a regular event.
+            }
+        }
+        else
+        {
+            if (RegularEvents.Count > 0)
+            {
+                return this.RegularEvents[UnityEngine.Random.Range(0, RegularEvents.Count)];    // Choose a random event from the RegularEvents list
+            }
+            else
+            {
+                return this.CrazyEvents[UnityEngine.Random.Range(0, CrazyEvents.Count)];    // No regular events have been set. Use a crazy event.
             }
         }
     }

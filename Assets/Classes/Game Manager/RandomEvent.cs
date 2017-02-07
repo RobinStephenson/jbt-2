@@ -1,4 +1,6 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+﻿/* JBT Changes to this file
+ * Updated constructor to use crazy as a bool not an int
+ */
 
 using UnityEngine;
 using System.Collections;
@@ -7,9 +9,9 @@ public class RandomEvent
 {
     private GameObject eventGameObject;
 
-    public RandomEvent(int craziness)
+    public RandomEvent(bool crazy)
     {
-        eventGameObject = new RandomEventFactory().Create(craziness);
+        eventGameObject = new RandomEventFactory().Create(crazy);
     }
 
     public void Instantiate()

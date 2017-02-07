@@ -8,11 +8,11 @@ public class RandomEventFactory
 {
     private RandomEventStore randomEventStore = new RandomEventStore();
 
-    public GameObject Create(int craziness)
+    public GameObject Create(bool crazy)
     {
         if (UnityEngine.Random.Range(0, 2) == 0)           //TODO correct percentage chance of event occuring - 50% currently
         {
-            return randomEventStore.chooseEvent(craziness);    
+            return randomEventStore.chooseEvent(crazy);    
         }
         else
         {
