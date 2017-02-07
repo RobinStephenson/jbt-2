@@ -8,7 +8,7 @@ public abstract class Player : Agent
 {
     public static int PlayerCount;
 
-    protected int playerId;
+    public int playerId;
     protected string name;
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
@@ -113,6 +113,19 @@ public abstract class Player : Agent
     public string GetName()
     {
         return name;
+    }
+
+    public override int GetHashCode()
+    {
+        return playerId;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (!(obj is Player))
+            return false;
+
+        return ((Player)obj).playerId == playerId;
     }
 
     public abstract void Act(GameManager.States state);

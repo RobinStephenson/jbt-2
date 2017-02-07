@@ -12,7 +12,7 @@ public class GameManagerUnitTests
         List<Player> playerList = new List<Player>();
         playerList.Add(new Human(new ResourceGroup(10, 10, 10), "dave", 100));
         playerList.Add(new AI(new ResourceGroup(10, 10, 10), "tim", 100));
-        playerList[1].AcquireRoboticon(new Roboticon());    //A roboticon always adds an amount > 0 to player score so this player should always win.
+        playerList[1].AcquireRoboticon(new Roboticon(new ResourceGroup(1,1,1)));    //A roboticon always adds an amount > 0 to player score so this player should always win.
 
         GameHandler.CreateNew("test", playerList);
         GameManager gameManager = GameHandler.GetGameManager();
@@ -24,6 +24,7 @@ public class GameManagerUnitTests
 
         Player winner = gameManager.GetWinnerIfGameHasEnded();
 
+        Assert.AreEqual(playerList[1].CalculateScore(), 5);
         if(winner == null)
         {
             Assert.Fail();
