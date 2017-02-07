@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public abstract class Player : Agent
 {
+    public static int PlayerCount;
+
+    protected int playerId;
     protected string name;
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();

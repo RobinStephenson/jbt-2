@@ -9,6 +9,7 @@ public class Human : Player
 
     public Human(ResourceGroup resources, string name, int money)
     {
+        this.playerId = PlayerCount++;
         this.resources = resources;
         this.money = money;
         this.name = name;
