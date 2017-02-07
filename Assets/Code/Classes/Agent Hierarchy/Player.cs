@@ -115,18 +115,5 @@ public abstract class Player : Agent
         return name;
     }
 
-    public override int GetHashCode()
-    {
-        return playerId;
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (!(obj is Player))
-            return false;
-
-        return ((Player)obj).playerId == playerId;
-    }
-
     public abstract void Act(GameManager.States state);
 }
