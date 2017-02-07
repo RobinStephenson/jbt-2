@@ -52,6 +52,12 @@ public class ResourceGroupUnitTests
     }
 
     [Test]
+    public void ScalarMultiplicationCommutativityTest()
+    {
+        Assert.AreEqual(new ResourceGroup(200, 200, 200), 2 * TestGroup5);
+    }
+
+    [Test]
     public void ResourceGroupMultiplicationTest()
     {
         Assert.AreEqual(new ResourceGroup(250,250,250), TestGroup2 * TestGroup3);

@@ -45,6 +45,11 @@ public class ResourceGroup
                                  r.getOre() * s);
     }
 
+    public static ResourceGroup operator *(int s, ResourceGroup r)
+    {
+        return r * s;
+    }
+
     public override string ToString()
     {
         return "ResourceGroup(" + food + ", " + energy + ", " + ore + ")";
