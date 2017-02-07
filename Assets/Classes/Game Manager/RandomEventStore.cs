@@ -1,4 +1,7 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+﻿/* JBT Changes to this file:
+ * replaced regular and crazyEventLength with Regular CrazyEvents.Count
+ * throw an exception when there are no events rather than returning null
+ */
 
 using System;
 using System.Collections;
@@ -7,46 +10,40 @@ using UnityEngine;
 
 public class RandomEventStore
 {  
-    public List<GameObject> regularEvents = new List<GameObject>();    // TODO: Add GameObjects() for each regular event in Unity editor
-    public List<GameObject> crazyEvents = new List<GameObject>();      // TODO: Add GameObjects() for each crazy event in Unity editor
-
-    int regEventsLength;
-    int crazyEventsLength;
+    public List<GameObject> RegularEvents = new List<GameObject>();    // TODO: Add GameObjects() for each regular event in Unity editor
+    public List<GameObject> CrazyEvents = new List<GameObject>();      // TODO: Add GameObjects() for each crazy event in Unity editor
 
     public RandomEventStore()
     {
-        regEventsLength = regularEvents.Count;
-        crazyEventsLength = crazyEvents.Count;
     }
 
     public GameObject chooseEvent(int craziness)
     {
-        if(regularEvents.Count == 0 && crazyEvents.Count == 0)
+        if(RegularEvents.Count == 0 && CrazyEvents.Count == 0)
         {
-            Debug.LogWarning("No random events to instantiate.");
-            return null;
+            throw new InvalidOperationException("No events in the store");
         }
 
         if (craziness < 50)
         {
-            if (regularEvents.Count > 0)
+            if (RegularEvents.Count > 0)
             {
-                return this.regularEvents[UnityEngine.Random.Range(0, regEventsLength)];    // Choose a random event from the RegularEvents list
+                return this.RegularEvents[UnityEngine.Random.Range(0, RegularEvents.Count)];    // Choose a random event from the RegularEvents list
             }
             else
             {
-                return this.crazyEvents[UnityEngine.Random.Range(0, crazyEventsLength)];    // No regular events have been set. Use a crazy event.
+                return this.CrazyEvents[UnityEngine.Random.Range(0, CrazyEvents.Count)];    // No regular events have been set. Use a crazy event.
             }
         }
         else
         {
-            if (crazyEvents.Count > 0)
+            if (CrazyEvents.Count > 0)
             {
-                return this.crazyEvents[UnityEngine.Random.Range(0, crazyEventsLength)];    // Choose a random event from the CrazyEvents list
+                return this.CrazyEvents[UnityEngine.Random.Range(0, CrazyEvents.Count)];    // Choose a random event from the CrazyEvents list
             }
             else
             {
-                return this.crazyEvents[UnityEngine.Random.Range(0, crazyEventsLength)];    // No crazy events have been set. Use a regular event.
+                return this.CrazyEvents[UnityEngine.Random.Range(0, RegularEvents.Count)];    // No crazy events have been set. Use a regular event.
             }
         }
     }
