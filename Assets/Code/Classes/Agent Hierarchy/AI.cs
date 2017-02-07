@@ -18,7 +18,6 @@ public class AI : Player
 
     public AI(ResourceGroup resources, string name, int money)
     {
-        this.playerId = PlayerCount++;
         this.name = name;
         this.resources = resources;
     }

@@ -8,7 +8,6 @@ public abstract class Player : Agent
 {
     public static int PlayerCount;
 
-    public int playerId;
     protected string name;
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
