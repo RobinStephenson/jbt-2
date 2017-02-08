@@ -9,11 +9,12 @@ public class TileObject
     private static GameObject tileHolder;
     private static GameObject TILE_GRID_GAMEOBJECT;
     private const string TILE_GRID_PREFAB_PATH = "Prefabs/Map/Tile Grid/tileGridPrefab";
-    private Color TILE_DEFAULT_COLOUR = new Color(1, 1, 1);   //White
-    private Color TILE_DEFAULT_ENEMY = new Color(1, 0, 0);    //Red
-    private Color TILE_DEFAULT_OWNED = new Color(0, 0, 1);    //Blue
-    private Color TILE_HOVER_COLOUR = new Color(1, 1, 0);     //Yellow
-    private Color TILE_SELECT_COLOUR = new Color(0, 1, 0);    //Green
+    private static Color TILE_DEFAULT_COLOUR = new Color(1, 1, 1);   //White
+    private static Color TILE_DEFAULT_ENEMY = new Color(1, 0, 0);    //Red
+    private static Color TILE_DEFAULT_OWNED = new Color(0, 0, 1);    //Blue
+    private static Color TILE_HOVER_COLOUR = new Color(1, 1, 0);     //Yellow
+    private static Color TILE_SELECT_COLOUR = new Color(0, 1, 0);    //Green
+    private static float TILE_HIGHLIGHT_ALPHA = 0.1f;                //Value between 0-1, which determines the strength of tile highlights, added by JBT
     private static Vector3 tileGridPrefabSize;
 
     private Vector2 position;
@@ -92,7 +93,7 @@ public class TileObject
         if (tileGameObjectInScene != null)
         {
             tileCenter.SetActive(true);
-            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_SELECT_COLOUR, 0.1f);
+            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_SELECT_COLOUR, TILE_HIGHLIGHT_ALPHA);
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_SELECT_COLOUR;
         }
     }
@@ -106,7 +107,7 @@ public class TileObject
         {
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_HOVER_COLOUR;
             tileCenter.SetActive(true);
-            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_HOVER_COLOUR, 0.1f);
+            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_HOVER_COLOUR, TILE_HIGHLIGHT_ALPHA);
         }
     }
 
@@ -122,13 +123,13 @@ public class TileObject
                 case TILE_OWNER_TYPE.CURRENT_PLAYER:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_OWNED;
                     tileCenter.SetActive(true);
-                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_OWNED, 0.1f);
+                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_OWNED, TILE_HIGHLIGHT_ALPHA);
                     break;
 
                 case TILE_OWNER_TYPE.ENEMY:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
                     tileCenter.SetActive(true);
-                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_ENEMY, 0.1f);
+                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_ENEMY, TILE_HIGHLIGHT_ALPHA);
                     break;
 
                 case TILE_OWNER_TYPE.UNOWNED:
