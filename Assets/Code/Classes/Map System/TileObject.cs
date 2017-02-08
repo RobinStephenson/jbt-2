@@ -86,6 +86,8 @@ public class TileObject
     {
         if (tileGameObjectInScene != null)
         {
+            tileCenter.SetActive(false);
+            tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_SELECT_COLOUR, 0.3f);
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_SELECT_COLOUR;
         }
     }
@@ -95,6 +97,8 @@ public class TileObject
         if(tileGameObjectInScene != null)
         {
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_HOVER_COLOUR;
+            tileCenter.SetActive(false);
+            tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_HOVER_COLOUR, 0.3f);
         }
     }
     
@@ -106,11 +110,13 @@ public class TileObject
             {
                 case TILE_OWNER_TYPE.CURRENT_PLAYER:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_OWNED;
+                    tileCenter.SetActive(false);
+                    tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_DEFAULT_OWNED, 0.3f);
                     break;
 
                 case TILE_OWNER_TYPE.ENEMY:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
-                    tileCenter.GetComponent<Material>().color = TILE_DEFAULT_ENEMY;
+                    tileCenter.SetActive(false);
                     tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_DEFAULT_ENEMY, 0.3f);
                     break;
 
