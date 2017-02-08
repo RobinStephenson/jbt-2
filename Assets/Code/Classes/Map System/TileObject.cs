@@ -80,6 +80,7 @@ public class TileObject
         tileGameObjectInScene.name = "Tile";
         tileGameObjectInScene.AddComponent<mapTileScript>().SetTileId(tileId);
         tileGameObjectInScene.transform.parent = tileHolder.transform;
+        tileCenter = tileGameObjectInScene.transform.GetChild(0).gameObject;
     }
 
     public void OnTileSelected()
