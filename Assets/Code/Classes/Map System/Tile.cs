@@ -8,6 +8,8 @@ public class Tile
 {
     public const float TILE_SIZE = 1.75f;
     public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
+    public RandomEvent CurrentEvent { get; private set; }
+
 
     private int tileId;
     private ResourceGroup resourcesGenerated;
@@ -105,11 +107,15 @@ public class Tile
     }
 
     /// <summary>
-    /// Returns the total resources given by the tile plus any additional yield from roboticons.
+    /// Returns the total resources given by the tile
+    /// takes into account roboticons and random events
     /// </summary>
-    /// <returns></returns>
+    /// <returns>the total resources produced this turn</returns>
     public ResourceGroup GetTotalResourcesGenerated()
     {
+        /* JBT Changes to this method:
+         * once the resources have been calculated for the tile apply random events buffs/debuffs if there is a random event
+         */
         ResourceGroup totalResources = resourcesGenerated;
 
         //TODO - Diminishing returns for additional roboticons (currently linear)
@@ -118,6 +124,13 @@ public class Tile
             totalResources += roboticon.GetUpgrades() * ROBOTICON_UPGRADE_WEIGHT;
         }
 
+        // apply RandomEvent resource multipliers if one is applied
+        if (CurrentEvent != null && !CurrentEvent.Finished)
+        {
+            totalResources.food = (int) (totalResources.food * CurrentEvent.GetFoodMultiplier());
+            totalResources.energy = (int) (totalResources.energy * CurrentEvent.GetFoodMultiplier());
+            totalResources.ore = (int) (totalResources.ore * CurrentEvent.GetOreMultiplier());
+        }
         return totalResources;
     }
 
