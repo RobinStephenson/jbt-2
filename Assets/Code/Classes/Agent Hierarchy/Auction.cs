@@ -2,21 +2,26 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class Auction
 {
-    //Auction is low priority as not required for assessment 2 deadline.
 
-    private float commision;
+    private float commission;
+    private int currentPrice;
+    private string resourceType;
+    private List<ResourceGroup> auctionLots = new List<ResourceGroup>();
+    
 
     public void PlaceBid(string playerName, int bidAmount)
     {
         //TODO - Place a bid on the current item to be auctioned.
     }
 
-    public void PutUpForAuction(ResourceGroup resources)
+    public void PutUpForAuction(ResourceGroup resources, int setPrice)
     {
-        //TODO - Set up a new auction for a Tile
+        resourceType = GetType(resources);
     }
 
     public void PutUpForAuction(Roboticon roboticon)
@@ -27,5 +32,22 @@ public class Auction
     public void PutUpForAuction(Tile tile)
     {
         //TODO - Set up a new auction for a Tile
+    }
+
+    public string GetType(ResourceGroup resources)
+    {
+        if ((resources.food > 0) & (resources.energy == 0) & (resources.ore == 0))
+        {
+            return "ore";
+        }
+        else if ((resources.food == 0) & (resources.energy > 0) & (resources.ore == 0))
+        {
+            return "energy";
+        }
+        else if ((resources.food == 0) & (resources.energy == 0) & (resources.ore > 0))
+        {
+            return "power";
+        }
+        else { throw new ArgumentException("Exactly one type of resource must have apositive value"); }
     }
 }
