@@ -81,28 +81,38 @@ public class TileObject
         tileGameObjectInScene.AddComponent<mapTileScript>().SetTileId(tileId);
         tileGameObjectInScene.transform.parent = tileHolder.transform;
         tileCenter = tileGameObjectInScene.transform.GetChild(0).gameObject;
+        tileCenter.SetActive(false);
     }
 
+    /// <summary>
+    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// </summary>
     public void OnTileSelected()
     {
         if (tileGameObjectInScene != null)
         {
-            tileCenter.SetActive(false);
-            tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_SELECT_COLOUR, 0.3f);
+            tileCenter.SetActive(true);
+            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_SELECT_COLOUR, 0.1f);
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_SELECT_COLOUR;
         }
     }
 
+    /// <summary>
+    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// </summary>
     public void OnTileHover()
     {
         if(tileGameObjectInScene != null)
         {
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_HOVER_COLOUR;
-            tileCenter.SetActive(false);
-            tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_HOVER_COLOUR, 0.3f);
+            tileCenter.SetActive(true);
+            tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_HOVER_COLOUR, 0.1f);
         }
     }
-    
+
+    /// <summary>
+    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// </summary>
     public void OnTileNormal(TILE_OWNER_TYPE ownerType)
     {
         if (tileGameObjectInScene != null)
@@ -111,14 +121,14 @@ public class TileObject
             {
                 case TILE_OWNER_TYPE.CURRENT_PLAYER:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_OWNED;
-                    tileCenter.SetActive(false);
-                    tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_DEFAULT_OWNED, 0.3f);
+                    tileCenter.SetActive(true);
+                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_OWNED, 0.1f);
                     break;
 
                 case TILE_OWNER_TYPE.ENEMY:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
-                    tileCenter.SetActive(false);
-                    tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_DEFAULT_ENEMY, 0.3f);
+                    tileCenter.SetActive(true);
+                    tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_ENEMY, 0.1f);
                     break;
 
                 case TILE_OWNER_TYPE.UNOWNED:
