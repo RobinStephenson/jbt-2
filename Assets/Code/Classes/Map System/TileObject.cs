@@ -1,5 +1,3 @@
-// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
 using UnityEngine;
 using System.Collections;
 
@@ -22,7 +20,11 @@ public class TileObject
     private Vector2 size;
     private int tileId;
 
+    /// <summary>
+    /// JBT added tileCenter Gameobject to better see which tile is highlighted
+    /// </summary>
     private GameObject tileGameObjectInScene;
+    private GameObject tileCenter;
 
     public enum TILE_OWNER_TYPE
     {
@@ -108,13 +110,29 @@ public class TileObject
 
                 case TILE_OWNER_TYPE.ENEMY:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
+                    tileCenter.GetComponent<Material>().color = TILE_DEFAULT_ENEMY;
+                    tileCenter.GetComponent<Material>().color = GetTransparentColor(TILE_DEFAULT_ENEMY, 0.3f);
                     break;
 
                 case TILE_OWNER_TYPE.UNOWNED:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_COLOUR;
+                    tileCenter.SetActive(false);
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// JBT added method to get transparent tile colors from a passed in color and alpha value
+    /// </summary>
+    /// <param name="c">The opaque color</param>
+    /// <param name="a">The alpha value to set it to</param>
+    /// <returns>The transparent color</returns>
+    private Color GetTransparentColor(Color c, float a)
+    {
+        Color newColor = c;
+        c.a = a;
+        return c;
     }
 
     /// <summary>
