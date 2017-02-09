@@ -19,7 +19,7 @@ public class gameManagerScript : MonoBehaviour
         ///TEMP - TODO - Implement player screen
         List<Player> players = new List<Player>();
         players.Add(new Human(new ResourceGroup(50, 999, 50), "Buddy", 999));
-       // players.Add(new Human(new ResourceGroup(5, 8, 9), "Joe", 10));
+        players.Add(new Human(new ResourceGroup(5, 8, 9), "Joe", 10));
         //players.Add(new Human(new ResourceGroup(55, 8, 9), "Hugo", 10));
         //players.Add(new Human(new ResourceGroup(5, 8, 9), "Richard", 10));
 

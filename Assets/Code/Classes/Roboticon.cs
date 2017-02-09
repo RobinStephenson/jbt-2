@@ -1,10 +1,9 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Roboticon
 {
+    public static int TotalRoboticons = 0;
     public const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
 
     private ResourceGroup upgrades;
@@ -13,8 +12,8 @@ public class Roboticon
 
     public Roboticon()
     {
-        this.name = "RBN#" + (Random.Range(1000, 9999)).ToString();
-        this.upgrades = new ResourceGroup(Random.Range(1, 4), Random.Range(1, 4), Random.Range(1, 4));
+        this.name = "RBN#" + (++TotalRoboticons).ToString("0000");
+        this.upgrades = new ResourceGroup(0,0,0);
     }
 
     public Roboticon(ResourceGroup upgrades, string name = "")

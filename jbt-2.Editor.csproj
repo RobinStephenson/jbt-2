@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C19551E9-3F4F-997E-FB89-959DB16B924E}</ProjectGuid>
+    <ProjectGuid>{2942B7AE-1185-95DA-8A3F-91AE20820BFF}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.0f3</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -52,26 +52,71 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.EditorTestsRunner">
+      <HintPath>Library\UnityAssemblies\UnityEditor.EditorTestsRunner.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PlaymodeTestsRunner">
+      <HintPath>Library\UnityAssemblies\UnityEditor.PlaymodeTestsRunner.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.PlaymodeTestsRunner">
       <HintPath>Library\UnityAssemblies\UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEditor.HoloLens.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -79,38 +124,19 @@
       <Project>{6D5B7810-7CFD-F3FB-7704-B860CE9E269C}</Project>
       <Name>jbt-2.Plugins</Name>
     </ProjectReference>
+    <ProjectReference Include="jbt-2.csproj">
+      <Project>{C19551E9-3F4F-997E-FB89-959DB16B924E}</Project>
+      <Name>jbt-2</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\RandomEvent.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\RandomEventFactory.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\RandomEventStore.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\Tile.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\TileObject.cs" />
-    <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
-    <Compile Include="Assets\Code\Classes\Roboticon.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\helpBoxScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\marketScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonGuiElementScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonUpgradesWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
-    <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
-    <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
-    <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
+    <Compile Include="Assets\Editor\Tests\GameManagerTest.cs" />
+    <Compile Include="Assets\Editor\Tests\MapTest.cs" />
+    <Compile Include="Assets\Editor\Tests\MarketTest.cs" />
+    <Compile Include="Assets\Editor\Tests\PlayerTest.cs" />
+    <Compile Include="Assets\Editor\Tests\ResourceGroupTest.cs" />
+    <Compile Include="Assets\Editor\Tests\RoboticonTest.cs" />
+    <Compile Include="Assets\Editor\Tests\TileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />

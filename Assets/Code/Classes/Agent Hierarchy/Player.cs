@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public abstract class Player : Agent
 {
+    public static int PlayerCount;
+
     protected string name;
     protected int score;
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
@@ -16,7 +18,7 @@ public abstract class Player : Agent
         int scoreFromTiles = 0;
         foreach(Tile tile in ownedTiles)
         {
-            ResourceGroup tileResources = tile.GetTotalResourcesGenerated();
+            ResourceGroup tileResources = tile.GetBaseResourcesGenerated();
             scoreFromTiles += tileResources.energy + tileResources.food + tileResources.ore;
         }
 

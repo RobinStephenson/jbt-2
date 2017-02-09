@@ -5,6 +5,10 @@ using System.Collections;
 
 public class TileObject
 {
+    /// <summary>
+    /// JBT added variable to help clean up editor object layout
+    /// </summary>
+    private static GameObject tileHolder;
     private static GameObject TILE_GRID_GAMEOBJECT;
     private const string TILE_GRID_PREFAB_PATH = "Prefabs/Map/Tile Grid/tileGridPrefab";
     private Color TILE_DEFAULT_COLOUR = new Color(1, 1, 1);   //White
@@ -43,6 +47,7 @@ public class TileObject
 
     /// <summary>
     /// Instantiate the tile object at its stored position and size in the current scene.
+    /// Edited by JBT to help reduce the amount of clutter in the editor objects window
     /// </summary>
     public void Instantiate(Vector3 mapCenterPosition)
     {
@@ -50,6 +55,14 @@ public class TileObject
         {
             throw new System.NullReferenceException("Attempted to instantiate a tile without a reference to the tile grid gameobject prefab."+
                                                     "Check the file path for the tile grid gameobject prefab.");
+        }
+
+        if(tileHolder == null)
+        {
+            tileHolder = new GameObject();
+            tileHolder.transform.position = Vector3.zero;
+            tileHolder.name = "Tile Holder";
+            MonoBehaviour.DontDestroyOnLoad(tileHolder);
         }
 
         Vector3 tilePositionInScene = new Vector3(position.x * size.x * (tileGridPrefabSize.x + 0.1f), 0, position.y * size.y * (tileGridPrefabSize.z + 0.1f));
@@ -62,8 +75,9 @@ public class TileObject
         objectScale.x *= size.x;
         objectScale.z *= size.y;
         tileGameObjectInScene.transform.localScale = objectScale;
-
+        tileGameObjectInScene.name = "Tile";
         tileGameObjectInScene.AddComponent<mapTileScript>().SetTileId(tileId);
+        tileGameObjectInScene.transform.parent = tileHolder.transform;
     }
 
     public void OnTileSelected()

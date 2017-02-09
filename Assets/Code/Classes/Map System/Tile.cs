@@ -153,4 +153,20 @@ public class Tile
     {
         return tileObject;
     }
+
+    /// <summary>
+    /// Added by JBT to test tile equality
+    /// </summary>
+    public override int GetHashCode()
+    {
+        return tileId;
+    }
+
+    /// <summary>
+    /// Added by JBT to test tile equality
+    /// </summary>
+    public override bool Equals(object obj)
+    {
+        return ((Tile)obj).tileId == tileId;
+    }
 }

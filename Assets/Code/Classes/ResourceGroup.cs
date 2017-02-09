@@ -1,6 +1,4 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class ResourceGroup
@@ -11,6 +9,9 @@ public class ResourceGroup
 
     public ResourceGroup(int food = 0, int energy = 0, int ore = 0)
     {
+        if (food < 0 || energy < 0 || ore < 0)
+            throw new System.ArgumentException("Cannot have negative amounts of a resource");
+
         this.food = food;
         this.energy = energy;
         this.ore = ore;
@@ -42,6 +43,11 @@ public class ResourceGroup
         return new ResourceGroup(r.getFood() * s,
                                  r.getEnergy() * s,
                                  r.getOre() * s);
+    }
+
+    public static ResourceGroup operator *(int s, ResourceGroup r)
+    {
+        return r * s;
     }
 
     public override string ToString()
@@ -88,6 +94,13 @@ public class ResourceGroup
         return this.ore;
     }
 
+    /// <summary>
+    /// Added by JBT for a shorthand method of creating empty ResourceGroups
+    /// </summary>
+    public static ResourceGroup Empty
+    {
+        get { return new ResourceGroup(0, 0, 0); }
+    }
 }
 
 

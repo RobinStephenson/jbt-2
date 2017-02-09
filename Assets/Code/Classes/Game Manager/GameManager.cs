@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System;
 
 [Serializable]
-public class GameManager : System.Object
+public class GameManager
 {
     public enum States : int
     {
@@ -140,7 +140,7 @@ public class GameManager : System.Object
 
     private void PlayerAct()
     {
-          //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
+        //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
               //If we've moved on to the production phase, run the function that handles the logic for the production phase.

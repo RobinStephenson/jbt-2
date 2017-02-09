@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jbt-2.Plugins", "jbt-2.Plug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jbt-2", "jbt-2.csproj", "{C19551E9-3F4F-997E-FB89-959DB16B924E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jbt-2.Editor", "jbt-2.Editor.csproj", "{2942B7AE-1185-95DA-8A3F-91AE20820BFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{C19551E9-3F4F-997E-FB89-959DB16B924E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C19551E9-3F4F-997E-FB89-959DB16B924E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C19551E9-3F4F-997E-FB89-959DB16B924E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2942B7AE-1185-95DA-8A3F-91AE20820BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2942B7AE-1185-95DA-8A3F-91AE20820BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2942B7AE-1185-95DA-8A3F-91AE20820BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2942B7AE-1185-95DA-8A3F-91AE20820BFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
