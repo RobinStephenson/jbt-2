@@ -21,11 +21,8 @@ public class TileObject
     private Vector2 size;
     private int tileId;
 
-    /// <summary>
-    /// JBT added tileCenter Gameobject to better see which tile is highlighted
-    /// </summary>
     private GameObject tileGameObjectInScene;
-    private GameObject tileCenter;
+    private GameObject tileCenter;              //Added by JBT to allow the entire tile area to be highlighted
 
     public enum TILE_OWNER_TYPE
     {
@@ -48,9 +45,9 @@ public class TileObject
         return this.position;
     }
 
+    // Edited by JBT to help reduce the amount of clutter in the editor objects window
     /// <summary>
     /// Instantiate the tile object at its stored position and size in the current scene.
-    /// Edited by JBT to help reduce the amount of clutter in the editor objects window
     /// </summary>
     public void Instantiate(Vector3 mapCenterPosition)
     {
@@ -85,8 +82,9 @@ public class TileObject
         tileCenter.SetActive(false);
     }
 
+    //JBT changed this method to support a highlightable center of the tile
     /// <summary>
-    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// Changes the colour of a tile when selected
     /// </summary>
     public void OnTileSelected()
     {
@@ -98,8 +96,9 @@ public class TileObject
         }
     }
 
+    //JBT changed this method to support a highlightable center of the tile
     /// <summary>
-    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// Changes the colour of a tile when hovered over
     /// </summary>
     public void OnTileHover()
     {
@@ -111,8 +110,9 @@ public class TileObject
         }
     }
 
+    //Changed by JBT to support a highlightable center of the tile
     /// <summary>
-    /// JBT changed this method to support a highlightable center of the tile, to make it easier to see what color each tile is
+    /// Highlight the tile different colours, depending on who owns it
     /// </summary>
     public void OnTileNormal(TILE_OWNER_TYPE ownerType)
     {
@@ -125,13 +125,11 @@ public class TileObject
                     tileCenter.SetActive(true);
                     tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_OWNED, TILE_HIGHLIGHT_ALPHA);
                     break;
-
                 case TILE_OWNER_TYPE.ENEMY:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_ENEMY;
                     tileCenter.SetActive(true);
                     tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_DEFAULT_ENEMY, TILE_HIGHLIGHT_ALPHA);
                     break;
-
                 case TILE_OWNER_TYPE.UNOWNED:
                     tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_DEFAULT_COLOUR;
                     tileCenter.SetActive(false);
@@ -140,8 +138,9 @@ public class TileObject
         }
     }
 
+    //Method added by JBT
     /// <summary>
-    /// JBT added method to get transparent tile colors from a passed in color and alpha value
+    /// Takes an opaque color and an alpha value and converts the colour into a transparent one, to be used with tile highlights
     /// </summary>
     /// <param name="c">The opaque color</param>
     /// <param name="a">The alpha value to set it to</param>

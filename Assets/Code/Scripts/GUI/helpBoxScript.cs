@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+// Edited by JBT to stop displaying the helpbox after a user has clicked the hide button
 /// <summary>
-/// Edited by JBT to stop displaying the helpbox after a user has clicked the hide button
+/// Script used to show/hide the help box for each phase
 /// </summary>
 public class helpBoxScript : MonoBehaviour
 {
