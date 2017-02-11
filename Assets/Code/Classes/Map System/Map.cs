@@ -1,7 +1,4 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
