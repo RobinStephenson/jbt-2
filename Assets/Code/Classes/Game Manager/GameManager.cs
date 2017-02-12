@@ -1,4 +1,6 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
+﻿/* JBT Changes to this file
+ * removed references to old events system
+ */
 
 using UnityEngine;
 using System.Collections;
@@ -25,7 +27,6 @@ public class GameManager
 
     private List<Player> players;
     private int currentPlayerIndex;
-    private RandomEventFactory randomEventFactory;
     private Map map;
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
@@ -47,7 +48,6 @@ public class GameManager
         this.players = players;
         FormatPlayerList(this.players);
 		    this.market = new Market();
-		    this.randomEventFactory = new RandomEventFactory();
 		    this.map = new Map();
     }
 
@@ -185,14 +185,6 @@ public class GameManager
         for(int i = 0; i < players.Count; i++)
         {
             players[i].Produce();
-        }
-
-        //Instantiate a random event (probability handled in the randomEventFactory) (Req 2.5.a, 2.5.b)
-        GameObject randomEventGameObject = randomEventFactory.Create(UnityEngine.Random.Range(0, 101));
-
-        if (randomEventGameObject != null)
-        {
-            GameObject.Instantiate(randomEventGameObject);
         }
 
         market.UpdatePrices();

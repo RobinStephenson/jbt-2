@@ -93,8 +93,7 @@
     <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\RandomEvent.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\RandomEventFactory.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\RandomEventStore.cs" />
+    <Compile Include="Assets\Code\Classes\Game Manager\RandomEventManager.cs" />
     <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
     <Compile Include="Assets\Code\Classes\Map System\Tile.cs" />
     <Compile Include="Assets\Code\Classes\Map System\TileObject.cs" />
