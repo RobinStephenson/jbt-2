@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml;
+using UnityEngine;
 
 public static class RandomEventManager
 {
@@ -31,6 +33,13 @@ public static class RandomEventManager
         {
             throw new InvalidOperationException("Events have already been initialised");
         }
+        MaxSimultaneousEvents = 2;
+        EventFrequency = 0.15f;
+        TextAsset LoadedFile = (TextAsset) Resources.Load("Events");
+        XmlDocument EventsConfig = new XmlDocument();
+        EventsConfig.Load(LoadedFile.text);
+
+
 
     }
 

@@ -149,12 +149,5 @@ public class RandomEvent
         }
 
         // choose the tiles to affect
-        while (AffectedTiles.Count < NumberOfTilesToAffect)
-        {
-            Tile ChosenTile = UnaffectedTiles[Random.Next(UnaffectedTiles.Count)];
-            UnaffectedTiles.Remove(ChosenTile);
-            AffectedTiles.Add(ChosenTile);
-            ChosenTile.ApplyEvent(this);
-        }
     }
 }
