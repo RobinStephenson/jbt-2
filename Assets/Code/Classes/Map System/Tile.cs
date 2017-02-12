@@ -1,8 +1,7 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Tile
 {
@@ -167,19 +166,43 @@ public class Tile
         return tileObject;
     }
 
-    /// <summary>
-    /// Added by JBT to test tile equality
-    /// </summary>
+    // Added by JBT
     public override int GetHashCode()
     {
         return tileId;
     }
 
-    /// <summary>
-    /// Added by JBT to test tile equality
-    /// </summary>
+    // Added by JBT to test tile equality
     public override bool Equals(object obj)
     {
         return ((Tile)obj).tileId == tileId;
+    }
+
+    // jbt created this method
+    /// <summary>
+    /// Apply a new random event to the tile
+    /// </summary>
+    /// <param name="newEvent">the event</param>
+    public void ApplyEvent(RandomEvent newEvent)
+    {
+        if (CurrentEvent != null)
+        {
+            throw new InvalidOperationException("Event already applied to this tile");
+        }
+        CurrentEvent = newEvent;
+    }
+
+    // jbt created this method
+    /// <summary>
+    /// remove the event currently applied
+    /// </summary>
+    public void RemoveEvent()
+    {
+        if (CurrentEvent == null)
+        {
+            // throw an error as something might be going wrong if were trying to remove events from tiles without an event
+            throw new InvalidOperationException("No event applied to this tile");
+        }
+        CurrentEvent = null;
     }
 }
