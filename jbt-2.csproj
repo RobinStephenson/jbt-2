@@ -112,6 +112,7 @@
     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\Events.xml" />
     <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />
     <None Include="Assets\Resources\VFX\Shaders\SkyFromSpace.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
