@@ -13,9 +13,9 @@ public class RandomEvent
     private const int NumberOfResources = 3;
 
     /// <summary>
-    /// The name of the event for display to the user
+    /// The title of the event for display to the user
     /// </summary>
-    public string Name { get; private set; }
+    public string Title { get; private set; }
 
     /// <summary>
     /// A detailed description of what the event does for display to the user
@@ -60,18 +60,18 @@ public class RandomEvent
     /// <summary>
     /// create a new type of random event
     /// </summary>
-    /// <param name="name">The name of the event for display to the user</param>
+    /// <param name="tilte">The title of the event for display to the user</param>
     /// <param name="description">a detailed description of the event, for display to the user</param>
     /// <param name="duration">How many turns the event should last</param>
     /// <param name="numberOfTilesToAffect">how many tiles should the event affect</param>
     /// <param name="foodMult">the multiplier that should be applied to food production on affected tiles</param>
     /// <param name="energyMult">the multiplier that should be applied to energy production on affected tiles</param>
     /// <param name="oreMult">the multiplier that should be applied to ore production on affected tiles</param>
-    public RandomEvent(string name, string description, int duration, int numberOfTilesToAffect, float foodMult, float energyMult, float oreMult)
+    public RandomEvent(string tilte, string description, int duration, int numberOfTilesToAffect, float foodMult, float energyMult, float oreMult)
     {
-        if (name.Length == 0)
+        if (tilte.Length == 0)
         {
-            throw new ArgumentException("name cannot be empty");
+            throw new ArgumentException("title cannot be empty");
         }
         if (description.Length == 0)
         {
@@ -85,7 +85,7 @@ public class RandomEvent
         {
             throw new ArgumentOutOfRangeException("resource multipliers cannot be < 0");
         }
-        Name = name;
+        Title = tilte;
         Description = description;
         Duration = duration;
         NumberOfTilesToAffect = numberOfTilesToAffect;
