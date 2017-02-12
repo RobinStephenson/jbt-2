@@ -138,23 +138,33 @@ public class GameManager
         map.Instantiate();
     }
 
+
+    /* JBT Changes to this method
+     * call the random event manager at the start of the first players production phase
+     */
     private void PlayerAct()
     {
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
-              //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-              if (currentState == States.PRODUCTION)
-              {
-                  ProcessProductionPhase();
-                  currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
-              }
-              else
-              {
-                  currentState++;
-              }
+            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == States.PRODUCTION)
+            {
+                if (currentPlayerIndex == 0)
+                {
+                    // This MUST be called at the start of the production phase of the first player each turn!
+                    // This is because manage events may change tile production values so to be fair to both players we must make those changes before production   
+                    RandomEventManager.ManageAndTriggerEvents(currentState, currentPlayerIndex);
+                }
 
-              currentPlayerIndex = 0;
+                ProcessProductionPhase();
+                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+            }
+            else
+            {
+                currentState++;
+            }
+            currentPlayerIndex = 0;
         }
 
         //Call the Act function for the current player, passing the state to it.
