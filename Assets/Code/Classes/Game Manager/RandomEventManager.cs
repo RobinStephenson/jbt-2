@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public static class RandomEventManager
 {
-    private static Random Random = new Random();
+    private static System.Random Random = new System.Random();
 
     private static List<RandomEvent> InactiveEvents = new List<RandomEvent>();
 
