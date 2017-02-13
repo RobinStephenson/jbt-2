@@ -1,7 +1,4 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -14,6 +11,7 @@ public class Map
 
     private List<Tile> tiles = new List<Tile>();
     private const int MAX_TILE_RESOURCE_PRODUCTION = 10;
+    private mapManagerScript mapManager;         //Added by JBT to fix a bug when the last selected tile on a turn would not be selectable on the next
 
     public Map()
     {
@@ -64,7 +62,7 @@ public class Map
             tile.Instantiate(MAP_POSITION);
         }
 
-        mapManagerScript mapManager = new GameObject("Map Manager").AddComponent<mapManagerScript>();
+        mapManager = new GameObject("Map Manager").AddComponent<mapManagerScript>();
         MonoBehaviour.DontDestroyOnLoad(mapManager);
         mapManager.SetMap(this);
     }
@@ -78,6 +76,8 @@ public class Map
         {
             tile.TileNormal();
         }
+        //Added by JBT to fix a bug when the last selected tile on a turn would not be selectable on the next
+        mapManager.RefreshSelectedTile();
     }
 
     public List<Tile> GetTiles()

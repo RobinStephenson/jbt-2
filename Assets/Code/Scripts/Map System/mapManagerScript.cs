@@ -1,6 +1,4 @@
-﻿// Game Executable hosted at: http://www-users.york.ac.uk/~jwa509/alpha01BugFree.exe
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -30,6 +28,16 @@ public class mapManagerScript : MonoBehaviour
     public void SetMap(Map map)
     {
         this.map = map;
+    }
+
+    //Added by JBT
+    /// <summary>
+    /// Sets the lastTileHovered and currentTileSelected references to null, this is called after every phase
+    /// </summary>
+    public void RefreshSelectedTile()
+    {
+        lastTileHovered = null;
+        currentTileSelected = null;
     }
 
     private void CheckMouseHit()
@@ -63,7 +71,7 @@ public class mapManagerScript : MonoBehaviour
                     }
                 }
                 
-                if (hitTile != currentTileSelected)
+                if (currentTileSelected != hitTile  )
                 {
                     if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
                     {
