@@ -10,6 +10,10 @@ using System.Collections.Generic;
 public class RandomEvent
 {
     private static Random Random = new Random();
+
+    /// <summary>
+    /// the number of resources in the game
+    /// </summary>
     private const int NumberOfResources = 3;
 
     /// <summary>
@@ -157,10 +161,7 @@ public class RandomEvent
         if (Finished)
         {
             // The event is now over
-            foreach (Tile CurrentTile in AffectedTiles)
-            {
-                CurrentTile.RemoveEvent();
-            }
+            AffectedTiles.ForEach(tile => tile.RemoveEvent());
         }
     }
 
@@ -169,18 +170,83 @@ public class RandomEvent
     /// </summary>
     public void Start(Map map)
     {
-        CompleteTurnsElapsed = 0;
+        // Set this events state to its default
+        Reset();
 
+        // get a list of all the tiles this event COULD be applied to
+        List<Tile> PossibleTiles = GetPossibleTiles(map);
+        if (PossibleTiles.Count < NumberOfTilesToAffect)
+        {
+            throw new InvalidOperationException("Not enough suitable tiles to start this event");
+        }
+
+        // choose the tiles to apply it to
+        List<Tile> ChosenTiles = new List<Tile>();
+        if (AffectConnectedTilesOnly)
+        {
+            ChosenTiles = GetRandomConnectedTiles(PossibleTiles);    
+        }
+        else
+        {
+            ChosenTiles = GetRandomTiles(PossibleTiles);
+        }
+
+        // apply the event to each chosen tile
+        ChosenTiles.ForEach(tile => tile.ApplyEvent(this));
+
+    }
+
+    private List<Tile> GetPossibleTiles(Map map)
+    {
         // create a list of tiles with no event so that we can select tiles from them to apply an event to
-        List<Tile> UnaffectedTiles = new List<Tile>();
+        List<Tile> PossibleTiles = new List<Tile>();
         foreach (Tile CurrentTile in map.GetTiles())
         {
             if (CurrentTile.CurrentEvent == null)
             {
-                UnaffectedTiles.Add(CurrentTile);
+                bool TileHasRoboticon = CurrentTile.GetInstalledRoboticons().Count > 0;
+                if ((TileHasRoboticon && AffectTilesWithRoboticonInstalled) || (!TileHasRoboticon && AffectTilesWithoutRoboticonInstalled))
+                {
+                    PossibleTiles.Add(CurrentTile);
+                }
             }
-        }
 
-        // TODO choose the tiles to affect
+        }
+        return PossibleTiles;
+    }
+
+    /// <summary>
+    /// Get a random selection of connected (next to each other) tiles. Quantity returned is the number of tiles this event should affect
+    /// </summary>
+    /// <param name="possibleTiles">a list of tiles this event can be applied to. ie no tiles with events already applied</param>
+    /// <returns>n random tiles where n = NumberOfTilesToAffect, and the tiles are a subset of possible tiles. And the tiles are all connected to at least one of the others.</returns>
+    private List<Tile> GetRandomConnectedTiles(List<Tile> possibleTiles)
+    {
+        throw new Exception("Not Implemented");
+    }
+    
+    /// <summary>
+    /// Get a random selection of tiles from those given. Quantity returned is the number of tiles this event should affect
+    /// </summary>
+    /// <param name="possibleTiles">a list of tiles this event can be applied to. ie no tiles with events already applied</param>
+    /// <returns>n random tiles where n = NumberOfTilesToAffect, and the tiles are a subset of possible tiles.</returns>
+    private List<Tile> GetRandomTiles(List<Tile> possibleTiles)
+    {
+        List<Tile> ChosenTiles = new List<Tile>();
+        while (ChosenTiles.Count < NumberOfTilesToAffect)
+        {
+            int RandomIndex = Random.Next(possibleTiles.Count);
+            ChosenTiles.Add(possibleTiles[RandomIndex]);
+            possibleTiles.RemoveAt(RandomIndex);
+        }
+        return ChosenTiles;
+    }
+
+    /// <summary>
+    /// reset this event to its default values
+    /// </summary>
+    private void Reset()
+    { 
+        CompleteTurnsElapsed = 0;
     }
 }
