@@ -55,7 +55,7 @@ public class GameManager
     {
         SetUpGui();
         SetUpMap();
-
+        RandomEventManager.InitialiseEvents();
         PlayerAct();
     }
 
