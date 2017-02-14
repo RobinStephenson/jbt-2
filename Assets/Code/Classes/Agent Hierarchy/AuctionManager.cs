@@ -5,12 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Auction
+public class AuctionManager
 {
 
-    private float commission;
-    private int currentPrice;
-    private string resourceType;
     private List<ResourceGroup> auctionLots = new List<ResourceGroup>();
     
 
@@ -21,7 +18,7 @@ public class Auction
 
     public void PutUpForAuction(ResourceGroup resources, int setPrice)
     {
-        resourceType = GetType(resources);
+       
     }
 
     public void PutUpForAuction(Roboticon roboticon)
