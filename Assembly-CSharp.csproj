@@ -57,12 +57,11 @@
      <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
      <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
      <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
-     <Compile Include="Assets\Code\Classes\Game Manager\RandomEvent.cs" />
-     <Compile Include="Assets\Code\Classes\Game Manager\RandomEventFactory.cs" />
-     <Compile Include="Assets\Code\Classes\Game Manager\RandomEventStore.cs" />
      <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
      <Compile Include="Assets\Code\Classes\Map System\Tile.cs" />
      <Compile Include="Assets\Code\Classes\Map System\TileObject.cs" />
+     <Compile Include="Assets\Code\Classes\RandomEvent.cs" />
+     <Compile Include="Assets\Code\Classes\RandomEventManager.cs" />
      <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
      <Compile Include="Assets\Code\Classes\Roboticon.cs" />
      <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
