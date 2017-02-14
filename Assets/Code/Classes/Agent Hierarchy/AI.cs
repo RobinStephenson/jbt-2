@@ -47,12 +47,14 @@ public class AI : Player
 
         foreach (Tile t in map.GetTiles())
         {
-            if(t.GetOwner() == null && t.GetPrice() < money)
+            if (t.GetOwner() == null && t.GetPrice() < money)
             {
+                Debug.Log(possibleTiles.Count.ToString());
                 possibleTiles.Add(t);
             }
         }
         int numTiles = (int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y);
+
 
         return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
     }

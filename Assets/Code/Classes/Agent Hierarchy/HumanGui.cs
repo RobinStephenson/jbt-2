@@ -63,13 +63,12 @@ public class HumanGui
 
     public void PurchaseTile(Tile tile)
     {
-        if(tile.GetPrice() < currentHuman.GetMoney())
+        try
         {
-            currentHuman.SetMoney(currentHuman.GetMoney() - tile.GetPrice());
             currentHuman.AcquireTile(tile);
             UpdateResourceBar();
         }
-        else
+        catch
         {
             canvas.tileWindow.PlayPurchaseDeclinedAnimation();
         }
