@@ -68,6 +68,9 @@ public class RandomEvent
     /// </summary>
     private List<float> ResourceMultipliers = new List<float>(NumberOfResources);
 
+    /// <summary>
+    /// Tiles this event is currently affecting
+    /// </summary>
     private List<Tile> AffectedTiles;
 
     // TODO add fields for something like the image that should be applied to the tile(s) to which this is applied()
