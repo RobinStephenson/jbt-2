@@ -48,6 +48,21 @@ public class RandomEvent
     /// </summary>
     public int NumberOfTilesToAffect { get; private set; }
 
+    /// <summary>
+    /// should the event only be applied to tiles which are connected
+    /// </summary>
+    public bool AffectConnectedTilesOnly { get; private set; }
+
+    /// <summary>
+    /// should the event be applied to tiles which have a roboticon installed
+    /// </summary>
+    public bool AffectTilesWithRoboticonInstalled { get; private set; }
+
+    /// <summary>
+    /// should the event be applied to tiles which have no roboticon installed
+    /// </summary>
+    public bool AffectTilesWithoutRoboticonInstalled { get; private set; }
+
     /// A list of multipliers which should be applied to the resources a tile has produced
     /// Food Energy Ore
     /// </summary>
@@ -64,10 +79,13 @@ public class RandomEvent
     /// <param name="description">a detailed description of the event, for display to the user</param>
     /// <param name="duration">How many turns the event should last</param>
     /// <param name="numberOfTilesToAffect">how many tiles should the event affect</param>
+    /// <param name="connectedOnly">Should the event affect only connected tiles</param>
+    /// <param name="roboticonInstalled">Should the event affect tiles with roboticons installed</param>
+    /// <param name="noRoboticonInstalled">Should the event affect tiles without a roboticon installed</param>
     /// <param name="foodMult">the multiplier that should be applied to food production on affected tiles</param>
     /// <param name="energyMult">the multiplier that should be applied to energy production on affected tiles</param>
     /// <param name="oreMult">the multiplier that should be applied to ore production on affected tiles</param>
-    public RandomEvent(string tilte, string description, int duration, int numberOfTilesToAffect, float foodMult, float energyMult, float oreMult)
+    public RandomEvent(string tilte, string description, int duration, int numberOfTilesToAffect, bool connectedOnly, bool roboticonInstalled, bool noRoboticonInstalled, float foodMult, float energyMult, float oreMult)
     {
         if (tilte.Length == 0)
         {
@@ -81,6 +99,15 @@ public class RandomEvent
         {
             throw new ArgumentOutOfRangeException("duration must be > 0");
         }
+        if (numberOfTilesToAffect <- 0)
+        {
+            throw new ArgumentOutOfRangeException("must affect at least 1 tiles");
+        }
+        if (!roboticonInstalled && !noRoboticonInstalled)
+        {
+            // this leaves no tiles which can be affected
+            throw new ArgumentException("no tiles can be affected in this configuration");
+        }
         if (foodMult < 0 || energyMult < 0 || oreMult < 0)
         {
             throw new ArgumentOutOfRangeException("resource multipliers cannot be < 0");
@@ -89,6 +116,9 @@ public class RandomEvent
         Description = description;
         Duration = duration;
         NumberOfTilesToAffect = numberOfTilesToAffect;
+        AffectConnectedTilesOnly = connectedOnly;
+        AffectTilesWithRoboticonInstalled = roboticonInstalled;
+        AffectTilesWithoutRoboticonInstalled = noRoboticonInstalled;
         ResourceMultipliers.Add(foodMult);
         ResourceMultipliers.Add(energyMult);
         ResourceMultipliers.Add(oreMult);
@@ -148,6 +178,6 @@ public class RandomEvent
             }
         }
 
-        // choose the tiles to affect
+        // TODO choose the tiles to affect
     }
 }
