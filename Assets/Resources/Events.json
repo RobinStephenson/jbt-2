@@ -1,0 +1,40 @@
+{
+	"configurations": [
+		{
+			"title": "Donald Trump riding a pig!",
+			"description": "No this isnt fake news. Donald Trump is riding a pig somewhere on campus. Nearby tiles produce no food as the pig is eating it all. Energy and Ore production remains unaffected.",
+			"duration": 4,
+			"numberOfTilesToAffect": 5,
+			"food-multiplier": 0,
+			"ore-multiplier": 1,
+			"energy-multiplier": 1,
+			"connected-tiles-only": "True",
+			"roboticon-installed": "True",
+			"no-roboticon-installed": "True"
+		},
+		{
+			"title": "Meteor Strike!",
+			"description": "A meteor strike has hit several tiles. These tiles no longer produce food. However, ore production has increased 50% and energy production has increased 25%.",
+			"duration": 5,
+			"numberOfTilesToAffect": 7,
+			"food-multiplier": 0,
+			"ore-multiplier": 1.5,
+			"energy-multiplier": 1.25,
+			"connected-tiles-only": "False",
+			"roboticon-installed": "True",
+			"no-roboticon-installed": "True"
+		},
+		{
+			"title": "Freshers Flu!",
+			"description": "The inevitable has happened and some of your Roboticons have caught freshers flu. The affected tiles produce only 10% of their normal output.",
+			"duration": 2,
+			"numberOfTilesToAffect": 8,
+			"food-multiplier": 0.1,
+			"ore-multiplier": 0.1,
+			"energy-multiplier": 0.1,
+			"connected-tiles-only": "False",
+			"roboticon-installed": "True",
+			"no-roboticon-installed": "False"
+		}
+	]
+}
