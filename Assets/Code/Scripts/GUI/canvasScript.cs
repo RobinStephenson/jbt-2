@@ -63,10 +63,6 @@ public class canvasScript : MonoBehaviour
         {
             marketScript.gameObject.SetActive(true);
         }
-        else
-        {
-            //TODO - Error message "Market cannot be accessed in this phase."
-        }
     }
 
     public void HideMarketWindow()

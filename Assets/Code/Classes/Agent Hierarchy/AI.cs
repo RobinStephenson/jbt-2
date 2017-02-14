@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class AI : Player
@@ -40,11 +41,19 @@ public class AI : Player
 
     private Tile ChooseTileToAcquire()
     {
-        //TODO - intelligent decision of best tile in map.
         Map map = GameHandler.GetGameManager().GetMap();
+        List<Tile> possibleTiles = new List<Tile>();
+
+        foreach (Tile t in map.GetTiles())
+        {
+            if(t.GetOwner() == null && t.GetPrice() < money)
+            {
+                possibleTiles.Add(t);
+            }
+        }
         int numTiles = (int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y);
 
-        return map.GetTile(UnityEngine.Random.Range(0, numTiles));
+        return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
     }
 
     private ResourceGroup ChooseBestRoboticonUpgrade(Roboticon roboticon)
