@@ -219,10 +219,46 @@ public class RandomEvent
     /// Get a random selection of connected (next to each other) tiles. Quantity returned is the number of tiles this event should affect
     /// </summary>
     /// <param name="possibleTiles">a list of tiles this event can be applied to. ie no tiles with events already applied</param>
+    /// <exception cref="ArgumentException">Thrown when no solution is possible</exception>
     /// <returns>n random tiles where n = NumberOfTilesToAffect, and the tiles are a subset of possible tiles. And the tiles are all connected to at least one of the others.</returns>
     private List<Tile> GetRandomConnectedTiles(List<Tile> possibleTiles)
     {
-        throw new Exception("Not Implemented");
+        List<Tile> ChosenTiles = new List<Tile>(NumberOfTilesToAffect);
+
+        // contains all tiles we know are not connected to enough tiles to get enough tiles for this event
+        List<Tile> FailedTiles = new List<Tile>();
+
+        // Contains all neighbours of chosentiles not in chosen tiles
+        List<Tile> Neighbours = new List<Tile>();
+
+        // because selection is random (could get unlucky and never pick tiles successfully) we limit how many attempts at finding connected tiles we make
+        int Attempts = 0;
+        const int MaxAttempts = 25;
+        do
+        {
+            // pick a random tile not in failed tiles, add to chosen tiles, update neigbours
+            while (ChosenTiles.Count < NumberOfTilesToAffect)
+            {
+                // TODO pick a random neighbour that is also a possibleTile and add it to chosen tiles, update neighbours
+                // if any neighbour is a failed tile or no neighbour is a possible tile or there are no neighbours then add all current and neighbours to failed
+
+                // check if a solution is still possible
+                if (FailedTiles.Count > possibleTiles.Count - NumberOfTilesToAffect)
+                {
+                    throw new ArgumentException("No solution is possible");
+                }
+            }
+
+            // if solution found break
+            Attempts++;
+        } while (Attempts < MaxAttempts);
+        if (Attempts == MaxAttempts)
+        {
+            throw new Exception("Solution took to long to find, or does not exist");
+        }
+
+        return ChosenTiles;
+        
     }
     
     /// <summary>
@@ -232,7 +268,7 @@ public class RandomEvent
     /// <returns>n random tiles where n = NumberOfTilesToAffect, and the tiles are a subset of possible tiles.</returns>
     private List<Tile> GetRandomTiles(List<Tile> possibleTiles)
     {
-        List<Tile> ChosenTiles = new List<Tile>();
+        List<Tile> ChosenTiles = new List<Tile>(NumberOfTilesToAffect);
         while (ChosenTiles.Count < NumberOfTilesToAffect)
         {
             int RandomIndex = Random.Next(possibleTiles.Count);
