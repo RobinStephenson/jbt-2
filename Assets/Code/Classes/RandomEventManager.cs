@@ -38,7 +38,26 @@ public static class RandomEventManager
         EventFrequency = 0.15f;
 
         TextAsset LoadedJson = (TextAsset)Resources.Load("Events");
-        var Configurations = JSON.Parse(LoadedJson.text);
+        var ConfigurationsFile = JSON.Parse(LoadedJson.text);
+        for (int i = 0; i < ConfigurationsFile["configurations"].Count; i++)
+        {
+            var EventConfiguration = ConfigurationsFile["configurations"][i];
+            InactiveEvents.Add(
+                new RandomEvent(
+                    EventConfiguration["title"].Value,
+                    EventConfiguration["description"].Value,
+                    EventConfiguration["duration"].AsInt,
+                    EventConfiguration["numberOfTilesToAffect"].AsInt,
+                    EventConfiguration["connectedTilesOnly"].AsBool,
+                    EventConfiguration["roboticonInstalled"].AsBool,
+                    EventConfiguration["noRoboticonInstalled"].AsBool,
+                    EventConfiguration["foodMultiplier"].AsFloat,
+                    EventConfiguration["energyMultiplier"].AsFloat,
+                    EventConfiguration["oreMultiplier"].AsFloat
+                ));
+        }
+
+        Debug.Log(String.Format("{0} Events added to the game.", InactiveEvents.Count));
 
     }
 
