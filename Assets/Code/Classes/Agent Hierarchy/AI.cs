@@ -39,6 +39,7 @@ public class AI : Player
         GameHandler.GetGameManager().CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 
+    //JBT changed this method to actually select a buyable tile
     private Tile ChooseTileToAcquire()
     {
         Map map = GameHandler.GetGameManager().GetMap();
