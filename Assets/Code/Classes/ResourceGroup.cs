@@ -94,6 +94,18 @@ public class ResourceGroup
         return this.ore;
     }
 
+    public int getResourceAmount(string resourceName)
+    {
+        if (resourceName == "food")
+            return food;
+        else if (resourceName == "ore")
+            return ore;
+        else if (resourceName == "energy")
+            return energy;
+        else
+            throw new System.ArgumentException("Not a valid resource type");
+    }
+
     /// <summary>
     /// Added by JBT for a shorthand method of creating empty ResourceGroups
     /// </summary>

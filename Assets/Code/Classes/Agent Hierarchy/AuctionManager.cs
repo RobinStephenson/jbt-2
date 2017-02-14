@@ -8,7 +8,8 @@ using System;
 public class AuctionManager
 {
 
-    private List<ResourceGroup> auctionLots = new List<ResourceGroup>();
+    private List<AuctionListing> auctionListings = new List<AuctionListing>();
+    private int totalAuctions = 0;
     
 
     public void PlaceBid(string playerName, int bidAmount)
@@ -16,9 +17,19 @@ public class AuctionManager
         //TODO - Place a bid on the current item to be auctioned.
     }
 
-    public void PutUpForAuction(ResourceGroup resources, int setPrice)
+    public void PutUpForAuction(ResourceGroup resources, int setPrice, Player player)
     {
-       
+        ResourceGroup ownedResources = player.GetResources();
+        totalAuctions++;
+        
+        if (resources.food > ownedResources.food || resources.energy > ownedResources.energy || resources.ore > ownedResources.ore)
+        {
+            throw new ArgumentOutOfRangeException("Not enough resources");
+        }
+        else
+        {
+            auctionListings.Add(new AuctionListing(totalAuctions, setPrice, resources, player));
+        }
     }
 
     public void PutUpForAuction(Roboticon roboticon)
@@ -45,6 +56,6 @@ public class AuctionManager
         {
             return "power";
         }
-        else { throw new ArgumentException("Exactly one type of resource must have apositive value"); }
+        else { throw new ArgumentException("Exactly one type of resource must have a positive value"); }
     }
 }
