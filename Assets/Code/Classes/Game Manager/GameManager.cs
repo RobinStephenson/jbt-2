@@ -149,6 +149,10 @@ public class GameManager
                   ProcessProductionPhase();
                   currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
               }
+              else if (currentState == States.AUCTION)
+            {
+                ProcessAuctionPhase();
+            }
               else
               {
                   currentState++;
@@ -173,6 +177,10 @@ public class GameManager
         //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
     }
 
+    private void ProcessAuctionPhase()
+    {
+        
+    }
     private void ProcessProductionPhase()
     {
         Player winner = GetWinnerIfGameHasEnded();
@@ -197,6 +205,8 @@ public class GameManager
 
         market.UpdatePrices();
     }
+
+
 
     /// <summary>
     /// Sorts the player list so that human players always go first. Mutates players.

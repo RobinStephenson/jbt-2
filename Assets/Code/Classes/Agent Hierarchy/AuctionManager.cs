@@ -8,13 +8,11 @@ using System;
 public class AuctionManager
 {
 
-    private List<AuctionListing> auctionListings = new List<AuctionListing>();
-    private int totalAuctions = 0;
+    private List<Auction> auctionListings ;
     
-
-    public void PlaceBid(string playerName, int bidAmount)
+    public AuctionManager()
     {
-        //TODO - Place a bid on the current item to be auctioned.
+        auctionListings = new List<Auction>();
     }
 
     /// <summary>
@@ -23,28 +21,82 @@ public class AuctionManager
     /// <param name="resources">The resources to be auctioned</param>
     /// <param name="setPrice">The price the player has set</param>
     /// <param name="player">The player setting the auction</param>
-    public void PutUpForAuction(ResourceGroup resources, int setPrice, Player player)
+    public void PutUpForAuction(ResourceGroup resources, List<int> setPrice, Player player, int turnLimit)
     {
         ResourceGroup ownedResources = player.GetResources();
-        totalAuctions++;
-        
-        if (resources.food > ownedResources.food || resources.energy > ownedResources.energy || resources.ore > ownedResources.ore)
+
+        if (0 > (ownedResources - resources).Sum())
         {
             throw new ArgumentOutOfRangeException("Not enough resources");
         }
         else
         {
-            auctionListings.Add(new AuctionListing(totalAuctions, setPrice, resources, player));
+            auctionListings.Add(new Auction(resources, player));
         }
     }
 
-    public void PutUpForAuction(Roboticon roboticon)
+    public Auction RetrieveAuction(Player player)
     {
-        //TODO - Set up a new auction for a Tile
+        foreach (Auction curAuction in auctionListings)
+        {
+            if (curAuction.owner != player)
+            {
+                return curAuction;
+            }
+        }
+        return null;    
     }
 
-    public void PutUpForAuction(Tile tile)
+    public void PlaceOffer(Player player, ResourceGroup price, ResourceGroup resources)
     {
-        //TODO - Set up a new auction for a Tile
+        if(RetrieveAuction(player) != null)
+        {
+            Auction auction = RetrieveAuction(player);
+            if (0 > (auction.resources-resources).Sum())
+            {
+                throw new ArgumentOutOfRangeException("Not enough resources in auction");
+            }
+            else if (player.GetMoney() < (resources * price).Sum())
+            {
+                throw new ArgumentOutOfRangeException("Not enough money");
+            }
+            else
+            {
+                auction.Offer = price;
+            }
+        }
+        
     }
+
+    public void ClearAuctions()
+    {
+        auctionListings = new List<Auction>();
+    }
+
+    public void AcceptOffer()
+    {
+
+    }
+
+    public class Auction
+    {
+        public ResourceGroup Offer;
+        public ResourceGroup resources { get; private set; }
+        public Player owner { get; private set; }
+
+        /// <summary>
+        /// Creating an auction lot with its price and resource type
+        /// </summary>
+        /// <param name="resourceType">Type of resource</param>
+        /// <param name="startPrice">Price of auction</param>
+        /// <param name="player">Player creating the auction</param>
+        public Auction(ResourceGroup resourceQuantity, Player player)
+        {
+            resources = resourceQuantity;
+            owner = player;
+        }
+
+
+    }
+
 }
