@@ -201,8 +201,6 @@ public class Tile
         {
             throw new InvalidOperationException("Event already applied to this tile");
         }
-        var tilePosition = tileObject.GetTilePosition();
-        Debug.Log(String.Format("Event applied to tile ({0}, {1})", tilePosition.x, tilePosition.y));
         CurrentEvent = newEvent;
     }
 
