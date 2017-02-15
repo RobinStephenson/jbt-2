@@ -11,7 +11,7 @@ public class Tile
 
 
     private int tileId;
-    private ResourceGroup resourcesGenerated;
+    private ResourceGroup BaseResources; // JBT Renamed this from total resources as total resources better decribes resources inlcuding affects of events and roboticons
     private Player owner;
     private List<Roboticon> installedRoboticons = new List<Roboticon>();
     private TileObject tileObject;
@@ -19,7 +19,7 @@ public class Tile
 
     public Tile(ResourceGroup resources, Vector2 mapDimensions, int tileId, Player owner = null)
     {
-        this.resourcesGenerated = resources;
+        this.BaseResources = resources;
         this.owner = owner;
         this.tileId = tileId;
         
@@ -102,7 +102,7 @@ public class Tile
 
     public int GetPrice()
     {
-        return (this.resourcesGenerated*(new ResourceGroup(10, 10, 10))).Sum();
+        return (this.BaseResources*(new ResourceGroup(10, 10, 10))).Sum();
     }
 
     /// <summary>
@@ -114,13 +114,19 @@ public class Tile
     {
         /* JBT Changes to this method:
          * once the resources have been calculated for the tile apply random events buffs/debuffs if there is a random event
+         * fixed an error where the calulation modified the base resources
          */
-        ResourceGroup totalResources = resourcesGenerated;
+        ResourceGroup totalResources = new ResourceGroup(BaseResources.food, BaseResources.energy, BaseResources.ore);
 
         //TODO - Diminishing returns for additional roboticons (currently linear)
         foreach(Roboticon roboticon in installedRoboticons)
         {
             totalResources += roboticon.GetUpgrades() * ROBOTICON_UPGRADE_WEIGHT;
+        }
+
+        if (CurrentEvent != null)
+        {
+            Debug.Log(String.Format("totalResources produced before event {0} food {1} energy {2} ore", totalResources.food, totalResources.energy, totalResources.ore));
         }
 
         // apply RandomEvent resource multipliers if one is applied
@@ -130,6 +136,12 @@ public class Tile
             totalResources.energy = (int) (totalResources.energy * CurrentEvent.GetFoodMultiplier());
             totalResources.ore = (int) (totalResources.ore * CurrentEvent.GetOreMultiplier());
         }
+
+        if (CurrentEvent != null)
+        {
+            Debug.Log(String.Format("totalResources produced after event {0} food {1} energy {2} ore", totalResources.food, totalResources.energy, totalResources.ore));
+        }
+
         return totalResources;
     }
 
@@ -139,7 +151,7 @@ public class Tile
     /// <returns></returns>
     public ResourceGroup GetBaseResourcesGenerated()
     {
-        return resourcesGenerated;
+        return BaseResources;
     }
 
     /// <summary>
@@ -189,6 +201,8 @@ public class Tile
         {
             throw new InvalidOperationException("Event already applied to this tile");
         }
+        var tilePosition = tileObject.GetTilePosition();
+        Debug.Log(String.Format("Event applied to tile ({0}, {1})", tilePosition.x, tilePosition.y));
         CurrentEvent = newEvent;
     }
 
