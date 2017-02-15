@@ -43,15 +43,13 @@ public class AI : Player
     //JBT changed this method to actually select a buyable tile
     private Tile ChooseTileToAcquire()
     {
-        Map map = GameHandler.GetGameManager().GetMap();
+        List<Tile> tiles = GameHandler.GetGameManager().GetMap().GetTiles();
         List<Tile> possibleTiles = new List<Tile>();
 
-        foreach (Tile t in map.GetTiles())
+        foreach (Tile t in tiles)
         {
-            Debug.Log(money.ToString());
             if (t.GetOwner() == null && t.GetPrice() < money)
             {
-                Debug.Log(possibleTiles.Count.ToString());
                 possibleTiles.Add(t);
             }
         }
