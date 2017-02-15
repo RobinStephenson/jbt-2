@@ -52,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -66,6 +69,9 @@
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
@@ -83,13 +89,13 @@
   <ItemGroup>
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
+    <Compile Include="Assets\Code\Classes\Agent Hierarchy\AuctionManager.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\RandomEvent.cs" />
