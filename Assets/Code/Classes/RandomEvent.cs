@@ -6,10 +6,11 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class RandomEvent
 {
-    private static Random Random = new Random();
+    private static System.Random Random = new System.Random();
 
     /// <summary>
     /// the number of resources in the game
@@ -177,6 +178,7 @@ public class RandomEvent
         List<Tile> PossibleTiles = GetPossibleTiles(map);
         if (PossibleTiles.Count < NumberOfTilesToAffect)
         {
+            Debug.Log(String.Format("Failed to start event: {0}", Title));
             throw new InvalidOperationException("Not enough suitable tiles to start this event");
         }
 
@@ -193,7 +195,7 @@ public class RandomEvent
 
         // apply the event to each chosen tile
         ChosenTiles.ForEach(tile => tile.ApplyEvent(this));
-
+        Debug.Log(String.Format("Event: {0} applied to how many tiles: {1}", Title, ChosenTiles.Count));
     }
 
     private List<Tile> GetPossibleTiles(Map map)
