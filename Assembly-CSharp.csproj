@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\AuctionListing.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AuctionManager.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
