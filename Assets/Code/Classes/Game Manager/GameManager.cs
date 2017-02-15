@@ -18,6 +18,7 @@ public class GameManager
         "Auction"
         };
 
+    public GameObject humanGuiCanvas;
     public Market market;
     public string gameName;
 
