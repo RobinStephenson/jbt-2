@@ -105,6 +105,9 @@ public static class RandomEventManager
         }
     }
 
+    /// <summary>
+    /// Trigger a randomly selected event
+    /// </summary>
     private static void TriggerNewEvent()
     {
         RandomEvent NewEvent = InactiveEvents[Random.Next(InactiveEvents.Count)];
