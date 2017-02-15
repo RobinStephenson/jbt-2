@@ -100,7 +100,7 @@ public class Map
 
     private int GetRandomResourceAmount()
     {
-        return Random.Range(0, MAX_TILE_RESOURCE_PRODUCTION + 1);
+        return UnityEngine.Random.Range(0, MAX_TILE_RESOURCE_PRODUCTION + 1);
     }
 
     // Created by JBT
