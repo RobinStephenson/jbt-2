@@ -94,8 +94,7 @@ public static class RandomEventManager
             // so the higher EventFrequency is the more chance next double has of being < EventFrequency
             if (Random.NextDouble() < EventFrequency)
             {
-                Debug.Log("Triggering a new event");
-                TriggerNewEvent();
+                TryTriggerNewEvent();
             }
             else
             {
@@ -105,14 +104,23 @@ public static class RandomEventManager
     }
 
     /// <summary>
-    /// Trigger a randomly selected event
+    /// Try to trigger a randomly selected event
+    /// Might fail if the correct tiles cant be found but state wont be affected if that happens
     /// </summary>
-    private static void TriggerNewEvent()
+    private static void TryTriggerNewEvent()
     {
+        Debug.Log("Trying to trigger a new event");
         RandomEvent NewEvent = InactiveEvents[Random.Next(InactiveEvents.Count)];
+        try {
+            NewEvent.Start(GameHandler.GetGameManager().GetMap());
+        }
+        catch (InvalidOperationException)
+        {
+            Debug.Log("Failed to start the event this turn, continuing anyway");
+            // the event couldnt be started, reset and continue without having started the event
+            return;
+        }
         InactiveEvents.Remove(NewEvent);
-        ActiveEvents.Add(NewEvent); // TODO, this still adds events to active even if the start failed
-        NewEvent.Start(GameHandler.GetGameManager().GetMap());
-        Debug.Log(String.Format("Triggered a new event: {0}", NewEvent.Title));
+        ActiveEvents.Add(NewEvent); 
     }
 }
