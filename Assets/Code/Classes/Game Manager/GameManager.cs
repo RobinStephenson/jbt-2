@@ -149,14 +149,8 @@ public class GameManager
         {
             //If we've moved on to the production phase, run the function that handles the logic for the production phase.
             if (currentState == States.PRODUCTION)
-            {
-                if (currentPlayerIndex == 0)
-                {
-                    // This MUST be called at the start of the production phase of the first player each turn!
-                    // This is because manage events may change tile production values so to be fair to both players we must make those changes before production   
-                    RandomEventManager.ManageAndTriggerEvents(currentState, currentPlayerIndex);
-                }
-
+            { 
+                RandomEventManager.ManageAndTriggerEvents();
                 ProcessProductionPhase();
                 currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
             }

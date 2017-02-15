@@ -63,20 +63,11 @@ public static class RandomEventManager
 
     /// <summary>
     /// Manage current random events and trigger new ones
-    /// Should only be called at the start of the first players production phase so that events are applied to 
+    /// Should only be called at the of both players production phase so that events are applied to both
     /// </summary>
-    /// <param name="State">The current state of the game</param>
-    /// <param name="currentPlayer">0 for first player, 1 for second player etc.</param>
-    public static void ManageAndTriggerEvents(GameManager.States state, int currentPlayer)
+    public static void ManageAndTriggerEvents()
     {
-        // paramaters are only used to try and ensure this is called at the right time
-        // this method should only be called at the start of the first players production phase so that if effects both players production
-        // if its called at the end of the first players for example, the event wont effect their tiles but it would effect player 2 which is unfair
-
-        if (state != GameManager.States.PRODUCTION || currentPlayer != 0)
-        {
-            throw new InvalidOperationException("Must be called ONLY at the start production phase of the first player");
-        }
+        Debug.Log("ManageAndTriggerEvents called");
 
         // Update currently active events
         foreach (RandomEvent activeEvent in ActiveEvents)
@@ -85,6 +76,7 @@ public static class RandomEventManager
 
             if (activeEvent.Finished)
             {
+                Debug.Log(String.Format("Removing event {0}", activeEvent.Title));
                 // the event is finished, move it to the inactive event list
                 ActiveEvents.Remove(activeEvent);
                 InactiveEvents.Add(activeEvent);
@@ -100,7 +92,12 @@ public static class RandomEventManager
             // so the higher EventFrequency is the more chance next double has of being < EventFrequency
             if (Random.NextDouble() < EventFrequency)
             {
+                Debug.Log("Triggering a new event");
                 TriggerNewEvent();
+            }
+            else
+            {
+                Debug.Log("Not triggering a new event this turn");
             }
         }
     }
@@ -112,7 +109,8 @@ public static class RandomEventManager
     {
         RandomEvent NewEvent = InactiveEvents[Random.Next(InactiveEvents.Count)];
         InactiveEvents.Remove(NewEvent);
-        ActiveEvents.Add(NewEvent);
+        ActiveEvents.Add(NewEvent); // TODO, this still adds events to active even if the start failed
         NewEvent.Start(GameHandler.GetGameManager().GetMap());
+        Debug.Log(String.Format("Triggered a new event: {0}", NewEvent.Title));
     }
 }
