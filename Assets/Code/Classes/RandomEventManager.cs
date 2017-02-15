@@ -17,13 +17,15 @@ public static class RandomEventManager
     /// Number between 0 and 1 (exclusive) for how often a random event should happen 
     /// </summary>
     public static float EventFrequency { get; private set; }
-
+    public const float DefaultEventFrequency = 0.5f;
+    
     /// <summary>
     /// Maximum number of events that can be active at the same time
     /// min = 1
     /// </summary>
     public static int MaxSimultaneousEvents { get; private set; }
-
+    public const int DefaultMaxSimultaneousEvents = 2;
+    
     /// <summary>
     /// Initialise the randomevents available in the game
     /// </summary>
@@ -34,8 +36,8 @@ public static class RandomEventManager
             throw new InvalidOperationException("Events have already been initialised");
         }
 
-        MaxSimultaneousEvents = 2;
-        EventFrequency = 0.15f;
+        MaxSimultaneousEvents = DefaultMaxSimultaneousEvents;
+        EventFrequency = DefaultEventFrequency;
 
         TextAsset LoadedJson = (TextAsset)Resources.Load("Events");
         var ConfigurationsFile = JSON.Parse(LoadedJson.text);
