@@ -184,7 +184,7 @@ public class RandomEvent
         List<Tile> ChosenTiles = new List<Tile>();
         if (AffectConnectedTilesOnly)
         {
-            ChosenTiles = GetRandomConnectedTiles(PossibleTiles);    
+            ChosenTiles = GetRandomConnectedTiles(PossibleTiles, map);    
         }
         else
         {
@@ -219,14 +219,16 @@ public class RandomEvent
     /// Get a random selection of connected (next to each other) tiles. Quantity returned is the number of tiles this event should affect
     /// </summary>
     /// <param name="possibleTiles">a list of tiles this event can be applied to. ie no tiles with events already applied</param>
+    /// <param name="map">the game map</param>
     /// <exception cref="ArgumentException">Thrown when no solution is possible</exception>
     /// <returns>n random tiles where n = NumberOfTilesToAffect, and the tiles are a subset of possible tiles. And the tiles are all connected to at least one of the others.</returns>
-    private List<Tile> GetRandomConnectedTiles(List<Tile> possibleTiles)
+    private List<Tile> GetRandomConnectedTiles(List<Tile> possibleTiles, Map map)
     {
-        List<Tile> ChosenTiles = new List<Tile>(NumberOfTilesToAffect);
+        // A copy of the paramater so we dont modify the original
+        List<Tile> PossibleTiles = new List<Tile>(possibleTiles);
 
-        // contains all tiles we know are not connected to enough tiles to get enough tiles for this event
-        List<Tile> FailedTiles = new List<Tile>();
+        // Contains the current solution (can be partial)
+        List<Tile> ChosenTiles = new List<Tile>(NumberOfTilesToAffect);
 
         // Contains all neighbours of chosentiles not in chosen tiles
         List<Tile> Neighbours = new List<Tile>();
@@ -236,29 +238,61 @@ public class RandomEvent
         const int MaxAttempts = 25;
         do
         {
-            // pick a random tile not in failed tiles, add to chosen tiles, update neigbours
+            // pick a random tile from possible tiles, add to chosen tiles, remove from possible, update neigbours
+            int RandomIndex = Random.Next(PossibleTiles.Count);
+            Tile ChosenTile = PossibleTiles[RandomIndex];
+            ChosenTiles.Add(ChosenTile);
+            PossibleTiles.Remove(ChosenTile);
+            Neighbours = UpdatePossibleNeighbours(Neighbours, ChosenTile, PossibleTiles, map);
+
+            // try to grow the selection
             while (ChosenTiles.Count < NumberOfTilesToAffect)
             {
-                // TODO pick a random neighbour that is also a possibleTile and add it to chosen tiles, update neighbours
-                // if any neighbour is a failed tile or no neighbour is a possible tile or there are no neighbours then add all current and neighbours to failed
-
-                // check if a solution is still possible
-                if (FailedTiles.Count > possibleTiles.Count - NumberOfTilesToAffect)
+                // if there are no neighbours start the search again
+                if (Neighbours.Count == 0)
                 {
-                    throw new ArgumentException("No solution is possible");
+                    break;
                 }
+
+                // choose a new random neighbour
+                RandomIndex = Random.Next(Neighbours.Count);
+                ChosenTile = Neighbours[RandomIndex];
+                ChosenTiles.Add(ChosenTile);
+                Neighbours.Remove(ChosenTile);
+                PossibleTiles.Remove(ChosenTile);
+                Neighbours = UpdatePossibleNeighbours(Neighbours, ChosenTile, PossibleTiles, map);
             }
 
-            // if solution found break
-            Attempts++;
+            if (ChosenTiles.Count == NumberOfTilesToAffect)
+            {
+                return ChosenTiles;
+            }
+            else
+            {
+                Attempts++;
+            }
         } while (Attempts < MaxAttempts);
-        if (Attempts == MaxAttempts)
-        {
-            throw new Exception("Solution took to long to find, or does not exist");
-        }
+        throw new Exception("Solution took to long to find, or does not exist");    
+    }
 
-        return ChosenTiles;
-        
+    /// <summary>
+    /// Get an Updated list of neighbours, all of which are possible tiles
+    /// </summary>
+    /// <param name="ExistingNeighbours">List of all currently found neighbours</param>
+    /// <param name="NewTile">The new tile whos neighbours are being added</param>
+    /// <param name="PossibleTiles">All new neigbours must also be in this list</param>
+    /// <returns>Existing Neighbours + (NewTile's neighbours that are also in PossibleTiles)</returns>
+    private List<Tile> UpdatePossibleNeighbours(List<Tile> ExistingNeighbours, Tile NewTile, List<Tile> PossibleTiles, Map map)
+    {
+        List<Tile> UpdatedNeighbours = new List<Tile>(ExistingNeighbours);
+        foreach (Tile NewNeighbour in map.GetTileNeighbours(NewTile))
+        {
+            if (PossibleTiles.Contains(NewNeighbour))
+            {
+                UpdatedNeighbours.Add(NewNeighbour);
+            }
+        }
+        return UpdatedNeighbours;
     }
     
     /// <summary>
