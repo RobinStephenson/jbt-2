@@ -44,9 +44,9 @@ public class GameManager
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);
-		    this.market = new Market();
-		    this.randomEventFactory = new RandomEventFactory();
-		    this.map = new Map();
+		this.market = new Market();
+		this.randomEventFactory = new RandomEventFactory();
+		this.map = new Map();
     }
 
     public void StartGame()
@@ -143,7 +143,7 @@ public class GameManager
         {
               //If we've moved on to the production phase, run the function that handles the logic for the production phase.
               if (currentState == States.PRODUCTION)
-              {
+              { 
                   ProcessProductionPhase();
                   currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
               }

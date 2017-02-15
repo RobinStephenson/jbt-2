@@ -19,6 +19,7 @@ public class AI : Player
     {
         this.name = name;
         this.resources = resources;
+        this.money = money;
     }
 
     public override void Act(GameManager.States state)
@@ -29,7 +30,7 @@ public class AI : Player
             case GameManager.States.ACQUISITION:
                 Tile tileToAcquire = ChooseTileToAcquire();
 
-                if (tileToAcquire.GetOwner() == null)
+                if (tileToAcquire != null)
                 {
                     AcquireTile(tileToAcquire);
                 }
@@ -47,16 +48,22 @@ public class AI : Player
 
         foreach (Tile t in map.GetTiles())
         {
+            Debug.Log(money.ToString());
             if (t.GetOwner() == null && t.GetPrice() < money)
             {
                 Debug.Log(possibleTiles.Count.ToString());
                 possibleTiles.Add(t);
             }
         }
-        int numTiles = (int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y);
 
-
-        return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
+        if (possibleTiles.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
+        }
     }
 
     private ResourceGroup ChooseBestRoboticonUpgrade(Roboticon roboticon)
