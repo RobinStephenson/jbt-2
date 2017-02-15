@@ -70,7 +70,7 @@ public static class RandomEventManager
     public static void ManageAndTriggerEvents()
     {
         Debug.Log("ManageAndTriggerEvents called");
-
+        List<RandomEvent> EventsToRemoveFromActive = new List<RandomEvent>();
         // Update currently active events
         foreach (RandomEvent activeEvent in ActiveEvents)
         {
@@ -78,15 +78,21 @@ public static class RandomEventManager
             {
                 Debug.Log(String.Format("Removing event {0}", activeEvent.Title));
                 // the event is finished, move it to the inactive event list
-                ActiveEvents.Remove(activeEvent);
+                EventsToRemoveFromActive.Add(activeEvent);
                 InactiveEvents.Add(activeEvent);
-
+                
                 // TODO Check if we need to update the map
             }
             else
             {
                 activeEvent.TurnCompleted();
             } 
+        }
+
+        // have to remove these events seperately as the above loop cant modify the list its iterating over
+        foreach (RandomEvent eventToRemove in EventsToRemoveFromActive)
+        {
+            ActiveEvents.Remove(eventToRemove);
         }
         
         // Trigger new events

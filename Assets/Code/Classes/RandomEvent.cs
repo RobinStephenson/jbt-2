@@ -76,7 +76,7 @@ public class RandomEvent
     /// <summary>
     /// Tiles this event is currently affecting
     /// </summary>
-    private List<Tile> AffectedTiles;
+    private List<Tile> AffectedTiles = new List<Tile>();
 
     // TODO add fields for something like the image that should be applied to the tile(s) to which this is applied()
 
@@ -173,7 +173,7 @@ public class RandomEvent
     {
         // Set this events state to its default
         Reset();
-
+ 
         // get a list of all the tiles this event COULD be applied to
         List<Tile> PossibleTiles = GetPossibleTiles(map);
         if (PossibleTiles.Count < NumberOfTilesToAffect)
@@ -194,7 +194,12 @@ public class RandomEvent
         }
 
         // apply the event to each chosen tile
-        ChosenTiles.ForEach(tile => tile.ApplyEvent(this));
+        foreach (Tile tile in ChosenTiles)
+        {
+            tile.ApplyEvent(this);
+            AffectedTiles.Add(tile);
+        }
+
         Debug.Log(String.Format("Event: {0} applied to how many tiles: {1}", Title, ChosenTiles.Count));
     }
 
@@ -320,5 +325,6 @@ public class RandomEvent
     private void Reset()
     { 
         CompleteTurnsElapsed = 0;
+        AffectedTiles.Clear();
     }
 }
