@@ -74,8 +74,6 @@ public static class RandomEventManager
         // Update currently active events
         foreach (RandomEvent activeEvent in ActiveEvents)
         {
-            activeEvent.TurnCompleted();
-
             if (activeEvent.Finished)
             {
                 Debug.Log(String.Format("Removing event {0}", activeEvent.Title));
@@ -85,6 +83,10 @@ public static class RandomEventManager
 
                 // TODO Check if we need to update the map
             }
+            else
+            {
+                activeEvent.TurnCompleted();
+            } 
         }
         
         // Trigger new events
