@@ -186,7 +186,7 @@ public class RandomEvent
         List<Tile> ChosenTiles = new List<Tile>();
         if (AffectConnectedTilesOnly)
         {
-            ChosenTiles = GetRandomConnectedTiles(PossibleTiles, map);    
+            ChosenTiles = GetRandomConnectedTiles(PossibleTiles, map);
         }
         else
         {
@@ -274,7 +274,7 @@ public class RandomEvent
                 Attempts++;
             }
         } while (Attempts < MaxAttempts);
-        throw new Exception("Solution took to long to find, or does not exist");    
+        throw new InvalidOperationException("Solution took to long to find, or does not exist");    
     }
 
     /// <summary>
