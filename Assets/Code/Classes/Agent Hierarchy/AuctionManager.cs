@@ -47,22 +47,23 @@ public class AuctionManager
         return null;    
     }
 
-    public void PlaceOffer(Player player, ResourceGroup price, ResourceGroup resources)
+    public void PlaceOffer(Player player, ResourceGroup price, ResourceGroup requestedResources)
     {
         if(RetrieveAuction(player) != null)
         {
             Auction auction = RetrieveAuction(player);
-            if (0 > (auction.resources-resources).Sum())
+            ResourceGroup resourceDifference = auction.resources - requestedResources;
+            if ((resourceDifference.food < 0) || (resourceDifference.energy < 0) || (resourceDifference.ore < 0))
             {
                 throw new ArgumentOutOfRangeException("Not enough resources in auction");
             }
-            else if (player.GetMoney() < (resources * price).Sum())
+            else if (player.GetMoney() < (requestedResources * price).Sum())
             {
                 throw new ArgumentOutOfRangeException("Not enough money");
             }
             else
             {
-                auction.Offer = price;
+                auction.SetOffer(price, requestedResources);
             }
         }
         
@@ -73,14 +74,15 @@ public class AuctionManager
         auctionListings = new List<Auction>();
     }
 
-    public void AcceptOffer()
+    public void AcceptOffer(Auction auction, Player playerBuy)
     {
 
     }
 
     public class Auction
     {
-        public ResourceGroup Offer;
+        private ResourceGroup OfferPrice;
+        private ResourceGroup OfferQuantity;
         public ResourceGroup resources { get; private set; }
         public Player owner { get; private set; }
 
@@ -96,7 +98,11 @@ public class AuctionManager
             owner = player;
         }
 
-
+        public void SetOffer(ResourceGroup price, ResourceGroup quantity)
+        {
+            OfferPrice = price;
+            OfferQuantity = quantity;
+        }
     }
 
 }
