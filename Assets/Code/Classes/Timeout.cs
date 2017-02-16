@@ -14,18 +14,15 @@ public class Timeout
     /// <param name="time">time in seconds of the timeout</param>
     public Timeout(int time)
     {
-        if (time < 1 && time != -1)
+        if (time < 1)
         {
             throw new ArgumentOutOfRangeException("Must be at least one second");
         }
 
         timeAllowed = time;
 
-        if (time != -1)
-        {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-        }
+        stopwatch = new Stopwatch();
+        stopwatch.Start();
     }
 
     /// <summary>
@@ -35,14 +32,7 @@ public class Timeout
     {
         get
         {
-            if (timeAllowed == -1)
-            {
-                return -1;
-            }
-            else
-            {
-                return Math.Max(timeAllowed - stopwatch.Elapsed.Seconds, 0);
-            }
+            return Math.Max(timeAllowed - stopwatch.Elapsed.Seconds, 0);
         }
     }
 
@@ -53,14 +43,7 @@ public class Timeout
     {
         get
         {
-            if (timeAllowed == -1)
-            {
-                return false;
-            }
-            else
-            {
-                return timeAllowed - stopwatch.Elapsed.Seconds < 0;
-            }
+            return timeAllowed - stopwatch.Elapsed.Seconds < 0;
         }
     }
 }
