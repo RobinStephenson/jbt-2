@@ -141,6 +141,7 @@ public class GameManager
 
     /* JBT Changes to this method
      * call the random event manager at the start of the first players production phase
+     * call the ApplyPhaseTimeout method if the player is human
      */
     private void PlayerAct()
     {
@@ -149,7 +150,7 @@ public class GameManager
         {
             //If we've moved on to the production phase, run the function that handles the logic for the production phase.
             if (currentState == States.PRODUCTION)
-            { 
+            {
                 RandomEventManager.ManageAndTriggerEvents();
                 ProcessProductionPhase();
                 currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
@@ -167,10 +168,39 @@ public class GameManager
         humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
         humanGui.SetCurrentPlayerName(currentPlayer.GetName());
         currentPlayerIndex++;
+        
+        if (currentPlayer is Human)
+        {
+            ApplyPhaseTimeout(currentState);
+        }
 
         currentPlayer.Act(currentState);
         map.UpdateMap();
     }
+
+    /// <summary>
+    /// if the current phase is timelimited, set the timeout, otherwise set it to null
+    /// </summary>
+    /// <param name="currentState"></param>
+    private void ApplyPhaseTimeout(States currentState)
+    {
+        // if we are in a timelimited phase create a timeout, otherwise set the timeout to null
+        Timeout CurrentPhaseTimeout = null;
+        if (currentState == States.PURCHASE)
+        {
+            CurrentPhaseTimeout = new Timeout(15);
+        }
+        else if (currentState == States.INSTALLATION)
+        {
+            CurrentPhaseTimeout = new Timeout(45);
+        }
+        else if (currentState == States.AUCTION)
+        {
+            CurrentPhaseTimeout = new Timeout(60);
+        }
+        humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
+    }
+
 
     private void ShowWinner(Player player)
     {

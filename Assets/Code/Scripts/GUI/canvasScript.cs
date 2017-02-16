@@ -42,6 +42,7 @@ public class canvasScript : MonoBehaviour
             }
             if (CurrentTimout.Finished)
             {
+                Debug.Log("Current Timeout Finished");
                 CurrentTimout = null;
                 EndPhase();
             }
@@ -51,11 +52,12 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     public void SetTimeout(Timeout timeout)
     {
-        if (timeout.Finished)
+        if (timeout != null && timeout.Finished)
         {
             throw new ArgumentException("Need a fresh timeout");
         }
         CurrentTimout = timeout;
+        Debug.Log(String.Format("Set a new timeout {0}", timeout));
     }
 
     // this is called by the end phase button

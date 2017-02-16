@@ -53,6 +53,7 @@
      <Compile Include="Assets\Editor\Tests\ResourceGroupTest.cs" />
      <Compile Include="Assets\Editor\Tests\RoboticonTest.cs" />
      <Compile Include="Assets\Editor\Tests\TileTest.cs" />
+     <Compile Include="Assets\Editor\Tests\TimeoutTest.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />
