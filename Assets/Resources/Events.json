@@ -20,7 +20,7 @@
 			"foodMultiplier": 0,
 			"oreMultiplier": 1.5,
 			"energyMultiplier": 1.25,
-			"noRoboticonInstalled": "False",
+			"noRoboticonInstalled": "True",
 			"roboticonInstalled": "True",
 			"noRoboticonInstalled": "True"
 		},
