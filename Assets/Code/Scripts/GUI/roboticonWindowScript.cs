@@ -11,6 +11,7 @@ public class roboticonWindowScript : MonoBehaviour
     private List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
     private const string ROBOTICON_TEMPLATE_PATH = "Prefabs/GUI/TemplateRoboticon";
 
+    // JBT fixed an error in this method where having the roboticons list open and no tile selected could cause the gui to stop responding / be drawn
     /// <summary>
     /// Display a new set of roboticons to the GUI. Overwrite any previously displayed
     /// roboticons.
@@ -35,9 +36,13 @@ public class roboticonWindowScript : MonoBehaviour
         else if(currentState == GameManager.States.INSTALLATION)
         {
             HumanGui humanGui = canvas.GetHumanGui();
-            if (humanGui.GetCurrentSelectedTile().GetOwner() == humanGui.GetCurrentHuman())
+            Tile CurrentSelectedTile = humanGui.GetCurrentSelectedTile(); // JBT
+            if (CurrentSelectedTile != null) // JBT
             {
-                ShowRoboticonInstallButtons();
+                if (CurrentSelectedTile.GetOwner() == humanGui.GetCurrentHuman())
+                {
+                    ShowRoboticonInstallButtons();
+                }
             }
         }
         else
