@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System;
 
 [assembly: InternalsVisibleToAttribute("MapTests")]
 
@@ -99,6 +100,56 @@ public class Map
 
     private int GetRandomResourceAmount()
     {
-        return Random.Range(0, MAX_TILE_RESOURCE_PRODUCTION + 1);
+        return UnityEngine.Random.Range(0, MAX_TILE_RESOURCE_PRODUCTION + 1);
+    }
+
+    // Created by JBT
+    /// <summary>
+    /// Get a list of a tiles neighbours
+    /// North East South West (no diaganols)
+    /// </summary>
+    /// <param name="tile">The tile whoms neighbours are being requested</param>
+    /// <returns>A list of the neighbours</returns>
+    public List<Tile> GetTileNeighbours(Tile tile)
+    {
+        List<Tile> Neighbours = new List<Tile>();
+        var TilePosition = tile.GetTileObject().GetTilePosition();
+        if (TilePosition.x > 0)
+        { 
+           Neighbours.Add(GetTileAtPosition(new Vector2(TilePosition.x - 1, TilePosition.y)));
+        }
+        if (TilePosition.x < 9)
+        {
+            Neighbours.Add(GetTileAtPosition(new Vector2(TilePosition.x + 1, TilePosition.y)));
+        }
+        if (TilePosition.y > 0)
+        {
+            Neighbours.Add(GetTileAtPosition(new Vector2(TilePosition.x, TilePosition.y - 1)));
+        }
+        if (TilePosition.y < 9)
+        {
+            Neighbours.Add(GetTileAtPosition(new Vector2(TilePosition.x, TilePosition.y + 1)));
+        }
+
+        return Neighbours;
+    }
+
+    // created by JBT
+    /// <summary>
+    /// Get the tile at a given map position
+    /// </summary>
+    /// <param name="position">the position of the tile</param>
+    /// <returns>the tile at that position</returns>
+    public Tile GetTileAtPosition(Vector2 position)
+    {
+        foreach (Tile currentTile in tiles)
+        {
+            Vector2 currentTilePosition = currentTile.GetTileObject().GetTilePosition();
+            if (currentTilePosition == position)
+            {
+                return currentTile;
+            }
+        }
+        throw new ArgumentException("No tile at that position");
     }
 }
