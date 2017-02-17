@@ -4762,6 +4762,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helpBox: {fileID: 114000012429438342}
   optionsMenu: {fileID: 1000012209338906}
+  marketButton: {fileID: 1000012206625740}
+  roboticonButton: {fileID: 1000012395460826}
   roboticonList: {fileID: 114000012653773168}
   marketScript: {fileID: 114000013407347722}
   endPhaseButton: {fileID: 1000014289324614}
@@ -11390,6 +11392,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7, y: 0}
+  m_AnchoredPosition: {x: -2.699997, y: 0}
   m_SizeDelta: {x: 15, y: 0}
   m_Pivot: {x: 1, y: 1}

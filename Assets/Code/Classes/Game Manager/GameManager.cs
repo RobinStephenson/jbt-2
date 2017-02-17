@@ -169,7 +169,6 @@ public class GameManager
 
         humanGui.DisableGui();  //Disable the Gui in between turns. Re-enabled in the human Act function.
         humanGui.SetCurrentPlayerName(currentPlayer.GetName());
-        currentPlayerIndex++;
         
         if (currentPlayer is Human)
         {
@@ -178,11 +177,12 @@ public class GameManager
         }
         else if(currentPlayer is AI)
         {
-
+            humanGui.DisplayAIInfo((AI)currentPlayer, currentState);
+            ApplyAITimeout();
         }
-
         
         map.UpdateMap();
+        currentPlayerIndex++;
     }
 
     /// <summary>
@@ -208,6 +208,13 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
 
+    /// <summary>
+    /// Set the current AI timeout, so there is a delay whilst they make their turn
+    /// </summary>
+    private void ApplyAITimeout()
+    {
+        humanGui.GetCanvas().SetTimeout(new Timeout(3));
+    }
 
     private void ShowWinner(Player player)
     {

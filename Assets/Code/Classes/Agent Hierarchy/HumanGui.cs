@@ -38,7 +38,7 @@ public class HumanGui
 
         canvas.ShowMarketButton();
         canvas.ShowRoboticonButton();
-
+        
         ShowHelpBox();
 
         UpdateResourceBar(false);
@@ -58,6 +58,7 @@ public class HumanGui
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
+        UpdateResourceBar(true);
     }
 
     public void SetCurrentPlayerName(string name)

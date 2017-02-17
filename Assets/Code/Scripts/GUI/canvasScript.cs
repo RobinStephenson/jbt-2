@@ -17,7 +17,7 @@ public class canvasScript : MonoBehaviour
     public Text currentPlayerText;
     public Text currentPhaseText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
-    private Timeout CurrentTimout;
+    private Timeout CurrentTimeout;
 
     #region Resource Labels
     public Text foodLabel;
@@ -34,18 +34,18 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
-        if (CurrentTimout != null)
+        if (CurrentTimeout != null)
         {
             // we are in a timed phase
             // TODO update the timer display
-            if (CurrentTimout.SecondsRemaining < 5)
+            if (CurrentTimeout.SecondsRemaining < 5)
             {
                 // TODO make the text red or something to make it clearer its ending
             }
-            if (CurrentTimout.Finished)
+            if (CurrentTimeout.Finished)
             {
                 Debug.Log("Current Timeout Finished");
-                CurrentTimout = null;
+                CurrentTimeout = null;
                 EndPhase();
             }
         }
@@ -58,14 +58,14 @@ public class canvasScript : MonoBehaviour
         {
             throw new ArgumentException("Need a fresh timeout");
         }
-        CurrentTimout = timeout;
+        CurrentTimeout = timeout;
         Debug.Log(String.Format("Set a new timeout {0}", timeout));
     }
 
     // this is called by the end phase button
     public void EndPhase()
     {
-        CurrentTimout = null;
+        CurrentTimeout = null;
         humanGui.EndPhase();
     }
 
@@ -257,9 +257,9 @@ public class canvasScript : MonoBehaviour
     //Created by JBT to change the UI when an AI is taking its turn
     public void SetUnknownResourceLabels()
     {
-        foodChangeLabel.text = "??";
-        energyChangeLabel.text = "??";
-        oreChangeLabel.text = "??";
+        foodLabel.text = "??";
+        energyLabel.text = "??";
+        oreLabel.text = "??";
     }
 
     //Created by JBT to change the UI when an AI is taking its turn
