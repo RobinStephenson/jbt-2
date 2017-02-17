@@ -14,7 +14,7 @@ public class TileObject
     private static Color TILE_DEFAULT_OWNED = new Color(0, 0, 1);    //Blue
     private static Color TILE_HOVER_COLOUR = new Color(1, 1, 0);     //Yellow
     private static Color TILE_SELECT_COLOUR = new Color(0, 1, 0);    //Green
-    private static float TILE_HIGHLIGHT_ALPHA = 0.1f;                //Value between 0-1, which determines the strength of tile highlights, added by JBT
+    private static float TILE_HIGHLIGHT_ALPHA = 0.25f;                //Value between 0-1, which determines the strength of tile highlights, added by JBT
     private static Vector3 tileGridPrefabSize;
 
     private Vector2 position;
@@ -23,6 +23,7 @@ public class TileObject
 
     private GameObject tileGameObjectInScene;
     private GameObject tileCenter;              //Added by JBT to allow the entire tile area to be highlighted
+    private GameObject tileRoboticon;           //Added by JBT to allow the display of installed roboticons on tiles
 
     public enum TILE_OWNER_TYPE
     {
@@ -79,7 +80,9 @@ public class TileObject
         tileGameObjectInScene.AddComponent<mapTileScript>().SetTileId(tileId);
         tileGameObjectInScene.transform.parent = tileHolder.transform;
         tileCenter = tileGameObjectInScene.transform.GetChild(0).gameObject;
+        tileRoboticon = tileGameObjectInScene.transform.GetChild(1).gameObject;
         tileCenter.SetActive(false);
+        tileRoboticon.SetActive(true);
     }
 
     //JBT changed this method to support a highlightable center of the tile
@@ -151,6 +154,15 @@ public class TileObject
         Color newColor = c;
         c.a = a;
         return c;
+    }
+
+    //Added by JBT to support the display of installed roboticons on tiles
+    /// <summary>
+    /// Shows the installed roboticon on a tile. This is called when a roboticon is installed on this tile instance
+    /// </summary>
+    public void ShowInstalledRoboticon()
+    {
+        tileRoboticon.SetActive(true);
     }
 
     /// <summary>
