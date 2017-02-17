@@ -175,6 +175,11 @@ public class GameManager
         {
             ApplyPhaseTimeout(currentState);
         }
+        else if(currentPlayer is AI)
+        {
+            canvasScript c = humanGuiCanvas.GetComponent<canvasScript>();
+            humang
+        }
 
         currentPlayer.Act(currentState);
         map.UpdateMap();
