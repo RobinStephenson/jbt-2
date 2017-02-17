@@ -52,16 +52,26 @@ public abstract class Player : Agent
         return totalResources;
     }
 
+    //JBT moved the logic for buying tiles to this method from the HumanGUI class, so AI's can use this method also
     public void AcquireTile(Tile tile)
     {
         if (!ownedTiles.Contains(tile))
         {
+            if (tile.GetPrice() < money)
+            {
+                SetMoney(GetMoney() - tile.GetPrice());
+            }
+            else
+            {
+                throw new System.InvalidOperationException("Not enough money to buy tile");
+            }
+
             ownedTiles.Add(tile);
             tile.SetOwner(this);
         }
         else
         {
-            throw new System.Exception("Tried to acquire a tile which is already owned by this player.");
+            throw new System.InvalidOperationException("Tried to acquire a tile which is already owned by this player.");
         }
     }
 
