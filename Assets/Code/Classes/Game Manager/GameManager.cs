@@ -81,12 +81,17 @@ public class GameManager
         }
     }
 
+    //Amended by JBT
+    /// <summary>
+    /// Returns the Player that has won, if the game win condition is met
+    /// </summary>
+    /// <returns>The winning player</returns>
     public Player GetWinnerIfGameHasEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
         if (map.GetNumUnownedTilesRemaining() == 0)
         {
-            float highestScore = Mathf.NegativeInfinity;
+            int highestScore = 0;
             Player winner = null;
 
             for (int i = 0; i < players.Count; i++)
@@ -99,11 +104,7 @@ public class GameManager
                     winner = players[i];
                 }
             }
-
-            if (highestScore != Mathf.NegativeInfinity)
-            {
-                return winner;
-            }
+            return winner;
         }
 
         return null;
