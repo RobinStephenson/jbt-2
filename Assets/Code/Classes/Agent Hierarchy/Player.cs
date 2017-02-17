@@ -63,7 +63,7 @@ public abstract class Player : Agent
             }
             else
             {
-                throw new System.ArgumentOutOfRangeException("Not enough money to buy tile");
+                throw new System.InvalidOperationException("Not enough money to buy tile");
             }
 
             ownedTiles.Add(tile);
@@ -71,7 +71,7 @@ public abstract class Player : Agent
         }
         else
         {
-            throw new System.Exception("Tried to acquire a tile which is already owned by this player.");
+            throw new System.InvalidOperationException("Tried to acquire a tile which is already owned by this player.");
         }
     }
 

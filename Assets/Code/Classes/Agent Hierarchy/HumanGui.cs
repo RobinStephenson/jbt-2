@@ -91,7 +91,7 @@ public class HumanGui
             currentHuman.AcquireTile(tile);
             UpdateResourceBar(false);
         }
-        catch
+        catch(System.InvalidOperationException)
         {
             canvas.tileWindow.PlayPurchaseDeclinedAnimation();
         }
