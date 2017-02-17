@@ -16,6 +16,7 @@ public class canvasScript : MonoBehaviour
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
+    public GameObject aiTurnBox;
     public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
     private Timeout CurrentTimeout;
@@ -269,6 +270,7 @@ public class canvasScript : MonoBehaviour
         foodLabel.text = "??";
         energyLabel.text = "??";
         oreLabel.text = "??";
+        moneyLabel.text = "??";
     }
 
     //Created by JBT to change the UI when an AI is taking its turn
@@ -279,25 +281,17 @@ public class canvasScript : MonoBehaviour
         oreChangeLabel.text = "+??";
     }
 
-    public void ShowTileWindow()
-    {
-        tileWindow.gameObject.SetActive(true);
-    }
-
-    public void HideTileWindow()
-    {
-        tileWindow.gameObject.SetActive(false);
-    }
-
+    //Created by JBT to change the UI when an AI is taking its turn
     public void SetAITurnText(string t)
     {
-        aiTurnText.gameObject.SetActive(true);
+        aiTurnBox.SetActive(true);
         aiTurnText.text = t;
     }
 
+    //Created by JBT to change the UI when an AI is taking its turn
     public void HideAITurnText()
     {
-        aiTurnText.gameObject.SetActive(false);
+        aiTurnBox.gameObject.SetActive(false);
     }
 
     public void SetHumanGui(HumanGui gui)

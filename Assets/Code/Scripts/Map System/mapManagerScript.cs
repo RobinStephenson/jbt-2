@@ -19,7 +19,8 @@ public class mapManagerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (map != null)
+        //Only allow tiles to be selected if a map exists and the current player is a human
+        if (map != null && GameHandler.gameManager.GetCurrentPlayer() is Human)
         {
             CheckMouseHit();
         }

@@ -207,7 +207,7 @@ public class GameManager
         }
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
-
+    
     /// <summary>
     /// Set the current AI timeout, so there is a delay whilst they make their turn
     /// </summary>

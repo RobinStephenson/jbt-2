@@ -59,7 +59,7 @@ public class HumanGui
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
-        canvas.tilewi
+        canvas.HideTileInfoWindow();
         canvas.SetAITurnText(ai.GetName() + " is thinking...");
         UpdateResourceBar(true);
     }
