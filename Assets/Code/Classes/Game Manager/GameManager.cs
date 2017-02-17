@@ -208,6 +208,7 @@ public class GameManager
     private void ShowWinner(Player player)
     {
         SceneManager.LoadScene(2);
+        
         //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
     }
 
