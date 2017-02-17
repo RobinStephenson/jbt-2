@@ -49,7 +49,6 @@ public class GameManager
         this.players = players;
         FormatPlayerList(this.players);
 		this.market = new Market();
-		this.randomEventFactory = new RandomEventFactory();
 		this.map = new Map();
     }
 
