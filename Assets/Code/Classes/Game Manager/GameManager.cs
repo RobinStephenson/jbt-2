@@ -90,8 +90,8 @@ public class GameManager
     public Player GetWinnerIfGameHasEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        if (map.GetNumUnownedTilesRemaining() == 0)
-        {
+        //if (map.GetNumUnownedTilesRemaining() == 0)
+        //{
         
             int highestScore = int.MinValue;
             Player winner = null;
@@ -109,7 +109,7 @@ public class GameManager
                 }
             }
             return winner;
-        }
+        //}
 
         return null;
     }
