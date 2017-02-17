@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Tile
 {
     public const float TILE_SIZE = 1.75f;
     public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
+    public RandomEvent CurrentEvent { get; private set; }
+
 
     private int tileId;
-    private ResourceGroup resourcesGenerated;
+    private ResourceGroup BaseResources; // JBT Renamed this from total resources as total resources better decribes resources inlcuding affects of events and roboticons
     private Player owner;
     private List<Roboticon> installedRoboticons = new List<Roboticon>();
     private TileObject tileObject;
@@ -16,7 +19,7 @@ public class Tile
 
     public Tile(ResourceGroup resources, Vector2 mapDimensions, int tileId, Player owner = null)
     {
-        this.resourcesGenerated = resources;
+        this.BaseResources = resources;
         this.owner = owner;
         this.tileId = tileId;
         
@@ -99,21 +102,44 @@ public class Tile
 
     public int GetPrice()
     {
-        return (this.resourcesGenerated*(new ResourceGroup(10, 10, 10))).Sum();
+        return (this.BaseResources*(new ResourceGroup(10, 10, 10))).Sum();
     }
 
     /// <summary>
-    /// Returns the total resources given by the tile plus any additional yield from roboticons.
+    /// Returns the total resources given by the tile
+    /// takes into account roboticons and random events
     /// </summary>
-    /// <returns></returns>
+    /// <returns>the total resources produced this turn</returns>
     public ResourceGroup GetTotalResourcesGenerated()
     {
-        ResourceGroup totalResources = resourcesGenerated;
+        /* JBT Changes to this method:
+         * once the resources have been calculated for the tile apply random events buffs/debuffs if there is a random event
+         * fixed an error where the calulation modified the base resources
+         */
+        ResourceGroup totalResources = new ResourceGroup(BaseResources.food, BaseResources.energy, BaseResources.ore);
 
         //TODO - Diminishing returns for additional roboticons (currently linear)
         foreach(Roboticon roboticon in installedRoboticons)
         {
             totalResources += roboticon.GetUpgrades() * ROBOTICON_UPGRADE_WEIGHT;
+        }
+
+        if (CurrentEvent != null)
+        {
+            Debug.Log(String.Format("totalResources produced before event {0} food {1} energy {2} ore", totalResources.food, totalResources.energy, totalResources.ore));
+        }
+
+        // apply RandomEvent resource multipliers if one is applied
+        if (CurrentEvent != null && !CurrentEvent.Finished)
+        {
+            totalResources.food = (int) (totalResources.food * CurrentEvent.GetFoodMultiplier());
+            totalResources.energy = (int) (totalResources.energy * CurrentEvent.GetFoodMultiplier());
+            totalResources.ore = (int) (totalResources.ore * CurrentEvent.GetOreMultiplier());
+        }
+
+        if (CurrentEvent != null)
+        {
+            Debug.Log(String.Format("totalResources produced after event {0} food {1} energy {2} ore", totalResources.food, totalResources.energy, totalResources.ore));
         }
 
         return totalResources;
@@ -125,7 +151,7 @@ public class Tile
     /// <returns></returns>
     public ResourceGroup GetBaseResourcesGenerated()
     {
-        return resourcesGenerated;
+        return BaseResources;
     }
 
     /// <summary>
@@ -152,19 +178,43 @@ public class Tile
         return tileObject;
     }
 
-    /// <summary>
-    /// Added by JBT to test tile equality
-    /// </summary>
+    // Added by JBT
     public override int GetHashCode()
     {
         return tileId;
     }
 
-    /// <summary>
-    /// Added by JBT to test tile equality
-    /// </summary>
+    // Added by JBT to test tile equality
     public override bool Equals(object obj)
     {
         return ((Tile)obj).tileId == tileId;
+    }
+
+    // jbt created this method
+    /// <summary>
+    /// Apply a new random event to the tile
+    /// </summary>
+    /// <param name="newEvent">the event</param>
+    public void ApplyEvent(RandomEvent newEvent)
+    {
+        if (CurrentEvent != null)
+        {
+            throw new InvalidOperationException("Event already applied to this tile");
+        }
+        CurrentEvent = newEvent;
+    }
+
+    // jbt created this method
+    /// <summary>
+    /// remove the event currently applied
+    /// </summary>
+    public void RemoveEvent()
+    {
+        if (CurrentEvent == null)
+        {
+            // throw an error as something might be going wrong if were trying to remove events from tiles without an event
+            throw new InvalidOperationException("No event applied to this tile");
+        }
+        CurrentEvent = null;
     }
 }

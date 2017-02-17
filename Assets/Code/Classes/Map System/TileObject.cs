@@ -93,6 +93,7 @@ public class TileObject
             tileCenter.SetActive(true);
             tileCenter.GetComponent<MeshRenderer>().material.color = GetTransparentColor(TILE_SELECT_COLOUR, TILE_HIGHLIGHT_ALPHA);
             tileGameObjectInScene.GetComponent<MeshRenderer>().material.color = TILE_SELECT_COLOUR;
+            Debug.Log(string.Format("Clicked on tile with position ({0}, {1})", position.x, position.y));
         }
     }
 

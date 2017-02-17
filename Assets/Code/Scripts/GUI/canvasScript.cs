@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class canvasScript : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class canvasScript : MonoBehaviour
     public Text currentPlayerText;
     public Text currentPhaseText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
+    private Timeout CurrentTimout;
 
     #region Resource Labels
     public Text foodLabel;
@@ -27,8 +29,41 @@ public class canvasScript : MonoBehaviour
 
     private HumanGui humanGui;
 
+    // JBT created this method
+    void Update()
+    {
+        if (CurrentTimout != null)
+        {
+            // we are in a timed phase
+            // TODO update the timer display
+            if (CurrentTimout.SecondsRemaining < 5)
+            {
+                // TODO make the text red or something to make it clearer its ending
+            }
+            if (CurrentTimout.Finished)
+            {
+                Debug.Log("Current Timeout Finished");
+                CurrentTimout = null;
+                EndPhase();
+            }
+        }
+    }
+
+    // JBT created this method
+    public void SetTimeout(Timeout timeout)
+    {
+        if (timeout != null && timeout.Finished)
+        {
+            throw new ArgumentException("Need a fresh timeout");
+        }
+        CurrentTimout = timeout;
+        Debug.Log(String.Format("Set a new timeout {0}", timeout));
+    }
+
+    // this is called by the end phase button
     public void EndPhase()
     {
+        CurrentTimout = null;
         humanGui.EndPhase();
     }
 

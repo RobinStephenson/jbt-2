@@ -26,6 +26,11 @@ public class HumanGui
         }
     }
 
+    public canvasScript GetCanvas()
+    {
+        return canvas;
+    }
+
     public void DisplayGui(Human human, GameManager.States phase)
     {
         currentHuman = human;
