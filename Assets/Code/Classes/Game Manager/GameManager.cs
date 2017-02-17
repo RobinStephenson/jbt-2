@@ -82,7 +82,7 @@ public class GameManager
         }
     }
 
-    //Amended by JBT
+    //Amended by JBT - Added UI Integration
     /// <summary>
     /// Returns the Player that has won, if the game win condition is met
     /// </summary>
@@ -90,8 +90,8 @@ public class GameManager
     public Player GetWinnerIfGameHasEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        //if (map.GetNumUnownedTilesRemaining() == 0)
-        //{
+        if (map.GetNumUnownedTilesRemaining() == 0)
+        {
         
             int highestScore = int.MinValue;
             Player winner = null;
@@ -102,12 +102,14 @@ public class GameManager
                 int currentScore = players[i].CalculateScore();
                 if (currentScore > highestScore)
                 {
+                    EndGameScript.Loser = winner;
+                    EndGameScript.Winner = players[i];
                     highestScore = currentScore;
                     winner = players[i];
                 }
             }
             return winner;
-        //}
+        }
 
         return null;
     }
@@ -205,7 +207,7 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
 
-
+    //Amended by JBT - Added UI Integration
     private void ShowWinner(Player player)
     {
         SceneManager.LoadScene(2);
@@ -215,10 +217,8 @@ public class GameManager
     private void ProcessProductionPhase()
     {
         Player winner = GetWinnerIfGameHasEnded();
-        Debug.Log(winner != null);
         if(winner != null)
         {
-            Debug.Log("wew");
             ShowWinner(winner);
             return;
         }
