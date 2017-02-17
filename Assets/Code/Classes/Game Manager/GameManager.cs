@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class GameManager
@@ -206,6 +207,7 @@ public class GameManager
 
     private void ShowWinner(Player player)
     {
+        SceneManager.LoadScene(2);
         //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
     }
 
