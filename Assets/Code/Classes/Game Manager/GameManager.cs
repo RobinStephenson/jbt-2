@@ -140,10 +140,10 @@ public class GameManager
         map.Instantiate();
     }
 
-
     /* JBT Changes to this method
      * call the random event manager at the start of the first players production phase
      * call the ApplyPhaseTimeout method if the player is human
+     * added checks to whether the current player is a human or AI to display the gui accordingly
      */
     private void PlayerAct()
     {
@@ -208,6 +208,7 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
     
+    //Created by JBT to simulate an AI taking its turn
     /// <summary>
     /// Set the current AI timeout, so there is a delay whilst they make their turn
     /// </summary>
@@ -219,6 +220,7 @@ public class GameManager
     private void ShowWinner(Player player)
     {
         //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
+        Debug.Log(player.GetName() + "WINS THE GAME!");
     }
 
     private void ProcessProductionPhase()

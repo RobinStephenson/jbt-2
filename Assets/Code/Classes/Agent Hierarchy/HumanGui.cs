@@ -51,6 +51,7 @@ public class HumanGui
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
 
+    //Added by JBT to display information about the current AI
     public void DisplayAIInfo(AI ai, GameManager.States phase)
     {
         currentHuman = null;
