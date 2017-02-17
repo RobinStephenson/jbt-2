@@ -1,16 +1,26 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class EndGameScript : MonoBehaviour {
+public class canvasScript : MonoBehaviour
+{
+    public Text WinnerText;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void SetWinnerText(string text)
+    {
+        WinnerText.text = text;
+    }
+    
+    public void PlayAgain()
+    {
+        GameHandler;
+
+    }
+
+    public void Quit()
+    {
+
+    }
 }
