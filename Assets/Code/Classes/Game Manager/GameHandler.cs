@@ -21,26 +21,31 @@ public static class GameHandler
         gameManager = new GameManager(gameName, players);
     }
 
-    public static void Save(GameManager gameManagerToSave, string filePath)
+    //Altered by JBT 
+    public static void Save()
     {
-        Stream stream = File.Open(filePath, FileMode.Create);
+        // If the save file already exists, Delete it
+        if (File.Exists("\\SaveFile.sav") == false)
+        {
+            File.Delete("\\SaveFile.sav");
+        }
+        // Then save gameManager to stream
+        Stream stream = File.Open("\\SaveFile.sav", FileMode.Create);
         BinaryFormatter formatter = new BinaryFormatter();
 
-        formatter.Serialize(stream, gameManagerToSave);
-        stream.Close();
+        formatter.Serialize(stream, gameManager);
+        stream.Close();    
     }
 
-    public static GameManager Load(string filePath)
+    //Altered by JBT
+    public static void Load()
     {
-        FileStream stream;
-        stream = File.Open(filePath, FileMode.Open);
+        FileStream stream = File.Open("\\SaveFile.sav", FileMode.Open);
         BinaryFormatter formatter = new BinaryFormatter();
         GameManager returnedGameManager = (GameManager)formatter.Deserialize(stream);
         stream.Close();
 
         gameManager = returnedGameManager;
-
-        return returnedGameManager;
     }
 
     public static GameManager GetGameManager()

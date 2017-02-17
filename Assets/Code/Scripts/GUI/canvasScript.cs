@@ -210,12 +210,12 @@ public class canvasScript : MonoBehaviour
     //Added by JBT to act as Save button excution function
     public void SaveGame()
     {
-
+        GameHandler.Save(GameHandler.GetGameManager());
     }
 
     //Added by JBT to act as Load button execution function
     public void LoadGamer()
     {
-
+        GameHandler.Load();
     }
 }
