@@ -214,7 +214,7 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT to act as Load button execution function
-    public void LoadGamer()
+    public void LoadGame()
     {
 
     }
