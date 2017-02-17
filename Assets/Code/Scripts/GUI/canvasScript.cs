@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class canvasScript : MonoBehaviour
 {
@@ -241,4 +243,6 @@ public class canvasScript : MonoBehaviour
         string sign = (changeAmount >= 0) ? "+" : "";
         return "(" + sign + changeAmount.ToString() + ")";
     }
+
+
 }
