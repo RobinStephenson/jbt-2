@@ -174,9 +174,14 @@ public class GameManager
         if (currentPlayer is Human)
         {
             ApplyPhaseTimeout(currentState);
+            currentPlayer.Act(currentState);
+        }
+        else if(currentPlayer is AI)
+        {
+
         }
 
-        currentPlayer.Act(currentState);
+        
         map.UpdateMap();
     }
 

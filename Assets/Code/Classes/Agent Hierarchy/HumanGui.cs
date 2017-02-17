@@ -36,6 +36,9 @@ public class HumanGui
         currentHuman = human;
         currentPhase = phase;
 
+        canvas.ShowMarketButton();
+        canvas.ShowRoboticonButton();
+
         ShowHelpBox();
 
         UpdateResourceBar(false);
@@ -52,6 +55,9 @@ public class HumanGui
         currentHuman = null;
         currentPhase = phase;
         canvas.HideMarketWindow();
+        canvas.HideRoboticonWindow();
+        canvas.HideMarketButton();
+        canvas.HideRoboticonButton();
     }
 
     public void SetCurrentPlayerName(string name)
