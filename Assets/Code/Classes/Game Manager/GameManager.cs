@@ -90,9 +90,10 @@ public class GameManager
     public Player GetWinnerIfGameHasEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        if (map.GetNumUnownedTilesRemaining() == 0)
-        {
-            int highestScore = 0;
+        //if (map.GetNumUnownedTilesRemaining() == 0)
+        //{
+        
+            int highestScore = int.MinValue;
             Player winner = null;
 
             for (int i = 0; i < players.Count; i++)
@@ -106,7 +107,7 @@ public class GameManager
                 }
             }
             return winner;
-        }
+        //}
 
         return null;
     }
@@ -207,17 +208,17 @@ public class GameManager
 
     private void ShowWinner(Player player)
     {
-        EndGameGui EndGame = new EndGameGui(player);
         SceneManager.LoadScene(2);
-                
-        //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
+
     }
 
     private void ProcessProductionPhase()
     {
         Player winner = GetWinnerIfGameHasEnded();
+        Debug.Log(winner != null);
         if(winner != null)
         {
+            Debug.Log("wew");
             ShowWinner(winner);
             return;
         }

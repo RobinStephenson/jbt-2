@@ -52,7 +52,6 @@
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\EndGameGui.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
