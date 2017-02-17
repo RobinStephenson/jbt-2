@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* JBT Changes to this file
+ * removed references to old events system
+ */
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -23,7 +27,6 @@ public class GameManager
 
     private List<Player> players;
     private int currentPlayerIndex;
-    private RandomEventFactory randomEventFactory;
     private Map map;
     private States currentState = States.ACQUISITION;
     private HumanGui humanGui;
@@ -45,7 +48,6 @@ public class GameManager
         this.players = players;
         FormatPlayerList(this.players);
 		    this.market = new Market();
-		    this.randomEventFactory = new RandomEventFactory();
 		    this.map = new Map();
     }
 
@@ -53,7 +55,7 @@ public class GameManager
     {
         SetUpGui();
         SetUpMap();
-
+        RandomEventManager.InitialiseEvents();
         PlayerAct();
     }
 
@@ -136,23 +138,27 @@ public class GameManager
         map.Instantiate();
     }
 
+
+    /* JBT Changes to this method
+     * call the random event manager at the start of the first players production phase
+     */
     private void PlayerAct()
     {
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
-              //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-              if (currentState == States.PRODUCTION)
-              {
-                  ProcessProductionPhase();
-                  currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
-              }
-              else
-              {
-                  currentState++;
-              }
-
-              currentPlayerIndex = 0;
+            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == States.PRODUCTION)
+            { 
+                RandomEventManager.ManageAndTriggerEvents();
+                ProcessProductionPhase();
+                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+            }
+            else
+            {
+                currentState++;
+            }
+            currentPlayerIndex = 0;
         }
 
         //Call the Act function for the current player, passing the state to it.
@@ -183,14 +189,6 @@ public class GameManager
         for(int i = 0; i < players.Count; i++)
         {
             players[i].Produce();
-        }
-
-        //Instantiate a random event (probability handled in the randomEventFactory) (Req 2.5.a, 2.5.b)
-        GameObject randomEventGameObject = randomEventFactory.Create(UnityEngine.Random.Range(0, 101));
-
-        if (randomEventGameObject != null)
-        {
-            GameObject.Instantiate(randomEventGameObject);
         }
 
         market.UpdatePrices();
