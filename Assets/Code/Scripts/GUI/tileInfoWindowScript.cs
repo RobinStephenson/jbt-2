@@ -6,7 +6,6 @@ public class tileInfoWindowScript : MonoBehaviour
 {
     public canvasScript uiCanvas;
     public GameObject acquireTileButton;
-    public GameObject installRoboticonButton;
     public Text priceText;
     public Text ownerText;
 
@@ -34,8 +33,6 @@ public class tileInfoWindowScript : MonoBehaviour
         switch (gamePhase)
         {
             case GameManager.States.ACQUISITION:
-                installRoboticonButton.SetActive(false);
-
                 if (tile.GetOwner() == null)
                 {
                     acquireTileButton.SetActive(true);
@@ -48,19 +45,9 @@ public class tileInfoWindowScript : MonoBehaviour
 
             case GameManager.States.INSTALLATION:
                 acquireTileButton.SetActive(false);
-
-                if (tile.GetOwner() == uiCanvas.GetHumanGui().GetCurrentHuman())
-                {
-                    installRoboticonButton.SetActive(true);
-                }
-                else
-                {
-                    installRoboticonButton.SetActive(false);
-                }
                 break;
 
             default:
-                installRoboticonButton.SetActive(false);
                 acquireTileButton.SetActive(false);
                 break;
         }
@@ -89,11 +76,6 @@ public class tileInfoWindowScript : MonoBehaviour
             uiCanvas.PurchaseTile(currentTile);
             UpdateOwnerText(currentTile.GetOwner());
         }
-    }
-
-    public void InstallRoboticon()
-    {
-        uiCanvas.ShowRoboticonList();
     }
 
     public void PlayPurchaseDeclinedAnimation()
