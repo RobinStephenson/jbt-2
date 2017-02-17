@@ -38,7 +38,7 @@ public class PlayerTest {
         Tile t = new Tile(ResourceGroup.Empty, new Vector2(0, 0), 1);
 
         testHuman.AcquireTile(t);
-        Assert.Throws<System.Exception>(() => testHuman.AcquireTile(t));
+        Assert.Throws<System.InvalidOperationException>(() => testHuman.AcquireTile(t));
     }
 
     public void AcquireRoboticon()
