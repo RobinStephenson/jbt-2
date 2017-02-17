@@ -180,9 +180,9 @@ public class GameManager
             humanGui.DisplayAIInfo((AI)currentPlayer, currentState);
             ApplyAITimeout();
         }
-        
-        map.UpdateMap();
+
         currentPlayerIndex++;
+        map.UpdateMap();
     }
 
     /// <summary>
@@ -213,7 +213,7 @@ public class GameManager
     /// </summary>
     private void ApplyAITimeout()
     {
-        humanGui.GetCanvas().SetTimeout(new Timeout(3));
+        humanGui.GetCanvas().SetTimeout(new Timeout(1));
     }
 
     private void ShowWinner(Player player)

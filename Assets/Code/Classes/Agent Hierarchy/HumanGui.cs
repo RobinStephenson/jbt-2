@@ -46,6 +46,7 @@ public class HumanGui
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
         canvas.HideMarketWindow();
+        canvas.HideAITurnText();
 
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
@@ -58,6 +59,8 @@ public class HumanGui
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
+        canvas.tilewi
+        canvas.SetAITurnText(ai.GetName() + " is thinking...");
         UpdateResourceBar(true);
     }
 

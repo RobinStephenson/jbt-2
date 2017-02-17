@@ -16,6 +16,7 @@ public class canvasScript : MonoBehaviour
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
+    public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
     private Timeout CurrentTimeout;
 
@@ -46,7 +47,15 @@ public class canvasScript : MonoBehaviour
             {
                 Debug.Log("Current Timeout Finished");
                 CurrentTimeout = null;
-                EndPhase();
+
+                if (GameHandler.gameManager.GetCurrentPlayer() is Human)
+                {
+                    EndPhase();
+                }
+                else if(GameHandler.gameManager.GetCurrentPlayer() is AI)
+                {
+                    GameHandler.gameManager.GetCurrentPlayer().Act(GameHandler.gameManager.GetCurrentState());
+                }
             }
         }
     }
@@ -268,6 +277,27 @@ public class canvasScript : MonoBehaviour
         foodChangeLabel.text = "+??";
         energyChangeLabel.text = "+??";
         oreChangeLabel.text = "+??";
+    }
+
+    public void ShowTileWindow()
+    {
+        tileWindow.gameObject.SetActive(true);
+    }
+
+    public void HideTileWindow()
+    {
+        tileWindow.gameObject.SetActive(false);
+    }
+
+    public void SetAITurnText(string t)
+    {
+        aiTurnText.gameObject.SetActive(true);
+        aiTurnText.text = t;
+    }
+
+    public void HideAITurnText()
+    {
+        aiTurnText.gameObject.SetActive(false);
     }
 
     public void SetHumanGui(HumanGui gui)
