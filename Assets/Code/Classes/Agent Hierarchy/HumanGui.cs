@@ -38,13 +38,20 @@ public class HumanGui
 
         ShowHelpBox();
 
-        UpdateResourceBar();
+        UpdateResourceBar(false);
         canvas.RefreshRoboticonList();
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
         canvas.HideMarketWindow();
 
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
+    }
+
+    public void DisplayAIInfo(AI ai, GameManager.States phase)
+    {
+        currentHuman = null;
+        currentPhase = phase;
+        canvas.HideM
     }
 
     public void SetCurrentPlayerName(string name)
@@ -60,7 +67,7 @@ public class HumanGui
     public void DisableGui()
     {
         currentHuman = new Human(new ResourceGroup(), "", 0);
-        UpdateResourceBar();    //This will reset all resource values to 0.
+        UpdateResourceBar(false);    //This will reset all resource values to 0.
         canvas.HideRoboticonUpgradesWindow();
 
         canvas.DisableEndPhaseButton();
@@ -71,7 +78,7 @@ public class HumanGui
         try
         {
             currentHuman.AcquireTile(tile);
-            UpdateResourceBar();
+            UpdateResourceBar(false);
         }
         catch
         {
@@ -106,7 +113,7 @@ public class HumanGui
             ResourceGroup currentResources = currentHuman.GetResources();
             currentHuman.SetResources(currentResources + resourcesToBuy);
 
-            UpdateResourceBar();
+            UpdateResourceBar(false);
         }
         else
         {
@@ -140,7 +147,7 @@ public class HumanGui
             ResourceGroup currentResources = currentHuman.GetResources();
             currentHuman.SetResources(currentResources - resourcesToSell);
 
-            UpdateResourceBar();
+            UpdateResourceBar(false);
         }
         else
         {
@@ -188,7 +195,7 @@ public class HumanGui
         {
             currentPlayer.SetMoney(currentPlayer.GetMoney() - upgradeCost);
             roboticon.Upgrade(upgrades);
-            UpdateResourceBar();
+            UpdateResourceBar(false);
             canvas.ShowRoboticonUpgradesWindow(roboticon);
             canvas.RefreshTileInfoWindow();
         }
@@ -218,10 +225,19 @@ public class HumanGui
         }
     }
 
-    private void UpdateResourceBar()
+    //Changed by JBT to show different values depending on if the current player is an AI
+    private void UpdateResourceBar(bool aiTurn)
     {
-        canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
-        canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
+        if (aiTurn)
+        {
+            canvas.SetUnknownResourceLabels();
+            canvas.SetUnknownChangeLabels();
+        }
+        else
+        {
+            canvas.SetResourceLabels(currentHuman.GetResources(), currentHuman.GetMoney());
+            canvas.SetResourceChangeLabels(currentHuman.CalculateTotalResourcesGenerated());
+        }
     }
 
     private void ShowHelpBox()

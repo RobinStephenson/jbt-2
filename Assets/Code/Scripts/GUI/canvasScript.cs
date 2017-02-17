@@ -222,6 +222,22 @@ public class canvasScript : MonoBehaviour
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
     }
 
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void SetUnknownResourceLabels()
+    {
+        foodChangeLabel.text = "??";
+        energyChangeLabel.text = "??";
+        oreChangeLabel.text = "??";
+    }
+
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void SetUnknownChangeLabels()
+    {
+        foodChangeLabel.text = "+??";
+        energyChangeLabel.text = "+??";
+        oreChangeLabel.text = "+??";
+    }
+
     public void SetHumanGui(HumanGui gui)
     {
         humanGui = gui;
