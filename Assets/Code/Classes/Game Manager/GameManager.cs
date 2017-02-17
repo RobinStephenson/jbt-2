@@ -83,35 +83,34 @@ public class GameManager
     }
 
     //Amended by JBT - Added UI Integration
-    /// <summary>
-    /// Returns the Player that has won, if the game win condition is met
-    /// </summary>
-    /// <returns>The winning player</returns>
-    public Player GetWinnerIfGameHasEnded()
+    private void ShowWinner(Player player)
+    {
+        SceneManager.LoadScene(2);
+
+    }
+
+    //Added by JBT to add a scoreboard
+
+    public List<ScoreboardEntry> PlayerScoreBoard(List<Player> playerList)
+    {
+        List<ScoreboardEntry> scoreboard = new List<ScoreboardEntry>();
+
+        foreach(Player p in playerList)
+        {
+            scoreboard.Add(new ScoreboardEntry(p.GetName(), p.CalculateScore()));
+        }
+
+        scoreboard.Sort((a, b) => a.PlayerScore.CompareTo(b.PlayerScore));
+        
+        //Player with the highest score wins (Req 2.3.c)
+        return scoreboard;
+    }
+
+    //Added by JBT to support a scoreboard being displayed when the game ends, instead of a singular winner
+    public bool GameEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        //if (map.GetNumUnownedTilesRemaining() == 0)
-        //{
-        
-            int highestScore = int.MinValue;
-            Player winner = null;
-
-            for (int i = 0; i < players.Count; i++)
-            {
-                //Player with the highest score wins (Req 2.3.c)
-                int currentScore = players[i].CalculateScore();
-                if (currentScore > highestScore)
-                {
-                    EndGameScript.Loser = winner;
-                    EndGameScript.Winner = players[i];
-                    highestScore = currentScore;
-                    winner = players[i];
-                }
-            }
-            return winner;
-        //}
-
-        return null;
+        return map.GetNumUnownedTilesRemaining() == 0;
     }
 
     private void SetUpGui()
@@ -207,19 +206,11 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
 
-    //Amended by JBT - Added UI Integration
-    private void ShowWinner(Player player)
-    {
-        SceneManager.LoadScene(2);
-
-    }
-
     private void ProcessProductionPhase()
     {
-        Player winner = GetWinnerIfGameHasEnded();
-        if(winner != null)
+        if(GameEnded())
         {
-            ShowWinner(winner);
+            //ShowWinner(winner);
             return;
         }
 
@@ -268,5 +259,17 @@ public class GameManager
     public HumanGui GetHumanGui()
     {
         return humanGui;
+    }
+}
+
+public struct ScoreboardEntry
+{
+    public string PlayerName { get; private set; }
+    public int PlayerScore { get; private set; }
+
+    public ScoreboardEntry(string pn, int ps)
+    {
+        PlayerName = pn;
+        PlayerScore = ps;
     }
 }
