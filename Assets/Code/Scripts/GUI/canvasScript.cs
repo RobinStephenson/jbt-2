@@ -206,4 +206,16 @@ public class canvasScript : MonoBehaviour
         string sign = (changeAmount >= 0) ? "+" : "";
         return "(" + sign + changeAmount.ToString() + ")";
     }
+
+    //Added by JBT to act as Save button excution function
+    public void SaveGame()
+    {
+
+    }
+
+    //Added by JBT to act as Load button execution function
+    public void LoadGamer()
+    {
+
+    }
 }
