@@ -8,7 +8,6 @@ public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
-    public GameObject resourceBar;
     public roboticonWindowScript roboticonList;
     public marketScript marketScript;
     public GameObject endPhaseButton;
@@ -109,18 +108,6 @@ public class canvasScript : MonoBehaviour
     public void ShowOptionsMenu()
     {
         optionsMenu.SetActive(true);
-    }
-
-    //Added by JBT for AI support
-    public void ShowResourceBar()
-    {
-        resourceBar.SetActive(true);
-    }
-
-    //Added by JBT for AI support
-    public void HideResourceBar()
-    {
-        resourceBar.SetActive(false);
     }
 
     public void HideOptionsMenu()

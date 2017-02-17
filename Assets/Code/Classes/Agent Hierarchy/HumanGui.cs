@@ -47,11 +47,6 @@ public class HumanGui
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
 
-    public void DisplayAIInfo(AI ai, GameManager.States phase)
-    {
-        canvas.
-    }
-
     public void SetCurrentPlayerName(string name)
     {
         canvas.SetCurrentPlayerName(name);
