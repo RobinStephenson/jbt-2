@@ -8,6 +8,8 @@ public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public GameObject marketButton;
+    public GameObject roboticonButton;
     public roboticonWindowScript roboticonList;
     public marketScript marketScript;
     public GameObject endPhaseButton;
@@ -104,6 +106,37 @@ public class canvasScript : MonoBehaviour
     {
         marketScript.gameObject.SetActive(false);
     }
+
+    public void ShowRoboticonWindow()
+    {
+        roboticonList.gameObject.SetActive(true);
+    }
+
+    public void HideRoboticonWindow()
+    {
+        roboticonList.gameObject.SetActive(false);
+    }
+
+    public void ShowMarketButton()
+    {
+        marketButton.SetActive(true);
+    }
+
+    public void HideMarketButton()
+    {
+        marketButton.SetActive(false);
+    }
+
+    public void ShowRoboticonButton()
+    {
+        roboticonButton.SetActive(true);
+    }
+
+    public void HideRoboticonButton()
+    {
+        roboticonButton.SetActive(false);
+    }
+
 
     public void ShowOptionsMenu()
     {

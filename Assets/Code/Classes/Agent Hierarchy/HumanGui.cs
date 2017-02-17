@@ -51,7 +51,7 @@ public class HumanGui
     {
         currentHuman = null;
         currentPhase = phase;
-        canvas.HideM
+        canvas.HideMarketWindow();
     }
 
     public void SetCurrentPlayerName(string name)
