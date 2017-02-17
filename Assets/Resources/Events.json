@@ -20,7 +20,7 @@
 			"foodMultiplier": 0,
 			"oreMultiplier": 1.5,
 			"energyMultiplier": 1.25,
-			"noRoboticonInstalled": "True",
+			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
 			"noRoboticonInstalled": "True"
 		},
@@ -32,7 +32,7 @@
 			"foodMultiplier": 0.1,
 			"oreMultiplier": 0.1,
 			"energyMultiplier": 0.1,
-			"noRoboticonInstalled": "False",
+			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
 			"noRoboticonInstalled": "False"
 		}
