@@ -113,6 +113,7 @@ public class GameManager
     {
         humanGui = new HumanGui();
         GameObject guiGameObject = GameObject.Instantiate(HumanGui.humanGuiGameObject);
+        guiGameObject.SetActive(true);
         MonoBehaviour.DontDestroyOnLoad(guiGameObject);
 
         canvasScript canvas = guiGameObject.GetComponent<canvasScript>();
