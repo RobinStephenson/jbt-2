@@ -16,6 +16,7 @@ public class canvasScript : MonoBehaviour
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
+    public Text timeoutText;
     public GameObject aiTurnBox;
     public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
@@ -135,6 +136,16 @@ public class canvasScript : MonoBehaviour
     public void HideMarketButton()
     {
         marketButton.SetActive(false);
+    }
+
+    public void ShowTimeout(Timeout t)
+    {
+        timeoutText.text = t.SecondsRemaining.ToString("00");
+    }
+
+    public void HideTimeout()
+    {
+        timeoutText.gameObject.SetActive(false);
     }
 
     public void ShowRoboticonButton()
