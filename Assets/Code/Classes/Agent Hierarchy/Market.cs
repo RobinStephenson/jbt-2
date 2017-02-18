@@ -114,6 +114,33 @@ public class Market : Agent
         }
     }
 
+    //Added by JBT - A double or nothing gambling game
+    /// <summary>
+    /// A double or nothing gambling game, takes a min and max roll, outputs the roll result, and returns whether the roll was greater than 50 or not
+    /// </summary>
+    /// <param name="amount">The amount of money being gambled</param>
+    /// <param name="minRoll">The min value of the roll</param>
+    /// <param name="maxRoll">The max value of the roll</param>
+    /// <param name="roll">The actual roll result</param>
+    /// <returns>True if the roll was greater than 50</returns>
+    public bool DoubleOrNothing(int amount, int minRoll, int maxRoll, out int roll)
+    {
+        money += amount;
+        if (money < amount * 2)
+        {
+            money -= amount;
+            throw new System.ArgumentException("Market does not have enough money to play");
+        }
+
+        roll = Random.Range(minRoll, maxRoll);
+
+        if(roll >= 50)
+        {
+            money -= amount * 2;
+        }
+
+        return roll >= 50;
+    }
 
     public int GetNumRoboticonsForSale()
     {
