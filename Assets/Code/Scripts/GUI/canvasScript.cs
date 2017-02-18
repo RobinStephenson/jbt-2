@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class canvasScript : MonoBehaviour
 {
@@ -337,5 +339,17 @@ public class canvasScript : MonoBehaviour
     {
         string sign = (changeAmount >= 0) ? "+" : "";
         return "(" + sign + changeAmount.ToString() + ")";
+    }
+
+    //Added by JBT 
+    public void QuitToMenu()
+    {
+        //Remove gameobjects that would not get destroyed on load
+        Destroy(GameObject.Find("GameManager"));
+        Destroy(GameObject.Find("Tile Holder"));
+        Destroy(GameObject.Find("Map Manager"));
+
+        //Go to the main menu
+        SceneManager.LoadScene(0);
     }
 }

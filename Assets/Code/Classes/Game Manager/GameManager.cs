@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class GameManager
@@ -82,32 +83,34 @@ public class GameManager
         }
     }
 
-    public Player GetWinnerIfGameHasEnded()
+    //Amended by JBT - Added UI Integration
+    private void ShowWinner(List<ScoreboardEntry> scoreboard)
     {
-        //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        if (map.GetNumUnownedTilesRemaining() == 0)
+        endGameScript.Scoreboard = scoreboard;
+        SceneManager.LoadScene(2);
+    }
+
+    //Added by JBT to create scoreboard
+    public List<ScoreboardEntry> PlayerScoreBoard(List<Player> playerList)
+    {
+        List<ScoreboardEntry> scoreboard = new List<ScoreboardEntry>();
+
+        foreach(Player p in playerList)
         {
-            float highestScore = Mathf.NegativeInfinity;
-            Player winner = null;
-
-            for (int i = 0; i < players.Count; i++)
-            {
-                //Player with the highest score wins (Req 2.3.c)
-                int currentScore = players[i].CalculateScore();
-                if (currentScore > highestScore)
-                {
-                    highestScore = currentScore;
-                    winner = players[i];
-                }
-            }
-
-            if (highestScore != Mathf.NegativeInfinity)
-            {
-                return winner;
-            }
+            scoreboard.Add(new ScoreboardEntry(p.GetName(), p.CalculateScore()));
         }
 
-        return null;
+        scoreboard.Sort((a, b) => a.PlayerScore.CompareTo(b.PlayerScore));
+        
+        //Player with the highest score wins
+        return scoreboard;
+    }
+
+    //Added by JBT to support a scoreboard being displayed when the game ends, instead of a singular winner
+    public bool GameEnded()
+    {
+        //Game ends if there are no remaining unowned tiles
+        return map.GetNumUnownedTilesRemaining() == 99;
     }
 
     private void SetUpGui()
@@ -217,18 +220,12 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(new Timeout(1));
     }
 
-    private void ShowWinner(Player player)
-    {
-        //Handle exiting the game, showing a winner screen (leaderboard) and returning to main menu
-        Debug.Log(player.GetName() + "WINS THE GAME!");
-    }
-
+    //Amended by JBT to add GameEnd functionality
     private void ProcessProductionPhase()
     {
-        Player winner = GetWinnerIfGameHasEnded();
-        if(winner != null)
+        if(GameEnded())
         {
-            ShowWinner(winner);
+            ShowWinner(PlayerScoreBoard(players));
             return;
         }
 
@@ -277,5 +274,18 @@ public class GameManager
     public HumanGui GetHumanGui()
     {
         return humanGui;
+    }
+}
+
+//Added by JBT to facilitate the construction of the scorboard
+public struct ScoreboardEntry
+{
+    public string PlayerName { get; private set; }
+    public int PlayerScore { get; private set; }
+
+    public ScoreboardEntry(string pn, int ps)
+    {
+        PlayerName = pn;
+        PlayerScore = ps;
     }
 }

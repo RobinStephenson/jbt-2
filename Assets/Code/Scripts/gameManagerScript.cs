@@ -11,6 +11,12 @@ public class gameManagerScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //If a player is quitting to the menu from the game itself, or the end of game screen, then remove the GUI canvas that was not destroyed on load
+        if (GameObject.Find("Player GUI Canvas(Clone)") != null)
+        {
+            Destroy(GameObject.Find("Player GUI Canvas(Clone)"));
+        }
+
         //TODO - Implement main menu and loading/saving.
         DontDestroyOnLoad(this);
 
