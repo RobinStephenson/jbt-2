@@ -331,4 +331,11 @@ public class canvasScript : MonoBehaviour
         string sign = (changeAmount >= 0) ? "+" : "";
         return "(" + sign + changeAmount.ToString() + ")";
     }
+
+    //Added by JBT 
+    public void Quit()
+    {
+        //Quits the game
+        Application.Quit();
+    }
 }
