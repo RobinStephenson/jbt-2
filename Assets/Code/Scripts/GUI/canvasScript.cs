@@ -337,7 +337,12 @@ public class canvasScript : MonoBehaviour
     //Added by JBT 
     public void QuitToMenu()
     {
-        //Quits the game
-        Application.Quit();
+        //Remove gameobjects that would not get destroyed on load
+        Destroy(GameObject.Find("GameManager"));
+        Destroy(GameObject.Find("Tile Holder"));
+        Destroy(GameObject.Find("Map Manager"));
+
+        //Go to the main menu
+        SceneManager.LoadScene(0);
     }
 }
