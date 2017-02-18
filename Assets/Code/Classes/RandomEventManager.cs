@@ -33,7 +33,7 @@ public static class RandomEventManager
     {
         if (InactiveEvents.Count + ActiveEvents.Count > 0)
         {
-            throw new InvalidOperationException("Events have already been initialised");
+            Debug.Log("Events have already been initialised");
         }
 
         MaxSimultaneousEvents = DefaultMaxSimultaneousEvents;

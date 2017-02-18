@@ -6,6 +6,7 @@ using NUnit.Framework;
 /// </summary>
 public class GameManagerTest
 {
+    //Amended by JBT due to changes with EndGame functions
     [Test]
     public void GameWinTest()
     {
@@ -22,9 +23,19 @@ public class GameManagerTest
             tile.SetOwner(playerList[1]);       //Set all tiles to owned so that the game ends
         }
 
-        Player winner = gameManager.GetWinnerIfGameHasEnded();
+        //Check if the game has ended
+        Assert.AreEqual(true, gameManager.GameEnded());
 
-        Assert.AreEqual(winner, playerList[1]);
+        List<ScoreboardEntry> finalScore = gameManager.PlayerScoreBoard(playerList);
+        string winner = finalScore[1].PlayerName;
+        int winnerScore = finalScore[1].PlayerScore;
+
+        //Check that the first entry in the scoreboard is actually the expected player
+        Assert.AreEqual(winner, playerList[1].GetName());
+        Assert.AreEqual(winnerScore, playerList[1].CalculateScore());
+
+        //Check if the scoreboard is sorted in order of highest score to lowest score
+        Assert.Greater(finalScore[1].PlayerScore, finalScore[0].PlayerScore);
     }
         
     [Test]
