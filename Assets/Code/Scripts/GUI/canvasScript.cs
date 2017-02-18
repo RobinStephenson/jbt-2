@@ -10,14 +10,19 @@ public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
+    public GameObject marketButton;
+    public GameObject roboticonButton;
     public roboticonWindowScript roboticonList;
     public marketScript marketScript;
     public GameObject endPhaseButton;
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
+    public Text timeoutText;
+    public GameObject aiTurnBox;
+    public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
-    private Timeout CurrentTimout;
+    private Timeout CurrentTimeout;
 
     #region Resource Labels
     public Text foodLabel;
@@ -34,20 +39,28 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
-        if (CurrentTimout != null)
+        if (CurrentTimeout != null)
         {
-            // we are in a timed phase
-            // TODO update the timer display
-            if (CurrentTimout.SecondsRemaining < 5)
-            {
-                // TODO make the text red or something to make it clearer its ending
-            }
-            if (CurrentTimout.Finished)
+            // We are in a timed phase, update the display timer
+            ShowTimeout(CurrentTimeout);
+            if (CurrentTimeout.Finished)
             {
                 Debug.Log("Current Timeout Finished");
-                CurrentTimout = null;
-                EndPhase();
+                CurrentTimeout = null;
+
+                if (GameHandler.gameManager.GetCurrentPlayer() is Human)
+                {
+                    EndPhase();
+                }
+                else if(GameHandler.gameManager.GetCurrentPlayer() is AI)
+                {
+                    GameHandler.gameManager.GetCurrentPlayer().Act(GameHandler.gameManager.GetCurrentState());
+                }
             }
+        }
+        else
+        {
+            HideTimeout();
         }
     }
 
@@ -58,14 +71,14 @@ public class canvasScript : MonoBehaviour
         {
             throw new ArgumentException("Need a fresh timeout");
         }
-        CurrentTimout = timeout;
+        CurrentTimeout = timeout;
         Debug.Log(String.Format("Set a new timeout {0}", timeout));
     }
 
     // this is called by the end phase button
     public void EndPhase()
     {
-        CurrentTimout = null;
+        CurrentTimeout = null;
         humanGui.EndPhase();
     }
 
@@ -100,15 +113,62 @@ public class canvasScript : MonoBehaviour
         {
             marketScript.gameObject.SetActive(true);
         }
-        else
-        {
-            //TODO - Error message "Market cannot be accessed in this phase."
-        }
     }
 
     public void HideMarketWindow()
     {
         marketScript.gameObject.SetActive(false);
+    }
+
+    public void ShowRoboticonWindow()
+    {
+        roboticonList.gameObject.SetActive(true);
+    }
+
+    public void HideRoboticonWindow()
+    {
+        roboticonList.gameObject.SetActive(false);
+    }
+
+    public void ShowMarketButton()
+    {
+        marketButton.SetActive(true);
+    }
+
+    public void HideMarketButton()
+    {
+        marketButton.SetActive(false);
+    }
+
+    //Added by JBT to show the current human player the amount of seconds left in the current turn, if the current phase is a timed one
+    public void ShowTimeout(Timeout t)
+    {
+        timeoutText.gameObject.SetActive(true);
+        timeoutText.text = t.SecondsRemaining.ToString("00");
+        if(t.SecondsRemaining < 5)
+        {
+            timeoutText.color = Color.red;
+        }
+        else
+        {
+            timeoutText.color = Color.white;
+        }
+    }
+
+    //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
+    public void HideTimeout()
+    {
+        timeoutText.gameObject.SetActive(false);
+    }
+
+    public void ShowRoboticonButton()
+    {
+        roboticonButton.SetActive(true);
+    }
+
+    public void HideRoboticonButton()
+    {
+        roboticonButton.SetActive(false);
     }
 
     public void ShowOptionsMenu()
@@ -226,6 +286,36 @@ public class canvasScript : MonoBehaviour
         foodChangeLabel.text = FormatResourceChangeLabel(resources.food);
         energyChangeLabel.text = FormatResourceChangeLabel(resources.energy);
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
+    }
+
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void SetUnknownResourceLabels()
+    {
+        foodLabel.text = "??";
+        energyLabel.text = "??";
+        oreLabel.text = "??";
+        moneyLabel.text = "??";
+    }
+
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void SetUnknownChangeLabels()
+    {
+        foodChangeLabel.text = "+??";
+        energyChangeLabel.text = "+??";
+        oreChangeLabel.text = "+??";
+    }
+
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void SetAITurnText(string t)
+    {
+        aiTurnBox.SetActive(true);
+        aiTurnText.text = t;
+    }
+
+    //Created by JBT to change the UI when an AI is taking its turn
+    public void HideAITurnText()
+    {
+        aiTurnBox.gameObject.SetActive(false);
     }
 
     public void SetHumanGui(HumanGui gui)

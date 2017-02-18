@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class AI : Player
@@ -18,6 +19,7 @@ public class AI : Player
     {
         this.name = name;
         this.resources = resources;
+        this.money = money;
     }
 
     public override void Act(GameManager.States state)
@@ -28,7 +30,7 @@ public class AI : Player
             case GameManager.States.ACQUISITION:
                 Tile tileToAcquire = ChooseTileToAcquire();
 
-                if (tileToAcquire.GetOwner() == null)
+                if (tileToAcquire != null)
                 {
                     AcquireTile(tileToAcquire);
                 }
@@ -38,13 +40,28 @@ public class AI : Player
         GameHandler.GetGameManager().CurrentPlayerEndTurn();     //This must be done to signify the end of the AI turn.
     }
 
+    //JBT changed this method to actually select a buyable tile
     private Tile ChooseTileToAcquire()
     {
-        //TODO - intelligent decision of best tile in map.
-        Map map = GameHandler.GetGameManager().GetMap();
-        int numTiles = (int)(Map.MAP_DIMENSIONS.x * Map.MAP_DIMENSIONS.y);
+        List<Tile> tiles = GameHandler.GetGameManager().GetMap().GetTiles();
+        List<Tile> possibleTiles = new List<Tile>();
 
-        return map.GetTile(UnityEngine.Random.Range(0, numTiles));
+        foreach (Tile t in tiles)
+        {
+            if (t.GetOwner() == null && t.GetPrice() < money)
+            {
+                possibleTiles.Add(t);
+            }
+        }
+
+        if (possibleTiles.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
+        }
     }
 
     private ResourceGroup ChooseBestRoboticonUpgrade(Roboticon roboticon)

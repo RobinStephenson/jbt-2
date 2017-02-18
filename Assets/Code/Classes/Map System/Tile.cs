@@ -63,10 +63,11 @@ public class Tile
         }
     }
 
+    //Edited by JBT to support the display on installed roboticons on tiles
     /// <summary>
     /// Throws System.Exception if the roboticon already exists on this tile.
     /// </summary>
-    /// <param name="roboticon"></param>
+    /// <param name="roboticon">The roboticon to install</param>
     public void InstallRoboticon(Roboticon roboticon)
     {
         if (installedRoboticons.Contains(roboticon))
@@ -74,6 +75,7 @@ public class Tile
             throw new System.Exception("Roboticon already exists on this tile\n");
         }
         installedRoboticons.Add(roboticon);
+        tileObject.ShowInstalledRoboticon();
     }
 
     /// <summary>

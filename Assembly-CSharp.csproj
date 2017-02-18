@@ -40,68 +40,67 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\Tile.cs" />
-    <Compile Include="Assets\Code\Classes\Map System\TileObject.cs" />
-    <Compile Include="Assets\Code\Classes\RandomEvent.cs" />
-    <Compile Include="Assets\Code\Classes\RandomEventManager.cs" />
-    <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
-    <Compile Include="Assets\Code\Classes\Roboticon.cs" />
-    <Compile Include="Assets\Code\Classes\Timeout.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\EndGameScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\helpBoxScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\marketScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonGuiElementScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonUpgradesWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\roboticonWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
-    <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
-    <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
-    <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
-    <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-    <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />
-    <None Include="Assets\Resources\VFX\Shaders\SkyFromSpace.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PlaymodeTestsRunner">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VR">
-      <HintPath>C:/Unity/5.5.0/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
+     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
+     <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
+     <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
+     <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
+     <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
+     <Compile Include="Assets\Code\Classes\Map System\Tile.cs" />
+     <Compile Include="Assets\Code\Classes\Map System\TileObject.cs" />
+     <Compile Include="Assets\Code\Classes\RandomEvent.cs" />
+     <Compile Include="Assets\Code\Classes\RandomEventManager.cs" />
+     <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
+     <Compile Include="Assets\Code\Classes\Roboticon.cs" />
+     <Compile Include="Assets\Code\Classes\Timeout.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\helpBoxScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\marketScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\roboticonGuiElementScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\roboticonUpgradesWindowScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\roboticonWindowScript.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
+     <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
+     <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
+     <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
+     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+     <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />
+     <None Include="Assets\Resources\VFX\Shaders\SkyFromSpace.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PlaymodeTestsRunner">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>D:/Programming Stuff/Unity/Editor/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
