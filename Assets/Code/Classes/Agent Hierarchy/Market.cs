@@ -42,9 +42,9 @@ public class Market : Agent
     /// </summary>
     /// <param name="resources"></param>
     /// <param name="price"></param>
-    public void BuyFrom(ResourceGroup resourcesToBuy)
+    public void BuyFrom(ResourceGroup resourcesToBuy, int roboticonAmount)
     {
-        if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0)
+        if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0 || roboticonAmount < 0)
             throw new System.ArgumentException("Cannot buy negative amounts of items");
 
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food

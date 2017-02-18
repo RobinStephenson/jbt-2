@@ -23,7 +23,7 @@ public class MarketTest
         Market m = new Market();
 
         int food = Market.STARTING_FOOD_AMOUNT;
-        m.BuyFrom(new ResourceGroup(1, 0, 0));
+        m.BuyFrom(new ResourceGroup(1, 0, 0), 0);
         Assert.AreEqual(new ResourceGroup(food - 1, Market.STARTING_ENERGY_AMOUNT, Market.STARTING_ORE_AMOUNT), m.GetResources());
     }
 
@@ -33,7 +33,7 @@ public class MarketTest
         Market m = new Market();
 
         int food = Market.STARTING_FOOD_AMOUNT;
-        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(food + 1, 0, 0)));
+        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(food + 1, 0, 0), 0));
         Assert.AreEqual(new ResourceGroup(food, Market.STARTING_ENERGY_AMOUNT, Market.STARTING_ORE_AMOUNT), m.GetResources());
     }
 
@@ -53,7 +53,7 @@ public class MarketTest
         Market m = new Market();
 
         int ore = Market.STARTING_ORE_AMOUNT;
-        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(0, 0, -5)));
+        Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(0, 0, -5), 0));
         Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore), m.GetResources());
     }
 }	

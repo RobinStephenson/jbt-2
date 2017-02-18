@@ -120,7 +120,7 @@ public class HumanGui
         {
             try
             {
-                gameManager.market.BuyFrom(resourcesToBuy);
+                gameManager.market.BuyFrom(resourcesToBuy, roboticonsToBuy);
             }
             catch (System.ArgumentException e)
             {
