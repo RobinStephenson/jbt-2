@@ -124,7 +124,6 @@ public class HumanGui
             }
             catch (System.ArgumentException e)
             {
-                //TODO - Implement separate animation for when the market does not have enough resources
                 canvas.marketScript.PlayPurchaseDeclinedAnimation();
                 return;
             }
@@ -226,10 +225,6 @@ public class HumanGui
             UpdateResourceBar(false);
             canvas.ShowRoboticonUpgradesWindow(roboticon);
             canvas.RefreshTileInfoWindow();
-        }
-        else
-        {
-            //TODO - Purchase decline anim
         }
     }
 
