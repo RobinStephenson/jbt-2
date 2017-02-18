@@ -2145,7 +2145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014089549758
 GameObject:
   m_ObjectHideFlags: 1
@@ -4181,6 +4181,7 @@ MonoBehaviour:
   foodUpgradesAmount: {fileID: 114000014235219748}
   energyUpgradesAmount: {fileID: 114000014109690128}
   oreUpgradesAmount: {fileID: 114000013312585220}
+  installedText: {fileID: 114000010927452574}
 --- !u!114 &114000011488856506
 MonoBehaviour:
   m_ObjectHideFlags: 1
