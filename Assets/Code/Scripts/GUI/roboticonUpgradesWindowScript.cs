@@ -9,9 +9,11 @@ public class roboticonUpgradesWindowScript : MonoBehaviour
     public Text foodUpgradesAmount;
     public Text energyUpgradesAmount;
     public Text oreUpgradesAmount;
+    public Text installedText; // JBT
 
     private Roboticon roboticon;
 
+    //Added by JBT to actually show whether a roboticon is installed or not in the roboticon upgrades window
     public void Show(Roboticon roboticon)
     {
         ResourceGroup upgrades = roboticon.GetUpgrades();
@@ -19,7 +21,7 @@ public class roboticonUpgradesWindowScript : MonoBehaviour
         energyUpgradesAmount.text = upgrades.energy.ToString();
         oreUpgradesAmount.text = upgrades.ore.ToString();
         this.roboticon = roboticon;
-
+        installedText.text = roboticon.IsInstalledToTile() ? "Yes" : "No";
         this.gameObject.SetActive(true);
     }
 
