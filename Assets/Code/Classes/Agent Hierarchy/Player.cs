@@ -101,6 +101,13 @@ public abstract class Player : Agent
         roboticon.InstallRoboticonToTile();
     }
 
+    //Added by JBT to support the uninstallation of Roboticons from tiles
+    public void UninstallRoboticon(Roboticon roboticon, Tile tile)
+    {
+        tile.UninstallRoboticon(roboticon);
+        roboticon.UninstallRoboticonToTile();
+    }
+
     public void PutItemUpForAuction()
     {
         //TODO - interface with auction. Not a priority.

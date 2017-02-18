@@ -47,7 +47,7 @@ public class TileTest {
     {
         Tile tile = new Tile(new ResourceGroup(10, 10, 10), new Vector2(3, 3), 7);
         Roboticon r = new Roboticon(new ResourceGroup(2, 0, 1));
-        tile.InstallRoboticon(r);
+        tile.InstallRoboticonTest(r);
 
         ResourceGroup resources = tile.GetTotalResourcesGenerated();
         ResourceGroup actualResources = tile.GetBaseResourcesGenerated() + tile.GetInstalledRoboticons()[0].GetUpgrades() * Tile.ROBOTICON_UPGRADE_WEIGHT;
