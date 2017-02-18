@@ -131,6 +131,7 @@
     <Compile Include="Assets\Editor\Tests\ResourceGroupTest.cs" />
     <Compile Include="Assets\Editor\Tests\RoboticonTest.cs" />
     <Compile Include="Assets\Editor\Tests\TileTest.cs" />
+    <Compile Include="Assets\Editor\Tests\TimeoutTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\VFX\Shaders\GroundFromSpace.shader" />

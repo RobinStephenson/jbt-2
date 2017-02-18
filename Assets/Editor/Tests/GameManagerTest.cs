@@ -22,9 +22,9 @@ public class GameManagerTest
             tile.SetOwner(playerList[1]);       //Set all tiles to owned so that the game ends
         }
 
-        Player winner = gameManager.GetWinnerIfGameHasEnded();
+        string winner = EndGameScript.Scoreboard[1].PlayerName;
 
-        Assert.AreEqual(winner, playerList[1]);
+        Assert.AreEqual(winner, playerList[1].GetName());
     }
         
     [Test]

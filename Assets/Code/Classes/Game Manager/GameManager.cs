@@ -83,14 +83,13 @@ public class GameManager
     }
 
     //Amended by JBT - Added UI Integration
-    private void ShowWinner(Player player)
+    private void ShowWinner(List<ScoreboardEntry> scoreboard)
     {
+        EndGameScript.Scoreboard = scoreboard;
         SceneManager.LoadScene(2);
-
     }
 
     //Added by JBT to add a scoreboard
-
     public List<ScoreboardEntry> PlayerScoreBoard(List<Player> playerList)
     {
         List<ScoreboardEntry> scoreboard = new List<ScoreboardEntry>();
@@ -110,7 +109,7 @@ public class GameManager
     public bool GameEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        return map.GetNumUnownedTilesRemaining() == 0;
+        return map.GetNumUnownedTilesRemaining() == 99;
     }
 
     private void SetUpGui()
@@ -210,7 +209,7 @@ public class GameManager
     {
         if(GameEnded())
         {
-            //ShowWinner(winner);
+            ShowWinner(PlayerScoreBoard(players));
             return;
         }
 
@@ -262,6 +261,7 @@ public class GameManager
     }
 }
 
+//Added by JBT to facilitate the construction of the scorboard
 public struct ScoreboardEntry
 {
     public string PlayerName { get; private set; }
