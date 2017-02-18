@@ -309,4 +309,9 @@ public class canvasScript : MonoBehaviour
         string sign = (changeAmount >= 0) ? "+" : "";
         return "(" + sign + changeAmount.ToString() + ")";
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
