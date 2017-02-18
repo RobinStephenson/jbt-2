@@ -71,7 +71,7 @@ public class Tile
     {
         if (installedRoboticons.Contains(roboticon))
         {
-            throw new System.InvalidOperationException("Roboticon already exists on this tile\n");
+            throw new System.InvalidOperationException("Roboticon already exists on this tile");
         }
         installedRoboticons.Add(roboticon);
         tileObject.ShowInstalledRoboticon();
@@ -85,11 +85,16 @@ public class Tile
     {
         if (!installedRoboticons.Contains(roboticon))
         {
-            throw new System.InvalidOperationException("Roboticon doesn't exist on this tile\n");
+            throw new System.InvalidOperationException("Roboticon doesn't exist on this tile");
         }
 
         installedRoboticons.Remove(roboticon);
-        tileObject.HideInstalledRoboticon();
+
+        //Added by JBT - remove the roboticon texture from a tile only if there are no roboticons left on it
+        if (installedRoboticons.Count == 0)
+        {
+            tileObject.HideInstalledRoboticon();
+        }
     }
 
     #region Install/Uninstall test functions

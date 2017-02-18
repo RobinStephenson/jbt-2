@@ -249,11 +249,17 @@ public class HumanGui
         }
     }
 
+    //Added by JBT to support the uninstallation of roboticons from tiles
     public void UninstallRoboticon(Roboticon roboticon)
     {
         if(roboticon.IsInstalledToTile())
         {
-
+            currentHuman.UninstallRoboticon(roboticon, currentSelectedTile);
+            canvas.RefreshTileInfoWindow();
+        }
+        else
+        {
+            throw new System.InvalidOperationException("This roboticon is not installed on a tile. This should not happen");
         }
     }
 
