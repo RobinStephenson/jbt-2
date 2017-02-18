@@ -98,6 +98,7 @@ public class canvasScript : MonoBehaviour
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
+        RefreshRoboticonList();
     }
 
     public void SellToMarket(ResourceGroup resources, int price)
