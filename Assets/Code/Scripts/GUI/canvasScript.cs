@@ -138,11 +138,13 @@ public class canvasScript : MonoBehaviour
         marketButton.SetActive(false);
     }
 
+    //Added by JBT to show the current human player the amount of seconds left in the current turn, if the current phase is a timed one
     public void ShowTimeout(Timeout t)
     {
         timeoutText.text = t.SecondsRemaining.ToString("00");
     }
 
+    //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
     public void HideTimeout()
     {
         timeoutText.gameObject.SetActive(false);
