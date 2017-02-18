@@ -37,9 +37,9 @@ public class EndGameScript : MonoBehaviour
 
     public void SetScoreBoard()
     {
-        WinnerText.text = Scoreboard[0].PlayerName;
-        LoserText.text = Scoreboard[1].PlayerName;
-        WinnerScore.text = Scoreboard[0].PlayerScore.ToString();
-        LoserScore.text = Scoreboard[1].PlayerScore.ToString();
+        WinnerText.text = Scoreboard[1].PlayerName;
+        LoserText.text = Scoreboard[0].PlayerName;
+        WinnerScore.text = Scoreboard[1].PlayerScore.ToString();
+        LoserScore.text = Scoreboard[0].PlayerScore.ToString();
     }
 }
