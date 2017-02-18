@@ -8,10 +8,12 @@ public class roboticonWindowScript : MonoBehaviour
     public GameObject roboticonIconsList;   //Roboticon gui elements are added to this GUI content
 
     private GameObject roboticonTemplate;
-    private List<GameObject> currentlyDisplayedRoboticons = new List<GameObject>();
+    private List<GameObject> currentlyDisplayedRoboticonObjects = new List<GameObject>();
+    private List<Roboticon> currentlyDisplayedRoboticons = new List<Roboticon>();
     private const string ROBOTICON_TEMPLATE_PATH = "Prefabs/GUI/TemplateRoboticon";
 
     // JBT fixed an error in this method where having the roboticons list open and no tile selected could cause the gui to stop responding / be drawn
+    // JBT also added a list of roboticons to fix a bug where the install button would still appear when a roboticon was already installed
     /// <summary>
     /// Display a new set of roboticons to the GUI. Overwrite any previously displayed
     /// roboticons.
@@ -19,6 +21,7 @@ public class roboticonWindowScript : MonoBehaviour
     /// <param name="roboticonsToDisplay"></param>
     public void DisplayRoboticonList(List<Roboticon> roboticonsToDisplay)
     {
+        currentlyDisplayedRoboticons = roboticonsToDisplay; // JBT
         ClearRoboticonList();
 
         gameObject.SetActive(true);
@@ -54,7 +57,7 @@ public class roboticonWindowScript : MonoBehaviour
     public void HideRoboticonList()
     {
         ClearRoboticonList();
-        currentlyDisplayedRoboticons = new List<GameObject>();
+        currentlyDisplayedRoboticonObjects = new List<GameObject>();
         gameObject.SetActive(false);
     }
 
@@ -78,7 +81,7 @@ public class roboticonWindowScript : MonoBehaviour
         roboticonElementScript.SetRoboticon(roboticon);
         roboticonElementScript.SetButtonEventListeners(this);
 
-        currentlyDisplayedRoboticons.Add(roboticonGuiObject);
+        currentlyDisplayedRoboticonObjects.Add(roboticonGuiObject);
     }
 
     /// <summary>
@@ -86,26 +89,34 @@ public class roboticonWindowScript : MonoBehaviour
     /// </summary>
     public void ShowRoboticonUpgradeButtons()
     {
-        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        foreach (GameObject roboticonElement in currentlyDisplayedRoboticonObjects)
         {
             roboticonElement.GetComponent<roboticonGuiElementScript>().ShowUpgradeButton();
         } 
     }
 
+    //Edited by JBT to show an already installed text box, if a roboticon is already installed
     /// <summary>
     /// Show the install button for each roboticon in the window.
     /// </summary>
     public void ShowRoboticonInstallButtons()
     {
-        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        for(int i = 0; i < currentlyDisplayedRoboticonObjects.Count; i++)
         {
-            roboticonElement.GetComponent<roboticonGuiElementScript>().ShowInstallButton();
+            if(currentlyDisplayedRoboticons[i].IsInstalledToTile())
+            {
+                currentlyDisplayedRoboticonObjects[i].GetComponent<roboticonGuiElementScript>().ShowInstalledText();
+            }
+            else
+            {
+                currentlyDisplayedRoboticonObjects[i].GetComponent<roboticonGuiElementScript>().ShowInstallButton();
+            }        
         }
     }
 
     public void HideInstallAndUpgradeButtons()
     {
-        foreach (GameObject roboticonElement in currentlyDisplayedRoboticons)
+        foreach (GameObject roboticonElement in currentlyDisplayedRoboticonObjects)
         {
             roboticonElement.GetComponent<roboticonGuiElementScript>().HideButtons();
         }
@@ -127,14 +138,14 @@ public class roboticonWindowScript : MonoBehaviour
 
     private void ClearRoboticonList()
     {
-        if (currentlyDisplayedRoboticons.Count > 0)
+        if (currentlyDisplayedRoboticonObjects.Count > 0)
         {
-            for (int i = currentlyDisplayedRoboticons.Count - 1; i >= 0; i--)
+            for (int i = currentlyDisplayedRoboticonObjects.Count - 1; i >= 0; i--)
             {
-                Destroy(currentlyDisplayedRoboticons[i]);
+                Destroy(currentlyDisplayedRoboticonObjects[i]);
             }
 
-            currentlyDisplayedRoboticons = new List<GameObject>();
+            currentlyDisplayedRoboticonObjects = new List<GameObject>();
         }
     }
 
