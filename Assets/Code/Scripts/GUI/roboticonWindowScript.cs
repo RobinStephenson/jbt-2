@@ -97,7 +97,7 @@ public class roboticonWindowScript : MonoBehaviour
 
     //Edited by JBT to show an already installed text box, if a roboticon is already installed
     /// <summary>
-    /// Show the install button for each roboticon in the window.
+    /// Show the install button for each roboticon in the window, or a text box explaining that the roboticon has already been installed
     /// </summary>
     public void ShowRoboticonInstallButtons()
     {
