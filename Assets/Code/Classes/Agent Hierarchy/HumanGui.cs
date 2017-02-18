@@ -48,6 +48,23 @@ public class HumanGui
         canvas.HideMarketWindow();
         canvas.HideAITurnText();
 
+        //Added by JBT - enables or disables market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
+        if (phase == GameManager.States.PURCHASE)
+        {
+            canvas.ShowMarketButton();
+            canvas.ShowRoboticonButton();
+        }
+        else if(phase == GameManager.States.INSTALLATION)
+        {
+            canvas.HideMarketButton();
+            canvas.ShowRoboticonButton();
+        }
+        else
+        {
+            canvas.HideMarketButton();
+            canvas.HideRoboticonButton();
+        }
+
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
 
