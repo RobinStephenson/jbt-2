@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{BC3B11E5-C6D5-B8D6-4E0B-4311DC933A4D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -66,6 +65,7 @@
      <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
      <Compile Include="Assets\Code\Classes\Roboticon.cs" />
      <Compile Include="Assets\Code\Classes\Timeout.cs" />
+     <Compile Include="Assets\Code\Scripts\GUI\EndGameScript.cs" />
      <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
      <Compile Include="Assets\Code\Scripts\GUI\helpBoxScript.cs" />
      <Compile Include="Assets\Code\Scripts\GUI\marketScript.cs" />
@@ -104,9 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{EAAF8CC6-885E-61E2-DAA1-BACEA258B1A7}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
+      <Project>{EAAF8CC6-885E-61E2-DAA1-BACEA258B1A7}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -116,4 +114,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
