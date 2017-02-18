@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 //Made by JBT
 public class endGameScript : MonoBehaviour
@@ -21,6 +22,10 @@ public class endGameScript : MonoBehaviour
         Destroy(GameObject.Find("Tile Holder"));
         Destroy(GameObject.Find("Map Manager"));
 
+        GameObject newEventSystem = new GameObject();
+        newEventSystem.AddComponent<EventSystem>();
+        newEventSystem.AddComponent<StandaloneInputModule>();
+        
         SetScoreBoard();
     }
 
