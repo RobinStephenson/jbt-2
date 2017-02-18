@@ -102,14 +102,14 @@ public class GameManager
 
         scoreboard.Sort((a, b) => a.PlayerScore.CompareTo(b.PlayerScore));
         
-        //Player with the highest score wins (Req 2.3.c)
+        //Player with the highest score wins
         return scoreboard;
     }
 
     //Added by JBT to support a scoreboard being displayed when the game ends, instead of a singular winner
     public bool GameEnded()
     {
-        //Game ends if there are no remaining unowned tiles (Req 2.3.a)
+        //Game ends if there are no remaining unowned tiles
         return map.GetNumUnownedTilesRemaining() == 0;
     }
 
