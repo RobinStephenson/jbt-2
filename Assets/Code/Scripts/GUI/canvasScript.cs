@@ -142,6 +142,14 @@ public class canvasScript : MonoBehaviour
     public void ShowTimeout(Timeout t)
     {
         timeoutText.text = t.SecondsRemaining.ToString("00");
+        if(t.SecondsRemaining < 5)
+        {
+            timeoutText.color = Color.red;
+        }
+        else
+        {
+            timeoutText.color = Color.white;
+        }
     }
 
     //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
