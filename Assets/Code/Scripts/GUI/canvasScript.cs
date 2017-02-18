@@ -334,5 +334,10 @@ public class canvasScript : MonoBehaviour
         return "(" + sign + changeAmount.ToString() + ")";
     }
 
-
+    //Added by JBT 
+    public void QuitToMenu()
+    {
+        //Quits the game
+        Application.Quit();
+    }
 }
