@@ -80,7 +80,7 @@ public class Tile
     /// <summary>
     /// Throws System.Exception if the roboticon does not exist on this tile.
     /// </summary>
-    /// <param name="roboticon"></param>
+    /// <param name="roboticon">The roboticon to uninstall</param>
     public void UninstallRoboticon(Roboticon roboticon)
     {
         if (!installedRoboticons.Contains(roboticon))
@@ -91,6 +91,37 @@ public class Tile
         installedRoboticons.Remove(roboticon);
         tileObject.HideInstalledRoboticon();
     }
+
+    #region Install/Uninstall test functions
+    //Added by JBT. The normal version will not work with tests as it references a tileobject, which NUnit cannot test
+    /// <summary>
+    /// Throws System.Exception if the roboticon already exists on this tile.
+    /// </summary>
+    /// <param name="roboticon">The roboticon to install</param>
+    public void InstallRoboticonTest(Roboticon roboticon)
+    {
+        if (installedRoboticons.Contains(roboticon))
+        {
+            throw new System.InvalidOperationException("Roboticon already exists on this tile\n");
+        }
+        installedRoboticons.Add(roboticon);
+    }
+
+    //Added by JBT. The normal version will not work with tests as it references a tileobject, which NUnit cannot test
+    /// <summary>
+    /// Throws System.Exception if the roboticon does not exist on this tile.
+    /// </summary>
+    /// <param name="roboticon">The roboticon to uninstall</param>
+    public void UninstallRoboticonTest(Roboticon roboticon)
+    {
+        if (!installedRoboticons.Contains(roboticon))
+        {
+            throw new System.InvalidOperationException("Roboticon doesn't exist on this tile\n");
+        }
+
+        installedRoboticons.Remove(roboticon);
+    }
+    #endregion
 
     public List<Roboticon> GetInstalledRoboticons()
     {

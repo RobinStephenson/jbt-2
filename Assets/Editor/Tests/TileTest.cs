@@ -19,8 +19,8 @@ public class TileTest {
     {
         Tile tile = new Tile(new ResourceGroup(10, 10, 10), new Vector2(3, 3), 7);
         Roboticon r = new Roboticon();
-        tile.InstallRoboticon(r);
-        Assert.Throws<System.Exception>(() => tile.InstallRoboticon(r));
+        tile.InstallRoboticonTest(r);
+        Assert.Throws<System.InvalidOperationException>(() => tile.InstallRoboticon(r));
     }
 
     [Test]
@@ -28,9 +28,9 @@ public class TileTest {
     {
         Tile tile = new Tile(new ResourceGroup(10, 10, 10), new Vector2(3, 3), 7);
         Roboticon r = new Roboticon();
-        tile.InstallRoboticon(r);
-        tile.UninstallRoboticon(r);
-        Assert.Throws<System.Exception>(() => tile.UninstallRoboticon(r));
+        tile.InstallRoboticonTest(r);
+        tile.UninstallRoboticonTest(r);
+        Assert.Throws<System.InvalidOperationException>(() => tile.UninstallRoboticon(r));
     }
 
     [Test]

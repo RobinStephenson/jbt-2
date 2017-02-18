@@ -54,6 +54,11 @@ public class roboticonGuiElementScript : MonoBehaviour
         roboticonWindow.InstallRoboticon(roboticon);
     }
 
+    public void OnRemoveClick()
+    {
+        roboticonWindow.UninstallRoboticon(roboticon);
+    }
+
     public void OnUpgradeClick()
     {
         roboticonWindow.UpgradeRoboticon(roboticon);

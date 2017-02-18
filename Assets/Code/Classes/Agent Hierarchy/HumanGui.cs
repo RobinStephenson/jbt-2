@@ -232,12 +232,28 @@ public class HumanGui
     {
         if (currentSelectedTile.GetOwner() == currentHuman)
         {
-            currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
-            canvas.RefreshTileInfoWindow();
+            //Added by JBT - only install a roboticon to a tile if the roboticon is not already installed to a tile
+            if (!roboticon.IsInstalledToTile())
+            {
+                currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
+                canvas.RefreshTileInfoWindow();
+            }
+            else
+            {
+                throw new System.InvalidOperationException("Tried to install a roboticon which is already installed");
+            }
         }
         else
         {
             throw new System.InvalidOperationException("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
+        }
+    }
+
+    public void UninstallRoboticon(Roboticon roboticon)
+    {
+        if(roboticon.IsInstalledToTile())
+        {
+
         }
     }
 

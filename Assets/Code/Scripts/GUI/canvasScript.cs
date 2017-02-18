@@ -256,6 +256,12 @@ public class canvasScript : MonoBehaviour
         humanGui.InstallRoboticon(roboticon);
     }
 
+    //Added by JBT so that it is now possible to remove roboticons from their tile
+    public void UninstallRoboticon(Roboticon roboticon)
+    {
+        humanGui.UninstallRoboticon(roboticon);
+    }
+
     public void SetCurrentPlayerName(string name)
     {
         currentPlayerText.text = name;
