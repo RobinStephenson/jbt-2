@@ -98,7 +98,7 @@ public class canvasScript : MonoBehaviour
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
-        RefreshRoboticonList();
+        RefreshRoboticonList(); //Added by JBT to fix a bug when buying roboticons with the roboticon list open was not creating the GUI elements correctly
     }
 
     public void SellToMarket(ResourceGroup resources, int price)
