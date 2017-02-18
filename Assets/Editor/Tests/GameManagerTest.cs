@@ -6,6 +6,7 @@ using NUnit.Framework;
 /// </summary>
 public class GameManagerTest
 {
+    //Amended by JBT due to changes with EndGame functions
     [Test]
     public void GameWinTest()
     {
@@ -23,8 +24,10 @@ public class GameManagerTest
         }
 
         string winner = EndGameScript.Scoreboard[1].PlayerName;
+        int winnerScore = EndGameScript.Scoreboard[1].PlayerScore;
 
         Assert.AreEqual(winner, playerList[1].GetName());
+        Assert.AreEqual(winnerScore, playerList[1].CalculateScore());
     }
         
     [Test]

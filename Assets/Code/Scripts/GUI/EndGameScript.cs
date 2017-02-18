@@ -35,6 +35,9 @@ public class EndGameScript : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Sets the Scoreboard text objects within the EndGameScene
+    /// </summary>
     public void SetScoreBoard()
     {
         WinnerText.text = Scoreboard[1].PlayerName;

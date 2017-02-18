@@ -89,7 +89,7 @@ public class GameManager
         SceneManager.LoadScene(2);
     }
 
-    //Added by JBT to add a scoreboard
+    //Added by JBT to create scoreboard
     public List<ScoreboardEntry> PlayerScoreBoard(List<Player> playerList)
     {
         List<ScoreboardEntry> scoreboard = new List<ScoreboardEntry>();
@@ -109,7 +109,7 @@ public class GameManager
     public bool GameEnded()
     {
         //Game ends if there are no remaining unowned tiles (Req 2.3.a)
-        return map.GetNumUnownedTilesRemaining() == 99;
+        return map.GetNumUnownedTilesRemaining() == 0;
     }
 
     private void SetUpGui()
@@ -205,6 +205,7 @@ public class GameManager
         humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
     }
 
+    //Amended by JBT to add GameEnd functionality
     private void ProcessProductionPhase()
     {
         if(GameEnded())
