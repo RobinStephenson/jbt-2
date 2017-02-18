@@ -249,7 +249,7 @@ public class HumanGui
         }
         else
         {
-            throw new System.Exception("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
+            throw new System.InvalidOperationException("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
         }
     }
 
