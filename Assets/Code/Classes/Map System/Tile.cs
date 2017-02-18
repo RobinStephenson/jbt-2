@@ -9,7 +9,6 @@ public class Tile
     public const int ROBOTICON_UPGRADE_WEIGHT = 1;  //Currently each roboticon upgrade adds this amount to the production of its resource
     public RandomEvent CurrentEvent { get; private set; }
 
-
     private int tileId;
     private ResourceGroup BaseResources; // JBT Renamed this from total resources as total resources better decribes resources inlcuding affects of events and roboticons
     private Player owner;
@@ -72,7 +71,7 @@ public class Tile
     {
         if (installedRoboticons.Contains(roboticon))
         {
-            throw new System.Exception("Roboticon already exists on this tile\n");
+            throw new System.InvalidOperationException("Roboticon already exists on this tile\n");
         }
         installedRoboticons.Add(roboticon);
         tileObject.ShowInstalledRoboticon();
@@ -86,7 +85,7 @@ public class Tile
     {
         if (!installedRoboticons.Contains(roboticon))
         {
-            throw new System.Exception("Roboticon doesn't exist on this tile\n");
+            throw new System.InvalidOperationException("Roboticon doesn't exist on this tile\n");
         }
 
         this.installedRoboticons.Remove(roboticon);
