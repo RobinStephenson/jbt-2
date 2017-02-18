@@ -110,7 +110,7 @@ public class GameManager
     public bool GameEnded()
     {
         //Game ends if there are no remaining unowned tiles
-        return map.GetNumUnownedTilesRemaining() == 0;
+        return map.GetNumUnownedTilesRemaining() == 99;
     }
 
     private void SetUpGui()

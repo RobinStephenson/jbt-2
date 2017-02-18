@@ -15,6 +15,12 @@ public class endGameScript : MonoBehaviour
 
     void Start()
     {
+        //Destroy objects that got carried over from the main game
+        Destroy(GameObject.Find("Player GUI Canvas(Clone)"));
+        Destroy(GameObject.Find("GameManager"));
+        Destroy(GameObject.Find("Tile Holder"));
+        Destroy(GameObject.Find("Map Manager"));
+
         SetScoreBoard();
     }
 
