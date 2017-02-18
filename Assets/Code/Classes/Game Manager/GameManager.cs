@@ -86,7 +86,7 @@ public class GameManager
     //Amended by JBT - Added UI Integration
     private void ShowWinner(List<ScoreboardEntry> scoreboard)
     {
-        EndGameScript.Scoreboard = scoreboard;
+        endGameScript.Scoreboard = scoreboard;
         SceneManager.LoadScene(2);
     }
 

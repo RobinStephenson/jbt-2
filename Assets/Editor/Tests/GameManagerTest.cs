@@ -23,8 +23,8 @@ public class GameManagerTest
             tile.SetOwner(playerList[1]);       //Set all tiles to owned so that the game ends
         }
 
-        string winner = EndGameScript.Scoreboard[1].PlayerName;
-        int winnerScore = EndGameScript.Scoreboard[1].PlayerScore;
+        string winner = endGameScript.Scoreboard[1].PlayerName;
+        int winnerScore = endGameScript.Scoreboard[1].PlayerScore;
 
         Assert.AreEqual(winner, playerList[1].GetName());
         Assert.AreEqual(winnerScore, playerList[1].CalculateScore());

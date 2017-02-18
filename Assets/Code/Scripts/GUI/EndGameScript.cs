@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 //Made by JBT
-public class EndGameScript : MonoBehaviour
+public class endGameScript : MonoBehaviour
 {
     public static List<ScoreboardEntry> Scoreboard;
 
