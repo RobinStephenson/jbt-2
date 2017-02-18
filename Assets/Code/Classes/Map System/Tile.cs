@@ -88,7 +88,8 @@ public class Tile
             throw new System.InvalidOperationException("Roboticon doesn't exist on this tile\n");
         }
 
-        this.installedRoboticons.Remove(roboticon);
+        installedRoboticons.Remove(roboticon);
+        tileObject.HideInstalledRoboticon();
     }
 
     public List<Roboticon> GetInstalledRoboticons()

@@ -165,6 +165,15 @@ public class TileObject
         tileRoboticon.SetActive(true);
     }
 
+    //Added by JBT to support the display of installed roboticons on tiles
+    /// <summary>
+    /// Hides the installed roboticon on a tile. This is called when a roboticon is uninstalled from this tile instance
+    /// </summary>
+    public void HideInstalledRoboticon()
+    {
+        tileRoboticon.SetActive(false);
+    }
+
     /// <summary>
     /// Load the tile grid gameobject from resources if it has not already been loaded.
     /// </summary>
