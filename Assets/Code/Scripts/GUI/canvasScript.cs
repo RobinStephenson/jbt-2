@@ -16,6 +16,7 @@ public class canvasScript : MonoBehaviour
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
+    public Text timeoutText;
     public GameObject aiTurnBox;
     public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
@@ -38,12 +39,8 @@ public class canvasScript : MonoBehaviour
     {
         if (CurrentTimeout != null)
         {
-            // we are in a timed phase
-            // TODO update the timer display
-            if (CurrentTimeout.SecondsRemaining < 5)
-            {
-                // TODO make the text red or something to make it clearer its ending
-            }
+            // We are in a timed phase, update the display timer
+            ShowTimeout(CurrentTimeout);
             if (CurrentTimeout.Finished)
             {
                 Debug.Log("Current Timeout Finished");
@@ -58,6 +55,10 @@ public class canvasScript : MonoBehaviour
                     GameHandler.gameManager.GetCurrentPlayer().Act(GameHandler.gameManager.GetCurrentState());
                 }
             }
+        }
+        else
+        {
+            HideTimeout();
         }
     }
 
@@ -135,6 +136,27 @@ public class canvasScript : MonoBehaviour
     public void HideMarketButton()
     {
         marketButton.SetActive(false);
+    }
+
+    //Added by JBT to show the current human player the amount of seconds left in the current turn, if the current phase is a timed one
+    public void ShowTimeout(Timeout t)
+    {
+        timeoutText.gameObject.SetActive(true);
+        timeoutText.text = t.SecondsRemaining.ToString("00");
+        if(t.SecondsRemaining < 5)
+        {
+            timeoutText.color = Color.red;
+        }
+        else
+        {
+            timeoutText.color = Color.white;
+        }
+    }
+
+    //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
+    public void HideTimeout()
+    {
+        timeoutText.gameObject.SetActive(false);
     }
 
     public void ShowRoboticonButton()
