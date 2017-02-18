@@ -105,7 +105,7 @@ public class roboticonWindowScript : MonoBehaviour
         {
             if(currentlyDisplayedRoboticons[i].IsInstalledToTile())
             {
-                currentlyDisplayedRoboticonObjects[i].GetComponent<roboticonGuiElementScript>().ShowInstalledText();
+                currentlyDisplayedRoboticonObjects[i].GetComponent<roboticonGuiElementScript>().ShowRemoveButton();
             }
             else
             {

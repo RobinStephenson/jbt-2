@@ -6,7 +6,7 @@ public class roboticonGuiElementScript : MonoBehaviour
 {
     public Text roboticonNameObject;
     public GameObject installButton;
-    public Text installedText; // JBT
+    public GameObject removeButton; // JBT
     public GameObject upgradeButton;
     public Roboticon roboticon;
     private roboticonWindowScript roboticonWindow;
@@ -21,6 +21,7 @@ public class roboticonGuiElementScript : MonoBehaviour
     {
         this.roboticonWindow = roboticonWindow;
         installButton.GetComponent<Button>().onClick.AddListener(OnInstallClick);
+        removeButton.GetComponent<Button>().onClick.AddListener(OnRemoveClick);
         upgradeButton.GetComponent<Button>().onClick.AddListener(OnUpgradeClick);
     }
 
@@ -30,23 +31,23 @@ public class roboticonGuiElementScript : MonoBehaviour
         upgradeButton.SetActive(false);
     }
 
+    //Added by JBT to fix a bug where the install button would still be visiable when a roboticon was already installed
+    public void ShowRemoveButton()
+    {
+        removeButton.gameObject.SetActive(true);
+    }
+
     public void ShowUpgradeButton()
     {
         installButton.SetActive(false);
         upgradeButton.SetActive(true);
     }
 
-    //Added by JBT to fix a bug where the install button would still be visiable when a roboticon was already installed
-    public void ShowInstalledText()
-    {
-        installedText.gameObject.SetActive(true);
-    }
-
     public void HideButtons()
     {
         installButton.SetActive(false);
         upgradeButton.SetActive(false);
-        installedText.gameObject.SetActive(false);
+        removeButton.gameObject.SetActive(false);
     }
 
     public void OnInstallClick()
