@@ -232,15 +232,8 @@ public class HumanGui
     {
         if (currentSelectedTile.GetOwner() == currentHuman)
         {
-            if (roboticon.IsInstalledToTile())
-            {
-                //TOFO - Play "roboticon is already installed to a tile "animation"
-            }
-            else
-            {
-                currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
-                canvas.RefreshTileInfoWindow();
-            }
+            currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
+            canvas.RefreshTileInfoWindow();
         }
         else
         {
