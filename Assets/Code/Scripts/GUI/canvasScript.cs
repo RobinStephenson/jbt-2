@@ -100,6 +100,7 @@ public class canvasScript : MonoBehaviour
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
+        RefreshRoboticonList(); //Added by JBT to fix a bug when buying roboticons with the roboticon list open was not creating the GUI elements correctly
     }
 
     public void SellToMarket(ResourceGroup resources, int price)
@@ -256,6 +257,12 @@ public class canvasScript : MonoBehaviour
     public void InstallRoboticon(Roboticon roboticon)
     {
         humanGui.InstallRoboticon(roboticon);
+    }
+
+    //Added by JBT so that it is now possible to remove roboticons from their tile
+    public void UninstallRoboticon(Roboticon roboticon)
+    {
+        humanGui.UninstallRoboticon(roboticon);
     }
 
     public void SetCurrentPlayerName(string name)

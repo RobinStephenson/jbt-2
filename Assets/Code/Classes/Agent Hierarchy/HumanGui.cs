@@ -48,6 +48,23 @@ public class HumanGui
         canvas.HideMarketWindow();
         canvas.HideAITurnText();
 
+        //Added by JBT - enables or disables market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
+        if (phase == GameManager.States.PURCHASE)
+        {
+            canvas.ShowMarketButton();
+            canvas.ShowRoboticonButton();
+        }
+        else if(phase == GameManager.States.INSTALLATION)
+        {
+            canvas.HideMarketButton();
+            canvas.ShowRoboticonButton();
+        }
+        else
+        {
+            canvas.HideMarketButton();
+            canvas.HideRoboticonButton();
+        }
+
         canvas.SetCurrentPhaseText(GameManager.StateToPhaseName(phase) + " Phase");
     }
 
@@ -107,7 +124,6 @@ public class HumanGui
             }
             catch (System.ArgumentException e)
             {
-                //TODO - Implement separate animation for when the market does not have enough resources
                 canvas.marketScript.PlayPurchaseDeclinedAnimation();
                 return;
             }
@@ -210,29 +226,40 @@ public class HumanGui
             canvas.ShowRoboticonUpgradesWindow(roboticon);
             canvas.RefreshTileInfoWindow();
         }
-        else
-        {
-            //TODO - Purchase decline anim
-        }
     }
 
     public void InstallRoboticon(Roboticon roboticon)
     {
         if (currentSelectedTile.GetOwner() == currentHuman)
         {
-            if (roboticon.IsInstalledToTile())
-            {
-                //TOFO - Play "roboticon is already installed to a tile "animation"
-            }
-            else
+            //Added by JBT - only install a roboticon to a tile if the roboticon is not already installed to a tile
+            if (!roboticon.IsInstalledToTile())
             {
                 currentHuman.InstallRoboticon(roboticon, currentSelectedTile);
                 canvas.RefreshTileInfoWindow();
             }
+            else
+            {
+                throw new System.InvalidOperationException("Tried to install a roboticon which is already installed");
+            }
         }
         else
         {
-            throw new System.Exception("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
+            throw new System.InvalidOperationException("Tried to install roboticon to tile which is not owned by the current player. This should not happen.");
+        }
+    }
+
+    //Added by JBT to support the uninstallation of roboticons from tiles
+    public void UninstallRoboticon(Roboticon roboticon)
+    {
+        if(roboticon.IsInstalledToTile())
+        {
+            currentHuman.UninstallRoboticon(roboticon, roboticon.InstalledTile);
+            canvas.RefreshTileInfoWindow();
+        }
+        else
+        {
+            throw new System.InvalidOperationException("This roboticon is not installed on a tile. This should not happen");
         }
     }
 

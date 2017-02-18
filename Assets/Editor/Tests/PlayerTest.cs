@@ -59,7 +59,7 @@ public class PlayerTest {
 
         testHuman.AcquireTile(t);
         testHuman.AcquireRoboticon(r);
-        testHuman.InstallRoboticon(r, t);
+        InstallRoboticon(r, t);
 
         Assert.AreEqual(testHuman.GetOwnedTiles()[0].GetInstalledRoboticons()[0], r);
     }
@@ -73,8 +73,15 @@ public class PlayerTest {
 
         testHuman.AcquireTile(t);
         testHuman.AcquireRoboticon(r);
-        testHuman.InstallRoboticon(r, t);
+        InstallRoboticon(r, t);
 
         Assert.AreEqual(testHuman.CalculateScore(), 164);
+    }
+
+    //Added by JBT to simulate the installation of a roboticon without interaction with any untestable gameobjects
+    public void InstallRoboticon(Roboticon roboticon, Tile tile)
+    {
+        tile.InstallRoboticonTest(roboticon);
+        roboticon.InstallRoboticonToTile(tile);
     }
 }
