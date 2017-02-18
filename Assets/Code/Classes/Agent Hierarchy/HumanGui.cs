@@ -254,7 +254,7 @@ public class HumanGui
     {
         if(roboticon.IsInstalledToTile())
         {
-            currentHuman.UninstallRoboticon(roboticon, currentSelectedTile);
+            currentHuman.UninstallRoboticon(roboticon, roboticon.InstalledTile);
             canvas.RefreshTileInfoWindow();
         }
         else

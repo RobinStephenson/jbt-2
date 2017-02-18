@@ -5,10 +5,10 @@ public class Roboticon
 {
     public static int TotalRoboticons = 0;
     public const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+    public Tile InstalledTile;  //Added by JBT
 
     private ResourceGroup upgrades;
     private string name;
-    private bool isInstalledToTile = false;
 
     public Roboticon()
     {
@@ -52,18 +52,21 @@ public class Roboticon
         return upgrades;
     }
 
-    public void InstallRoboticonToTile()
+    //Tile reference added by JBT
+    public void InstallRoboticonToTile(Tile t)
     {
-        isInstalledToTile = true;
+        InstalledTile = t;
     }
 
-    public void UninstallRoboticonToTile()
+    //Tile reference added by JBT
+    public void UninstallRoboticonFromTile()
     {
-        isInstalledToTile = false;
+        InstalledTile = null;
     }
     
+    //Changed by JBT to use the tile reference for this instance instead
     public bool IsInstalledToTile()
     {
-        return isInstalledToTile;
+        return InstalledTile != null;
     }
 }

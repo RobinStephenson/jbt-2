@@ -82,6 +82,6 @@ public class PlayerTest {
     public void InstallRoboticon(Roboticon roboticon, Tile tile)
     {
         tile.InstallRoboticonTest(roboticon);
-        roboticon.InstallRoboticonToTile();
+        roboticon.InstallRoboticonToTile(tile);
     }
 }
