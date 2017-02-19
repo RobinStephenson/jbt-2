@@ -106,14 +106,16 @@ public class Market : Agent
     //Amended by JBT
     public void UpdatePrices()
     {
-        //Set the new sell price to equal (100 / market resource quantity)+1
-        //+1 ensures the price will never be 0
-        ResourceGroup newSellPrice = new ResourceGroup((100 / resources.food )+ 1, (100 / resources.energy)+ 1, (100 / resources.ore)+1);
-        resourceSellingPrices = newSellPrice;
+        int baseBuyPrice = 5;
+        double marketMarkup = 1.1;
 
-        //Set the new buy price to equal (market money / market resource quantity)
-        ResourceGroup newBuyPrice = new ResourceGroup((money / resources.food), (money / resources.energy), (money / resources.ore));
+        //Set the new buy price to equal (market money / market resource quantity) + baseprice
+        ResourceGroup newBuyPrice = new ResourceGroup((money / resources.food) + baseBuyPrice, (money / resources.energy) + baseBuyPrice, (money / resources.ore) + baseBuyPrice);
         resourceBuyingPrices = newBuyPrice;
+
+        //Multiplies the buyprice by the markup to get the new sell price
+        ResourceGroup newSellPrice = newBuyPrice * marketMarkup;
+        resourceSellingPrices = newSellPrice;
     }
 
     public void ProduceRoboticon()
