@@ -105,6 +105,13 @@ public class Market : Agent
 
     public void UpdatePrices()
     {
+        
+        ResourceGroup newSellPrice = new ResourceGroup();
+
+        //Set the new buy price to equal (market money / market resource quantity)
+        ResourceGroup newBuyPrice = new ResourceGroup((money / resources.food), (money / resources.energy), (money / resources.ore));
+        resourceBuyingPrices = newBuyPrice;
+        ;
         //Skeleton for later use when adding supply & demand
     }
 
