@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class canvasScript : MonoBehaviour
@@ -29,6 +30,7 @@ public class canvasScript : MonoBehaviour
     public GameObject NewEventMessage; //JBT UI element displayed when a new event is started.
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
+    private GameObject eventSystem;
 
     #region Resource Labels
     public Text foodLabel;
@@ -41,7 +43,7 @@ public class canvasScript : MonoBehaviour
     #endregion
 
     private HumanGui humanGui;
-
+     
     // JBT created this method
     void Update()
     {
@@ -77,6 +79,21 @@ public class canvasScript : MonoBehaviour
                 EventMessageTimeout = null;
             }
         }
+
+        GameObject newEventSystem = new GameObject();
+        newEventSystem.AddComponent<EventSystem>();
+        newEventSystem.AddComponent<StandaloneInputModule>();
+    }
+
+    // JBT
+    public void SetEventSystem()
+    {
+        if (eventSystem != null)
+            return;
+
+        eventSystem = new GameObject();
+        eventSystem.AddComponent<EventSystem>();
+        eventSystem.AddComponent<StandaloneInputModule>();
     }
 
     // JBT Created this method

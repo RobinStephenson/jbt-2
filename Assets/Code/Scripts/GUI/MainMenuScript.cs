@@ -6,6 +6,7 @@ using System;
 using UnityEngine.SceneManagement;
 
 
+
 public class mainMenuScript : MonoBehaviour
 {
     public Toggle AIToggle;
@@ -39,7 +40,8 @@ public class mainMenuScript : MonoBehaviour
         GameHandler.CreateNew(gameName, players);
         GameHandler.GetGameManager().StartGame();
             
-        SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous        
+        SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous   
+
     }
     public void QuitGame()
     {
