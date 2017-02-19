@@ -12,6 +12,7 @@ public class mainMenuScript : MonoBehaviour
     public InputField Player1Name;
     public InputField Player2Name;
     public const int GAME_SCENE_INDEX = 1;
+    public const string AIPlayerName = "Bot";
     public string gameName = "game";
 
     public void StartGame()
@@ -20,15 +21,14 @@ public class mainMenuScript : MonoBehaviour
         if (GameObject.Find("Player GUI Canvas(Clone)") != null)
         {
             Destroy(GameObject.Find("Player GUI Canvas(Clone)"));
-
-            DontDestroyOnLoad(this);
         }
+
         //TODO - BALANCE PLAYER RESOURCES
         List<Player> players = new List<Player>();
-        if (AIToggle.isOn == true)
+        if (AIToggle.isOn)
         {
             players.Add(new Human(new ResourceGroup(50, 999, 50), Player1Name.text, 999));
-            players.Add(new AI(new ResourceGroup(3, 2, 3), "BeepBoop", 500));
+            players.Add(new AI(new ResourceGroup(3, 2, 3), AIPlayerName, 500));
         }
         else
         {
@@ -39,9 +39,7 @@ public class mainMenuScript : MonoBehaviour
         GameHandler.CreateNew(gameName, players);
         GameHandler.GetGameManager().StartGame();
             
-        SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous
-        Destroy(GameObject.Find("mainMenu"));
-        
+        SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous        
     }
     public void QuitGame()
     {
@@ -50,16 +48,15 @@ public class mainMenuScript : MonoBehaviour
 
     public void ToggleAI()
     {
-        if (AIToggle.isOn == true)
+        if (AIToggle.isOn)
         {
-            Player2Name.text = "AI";
-            Player2Name.DeactivateInputField();
-            Player2Name.text = "AI";
+            Player2Name.text = AIPlayerName;
+            Player2Name.interactable = false;
         }
         else
         {
             Player2Name.text = "Enter Name Here...";
-            Player2Name.ActivateInputField();
+            Player2Name.interactable = true;
         }
     }
 }
