@@ -24,10 +24,17 @@ public class AuctionOfferWindowScript : MonoBehaviour
         curPlayer = GameHandler.gameManager.GetCurrentPlayer();
         auction = auctionManager.RetrieveAuction(curPlayer);
 
-        foodAuctionAmount.text = auction.AuctionResources.food.ToString();
-        energyAuctionAmount.text = auction.AuctionResources.energy.ToString();
-        oreAuctionAmount.text = auction.AuctionResources.ore.ToString();
-        AuctionBuyPrice.text = auction.AuctionPrice.ToString();
+        if (auction != null)
+        {
+            foodAuctionAmount.text = auction.AuctionResources.food.ToString();
+            energyAuctionAmount.text = auction.AuctionResources.energy.ToString();
+            oreAuctionAmount.text = auction.AuctionResources.ore.ToString();
+            AuctionBuyPrice.text = auction.AuctionPrice.ToString();
+        }
+        else
+        {
+            //FUCKING DISPLAY A MESSAGE THAT TELLS THE USER THERE ARE NO AUCTIONS TOM
+        }
 	}
 
     public void OnBuyAuctionButtonPress()
