@@ -62,7 +62,7 @@ public class MarketTest
     {
         Market m = new Market();
         ResourceGroup expectedBuyPrice = new ResourceGroup(26,21,5);
-        ResourceGroup expectedSellPrice = new ResourceGroup(26, 21, 7);
+        ResourceGroup expectedSellPrice = new ResourceGroup(26, 21, 8);
         int expectedRoboPrice = 15;
         ResourceGroup testResources = new ResourceGroup(0, 5, 50);
         m.SetResources(testResources);
