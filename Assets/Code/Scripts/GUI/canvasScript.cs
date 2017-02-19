@@ -226,6 +226,7 @@ public class canvasScript : MonoBehaviour
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
+        ShowRoboticonList();
     }
 
     public void HideRoboticonWindow()
