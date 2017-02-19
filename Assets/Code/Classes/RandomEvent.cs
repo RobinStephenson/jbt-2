@@ -78,6 +78,9 @@ public class RandomEvent
     /// </summary>
     private List<Tile> AffectedTiles = new List<Tile>();
 
+    /// <summary>
+    /// path to the icon to put on tiles affected by this event
+    /// </summary>
     private string IconPath;
 
     /// <summary>

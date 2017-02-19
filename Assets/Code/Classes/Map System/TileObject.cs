@@ -188,6 +188,7 @@ public class TileObject
         }
     }
 
+    // created by jbt
     /// <summary>
     /// Set the tiles event icon and display it
     /// </summary>
@@ -198,6 +199,7 @@ public class TileObject
         tileEventDisplay.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture2D>(iconPath);
     }
 
+    // created by jbt
     /// <summary>
     /// hide the event image 
     /// </summary>
