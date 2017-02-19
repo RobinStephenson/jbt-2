@@ -193,11 +193,13 @@ public class canvasScript : MonoBehaviour
         timeoutText.gameObject.SetActive(false);
     }
 
+    //JBT
     public void ShowRoboticonButton()
     {
         roboticonButton.SetActive(true);
     }
 
+    //JBT
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);
