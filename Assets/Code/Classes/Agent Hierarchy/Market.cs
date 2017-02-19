@@ -15,11 +15,6 @@ public class Market : Agent
     public static int STARTING_ORE_AMOUNT = 0;
     public static int STARTING_ROBOTICON_AMOUNT = 12;
 
-    public static int TARGET_FOOD_AMOUNT = 16;
-    public static int TARGET_ENERGY_AMOUNT = 16;
-    public static int TARGET_ORE_AMOUNT = 16;
-    public static int TARGET_ROBOTICON_AMOUNT = 12;
-
     public static int STARTING_FOOD_BUY_PRICE = 10;
     public static int STARTING_ORE_BUY_PRICE = 10;
     public static int STARTING_ENERGY_BUY_PRICE = 10;

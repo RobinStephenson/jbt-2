@@ -101,8 +101,6 @@
     <Compile Include="Assets\Code\Classes\Roboticon.cs" />
     <Compile Include="Assets\Code\Classes\Timeout.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\endGameScript.cs" />
-    <Compile Include="Assets\Code\Scripts\GUI\gamblingScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\helpBoxScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\marketScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\roboticonGuiElementScript.cs" />
