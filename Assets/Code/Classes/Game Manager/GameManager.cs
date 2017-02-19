@@ -12,14 +12,15 @@ public class GameManager
 {
     public enum States : int
     {
-        ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
+        ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTIONLIST, AUCTIONBID
     };
-    public static string[] stateNames = new string[5] {
+    public static string[] stateNames = new string[6] {
         "Acquisition",
         "Purchase",
         "Installation",
         "Production",
-        "Auction"
+        "Auction List",
+        "Auction Bid"
         };
 
     public GameObject humanGuiCanvas;
@@ -46,6 +47,7 @@ public class GameManager
     /// <param name="players"></param>
     public GameManager(string gameName, List<Player> players)
     {
+        auction = new AuctionManager();
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);
@@ -158,7 +160,11 @@ public class GameManager
             {
                 RandomEventManager.ManageAndTriggerEvents();
                 ProcessProductionPhase();
-                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+                currentState = States.AUCTIONLIST ;       //Reset the state counter after the production (final) phase
+            }
+            else if(currentState == States.AUCTIONBID)
+            {
+                currentState = States.ACQUISITION;
             }
             else
             {
@@ -204,9 +210,9 @@ public class GameManager
         {
             CurrentPhaseTimeout = new Timeout(45);
         }
-        else if (currentState == States.AUCTION)
+        else if (currentState == States.AUCTIONLIST || currentState == States.AUCTIONBID)
         {
-            CurrentPhaseTimeout = new Timeout(60);
+            CurrentPhaseTimeout = new Timeout(30);
         }
         humanGui.GetCanvas().SetPhaseTimeout(CurrentPhaseTimeout);
     }

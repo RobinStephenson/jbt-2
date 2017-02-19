@@ -191,14 +191,28 @@ public class canvasScript : MonoBehaviour
     //Added by JBT - Show or hide the auction window depending on the state the window is in when the button is pressed
     public void AuctionButtonPressed()
     {
-        if (auctionSellWindow.activeSelf)
+        if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.AUCTIONBID)
         {
-            HideAuctionSellWindow();
+            if (auctionBuyWindow.activeSelf)
+            {
+                HideAuctionBuyWindow();
+            }
+            else
+            {
+                ShowAuctionBuyWindow();
+            }
         }
-        else
+        else if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.AUCTIONLIST)
         {
-            ShowAuctionSellWindow();
-        }
+            if (auctionSellWindow.activeSelf)
+            {
+                HideAuctionSellWindow();
+            }
+            else
+            {
+                ShowAuctionSellWindow();
+            }
+        }        
     }
 
     public void ShowMarketWindow()
