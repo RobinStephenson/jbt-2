@@ -24,6 +24,7 @@ public class TileObject
     private GameObject tileGameObjectInScene;
     private GameObject tileCenter;              //Added by JBT to allow the entire tile area to be highlighted
     private GameObject tileRoboticon;           //Added by JBT to allow the display of installed roboticons on tiles
+    private GameObject tileEventDisplay;        //Added by JBT to allow the display of any events happening on tiles
 
     public enum TILE_OWNER_TYPE
     {
@@ -81,6 +82,7 @@ public class TileObject
         tileGameObjectInScene.transform.parent = tileHolder.transform;
         tileCenter = tileGameObjectInScene.transform.GetChild(0).gameObject;
         tileRoboticon = tileGameObjectInScene.transform.GetChild(1).gameObject;
+        tileEventDisplay = tileGameObjectInScene.transform.GetChild(2).gameObject;
         tileCenter.SetActive(false);
         tileRoboticon.SetActive(false);
     }
@@ -184,5 +186,23 @@ public class TileObject
             TILE_GRID_GAMEOBJECT = (GameObject)Resources.Load(TILE_GRID_PREFAB_PATH);
             tileGridPrefabSize = TILE_GRID_GAMEOBJECT.GetComponent<Renderer>().bounds.size;
         }
+    }
+
+    /// <summary>
+    /// Set the tiles event icon and display it
+    /// </summary>
+    /// <param name="icon">The path of the texture to display</param>
+    public void SetEventIcon(string iconPath)
+    {
+        tileEventDisplay.SetActive(true);
+        tileEventDisplay.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture2D>(iconPath);
+    }
+
+    /// <summary>
+    /// hide the event image 
+    /// </summary>
+    public void DisableEventImage()
+    {
+        tileEventDisplay.SetActive(false);
     }
 }

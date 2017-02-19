@@ -10,7 +10,8 @@
 			"energyMultiplier": 1,
 			"connectedTilesOnly": "True",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True"
+			"noRoboticonInstalled": "True",
+			"texture": "Textures/trumpIcon"
 		},
 		{
 			"title": "Meteor Strike!",
@@ -22,7 +23,8 @@
 			"energyMultiplier": 1.25,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True"
+			"noRoboticonInstalled": "True",
+			"texture": "Textures/meteorIcon"
 		},
 		{
 			"title": "Freshers Flu!",
@@ -34,7 +36,8 @@
 			"energyMultiplier": 0.1,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "False"
+			"noRoboticonInstalled": "False",
+			"texture": "Textures/fluIcon"
 		},
 		{
 			"title": "Attack of the Geese!",
@@ -46,7 +49,8 @@
 			"energyMultiplier": 0,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "False",
-			"noRoboticonInstalled": "True"
+			"noRoboticonInstalled": "True",
+			"texture": "Textures/gooseIcon"
 		},
 		{
 			"title": "Prof. Colin Runciman appears!",
@@ -58,7 +62,8 @@
 			"energyMultiplier": 0.5,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "False"
+			"noRoboticonInstalled": "False",
+			"texture": "Texture/colinIcon"
 		},
 		{
 			"title": "Construction has begun!",
@@ -70,7 +75,8 @@
 			"energyMultiplier": 0,
 			"connectedTilesOnly": "True",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True"
+			"noRoboticonInstalled": "True",
+			"texture": "Textures/constructionIcon"
 		}
 	]
 }
