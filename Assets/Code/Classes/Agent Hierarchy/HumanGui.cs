@@ -45,22 +45,26 @@ public class HumanGui
         canvas.RefreshRoboticonList();
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
+        canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
         canvas.HideAITurnText();
 
-        //Added by JBT - enables or disables market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
+        //Added by JBT - enables or disables gambling, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
         if (phase == GameManager.States.PURCHASE)
         {
+            canvas.ShowGambleButton();
             canvas.ShowMarketButton();
             canvas.ShowRoboticonButton();
         }
         else if(phase == GameManager.States.INSTALLATION)
         {
+            canvas.HideGambleButton();
             canvas.HideMarketButton();
             canvas.ShowRoboticonButton();
         }
         else
         {
+            canvas.HideGambleButton();
             canvas.HideMarketButton();
             canvas.HideRoboticonButton();
         }
