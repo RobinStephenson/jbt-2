@@ -50,7 +50,10 @@ public class Market : Agent
     public void BuyFrom(ResourceGroup resourcesToBuy, int roboticonAmount)
     {
         if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0 || roboticonAmount < 0)
+        {
             throw new System.ArgumentException("Cannot buy negative amounts of items");
+        }
+            
 
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
             || resourcesToBuy.energy > this.resources.energy
@@ -162,7 +165,7 @@ public class Market : Agent
 
         ResourceGroup newSellPrice = new ResourceGroup(newFoodSell, newEnergySell, newOreSell);
         resourceSellingPrices = newSellPrice;
-        Debug.Log(resourceBuyingPrices);
+        Debug.Log(resourceBuyingPrices.energy);
     }
 
     public void ProduceRoboticon()
