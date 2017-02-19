@@ -16,6 +16,10 @@ public class gamblingScript : MonoBehaviour {
         market = GameHandler.GetGameManager().market;
     }
 	
+    /// <summary>
+    /// Called when the play button is clicked on the gambling UI. Rolls a number between 1-100. Gives the current player double the amount back if they win.
+    /// </summary>
+    /// <param name="amount">The amount to gamble with</param>
 	public void PlayDoubleOrNothingButtonClicked(int amount)
     {
         Human currentPlayer = GameHandler.gameManager.GetHumanGui().GetCurrentHuman();
@@ -37,7 +41,7 @@ public class gamblingScript : MonoBehaviour {
 
             if (won)
             {
-                currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 2));
+                currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 3));
             }
         }
         catch(System.ArgumentException e)
