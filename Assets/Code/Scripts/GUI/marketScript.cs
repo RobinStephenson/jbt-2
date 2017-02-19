@@ -108,9 +108,10 @@ public class marketScript : MonoBehaviour
 
         GameObject gamblingMenu = GameObject.Find("Gambling Menu");
 
+        //Refresh the balance on the gambling menu if it is open
         if (gamblingMenu != null)
         {
-            gamblingMenu.GetComponent<gamblingScript>.RefreshMarketBalance();
+            gamblingMenu.GetComponent<gamblingScript>().RefreshMarketBalance();
         }
     }
 
