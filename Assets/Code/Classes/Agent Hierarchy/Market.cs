@@ -18,7 +18,6 @@ public class Market : Agent
     public static int TARGET_FOOD_AMOUNT = 16;
     public static int TARGET_ENERGY_AMOUNT = 16;
     public static int TARGET_ORE_AMOUNT = 16;
-    public static int TARGET_ROBOTICON_AMOUNT = 12;
 
     public static int STARTING_FOOD_BUY_PRICE = 10;
     public static int STARTING_ORE_BUY_PRICE = 10;
@@ -111,17 +110,26 @@ public class Market : Agent
     //Amended by JBT
     public void UpdatePrices()
     {
-        int baseBuyPrice = 5;
-        double marketMarkup = 1.1;
+        int basePrice = 5;
+        ResourceGroup newBuyPrice = new ResourceGroup();
+        ResourceGroup newSellPrice = new ResourceGroup();
+        int newFoodBuy = STARTING_FOOD_BUY_PRICE + (TARGET_FOOD_AMOUNT - resources.food);
+        int newEnergyBuy = STARTING_ENERGY_BUY_PRICE + (TARGET_ENERGY_AMOUNT - resources.energy);
+        int newOreBuy = STARTING_ORE_BUY_PRICE + (TARGET_ORE_AMOUNT - resources.ore);
 
-        //Set the new buy price to equal (market money / (market resource quantity+1)) + baseprice
-        //Resource Quantity +1 exists to avoid divison by 0
-        ResourceGroup newBuyPrice = new ResourceGroup((money / (resources.food+1)) + baseBuyPrice, (money / (resources.energy +1)) + baseBuyPrice, (money / (resources.ore +1)) + baseBuyPrice);
-        resourceBuyingPrices = newBuyPrice;
+        //Ensure that the lowest buy price is basePrice
+        if (newFoodBuy < basePrice){
+            newFoodBuy = basePrice;
+        }
+        if (newEnergyBuy < basePrice)
+        {
+            newEnergyBuy = basePrice;
+        }
+        if (newOreBuy < basePrice)
+        {
+            newOreBuy = basePrice;
+        }
 
-        //Multiplies the buyprice by the markup to get the new sell price
-        ResourceGroup newSellPrice = newBuyPrice * marketMarkup;
-        resourceSellingPrices = newSellPrice;
     }
 
     public void ProduceRoboticon()
