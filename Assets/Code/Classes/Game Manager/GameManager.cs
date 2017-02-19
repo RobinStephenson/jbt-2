@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 
-[Serializable]
 public class GameManager
 {
     public enum States : int

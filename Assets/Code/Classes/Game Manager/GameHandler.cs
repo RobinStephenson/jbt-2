@@ -21,28 +21,6 @@ public static class GameHandler
         gameManager = new GameManager(gameName, players);
     }
 
-    public static void Save(GameManager gameManagerToSave, string filePath)
-    {
-        Stream stream = File.Open(filePath, FileMode.Create);
-        BinaryFormatter formatter = new BinaryFormatter();
-
-        formatter.Serialize(stream, gameManagerToSave);
-        stream.Close();
-    }
-
-    public static GameManager Load(string filePath)
-    {
-        FileStream stream;
-        stream = File.Open(filePath, FileMode.Open);
-        BinaryFormatter formatter = new BinaryFormatter();
-        GameManager returnedGameManager = (GameManager)formatter.Deserialize(stream);
-        stream.Close();
-
-        gameManager = returnedGameManager;
-
-        return returnedGameManager;
-    }
-
     public static GameManager GetGameManager()
     {
         return gameManager;
