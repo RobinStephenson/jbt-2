@@ -289,7 +289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000010475842706
 GameObject:
   m_ObjectHideFlags: 1
@@ -2312,7 +2312,7 @@ GameObject:
   - component: {fileID: 222841635998531728}
   - component: {fileID: 114585185537821908}
   m_Layer: 5
-  m_Name: Energy Total Amount
+  m_Name: Energy Max Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,7 +2334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1046628726573914
 GameObject:
   m_ObjectHideFlags: 1
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 222578250199649432}
   - component: {fileID: 114806694487085022}
   m_Layer: 5
-  m_Name: Food Total Amount
+  m_Name: Food Max Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2680,7 +2680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1371271036258936
 GameObject:
   m_ObjectHideFlags: 1
@@ -2857,7 +2857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1626147995037924
 GameObject:
   m_ObjectHideFlags: 1
@@ -2920,7 +2920,7 @@ GameObject:
   - component: {fileID: 222044494241871306}
   - component: {fileID: 114469740153225782}
   m_Layer: 5
-  m_Name: Ore Total Amount
+  m_Name: Ore Max Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8958,7 +8958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc3ee3c7fbe3914b94d918b55a43283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AuctionCanvas: {fileID: 0}
+  AuctionCanvas: {fileID: 114000011981505814}
   foodAuctionAmount: {fileID: 114490906898800052}
   energyAuctionAmount: {fileID: 114038827446782234}
   oreAuctionAmount: {fileID: 114532747418092740}
@@ -10469,7 +10469,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: /10
+  m_Text: /0
 --- !u!114 &114490906898800052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10871,7 +10871,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: /10
+  m_Text: /0
 --- !u!114 &114625188443922458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11264,7 +11264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: /10
+  m_Text: /0
 --- !u!114 &114810090837942026
 MonoBehaviour:
   m_ObjectHideFlags: 1
