@@ -47,16 +47,16 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
-        int auctionPrice = int.Parse(oreAuctionAmount.text);
+        int auctionPrice = int.Parse(AuctionPrice.text);
 
-        Debug.Log(resourcesToAuction.ToString());
-        Debug.Log(currentPlayer.ToString());
-        Debug.Log(auctionPrice.ToString());
         GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
     }
 
     public void RefreshWindow()
     {
-        //DO IT TOM
+        foodAuctionAmount.text = "0";
+        energyAuctionAmount.text = "0";
+        oreAuctionAmount.text = "0";
+        AuctionPrice.text = "0";
     }
 }

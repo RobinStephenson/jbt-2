@@ -51,7 +51,7 @@ public class HumanGui
         canvas.HideAuctionSellWindow();
         canvas.HideAITurnText();
 
-        //Added by JBT - enables or disables gambling, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
+        //Added by JBT - enables or disables gambling, auction, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
         if (phase == GameManager.States.PURCHASE)
         {
             canvas.HideAuctionButton();
