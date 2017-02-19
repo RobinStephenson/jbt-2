@@ -79,6 +79,7 @@ public class HumanGui
         currentPhase = phase;
         canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
+        canvas.HideGambleButton();
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
@@ -269,7 +270,7 @@ public class HumanGui
     }
 
     //Changed by JBT to show different values depending on if the current player is an AI
-    private void UpdateResourceBar(bool aiTurn)
+    public void UpdateResourceBar(bool aiTurn)
     {
         if (aiTurn)
         {

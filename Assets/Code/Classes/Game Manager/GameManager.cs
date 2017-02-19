@@ -198,7 +198,7 @@ public class GameManager
         Timeout CurrentPhaseTimeout = null;
         if (currentState == States.PURCHASE)
         {
-            CurrentPhaseTimeout = new Timeout(15);
+            CurrentPhaseTimeout = new Timeout(40);
         }
         else if (currentState == States.INSTALLATION)
         {

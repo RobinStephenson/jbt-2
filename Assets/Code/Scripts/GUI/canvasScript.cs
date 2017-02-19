@@ -147,6 +147,19 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    //Added by JBT - Show or hide the options window depending on the state the window is in when the button is pressed
+    public void OptionsButtonPressed()
+    {
+        if (optionsMenu.activeSelf)
+        {
+            HideOptionsMenu();
+        }
+        else
+        {
+            ShowOptionsMenu();
+        }
+    }
+
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)

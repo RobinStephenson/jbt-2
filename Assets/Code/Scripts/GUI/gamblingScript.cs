@@ -11,7 +11,7 @@ public class gamblingScript : MonoBehaviour {
 
     private Market market;
 
-    void Start()
+    void Awake()
     {
         market = GameHandler.GetGameManager().market;
     }
@@ -28,15 +28,26 @@ public class gamblingScript : MonoBehaviour {
 
         currentPlayer.SetMoney(currentPlayer.GetMoney() - amount);
 
-        int valueRolled;
-        bool won = market.DoubleOrNothing(amount, 0, 100, out valueRolled);
-
-        SetResultText("You rolled: " + valueRolled.ToString() + "\n" + (won ? "You won " + (amount * 2).ToString() + "!" : "You Lose!"), won);
-
-        if(won)
+        try
         {
-            currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 2));
+            int valueRolled;
+            bool won = market.DoubleOrNothing(amount, 0, 100, out valueRolled);
+
+            SetResultText("You rolled: " + valueRolled.ToString() + "\n" + (won ? "You won £" + (amount * 2).ToString() + "!" : "You Lose!"), won);
+
+            if (won)
+            {
+                currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 2));
+            }
         }
+        catch(System.ArgumentException e)
+        {
+            SetResultText(e.ToString(),false);
+            currentPlayer.SetMoney(currentPlayer.GetMoney() + amount);
+        }
+
+        ResetGamblingWindow();
+        GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
     }
 
     public void ResetGamblingWindow()
