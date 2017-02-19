@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class AuctionOfferWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
-    private AuctionManager auction;
+    private AuctionManager auctionManager;
+    private Player curPlayer;
+    private AuctionManager.Auction auction;
 
     #region Resource amount labels
     public Text foodAuctionAmount;
@@ -18,17 +20,19 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     void Start ()
     {
-        auction = GameHandler.GetGameManager().auction;
-        foodAuctionAmount = auction.AuctionResources.food;
-        energyAuctionAmount = auction.AuctionResources.energy;
-        oreAuctionAmount = auction.AuctionResources.ore;
+        auctionManager = GameHandler.GetGameManager().auction;
+        curPlayer = GameHandler.gameManager.GetCurrentPlayer();
+        auction = auctionManager.RetrieveAuction(curPlayer);
+
+        foodAuctionAmount.text = auction.AuctionResources.food.ToString();
+        energyAuctionAmount.text = auction.AuctionResources.energy.ToString();
+        oreAuctionAmount.text = auction.AuctionResources.ore.ToString();
+        AuctionBuyPrice.text = auction.AuctionPrice.ToString();
 	}
 
     public void OnBuyAuctionButtonPress()
     {
         GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
     }
-
-
 
 }

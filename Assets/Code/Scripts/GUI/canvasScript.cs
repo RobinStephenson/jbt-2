@@ -13,10 +13,12 @@ public class canvasScript : MonoBehaviour
     public GameObject gambleButton; //JBT
     public GameObject marketButton; //JBT
     public GameObject roboticonButton;  //JBT
+    public GameObject auctionButton;    //JBT
     public roboticonWindowScript roboticonList;
     public GameObject gamblingWindow;
     public marketScript marketScript;
     public GameObject endPhaseButton;
+    public GameObject auctionSellWindow;
     public GameObject auctionBuyWindow;
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
@@ -186,6 +188,19 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    //Added by JBT - Show or hide the options window depending on the state the window is in when the button is pressed
+    public void AuctionButtonPressed()
+    {
+        if (auctionSellWindow.activeSelf)
+        {
+            HideAuctionSellWindow();
+        }
+        else
+        {
+            ShowAuctionSellWindow();
+        }
+    }
+
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -223,6 +238,30 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionSellWindow()
+    {
+        auctionSellWindow.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionSellWindow()
+    {
+        auctionSellWindow.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionBuyWindow()
+    {
+        auctionBuyWindow.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionBuyWindow()
+    {
+        auctionBuyWindow.SetActive(false);
     }
 
     //JBT
@@ -280,6 +319,18 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionButton()
+    {
+        auctionButton.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionButton()
+    {
+        auctionButton.SetActive(false);
     }
 
     public void ShowOptionsMenu()
