@@ -47,6 +47,8 @@ public class HumanGui
         canvas.RefreshTileInfoWindow();
         canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
+        canvas.HideAuctionBuyWindow();
+        canvas.HideAuctionSellWindow();
         canvas.HideAITurnText();
 
         //Added by JBT - enables or disables gambling, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
@@ -91,8 +93,11 @@ public class HumanGui
         canvas.HideMarketWindow();
         canvas.HideGambleButton();
         canvas.HideRoboticonWindow();
+        canvas.HideAuctionBuyWindow();
+        canvas.HideAuctionSellWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
+        canvas.HideAuctionButton();
         canvas.HideTileInfoWindow();
         canvas.SetAITurnText(ai.GetName() + " is thinking...");
         UpdateResourceBar(true);

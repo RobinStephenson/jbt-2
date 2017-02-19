@@ -35,4 +35,8 @@ public class AuctionOfferWindowScript : MonoBehaviour
         GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
     }
 
+    public void RefreshWindow()
+    {
+        //DO IT TOM
+    }
 }

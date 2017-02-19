@@ -53,6 +53,10 @@ public class auctionSellWindowScript : MonoBehaviour
         Debug.Log(currentPlayer.ToString());
         Debug.Log(auctionPrice.ToString());
         GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
+    }
 
+    public void RefreshWindow()
+    {
+        //DO IT TOM
     }
 }
