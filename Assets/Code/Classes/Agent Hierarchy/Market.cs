@@ -36,6 +36,7 @@ public class Market : Agent
         this.money = STARTING_MONEY;
     }
 
+    //Edited by JBT to stop the player from buying unlimited roboticons whilst the markets stock doesnt change
     /// <summary>
     /// Throws System.ArgumentException if the market does not have enough resources 
     /// to complete the transaction.
@@ -49,12 +50,14 @@ public class Market : Agent
 
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
             || resourcesToBuy.energy > this.resources.energy
-            || resourcesToBuy.ore > this.resources.ore);
+            || resourcesToBuy.ore > this.resources.ore
+            || roboticonAmount > numRoboticonsForSale);
 
         if (hasEnoughResources)
         {
             this.resources -= resourcesToBuy; //Requires subtraction overload
-            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
+            this.numRoboticonsForSale -= roboticonAmount;
+            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum() + (roboticonBuyingPrice * roboticonAmount); //Overloading * to perform element-wise product to get total gain 
         }
         else
         {

@@ -105,6 +105,13 @@ public class marketScript : MonoBehaviour
         UpdateTotalBuyPrice();
         UpdateTotalSellPrice();
         UpdateMarketBalance();
+
+        GameObject gamblingMenu = GameObject.Find("Gambling Menu");
+
+        if (gamblingMenu != null)
+        {
+            gamblingMenu.GetComponent<gamblingScript>.RefreshMarketBalance();
+        }
     }
 
     public void UpdateTotalBuyPrice()
