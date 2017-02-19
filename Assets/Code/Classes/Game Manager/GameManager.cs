@@ -25,6 +25,7 @@ public class GameManager
     public GameObject humanGuiCanvas;
     public Market market;
     public string gameName;
+    public AuctionManager auction;
 
     private List<Player> players;
     private int currentPlayerIndex;
