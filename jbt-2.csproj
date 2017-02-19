@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,7 +92,6 @@
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
     <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
-    <Compile Include="Assets\Code\Scripts\auctionSellWindowScript.cs" />
+    <Compile Include="Assets\Code\Scripts\GUI\auctionSellWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
   </ItemGroup>
