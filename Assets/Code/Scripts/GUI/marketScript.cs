@@ -52,10 +52,16 @@ public class marketScript : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        market = GameHandler.GetGameManager().market;
+    }
+
     // Use this for initialization
     void Start ()
     {
         market = GameHandler.GetGameManager().market;
+        Debug.Log((market == null).ToString());
         SetShownMarketPrices();
 
         foodBuyAmount.onValidateInput   += ValidatePositiveInput;       //Add the ValidatePositiveInput function to
