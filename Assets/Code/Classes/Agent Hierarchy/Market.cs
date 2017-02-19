@@ -109,8 +109,9 @@ public class Market : Agent
         int baseBuyPrice = 5;
         double marketMarkup = 1.1;
 
-        //Set the new buy price to equal (market money / market resource quantity) + baseprice
-        ResourceGroup newBuyPrice = new ResourceGroup((money / resources.food) + baseBuyPrice, (money / resources.energy) + baseBuyPrice, (money / resources.ore) + baseBuyPrice);
+        //Set the new buy price to equal (market money / (market resource quantity+1)) + baseprice
+        //Resource Quantity +1 exists to avoid divison by 0
+        ResourceGroup newBuyPrice = new ResourceGroup((money / (resources.food+1)) + baseBuyPrice, (money / (resources.energy +1)) + baseBuyPrice, (money / (resources.ore +1)) + baseBuyPrice);
         resourceBuyingPrices = newBuyPrice;
 
         //Multiplies the buyprice by the markup to get the new sell price

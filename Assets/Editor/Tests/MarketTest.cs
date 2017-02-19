@@ -61,8 +61,17 @@ public class MarketTest
     public void UpdateMarketPrice()
     {
         Market m = new Market();
+        ResourceGroup expectedBuyPrice = new ResourceGroup((10 / 16) + 5, (10 / 16) + 5, (10 / 0) + 5);
+        resourceBuyingPrices = newBuyPrice;
 
-        int ore = Market.STARTING_ORE_AMOUNT;
+        //Multiplies the buyprice by the markup to get the new sell price
+        ResourceGroup newSellPrice = newBuyPrice * marketMarkup;
+        resourceSellingPrices = newSellPrice;
+
+        //Money when market is initialised = 100, changed to 10.
+        m.SetMoney(10);
+
+        m.UpdatePrices();
         Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(0, 0, -5), 0));
         Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore), m.GetResources());
     }
