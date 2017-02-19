@@ -24,6 +24,9 @@ public class canvasScript : MonoBehaviour
     public GameObject aiTurnBox;
     public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
+    public Text NewEventTitle; //JBT
+    public Text NewEventDescription; //JBT
+    public GameObject NewEventMessage; //JBT
     private Timeout CurrentTimeout;
 
     #region Resource Labels

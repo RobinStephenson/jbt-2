@@ -2363,12 +2363,12 @@ GameObject:
   - component: {fileID: 222043380964172692}
   - component: {fileID: 114067331843419960}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Random Events
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1358580663620530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,7 +2406,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1419277987270170
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -2544,7 +2544,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1774011405432876
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -3479,7 +3479,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224000012254852020}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5061,6 +5061,9 @@ MonoBehaviour:
   aiTurnBox: {fileID: 1629734447235498}
   aiTurnText: {fileID: 114000013720547060}
   roboticonUpgradesWindow: {fileID: 114000011465108126}
+  NewEventTitle: {fileID: 114074713547345622}
+  NewEventDescription: {fileID: 114391450409289410}
+  NewEventMessage: {fileID: 1288991083047584}
   foodLabel: {fileID: 114000010675805944}
   foodChangeLabel: {fileID: 114000011348724816}
   energyLabel: {fileID: 114000011341611768}
@@ -11640,8 +11643,6 @@ RectTransform:
   - {fileID: 224287954749149490}
   - {fileID: 224000012323212694}
   - {fileID: 224988924910731046}
-  - {fileID: 224041585605128582}
-  - {fileID: 224576171506494606}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.002, y: 0.966, z: 0.09200001}
@@ -12397,16 +12398,16 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774011405432876}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4285715, y: 1.4285715, z: 1}
   m_Children: []
-  m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 11
+  m_Father: {fileID: 224988924910731046}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -177}
+  m_AnchoredPosition: {x: 0.0000104904175, y: 14.639313}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224104159827733666
@@ -12551,16 +12552,16 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1419277987270170}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4285715, y: 1.4285715, z: 1}
   m_Children: []
-  m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 12
+  m_Father: {fileID: 224988924910731046}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -196}
+  m_AnchoredPosition: {x: 0.0000104904175, y: -12.50354}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224590812129670260
@@ -12703,12 +12704,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 224041585605128582}
+  - {fileID: 224576171506494606}
   m_Father: {fileID: 224000013395552864}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -187}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -10, y: 38}
   m_SizeDelta: {x: 602, y: 93}
   m_Pivot: {x: 0.5, y: 0.5}
