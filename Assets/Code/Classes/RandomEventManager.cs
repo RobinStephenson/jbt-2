@@ -129,6 +129,7 @@ public static class RandomEventManager
             return;
         }
         InactiveEvents.Remove(NewEvent);
-        ActiveEvents.Add(NewEvent); 
+        ActiveEvents.Add(NewEvent);
+        GameHandler.GetGameManager().GetHumanGui().GetCanvas().DisplayNewEventMessage(NewEvent);
     }
 }
