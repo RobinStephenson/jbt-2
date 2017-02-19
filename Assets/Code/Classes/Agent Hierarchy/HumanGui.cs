@@ -77,6 +77,7 @@ public class HumanGui
     {
         currentHuman = null;
         currentPhase = phase;
+        canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();

@@ -16,38 +16,48 @@ public class gamblingScript : MonoBehaviour {
         market = GameHandler.GetGameManager().market;
     }
 	
-	public void PlayDoubleOrNothingButtonClicked()
+	public void PlayDoubleOrNothingButtonClicked(int amount)
     {
         Human currentPlayer = GameHandler.gameManager.GetHumanGui().GetCurrentHuman();
 
-        if(currentPlayer.GetMoney() < 10)
+        if(currentPlayer.GetMoney() < amount)
         {
             SetResultText("You need at least £10 to play!", false);
             return;
         }
 
-        currentPlayer.SetMoney(currentPlayer.GetMoney() - 10);
+        currentPlayer.SetMoney(currentPlayer.GetMoney() - amount);
 
         int valueRolled;
-        bool won = market.DoubleOrNothing(10, 0, 100, out valueRolled);
+        bool won = market.DoubleOrNothing(amount, 0, 100, out valueRolled);
 
-        SetResultText("You rolled: " + valueRolled.ToString() + "\n" + (won ? "You won!" : "You Lose!"), won);
+        SetResultText("You rolled: " + valueRolled.ToString() + "\n" + (won ? "You won " + (amount * 2).ToString() + "!" : "You Lose!"), won);
+
+        if(won)
+        {
+            currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 2));
+        }
+    }
+
+    public void ResetGamblingWindow()
+    {
+        RefreshMarketBalance();
+
+        GameObject marketMenu = GameObject.Find("Market Menu");
+
+        //Refresh the balance on the market menu if it is open
+        if (marketMenu != null)
+        {
+            marketMenu.GetComponent<marketScript>().RefreshMarketBalance();
+        }
     }
 
     public void RefreshMarketBalance()
     {
         marketBalance.text = "Market has £" + market.GetMoney();
-
-        GameObject marketMenu = GameObject.Find("Market Menu");
-
-        //Refresh the balance on the market menu if it is open
-        if(marketMenu != null)
-        {
-            marketMenu.GetComponent<marketScript>().SetShownMarketPrices();
-        }
     }
 
-    public void ResetGamblingWindow()
+    public void OpenGamblingWindow()
     {
         resultText.text = "";
         RefreshMarketBalance();

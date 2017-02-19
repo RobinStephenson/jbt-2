@@ -104,6 +104,12 @@ public class marketScript : MonoBehaviour
         UpdateShownMarketPrices();
         UpdateTotalBuyPrice();
         UpdateTotalSellPrice();
+        RefreshMarketBalance();
+    }
+
+    //JBT - Also refreshes balance on gambling window if open
+    public void RefreshMarketBalance()
+    {
         UpdateMarketBalance();
 
         GameObject gamblingMenu = GameObject.Find("Gambling Menu");

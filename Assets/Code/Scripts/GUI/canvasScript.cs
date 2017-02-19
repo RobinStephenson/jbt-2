@@ -110,6 +110,43 @@ public class canvasScript : MonoBehaviour
         humanGui.SellToMarket(resources, price);
     }
 
+    //Added by JBT - Show or hide the gambling window depending on the state the window is in when the button is pressed
+    public void GamblingButtonPressed()
+    {
+        if(gamblingWindow.activeSelf)
+        {
+            HideGamblingWindow();
+        }
+        else
+        {
+            ShowGamblingWindow();
+        }
+    }
+    //Added by JBT - Show or hide the market window depending on the state the window is in when the button is pressed
+    public void MarketButtonPressed()
+    {
+        if (marketScript.gameObject.activeSelf)
+        {
+            HideMarketWindow();
+        }
+        else
+        {
+            ShowMarketWindow();
+        }
+    }
+    //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
+    public void RoboticonButtonPressed()
+    {
+        if(roboticonList.gameObject.activeSelf)
+        {
+            HideRoboticonWindow();
+        }
+        else
+        {
+            ShowRoboticonWindow();
+        }
+    }
+
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -129,6 +166,7 @@ public class canvasScript : MonoBehaviour
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
         {
             gamblingWindow.SetActive(true);
+            gamblingWindow.GetComponent<gamblingScript>().OpenGamblingWindow();
         }
     }
 
