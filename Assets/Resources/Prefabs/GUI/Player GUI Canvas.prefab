@@ -8483,6 +8483,10 @@ MonoBehaviour:
   roboticonBuyPrice: {fileID: 114000010171447160}
   totalBuyPrice: {fileID: 114000012659019684}
   totalSellPrice: {fileID: 114000011877622410}
+  foodAmount: {fileID: 114000012604799860}
+  energyAmount: {fileID: 114000012952368886}
+  oreAmount: {fileID: 114000011488856506}
+  roboticonAmount: {fileID: 114000013738760030}
   foodBuyAmount: {fileID: 114000013433888100}
   foodSellAmount: {fileID: 114000011053986442}
   energyBuyAmount: {fileID: 114000013121590446}

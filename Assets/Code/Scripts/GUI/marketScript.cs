@@ -169,9 +169,9 @@ public class marketScript : MonoBehaviour
         energySellPrice.text   = "£" + sellingPrices.energy.ToString();
         oreSellPrice.text      = "£" + sellingPrices.ore.ToString();
 
-        foodAmount.text = market.GetResources().food.ToString();
-        energyAmount.text = market.GetResources().energy.ToString();
-        oreAmount.text = market.GetResources().ore.ToString();
-        roboticonAmount.text = market.GetNumRoboticonsForSale().ToString();
+        foodAmount.text = "/" + market.GetResources().food.ToString();
+        energyAmount.text = "/" + market.GetResources().energy.ToString();
+        oreAmount.text = "/" + market.GetResources().ore.ToString();
+        roboticonAmount.text = "/" + market.GetNumRoboticonsForSale().ToString();
     }
 }
