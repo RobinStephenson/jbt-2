@@ -303,6 +303,7 @@ public class canvasScript : MonoBehaviour
     public void PurchaseTile(Tile tile)
     {
         humanGui.PurchaseTile(tile);
+        tileWindow.Refresh();
     }
 
     public void ShowTileInfoWindow(Tile tile)
