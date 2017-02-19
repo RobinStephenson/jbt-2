@@ -103,16 +103,17 @@ public class Market : Agent
 
     }
 
+    //Amended by JBT
     public void UpdatePrices()
     {
-        
-        ResourceGroup newSellPrice = new ResourceGroup();
+        //Set the new sell price to equal (100 / market resource quantity)+1
+        //+1 ensures the price will never be 0
+        ResourceGroup newSellPrice = new ResourceGroup((100 / resources.food )+ 1, (100 / resources.energy)+ 1, (100 / resources.ore)+1);
+        resourceSellingPrices = newSellPrice;
 
         //Set the new buy price to equal (market money / market resource quantity)
         ResourceGroup newBuyPrice = new ResourceGroup((money / resources.food), (money / resources.energy), (money / resources.ore));
         resourceBuyingPrices = newBuyPrice;
-        ;
-        //Skeleton for later use when adding supply & demand
     }
 
     public void ProduceRoboticon()
