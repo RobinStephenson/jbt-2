@@ -194,8 +194,8 @@ public class TileObject
     /// <param name="icon">the texture to display</param>
     public void SetEventIcon(Texture icon)
     {
-        tileEventDisplay.GetComponent<Material>().mainTexture = icon;
         tileEventDisplay.SetActive(true);
+        tileEventDisplay.GetComponent<Renderer>().material.mainTexture = icon;
     }
 
     /// <summary>
