@@ -80,6 +80,10 @@ public class canvasScript : MonoBehaviour
     }
 
     // JBT Created this method
+    /// <summary>
+    /// Dispaly information about a new event that has started for a few seconds
+    /// </summary>
+    /// <param name="newEvent">The event that has started</param>
     public void DisplayNewEventMessage(RandomEvent newEvent)
     {
         NewEventTitle.text = newEvent.Title;
