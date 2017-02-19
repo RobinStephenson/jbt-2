@@ -24,10 +24,11 @@ public class canvasScript : MonoBehaviour
     public GameObject aiTurnBox;
     public Text aiTurnText;
     public roboticonUpgradesWindowScript roboticonUpgradesWindow;
-    public Text NewEventTitle; //JBT
-    public Text NewEventDescription; //JBT
-    public GameObject NewEventMessage; //JBT
-    private Timeout CurrentTimeout;
+    public Text NewEventTitle; //JBT Title of event displayed to user
+    public Text NewEventDescription; //JBT Description of event displayed to user
+    public GameObject NewEventMessage; //JBT UI element displayed when a new event is started.
+    private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
+    private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
 
     #region Resource Labels
     public Text foodLabel;
@@ -44,14 +45,14 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
-        if (CurrentTimeout != null)
+        if (CurrentPhaseTimeout != null)
         {
             // We are in a timed phase, update the display timer
-            ShowTimeout(CurrentTimeout);
-            if (CurrentTimeout.Finished)
+            ShowTimeout(CurrentPhaseTimeout);
+            if (CurrentPhaseTimeout.Finished)
             {
                 Debug.Log("Current Timeout Finished");
-                CurrentTimeout = null;
+                CurrentPhaseTimeout = null;
 
                 if (GameHandler.gameManager.GetCurrentPlayer() is Human)
                 {
@@ -65,25 +66,46 @@ public class canvasScript : MonoBehaviour
         }
         else
         {
-            HideTimeout();
+            HidePhaseTimeout();
+        }
+
+        if (EventMessageTimeout != null)
+        {
+            if (EventMessageTimeout.Finished)
+            {
+                NewEventMessage.SetActive(false);
+                EventMessageTimeout = null;
+            }
         }
     }
 
+    // JBT Created this method
+    public void DisplayNewEventMessage(RandomEvent newEvent)
+    {
+        NewEventTitle.text = newEvent.Title;
+        NewEventDescription.text = newEvent.Description;
+        NewEventMessage.SetActive(true);
+        EventMessageTimeout = new Timeout(8);
+    }
+
     // JBT created this method
-    public void SetTimeout(Timeout timeout)
+    /// <summary>
+    /// Set a timout for the current phase
+    /// </summary>
+    public void SetPhaseTimeout(Timeout timeout)
     {
         if (timeout != null && timeout.Finished)
         {
             throw new ArgumentException("Need a fresh timeout");
         }
-        CurrentTimeout = timeout;
+        CurrentPhaseTimeout = timeout;
         Debug.Log(String.Format("Set a new timeout {0}", timeout));
     }
 
     // this is called by the end phase button
     public void EndPhase()
     {
-        CurrentTimeout = null;
+        CurrentPhaseTimeout = null;
         humanGui.EndPhase();
     }
 
@@ -242,7 +264,7 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
-    public void HideTimeout()
+    public void HidePhaseTimeout()
     {
         timeoutText.gameObject.SetActive(false);
     }
