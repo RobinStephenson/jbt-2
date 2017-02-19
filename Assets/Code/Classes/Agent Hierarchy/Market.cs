@@ -108,6 +108,9 @@ public class Market : Agent
     }
 
     //Amended by JBT
+    /// <summary>
+    /// Will update the buy and sell prices in the market, based on the distance to the target stock.
+    /// </summary>
     public void UpdatePrices()
     {
         //The lowest price the market will buy resources at
@@ -159,6 +162,7 @@ public class Market : Agent
 
         ResourceGroup newSellPrice = new ResourceGroup(newFoodSell, newEnergySell, newOreSell);
         resourceSellingPrices = newSellPrice;
+        Debug.Log(resourceBuyingPrices);
     }
 
     public void ProduceRoboticon()
