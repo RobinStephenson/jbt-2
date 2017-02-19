@@ -42,7 +42,7 @@ public class gamblingScript : MonoBehaviour {
         }
         catch(System.ArgumentException e)
         {
-            SetResultText(e.ToString(),false);
+            SetResultText(e.Message,false);
             currentPlayer.SetMoney(currentPlayer.GetMoney() + amount);
         }
 
