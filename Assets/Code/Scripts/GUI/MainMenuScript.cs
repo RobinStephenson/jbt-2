@@ -6,7 +6,7 @@ using System;
 using UnityEngine.SceneManagement;
 
 
-public class mainMenuScript: MonoBehaviour
+public class mainMenuScript : MonoBehaviour
 {
     public Toggle AIToggle;
     public InputField Player1Name;
@@ -50,7 +50,7 @@ public class mainMenuScript: MonoBehaviour
 
     public void ToggleAI()
     {
-        if(AIToggle.isOn == true)
+        if (AIToggle.isOn == true)
         {
             Player1Name.text = "AI";
             Player1Name.gameObject.SetActive(false);
