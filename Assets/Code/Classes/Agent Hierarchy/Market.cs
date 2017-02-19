@@ -111,31 +111,54 @@ public class Market : Agent
     public void UpdatePrices()
     {
         //The lowest price the market will buy resources at
-        int basePrice = 5;
+        int baseBuyPrice = 5;
+
+        //The lowest price the market will sell resources at
+        int baseSellPrice = baseBuyPrice + 3;
         
         
-        //New buy prices = start price - distance to target
+        //New buy prices = start price + distance to target
         int newFoodBuy = STARTING_FOOD_BUY_PRICE + (TARGET_FOOD_AMOUNT - resources.food);
         int newEnergyBuy = STARTING_ENERGY_BUY_PRICE + (TARGET_ENERGY_AMOUNT - resources.energy);
         int newOreBuy = STARTING_ORE_BUY_PRICE + (TARGET_ORE_AMOUNT - resources.ore);
 
         //Ensure that the lowest buy price is basePrice
-        if (newFoodBuy < basePrice){
-            newFoodBuy = basePrice;
-        }
-        if (newEnergyBuy < basePrice)
+        if (newFoodBuy < baseBuyPrice)
         {
-            newEnergyBuy = basePrice;
+            newFoodBuy = baseBuyPrice;
         }
-        if (newOreBuy < basePrice)
+        if (newEnergyBuy < baseBuyPrice)
         {
-            newOreBuy = basePrice;
+            newEnergyBuy = baseBuyPrice;
+        }
+        if (newOreBuy < baseBuyPrice)
+        {
+            newOreBuy = baseBuyPrice;
         }
         ResourceGroup newBuyPrice = new ResourceGroup(newFoodBuy,newEnergyBuy,newOreBuy);
         resourceBuyingPrices = newBuyPrice;
 
-        ResourceGroup newSellPrice = new ResourceGroup();
+        //New sell price = start price - distance to target
+        int newFoodSell = STARTING_FOOD_SELL_PRICE - (resources.food - TARGET_FOOD_AMOUNT);
+        int newEnergySell = STARTING_ENERGY_SELL_PRICE - (resources.energy - TARGET_ENERGY_AMOUNT);
+        int newOreSell = STARTING_ORE_SELL_PRICE - (resources.ore - TARGET_ORE_AMOUNT);
 
+        //Ensure that the lowest sell price is baseSellPrice
+        if (newFoodSell < baseSellPrice)
+        {
+            newFoodSell = baseSellPrice;
+        }
+        if (newEnergySell < baseSellPrice)
+        {
+            newEnergySell = baseSellPrice;
+        }
+        if (newOreSell < baseSellPrice)
+        {
+            newOreSell = baseSellPrice;
+        }
+
+        ResourceGroup newSellPrice = new ResourceGroup(newFoodSell, newEnergySell, newOreSell);
+        resourceSellingPrices = newSellPrice;
     }
 
     public void ProduceRoboticon()
