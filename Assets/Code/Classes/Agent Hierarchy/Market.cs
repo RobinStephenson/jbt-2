@@ -110,9 +110,11 @@ public class Market : Agent
     //Amended by JBT
     public void UpdatePrices()
     {
+        //The lowest price the market will buy resources at
         int basePrice = 5;
-        ResourceGroup newBuyPrice = new ResourceGroup();
-        ResourceGroup newSellPrice = new ResourceGroup();
+        
+        
+        //New buy prices = start price - distance to target
         int newFoodBuy = STARTING_FOOD_BUY_PRICE + (TARGET_FOOD_AMOUNT - resources.food);
         int newEnergyBuy = STARTING_ENERGY_BUY_PRICE + (TARGET_ENERGY_AMOUNT - resources.energy);
         int newOreBuy = STARTING_ORE_BUY_PRICE + (TARGET_ORE_AMOUNT - resources.ore);
@@ -129,6 +131,10 @@ public class Market : Agent
         {
             newOreBuy = basePrice;
         }
+        ResourceGroup newBuyPrice = new ResourceGroup(newFoodBuy,newEnergyBuy,newOreBuy);
+        resourceBuyingPrices = newBuyPrice;
+
+        ResourceGroup newSellPrice = new ResourceGroup();
 
     }
 
