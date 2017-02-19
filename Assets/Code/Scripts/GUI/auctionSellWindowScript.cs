@@ -47,17 +47,9 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
-        int auctionPrice = int.Parse(oreAuctionAmounr.text);
+        int auctionPrice = int.Parse(oreAuctionAmount.text);
 
         GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
 
     }
-
-   
-
-    public void SetMaxAuctionText()
-    {
-
-    }
-
 }
