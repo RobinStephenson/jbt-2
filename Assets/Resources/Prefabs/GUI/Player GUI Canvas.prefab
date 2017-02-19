@@ -2609,7 +2609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1371271036258936
 GameObject:
   m_ObjectHideFlags: 1
@@ -2813,7 +2813,7 @@ GameObject:
   - component: {fileID: 224430589605342786}
   - component: {fileID: 222271444212716038}
   - component: {fileID: 114461335712924776}
-  - component: {fileID: 114000884482723918}
+  - component: {fileID: 114979640703008728}
   m_Layer: 5
   m_Name: Auction Buy Window
   m_TagString: Untagged
@@ -8825,22 +8825,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000884482723918
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1542946436998058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc3ee3c7fbe3914b94d918b55a43283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AuctionCanvas: {fileID: 114000011981505814}
-  foodAuctionAmount: {fileID: 0}
-  energyAuctionAmount: {fileID: 0}
-  oreAuctionAmount: {fileID: 0}
-  AuctionPrice: {fileID: 0}
 --- !u!114 &114005656305046008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10924,6 +10908,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114979640703008728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542946436998058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da01b8633c52374a83fe51c415f301a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AuctionCanvas: {fileID: 114000011981505814}
+  foodAuctionAmount: {fileID: 114806694487085022}
+  energyAuctionAmount: {fileID: 114585185537821908}
+  oreAuctionAmount: {fileID: 114469740153225782}
+  AuctionBuyPrice: {fileID: 114385514333747154}
 --- !u!114 &114999083734113270
 MonoBehaviour:
   m_ObjectHideFlags: 1
