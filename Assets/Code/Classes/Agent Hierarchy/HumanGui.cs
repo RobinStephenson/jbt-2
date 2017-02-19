@@ -52,6 +52,7 @@ public class HumanGui
         //Added by JBT - enables or disables gambling, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
         if (phase == GameManager.States.PURCHASE)
         {
+            //canvas.ShowAuctionButton();
             canvas.ShowGambleButton();
             canvas.ShowMarketButton();
             canvas.ShowRoboticonButton();
@@ -62,8 +63,16 @@ public class HumanGui
             canvas.HideMarketButton();
             canvas.ShowRoboticonButton();
         }
+        else if(phase == GameManager.States.AUCTION)
+        {
+            //canvas.ShowAuctionButton();
+            canvas.HideGambleButton();
+            canvas.HideMarketButton();
+            canvas.HideRoboticonButton();
+        }
         else
         {
+            //canvas.HideAuctionButton();
             canvas.HideGambleButton();
             canvas.HideMarketButton();
             canvas.HideRoboticonButton();

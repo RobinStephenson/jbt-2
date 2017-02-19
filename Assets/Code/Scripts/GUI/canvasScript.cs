@@ -17,6 +17,7 @@ public class canvasScript : MonoBehaviour
     public GameObject gamblingWindow;
     public marketScript marketScript;
     public GameObject endPhaseButton;
+    public GameObject auctionBuyWindow;
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;

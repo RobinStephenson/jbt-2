@@ -7,7 +7,6 @@ using System;
 
 public class AuctionManager
 {
-
     private List<Auction> auctionListings;
 
     public AuctionManager()
@@ -21,7 +20,7 @@ public class AuctionManager
     /// <param name="resources">The resources to be auctioned</param>
     /// <param name="setPrice">The price the player has set</param>
     /// <param name="player">The player setting the auction</param>
-    public void PutUpForAuction(ResourceGroup resources, Player player)
+    public void PutUpForAuction(ResourceGroup resources, Player player, int price)
     {
         ResourceGroup ownedResources = player.GetResources();
 
@@ -31,10 +30,15 @@ public class AuctionManager
         }
         else
         {
-            auctionListings.Add(new Auction(resources, player));
+            auctionListings.Add(new Auction(resources, player, price));
         }
     }
 
+    /// <summary>
+    /// Returns an auction that the current player can bid on. For example, if player 1 is passed in, player 2's auction will be returned
+    /// </summary>
+    /// <param name="player">The player bidding</param>
+    /// <returns>The auction the player can bid on</returns>
     public Auction RetrieveAuction(Player player)
     {
         foreach (Auction curAuction in auctionListings)
@@ -47,50 +51,46 @@ public class AuctionManager
         return null;
     }
 
-    public void PlaceOffer(Player player, ResourceGroup price, ResourceGroup requestedResources)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player">The player buying</param>
+    public void AuctionBuy(Player player)
     {
         if (RetrieveAuction(player) != null)
         {
             Auction auction = RetrieveAuction(player);
-            ResourceGroup resourceDifference = auction.AuctionResources - requestedResources;
-            if ((resourceDifference.food < 0) || (resourceDifference.energy < 0) || (resourceDifference.ore < 0))
-            {
-                throw new ArgumentOutOfRangeException("Not enough resources in auction");
-            }
-            else if (player.GetMoney() < (requestedResources * price).Sum())
+
+            if (player.GetMoney() < auction.AuctionPrice)
             {
                 throw new ArgumentOutOfRangeException("Not enough money");
             }
             else
             {
-                auction.SetOffer(price, requestedResources);
+                player.SetResources(player.GetResources() + auction.AuctionResources);
+                player.SetMoney(player.GetMoney() - auction.AuctionPrice);
+                auction.Owner.SetResources(auction.Owner.GetResources() - auction.AuctionResources);
+                auction.Owner.SetMoney(auction.Owner.GetMoney() + auction.AuctionPrice);
+                auctionListings.Remove(auction);
             }
         }
 
     }
 
     /// <summary>
-    /// Updates players resources and money if the offer is accepted.
+    /// Clears the list of auctions
     /// </summary>
-    /// <param name="auction">The auction being accepted</param>
-    /// <param name="playerBuy">The pleyer buying the resources</param>
-    public void AcceptOffer(Auction auction, Player playerBuy)
-    {
-        playerBuy.SetResources(playerBuy.GetResources() + auction.OfferQuantity);
-        playerBuy.SetMoney(playerBuy.GetMoney() - auction.OfferPrice.Sum());
-        auction.Owner.SetResources(auction.Owner.GetResources() - auction.OfferQuantity);
-        auction.Owner.SetMoney(auction.Owner.GetMoney() + auction.OfferPrice.Sum());
-    }
-
     public void ClearAuctions()
     {
         auctionListings = new List<Auction>();
     }
 
+    /// <summary>
+    /// A simple class which contains a list of resources a player wants to put up for auction and how much it will cost
+    /// </summary>
     public class Auction
     {
-        public ResourceGroup OfferPrice { get; private set; }
-        public ResourceGroup OfferQuantity { get; private set; }
+        public int AuctionPrice { get; private set; }
         public ResourceGroup AuctionResources { get; private set; }
         public Player Owner { get; private set; }
 
@@ -100,17 +100,11 @@ public class AuctionManager
         /// <param name="resourceType">Type of resource</param>
         /// <param name="startPrice">Price of auction</param>
         /// <param name="player">Player creating the auction</param>
-        public Auction(ResourceGroup resourceQuantity, Player player)
+        public Auction(ResourceGroup resourceQuantity, Player player, int price)
         {
             AuctionResources = resourceQuantity;
             Owner = player;
-        }
-
-        public void SetOffer(ResourceGroup price, ResourceGroup quantity)
-        {
-            OfferPrice = price;
-            OfferQuantity = quantity;
+            AuctionPrice = price;
         }
     }
-
 }
