@@ -40,7 +40,7 @@ public class GamblingTest {
     }
 
     /// <summary>
-    /// Bit of a weird test to explain. This test insures that the market will still be able to provide gambling if it doesnt have enough money, but will have enough money when the player pays to play.
+    /// Bit of a weird test to explain. This test ensures that the market will still be able to provide gambling if it doesnt have enough money, but will have enough money when the player pays to play.
     /// For example, the market has £15, a player wants to play. The market can't afford the £20 reward, but it can after recieving payment from the player
     /// </summary>
     [Test]
