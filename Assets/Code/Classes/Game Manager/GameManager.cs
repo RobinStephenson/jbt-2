@@ -26,7 +26,7 @@ public class GameManager
     public GameObject humanGuiCanvas;
     public Market market;
     public string gameName;
-    public AuctionManager auction;
+    public AuctionManager auctionManager;
 
     private List<Player> players;
     private int currentPlayerIndex;
@@ -47,7 +47,7 @@ public class GameManager
     /// <param name="players"></param>
     public GameManager(string gameName, List<Player> players)
     {
-        auction = new AuctionManager();
+        auctionManager = new AuctionManager();
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);

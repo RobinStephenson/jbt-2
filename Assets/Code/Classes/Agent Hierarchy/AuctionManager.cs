@@ -57,24 +57,20 @@ public class AuctionManager
     /// <param name="player">The player buying</param>
     public void AuctionBuy(Player player)
     {
-        if (RetrieveAuction(player) != null)
+        Auction auction = RetrieveAuction(player);
+        int auctionMoney = auction.AuctionPrice;
+        if (player.GetMoney() < auction.AuctionPrice)
         {
-            Auction auction = RetrieveAuction(player);
-
-            if (player.GetMoney() < auction.AuctionPrice)
-            {
-                throw new ArgumentOutOfRangeException("Not enough money");
-            }
-            else
-            {
-                player.SetResources(player.GetResources() + auction.AuctionResources);
-                player.SetMoney(player.GetMoney() - auction.AuctionPrice);
-                auction.Owner.SetResources(auction.Owner.GetResources() - auction.AuctionResources);
-                auction.Owner.SetMoney(auction.Owner.GetMoney() + auction.AuctionPrice);
-                auctionListings.Remove(auction);
-            }
+            throw new ArgumentOutOfRangeException("Not enough money");
         }
-
+        else
+        {
+            player.SetResources(player.GetResources() + auction.AuctionResources);
+            player.SetMoney(player.GetMoney() - auction.AuctionPrice);
+            auction.Owner.SetResources(auction.Owner.GetResources() - auction.AuctionResources);
+            auction.Owner.SetMoney(auction.Owner.GetMoney() + auction.AuctionPrice);
+            auctionListings.Remove(auction);
+        }
     }
 
     /// <summary>

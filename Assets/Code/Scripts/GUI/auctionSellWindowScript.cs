@@ -18,7 +18,7 @@ public class auctionSellWindowScript : MonoBehaviour
 
     void Start()
     {
-        auction = GameHandler.GetGameManager().auction; 
+        auction = GameHandler.GetGameManager().auctionManager; 
 
         foodAuctionAmount.onValidateInput += ValidatePositiveInput;          
         energyAuctionAmount.onValidateInput += ValidatePositiveInput;
@@ -43,13 +43,13 @@ public class auctionSellWindowScript : MonoBehaviour
     {
         ResourceGroup resourcesToAuction = new ResourceGroup();
         Player currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
-
+        
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
         int auctionPrice = int.Parse(AuctionPrice.text);
 
-        GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
+        GameHandler.gameManager.auctionManager.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
     }
 
     public void RefreshWindow()

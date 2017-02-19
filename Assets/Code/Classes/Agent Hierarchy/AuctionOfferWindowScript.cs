@@ -20,7 +20,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     void Start ()
     {
-        auctionManager = GameHandler.GetGameManager().auction;
+        auctionManager = GameHandler.GetGameManager().auctionManager;
         curPlayer = GameHandler.gameManager.GetCurrentPlayer();
         auction = auctionManager.RetrieveAuction(curPlayer);
 
@@ -39,7 +39,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     public void OnBuyAuctionButtonPress()
     {
-        GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
+        GameHandler.gameManager.auctionManager.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
     }
 
     public void RefreshWindow()

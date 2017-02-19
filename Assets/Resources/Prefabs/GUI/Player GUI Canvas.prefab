@@ -2804,7 +2804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1544303106560750
 GameObject:
   m_ObjectHideFlags: 1
@@ -8937,12 +8937,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1542946436998058}
-        m_MethodName: 
+      - m_Target: {fileID: 114979640703008728}
+        m_MethodName: OnBuyAuctionButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9580,7 +9580,7 @@ MonoBehaviour:
   foodAuctionAmount: {fileID: 114490906898800052}
   energyAuctionAmount: {fileID: 114038827446782234}
   oreAuctionAmount: {fileID: 114909037029704066}
-  AuctionPrice: {fileID: 0}
+  AuctionPrice: {fileID: 114532747418092740}
 --- !u!114 &114289982285225298
 MonoBehaviour:
   m_ObjectHideFlags: 1

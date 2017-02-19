@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.024950972, g: 0.008575781, b: 0.03662656, a: 1}
+  m_IndirectSpecularColor: {r: 0.024703918, g: 0.0085568745, b: 0.036355503, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -91,6 +91,12 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &500937286 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012952368886, guid: 2753b52175ea92944a0ed50a8801f84c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1591376007}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &635367004
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +138,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1226100058
+--- !u!114 &635563194 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012604799860, guid: 2753b52175ea92944a0ed50a8801f84c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1591376007}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &682068920 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011488856506, guid: 2753b52175ea92944a0ed50a8801f84c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1591376007}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1314224367 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013738760030, guid: 2753b52175ea92944a0ed50a8801f84c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1591376007}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!1001 &1591376007
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -229,10 +253,33 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010556996340, guid: 2753b52175ea92944a0ed50a8801f84c,
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AuctionButtonPressed
+      propertyPath: foodAmount
+      value: 
+      objectReference: {fileID: 635563194}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: energyAmount
+      value: 
+      objectReference: {fileID: 500937286}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: oreAmount
+      value: 
+      objectReference: {fileID: 682068920}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: roboticonAmount
+      value: 
+      objectReference: {fileID: 1314224367}
+    - target: {fileID: 1000010459614030, guid: 2753b52175ea92944a0ed50a8801f84c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542946436998058, guid: 2753b52175ea92944a0ed50a8801f84c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2753b52175ea92944a0ed50a8801f84c, type: 2}
