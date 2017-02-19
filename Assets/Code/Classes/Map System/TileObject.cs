@@ -191,11 +191,11 @@ public class TileObject
     /// <summary>
     /// Set the tiles event icon and display it
     /// </summary>
-    /// <param name="icon">the texture to display</param>
-    public void SetEventIcon(Texture icon)
+    /// <param name="icon">The path of the texture to display</param>
+    public void SetEventIcon(string iconPath)
     {
         tileEventDisplay.SetActive(true);
-        tileEventDisplay.GetComponent<Renderer>().material.mainTexture = icon;
+        tileEventDisplay.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture2D>(iconPath);
     }
 
     /// <summary>

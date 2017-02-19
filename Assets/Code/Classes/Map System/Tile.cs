@@ -171,7 +171,7 @@ public class Tile
         if (CurrentEvent != null && !CurrentEvent.Finished)
         {
             totalResources.food = (int) (totalResources.food * CurrentEvent.GetFoodMultiplier());
-            totalResources.energy = (int) (totalResources.energy * CurrentEvent.GetFoodMultiplier());
+            totalResources.energy = (int) (totalResources.energy * CurrentEvent.GetEnergyMultiplier());
             totalResources.ore = (int) (totalResources.ore * CurrentEvent.GetOreMultiplier());
         }
 
