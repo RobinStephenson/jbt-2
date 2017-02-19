@@ -2640,7 +2640,7 @@ GameObject:
   - component: {fileID: 114093540308793002}
   - component: {fileID: 114532747418092740}
   m_Layer: 5
-  m_Name: Ore Auctioin Amount
+  m_Name: Ore Auction Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2745,7 +2745,7 @@ GameObject:
   - component: {fileID: 114352225513727514}
   - component: {fileID: 114647016435682098}
   m_Layer: 5
-  m_Name: Ore Amount
+  m_Name: Ore Request Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3020,7 +3020,7 @@ GameObject:
   - component: {fileID: 114081870623478260}
   - component: {fileID: 114429396007925648}
   m_Layer: 5
-  m_Name: Energy Amount
+  m_Name: Energy Request Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3090,7 +3090,7 @@ GameObject:
   - component: {fileID: 114176466578871674}
   - component: {fileID: 114892160684564868}
   m_Layer: 5
-  m_Name: Food Amount
+  m_Name: Food Request Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8806,6 +8806,12 @@ MonoBehaviour:
   foodAuctionAmount: {fileID: 114490906898800052}
   energyAuctionAmount: {fileID: 114038827446782234}
   oreAuctionAmount: {fileID: 114532747418092740}
+  foodRequestAmount: {fileID: 114892160684564868}
+  energyRequestAmount: {fileID: 114429396007925648}
+  oreRequestAmount: {fileID: 114647016435682098}
+  foodOfferedPrice: {fileID: 0}
+  energyOfferedPrice: {fileID: 0}
+  oreOfferedPrice: {fileID: 0}
 --- !u!114 &114005656305046008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9885,7 +9891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

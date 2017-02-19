@@ -12,6 +12,16 @@ public class auctionSellWindowScript : MonoBehaviour
     public InputField foodAuctionAmount;
     public InputField energyAuctionAmount;
     public InputField oreAuctionAmount;
+
+    public InputField foodRequestAmount;
+    public InputField energyRequestAmount;
+    public InputField oreRequestAmount;
+    #endregion
+
+    #region offeredPrice labels
+    public InputField foodOfferedPrice;
+    public InputField energyOfferedPrice;
+    public InputField oreOfferedPrice;
     #endregion
 
     void Start()
@@ -42,6 +52,7 @@ public class auctionSellWindowScript : MonoBehaviour
     {
         ResourceGroup resourcesToAuction = new ResourceGroup();
         Player currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
+
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
@@ -51,7 +62,17 @@ public class auctionSellWindowScript : MonoBehaviour
 
     public void OnMakeOfferButtonPress()
     {
-        //ResourceGroup 
+        ResourceGroup resourcesRequested = new ResourceGroup();
+        ResourceGroup offeredPrice = new ResourceGroup();
+        Player currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
+
+        resourcesRequested.food = int.Parse(foodRequestAmount.text);
+        resourcesRequested.energy = int.Parse(energyRequestAmount.text);
+        resourcesRequested.ore = int.Parse(oreRequestAmount.text);
+
+        offeredPrice.food = int.Parse(foodOfferedPrice.text);
+        offeredPrice.energy = int.Parse(energyOfferedPrice.text);
+        offeredPrice.ore = int.Parse(oreOfferedPrice.text);
     }
 
 }
