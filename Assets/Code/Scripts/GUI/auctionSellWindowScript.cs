@@ -12,24 +12,15 @@ public class auctionSellWindowScript : MonoBehaviour
     public InputField foodAuctionAmount;
     public InputField energyAuctionAmount;
     public InputField oreAuctionAmount;
-
-    public InputField foodRequestAmount;
-    public InputField energyRequestAmount;
-    public InputField oreRequestAmount;
     #endregion
 
-    #region offeredPrice labels
-    public InputField foodOfferedPrice;
-    public InputField energyOfferedPrice;
-    public InputField oreOfferedPrice;
-    #endregion
+    public InputField AuctionPrice;
 
     void Start()
     {
-        auction = GameHandler.GetGameManager().auction;
-        //SetShownMarketPrices(); 
+        auction = GameHandler.GetGameManager().auction; 
 
-        foodAuctionAmount.onValidateInput += ValidatePositiveInput;          //Add the ValidatePositiveInput function to
+        foodAuctionAmount.onValidateInput += ValidatePositiveInput;          
         energyAuctionAmount.onValidateInput += ValidatePositiveInput;
         oreAuctionAmount.onValidateInput += ValidatePositiveInput;
     }
@@ -56,24 +47,13 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
-        GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, 0);
+        int auctionPrice = int.Parse(oreAuctionAmounr.text);
+
+        GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
 
     }
 
-    public void OnMakeOfferButtonPress()
-    {
-        ResourceGroup resourcesRequested = new ResourceGroup();
-        ResourceGroup offeredPrice = new ResourceGroup();
-        Player currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
-
-        resourcesRequested.food = int.Parse(foodRequestAmount.text);
-        resourcesRequested.energy = int.Parse(energyRequestAmount.text);
-        resourcesRequested.ore = int.Parse(oreRequestAmount.text);
-
-        offeredPrice.food = int.Parse(foodOfferedPrice.text);
-        offeredPrice.energy = int.Parse(energyOfferedPrice.text);
-        offeredPrice.ore = int.Parse(oreOfferedPrice.text);
-    }
+   
 
     public void SetMaxAuctionText()
     {
