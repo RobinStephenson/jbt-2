@@ -36,25 +36,28 @@ public class Market : Agent
         this.money = STARTING_MONEY;
     }
 
+    //Edited by JBT to stop the player from buying unlimited roboticons whilst the markets stock doesnt change
     /// <summary>
     /// Throws System.ArgumentException if the market does not have enough resources 
     /// to complete the transaction.
     /// </summary>
     /// <param name="resources"></param>
     /// <param name="price"></param>
-    public void BuyFrom(ResourceGroup resourcesToBuy)
+    public void BuyFrom(ResourceGroup resourcesToBuy, int roboticonAmount)
     {
-        if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0)
+        if (resourcesToBuy.food < 0 || resourcesToBuy.energy < 0|| resourcesToBuy.ore < 0 || roboticonAmount < 0)
             throw new System.ArgumentException("Cannot buy negative amounts of items");
 
         bool hasEnoughResources = !(resourcesToBuy.food > this.resources.food
             || resourcesToBuy.energy > this.resources.energy
-            || resourcesToBuy.ore > this.resources.ore);
+            || resourcesToBuy.ore > this.resources.ore
+            || roboticonAmount > numRoboticonsForSale);
 
         if (hasEnoughResources)
         {
             this.resources -= resourcesToBuy; //Requires subtraction overload
-            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum(); //Overloading * to perform element-wise product to get total gain 
+            this.numRoboticonsForSale -= roboticonAmount;
+            this.money = this.money + (resourcesToBuy * resourceSellingPrices).Sum() + (roboticonBuyingPrice * roboticonAmount); //Overloading * to perform element-wise product to get total gain 
         }
         else
         {
@@ -114,6 +117,33 @@ public class Market : Agent
         }
     }
 
+    //Added by JBT - A double or nothing gambling game
+    /// <summary>
+    /// A double or nothing gambling game, takes a min and max roll, outputs the roll result, and returns whether the roll was greater than 50 or not
+    /// </summary>
+    /// <param name="amount">The amount of money being gambled</param>
+    /// <param name="minRoll">The min value of the roll</param>
+    /// <param name="maxRoll">The max value of the roll</param>
+    /// <param name="roll">The actual roll result</param>
+    /// <returns>True if the roll was greater than 50</returns>
+    public bool DoubleOrNothing(int amount, int minRoll, int maxRoll, out int roll)
+    {
+        money += amount;
+        if (money < amount * 2)
+        {
+            money -= amount;
+            throw new System.ArgumentException("Market does not have enough money to play");
+        }
+
+        roll = Random.Range(minRoll, maxRoll);
+
+        if(roll >= 50)
+        {
+            money -= amount * 2;
+        }
+
+        return roll >= 50;
+    }
 
     public int GetNumRoboticonsForSale()
     {

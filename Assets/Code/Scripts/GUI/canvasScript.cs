@@ -10,9 +10,11 @@ public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
-    public GameObject marketButton;
-    public GameObject roboticonButton;
+    public GameObject gambleButton; //JBT
+    public GameObject marketButton; //JBT
+    public GameObject roboticonButton;  //JBT
     public roboticonWindowScript roboticonList;
+    public GameObject gamblingWindow;
     public marketScript marketScript;
     public GameObject endPhaseButton;
     public tileInfoWindowScript tileWindow;
@@ -108,6 +110,56 @@ public class canvasScript : MonoBehaviour
         humanGui.SellToMarket(resources, price);
     }
 
+    //Added by JBT - Show or hide the gambling window depending on the state the window is in when the button is pressed
+    public void GamblingButtonPressed()
+    {
+        if(gamblingWindow.activeSelf)
+        {
+            HideGamblingWindow();
+        }
+        else
+        {
+            ShowGamblingWindow();
+        }
+    }
+    //Added by JBT - Show or hide the market window depending on the state the window is in when the button is pressed
+    public void MarketButtonPressed()
+    {
+        if (marketScript.gameObject.activeSelf)
+        {
+            HideMarketWindow();
+        }
+        else
+        {
+            ShowMarketWindow();
+        }
+    }
+    //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
+    public void RoboticonButtonPressed()
+    {
+        if(roboticonList.gameObject.activeSelf)
+        {
+            HideRoboticonWindow();
+        }
+        else
+        {
+            ShowRoboticonWindow();
+        }
+    }
+
+    //Added by JBT - Show or hide the options window depending on the state the window is in when the button is pressed
+    public void OptionsButtonPressed()
+    {
+        if (optionsMenu.activeSelf)
+        {
+            HideOptionsMenu();
+        }
+        else
+        {
+            ShowOptionsMenu();
+        }
+    }
+
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -121,6 +173,22 @@ public class canvasScript : MonoBehaviour
         marketScript.gameObject.SetActive(false);
     }
 
+    //Added by JBT
+    public void ShowGamblingWindow()
+    {
+        if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
+        {
+            gamblingWindow.SetActive(true);
+            gamblingWindow.GetComponent<gamblingScript>().OpenGamblingWindow();
+        }
+    }
+
+    //Added by JBT
+    public void HideGamblingWindow()
+    {
+        gamblingWindow.SetActive(false);
+    }
+
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
@@ -131,14 +199,28 @@ public class canvasScript : MonoBehaviour
         roboticonList.gameObject.SetActive(false);
     }
 
+    //JBT
     public void ShowMarketButton()
     {
         marketButton.SetActive(true);
     }
 
+    //JBT
     public void HideMarketButton()
     {
         marketButton.SetActive(false);
+    }
+
+    //JBT
+    public void ShowGambleButton()
+    {
+        gambleButton.SetActive(true);
+    }
+
+    //JBT
+    public void HideGambleButton()
+    {
+        gambleButton.SetActive(false);
     }
 
     //Added by JBT to show the current human player the amount of seconds left in the current turn, if the current phase is a timed one
@@ -162,11 +244,13 @@ public class canvasScript : MonoBehaviour
         timeoutText.gameObject.SetActive(false);
     }
 
+    //JBT
     public void ShowRoboticonButton()
     {
         roboticonButton.SetActive(true);
     }
 
+    //JBT
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);

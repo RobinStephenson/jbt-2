@@ -6,6 +6,8 @@ public class marketScript : MonoBehaviour
 {
     public canvasScript uiCanvas;
 
+    public Text marketBalance;  //Added by JBT
+
     #region Resource price labels
     public Text foodBuyPrice;
     public Text foodSellPrice;
@@ -71,6 +73,7 @@ public class marketScript : MonoBehaviour
         int buyPrice = int.Parse(totalBuyPrice.text.Substring(1));
 
         uiCanvas.BuyFromMarket(resourcesToBuy, roboticonsToBuy, buyPrice);
+        SetShownMarketPrices();
     }
 
     public void OnSellButtonPress()
@@ -83,6 +86,7 @@ public class marketScript : MonoBehaviour
         int sellPrice = int.Parse(totalSellPrice.text.Substring(1));
 
         uiCanvas.SellToMarket(resourcesToSell, sellPrice);
+        SetShownMarketPrices();
     }
 
     public void PlayPurchaseDeclinedAnimation()
@@ -100,6 +104,21 @@ public class marketScript : MonoBehaviour
         UpdateShownMarketPrices();
         UpdateTotalBuyPrice();
         UpdateTotalSellPrice();
+        RefreshMarketBalance();
+    }
+
+    //JBT - Also refreshes balance on gambling window if open
+    public void RefreshMarketBalance()
+    {
+        UpdateMarketBalance();
+
+        GameObject gamblingMenu = GameObject.Find("Gambling Menu");
+
+        //Refresh the balance on the gambling menu if it is open
+        if (gamblingMenu != null)
+        {
+            gamblingMenu.GetComponent<gamblingScript>().RefreshMarketBalance();
+        }
     }
 
     public void UpdateTotalBuyPrice()
@@ -123,6 +142,11 @@ public class marketScript : MonoBehaviour
         int orePrice = int.Parse(oreSellAmount.text) * sellingPrices.ore;
 
         totalSellPrice.text = "£" + (foodPrice + energyPrice + orePrice).ToString();
+    }
+
+    private void UpdateMarketBalance()
+    {
+        marketBalance.text = "Market has £" + market.GetMoney().ToString();
     }
 
     private void UpdateShownMarketPrices()

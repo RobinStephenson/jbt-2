@@ -45,22 +45,26 @@ public class HumanGui
         canvas.RefreshRoboticonList();
         canvas.EnableEndPhaseButton();
         canvas.RefreshTileInfoWindow();
+        canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
         canvas.HideAITurnText();
 
-        //Added by JBT - enables or disables market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
+        //Added by JBT - enables or disables gambling, market and roboticon buttons depending on the phase, as the buttons are only used in the production and installation phase
         if (phase == GameManager.States.PURCHASE)
         {
+            canvas.ShowGambleButton();
             canvas.ShowMarketButton();
             canvas.ShowRoboticonButton();
         }
         else if(phase == GameManager.States.INSTALLATION)
         {
+            canvas.HideGambleButton();
             canvas.HideMarketButton();
             canvas.ShowRoboticonButton();
         }
         else
         {
+            canvas.HideGambleButton();
             canvas.HideMarketButton();
             canvas.HideRoboticonButton();
         }
@@ -73,7 +77,9 @@ public class HumanGui
     {
         currentHuman = null;
         currentPhase = phase;
+        canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
+        canvas.HideGambleButton();
         canvas.HideRoboticonWindow();
         canvas.HideMarketButton();
         canvas.HideRoboticonButton();
@@ -120,7 +126,7 @@ public class HumanGui
         {
             try
             {
-                gameManager.market.BuyFrom(resourcesToBuy);
+                gameManager.market.BuyFrom(resourcesToBuy, roboticonsToBuy);
             }
             catch (System.ArgumentException e)
             {
@@ -264,7 +270,7 @@ public class HumanGui
     }
 
     //Changed by JBT to show different values depending on if the current player is an AI
-    private void UpdateResourceBar(bool aiTurn)
+    public void UpdateResourceBar(bool aiTurn)
     {
         if (aiTurn)
         {
