@@ -165,6 +165,7 @@ public class canvasScript : MonoBehaviour
         else
         {
             ShowMarketWindow();
+            marketScript.SetShownMarketPrices();
         }
     }
     //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
