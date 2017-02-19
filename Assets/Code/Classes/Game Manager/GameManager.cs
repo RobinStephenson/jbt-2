@@ -207,7 +207,7 @@ public class GameManager
         {
             CurrentPhaseTimeout = new Timeout(60);
         }
-        humanGui.GetCanvas().SetTimeout(CurrentPhaseTimeout);
+        humanGui.GetCanvas().SetPhaseTimeout(CurrentPhaseTimeout);
     }
     
     //Created by JBT to simulate an AI taking its turn
@@ -216,7 +216,7 @@ public class GameManager
     /// </summary>
     private void ApplyAITimeout()
     {
-        humanGui.GetCanvas().SetTimeout(new Timeout(1));
+        humanGui.GetCanvas().SetPhaseTimeout(new Timeout(1));
     }
 
     //Amended by JBT to add GameEnd functionality
