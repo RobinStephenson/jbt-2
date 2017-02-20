@@ -11,6 +11,10 @@ public abstract class Player : Agent
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
     protected List<Tile> ownedTiles = new List<Tile>();
 
+    /// <summary>
+    /// Calculates the players score based off of the amount of tiles and resources that they own and upgraded roboticons they have
+    /// </summary>
+    /// <returns>The score of the player</returns>
     public int CalculateScore()
     {
         int scoreFromTiles = 0;
@@ -26,7 +30,11 @@ public abstract class Player : Agent
             scoreFromRoboticons += roboticon.GetPrice();
         }
 
-        return scoreFromRoboticons + scoreFromTiles;
+        int scoreFromResources = 0;
+        scoreFromResources += resources.Sum() * 5;
+        scoreFromResources += money * 5;
+
+        return scoreFromRoboticons + scoreFromTiles + scoreFromResources;
     }
 
     /// <summary>
