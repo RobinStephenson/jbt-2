@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class auctionOfferWindowScript : MonoBehaviour
+//JBT
+public class AuctionOfferWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
     private AuctionManager auctionManager;
-    private Player curPlayer;
+    private Player currentPlayer;
     private AuctionManager.Auction auction;
 
     #region Resource amount labels
@@ -17,6 +18,9 @@ public class auctionOfferWindowScript : MonoBehaviour
     #endregion
 
     public Text AuctionBuyPrice;
+    public GameObject AuctionResources;
+    public GameObject Price;
+    public GameObject NoAuctionMessage;
 
     void Start ()
     {
@@ -27,17 +31,21 @@ public class auctionOfferWindowScript : MonoBehaviour
 
     public void OnBuyAuctionButtonPress()
     {
-        GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
+        GameHandler.gameManager.auction.AuctionBuy(currentPlayer);
         ClearWindow();
+        GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
     }
 
     public void loadAuction()
     {
-        curPlayer = GameHandler.gameManager.GetCurrentPlayer();
-        auction = auctionManager.RetrieveAuction(curPlayer);
+        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
+        auction = auctionManager.RetrieveAuction(currentPlayer);
 
         if (auction != null)
         {
+            AuctionResources.SetActive(true);
+            Price.SetActive(true);
+            NoAuctionMessage.SetActive(false);
             foodAuctionAmount.text = auction.AuctionResources.food.ToString();
             energyAuctionAmount.text = auction.AuctionResources.energy.ToString();
             oreAuctionAmount.text = auction.AuctionResources.ore.ToString();
@@ -46,15 +54,13 @@ public class auctionOfferWindowScript : MonoBehaviour
         else
         {
             ClearWindow();
-            //display no auction message
         }
     }
 
     public void ClearWindow()
     {
-        foodAuctionAmount.text = "0";
-        energyAuctionAmount.text = "0";
-        oreAuctionAmount.text = "0";
-        AuctionBuyPrice.text = "0";
+        AuctionResources.SetActive(false);
+        Price.SetActive(false);
+        NoAuctionMessage.SetActive(true);
     }
 }

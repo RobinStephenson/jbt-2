@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+//JBT
 public class auctionSellWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
@@ -15,12 +16,14 @@ public class auctionSellWindowScript : MonoBehaviour
     #endregion
 
     public InputField AuctionPrice;
+    public GameObject AuctionListedText;
+    public GameObject ListingWindow;
 
     void Start()
     {
-        auction = GameHandler.GetGameManager().auction; 
+        auction = GameHandler.GetGameManager().auction;
 
-        foodAuctionAmount.onValidateInput += ValidatePositiveInput;          
+        foodAuctionAmount.onValidateInput += ValidatePositiveInput;
         energyAuctionAmount.onValidateInput += ValidatePositiveInput;
         oreAuctionAmount.onValidateInput += ValidatePositiveInput;
     }
@@ -48,16 +51,24 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
         int auctionPrice = int.Parse(AuctionPrice.text);
-        
+
         GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
-        RefreshWindow();
+        ClearWindow();
     }
 
-    public void RefreshWindow()
+    public void LoadWindow()
     {
         foodAuctionAmount.text = "0";
         energyAuctionAmount.text = "0";
         oreAuctionAmount.text = "0";
         AuctionPrice.text = "0";
+        AuctionListedText.SetActive(false);
+        ListingWindow.SetActive(true);
+    }
+
+    public void ClearWindow()
+    {
+        AuctionListedText.SetActive(true);
+        ListingWindow.SetActive(false);
     }
 }
