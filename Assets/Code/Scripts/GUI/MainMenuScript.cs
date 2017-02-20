@@ -18,7 +18,6 @@ public class mainMenuScript : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("wew");
         //If a player is quitting to the menu from the game itself, or the end of game screen, then remove the GUI canvas that was not destroyed on load
         if (GameObject.Find("Player GUI Canvas(Clone)") != null)
         {
@@ -32,7 +31,7 @@ public class mainMenuScript : MonoBehaviour
         {
             Player1Name.text = "Player1";
         }
-        if (Player2Name.text == "" || Player2Name.text == null)
+        if (Player2Name.text == "" || Player2Name.text == null || Player2Name.text == "Enter Name Here...")
         {
             Player2Name.text = "Player2";
         }
