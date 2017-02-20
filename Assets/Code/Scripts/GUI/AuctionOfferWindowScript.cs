@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AuctionOfferWindowScript : MonoBehaviour
+public class AauctionOfferWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
     private AuctionManager auctionManager;
@@ -21,6 +21,18 @@ public class AuctionOfferWindowScript : MonoBehaviour
     void Start ()
     {
         auctionManager = GameHandler.GetGameManager().auction;
+        
+        loadAuction();
+	}
+
+    public void OnBuyAuctionButtonPress()
+    {
+        GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
+        ClearWindow();
+    }
+
+    public void loadAuction()
+    {
         curPlayer = GameHandler.gameManager.GetCurrentPlayer();
         auction = auctionManager.RetrieveAuction(curPlayer);
 
@@ -33,17 +45,16 @@ public class AuctionOfferWindowScript : MonoBehaviour
         }
         else
         {
-            //FUCKING DISPLAY A MESSAGE THAT TELLS THE USER THERE ARE NO AUCTIONS TOM
+            ClearWindow();
+            //display no auction message
         }
-	}
-
-    public void OnBuyAuctionButtonPress()
-    {
-        GameHandler.gameManager.auction.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
     }
 
-    public void RefreshWindow()
+    public void ClearWindow()
     {
-        //DO IT TOM
+        foodAuctionAmount.text = "0";
+        energyAuctionAmount.text = "0";
+        oreAuctionAmount.text = "0";
+        AuctionBuyPrice.text = "0";
     }
 }

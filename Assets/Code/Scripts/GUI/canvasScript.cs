@@ -279,6 +279,7 @@ public class canvasScript : MonoBehaviour
     public void ShowAuctionBuyWindow()
     {
         auctionBuyWindow.SetActive(true);
+        auctionBuyWindow.GetComponent<auctionoff
     }
 
     //JBT

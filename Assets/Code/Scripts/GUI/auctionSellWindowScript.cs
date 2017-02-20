@@ -49,8 +49,8 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
         int auctionPrice = int.Parse(AuctionPrice.text);
         
-        
         GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
+        RefreshWindow();
     }
 
     public void RefreshWindow()
