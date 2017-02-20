@@ -44,8 +44,8 @@ public class mainMenuScript : MonoBehaviour
         }
         else
         {
-            players.Add(new Human(new ResourceGroup(10, 10, 10), Player2Name.text, 10));
-            players.Add(new Human(new ResourceGroup(10, 10, 10), Player1Name.text, 10));
+            players.Add(new Human(new ResourceGroup(10, 10, 10), Player2Name.text, 500));
+            players.Add(new Human(new ResourceGroup(10, 10, 10), Player1Name.text, 500));
         }
 
 
