@@ -26,8 +26,6 @@ public class auctionBuyWindowScript : MonoBehaviour
     void Start()
     {
         auctionManager = GameHandler.GetGameManager().auctionManager;
-
-        loadAuction();
     }
 
     public void OnBuyAuctionButtonPress()
@@ -44,10 +42,14 @@ public class auctionBuyWindowScript : MonoBehaviour
         }
     }
 
-    public void loadAuction()
+    public void LoadAuction()
     {
         currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
-        auction = auctionManager.RetrieveAuction(currentPlayer);
+        Debug.Log(currentPlayer);
+        Debug.Log(GameHandler.gameManager.auctionManager);
+        Debug.Log(auctionManager);
+        
+        auction = GameHandler.GetGameManager().auctionManager.RetrieveAuction(currentPlayer);
         NotEnoughMoneyMessage.SetActive(false);
 
         if (auction != null)

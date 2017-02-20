@@ -237,7 +237,6 @@ public class canvasScript : MonoBehaviour
             }
             else
             {
-
                 ShowAuctionSellWindow();
             }
         }        
@@ -299,8 +298,8 @@ public class canvasScript : MonoBehaviour
     //JBT
     public void ShowAuctionBuyWindow()
     {
+        auctionBuyWindow.GetComponent<auctionBuyWindowScript>().LoadAuction();
         auctionBuyWindow.SetActive(true);
-        auctionBuyWindow.GetComponent<AuctionOfferWindowScript>().loadAuction();
     }
 
     //JBT

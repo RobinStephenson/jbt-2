@@ -8,6 +8,7 @@ public class auctionSellWindowScript : MonoBehaviour
     public canvasScript AuctionCanvas;
 
     private AuctionManager auction;
+    private Player currentPlayer;
 
     #region Resource amount labels
     public InputField foodAuctionAmount;
@@ -55,7 +56,7 @@ public class auctionSellWindowScript : MonoBehaviour
     public void OnListAuctionButtonPress()
     {
         ResourceGroup resourcesToAuction = new ResourceGroup();
-        Player currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
+        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
 
         resourcesToAuction.food = int.Parse(foodAuctionAmount.text);
         resourcesToAuction.energy = int.Parse(energyAuctionAmount.text);
@@ -83,6 +84,7 @@ public class auctionSellWindowScript : MonoBehaviour
 
     public void LoadWindow()
     {
+        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
         foodAuctionAmount.text = "0";
         energyAuctionAmount.text = "0";
         oreAuctionAmount.text = "0";
@@ -92,6 +94,15 @@ public class auctionSellWindowScript : MonoBehaviour
         NotEnoughResourcesMessage.SetActive(false);
         NoResourcesMessage.SetActive(false);
         NoPriceMessage.SetActive(false);
+
+        foreach (AuctionManager.Auction curAuction in GameHandler.GetGameManager().auctionManager.auctionListings)
+        {
+            if (currentPlayer == curAuction.Owner)
+            {
+                ListingWindow.SetActive(false);
+                AuctionListedText.SetActive(true);
+            }
+        }
     }
 
     public void ClearWindow()

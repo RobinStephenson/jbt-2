@@ -2334,7 +2334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1062561868772534
 GameObject:
   m_ObjectHideFlags: 1
@@ -2364,23 +2364,6 @@ GameObject:
   - component: {fileID: 114361315574307628}
   m_Layer: 5
   m_Name: Auction Placed
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!1 &1083860552962432
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 224129444370988312}
-  - component: {fileID: 222215270060610496}
-  - component: {fileID: 114224154100395876}
-  m_Layer: 5
-  m_Name: Not Enough Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2954,23 +2937,6 @@ GameObject:
   - component: {fileID: 114032884251032142}
   m_Layer: 5
   m_Name: Auction Offer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1629277878348236
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 224600197247612196}
-  - component: {fileID: 222404347068655544}
-  - component: {fileID: 114547716005765168}
-  m_Layer: 5
-  m_Name: Not Enough Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9570,39 +9536,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Resources to Auction:'
---- !u!114 &114224154100395876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083860552962432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Not enough resources
 --- !u!114 &114226238820524604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9685,6 +9618,10 @@ MonoBehaviour:
   roboticonBuyPrice: {fileID: 114000010171447160}
   totalBuyPrice: {fileID: 114000012659019684}
   totalSellPrice: {fileID: 114000011877622410}
+  foodAmount: {fileID: 0}
+  energyAmount: {fileID: 0}
+  oreAmount: {fileID: 0}
+  roboticonAmount: {fileID: 0}
   foodBuyAmount: {fileID: 114000013433888100}
   foodSellAmount: {fileID: 114000011053986442}
   energyBuyAmount: {fileID: 114000013121590446}
@@ -10209,11 +10146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da01b8633c52374a83fe51c415f301a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AuctionCanvas: {fileID: 0}
+  AuctionCanvas: {fileID: 114000011981505814}
   foodAuctionAmount: {fileID: 114720775807163510}
   energyAuctionAmount: {fileID: 114055758838344184}
   oreAuctionAmount: {fileID: 114651899335015478}
   AuctionBuyPrice: {fileID: 114710385587803084}
+  AuctionResources: {fileID: 1598995416593578}
+  Price: {fileID: 1999083338090390}
+  NoAuctionMessage: {fileID: 1017987748666150}
+  NotEnoughMoneyMessage: {fileID: 1661039029721244}
 --- !u!114 &114524207820103584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10282,39 +10223,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 00s
---- !u!114 &114547716005765168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1629277878348236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Not enough Money
 --- !u!114 &114611290832942404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10933,11 +10841,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc3ee3c7fbe3914b94d918b55a43283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AuctionCanvas: {fileID: 0}
+  AuctionCanvas: {fileID: 114000011981505814}
   foodAuctionAmount: {fileID: 114927822659297344}
   energyAuctionAmount: {fileID: 114803672761947120}
   oreAuctionAmount: {fileID: 114997748630819794}
   AuctionPrice: {fileID: 114504327741595884}
+  AuctionListedText: {fileID: 1070723532556832}
+  ListingWindow: {fileID: 1861242176714272}
+  NotEnoughResourcesMessage: {fileID: 1048625830654108}
+  NoResourcesMessage: {fileID: 1371069167748642}
+  NoPriceMessage: {fileID: 1275712330140074}
 --- !u!114 &114758557593126818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12460,12 +12373,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563085869872566}
---- !u!222 &222215270060610496
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083860552962432}
 --- !u!222 &222216737851598954
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -12544,12 +12451,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1684657904642580}
---- !u!222 &222404347068655544
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1629277878348236}
 --- !u!222 &222457410262896784
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -15326,7 +15227,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224587905012080446}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15408,24 +15309,6 @@ RectTransform:
   m_AnchoredPosition: {x: -28.1, y: 38.4}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224129444370988312
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083860552962432}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 224624894136400658}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -47.1, y: -97.600044}
-  m_SizeDelta: {x: 120, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224148246028955548
 RectTransform:
   m_ObjectHideFlags: 1
@@ -15476,7 +15359,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224587905012080446}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15499,7 +15382,7 @@ RectTransform:
   - {fileID: 224179517554582876}
   - {fileID: 224017437857883454}
   m_Father: {fileID: 224624894136400658}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15517,7 +15400,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224624894136400658}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15798,7 +15681,7 @@ RectTransform:
   m_Children:
   - {fileID: 224743487716947054}
   m_Father: {fileID: 224587905012080446}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15873,7 +15756,6 @@ RectTransform:
   m_Children:
   - {fileID: 224572795189265870}
   - {fileID: 224109925095555904}
-  - {fileID: 224600197247612196}
   - {fileID: 224044640729881202}
   - {fileID: 224802709440489454}
   - {fileID: 224529347054563458}
@@ -15904,24 +15786,6 @@ RectTransform:
   m_AnchoredPosition: {x: -18.2, y: 56.5}
   m_SizeDelta: {x: 185.2, y: 20.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224600197247612196
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1629277878348236}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 224587905012080446}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -55.2, y: -98.6}
-  m_SizeDelta: {x: 100, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224606692689003678
 RectTransform:
   m_ObjectHideFlags: 1
@@ -15951,7 +15815,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224624894136400658}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15989,7 +15853,6 @@ RectTransform:
   - {fileID: 224092233309163112}
   - {fileID: 224765719077871520}
   - {fileID: 224985419227063992}
-  - {fileID: 224129444370988312}
   - {fileID: 224237208651095672}
   - {fileID: 224246539576473094}
   - {fileID: 224610234917887004}
@@ -16150,7 +16013,7 @@ RectTransform:
   - {fileID: 224376826807207332}
   - {fileID: 224986233094470540}
   m_Father: {fileID: 224587905012080446}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16186,7 +16049,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224624894136400658}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

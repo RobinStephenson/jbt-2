@@ -7,7 +7,7 @@ using System;
 
 public class AuctionManager
 {
-    private List<Auction> auctionListings;
+    public List<Auction> auctionListings { get; private set; }
 
     public AuctionManager()
     {
