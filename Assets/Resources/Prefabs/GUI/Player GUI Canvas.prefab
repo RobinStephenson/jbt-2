@@ -5673,6 +5673,7 @@ MonoBehaviour:
   NewEventTitle: {fileID: 114074713547345622}
   NewEventDescription: {fileID: 114391450409289410}
   NewEventMessage: {fileID: 1288991083047584}
+  tex: {fileID: 0}
   foodLabel: {fileID: 114000010675805944}
   foodChangeLabel: {fileID: 114000011348724816}
   energyLabel: {fileID: 114000011341611768}
@@ -9506,6 +9507,10 @@ MonoBehaviour:
   roboticonBuyPrice: {fileID: 114000010171447160}
   totalBuyPrice: {fileID: 114000012659019684}
   totalSellPrice: {fileID: 114000011877622410}
+  foodAmount: {fileID: 0}
+  energyAmount: {fileID: 0}
+  oreAmount: {fileID: 0}
+  roboticonAmount: {fileID: 0}
   foodBuyAmount: {fileID: 114000013433888100}
   foodSellAmount: {fileID: 114000011053986442}
   energyBuyAmount: {fileID: 114000013121590446}
@@ -9580,7 +9585,7 @@ MonoBehaviour:
   foodAuctionAmount: {fileID: 114490906898800052}
   energyAuctionAmount: {fileID: 114038827446782234}
   oreAuctionAmount: {fileID: 114909037029704066}
-  AuctionPrice: {fileID: 0}
+  AuctionPrice: {fileID: 114532747418092740}
 --- !u!114 &114289982285225298
 MonoBehaviour:
   m_ObjectHideFlags: 1
