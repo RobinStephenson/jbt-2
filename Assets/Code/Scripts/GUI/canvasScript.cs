@@ -226,6 +226,7 @@ public class canvasScript : MonoBehaviour
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
+        ShowRoboticonList();
     }
 
     public void HideRoboticonWindow()
@@ -303,6 +304,7 @@ public class canvasScript : MonoBehaviour
     public void PurchaseTile(Tile tile)
     {
         humanGui.PurchaseTile(tile);
+        tileWindow.Refresh();
     }
 
     public void ShowTileInfoWindow(Tile tile)
