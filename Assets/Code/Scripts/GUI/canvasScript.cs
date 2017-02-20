@@ -32,6 +32,7 @@ public class canvasScript : MonoBehaviour
     public GameObject NewEventMessage; //JBT UI element displayed when a new event is started.
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
+    public Texture2D tex;
 
     #region Resource Labels
     public Text foodLabel;
@@ -48,6 +49,9 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
+        //tex = Resources.Load<Texture2D>("Textures/gooseIcon");
+        //GameObject.Find("Terrain").GetComponent<Renderer>().material.mainTexture = tex;
+
         if (CurrentPhaseTimeout != null)
         {
             // We are in a timed phase, update the display timer
@@ -83,6 +87,10 @@ public class canvasScript : MonoBehaviour
     }
 
     // JBT Created this method
+    /// <summary>
+    /// Dispaly information about a new event that has started for a few seconds
+    /// </summary>
+    /// <param name="newEvent">The event that has started</param>
     public void DisplayNewEventMessage(RandomEvent newEvent)
     {
         NewEventTitle.text = newEvent.Title;
@@ -160,6 +168,7 @@ public class canvasScript : MonoBehaviour
         else
         {
             ShowMarketWindow();
+            marketScript.SetShownMarketPrices();
         }
     }
     //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
