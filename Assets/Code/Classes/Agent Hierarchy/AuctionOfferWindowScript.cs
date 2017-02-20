@@ -25,7 +25,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     void Start ()
     {
-        auctionManager = GameHandler.GetGameManager().auction;
+        auctionManager = GameHandler.GetGameManager().auctionManager;
         
         loadAuction();
 	}
@@ -34,7 +34,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
     {
         if (auction.AuctionPrice < currentPlayer.GetMoney())
         {
-            GameHandler.gameManager.auction.AuctionBuy(currentPlayer);
+            GameHandler.gameManager.auctionManager.AuctionBuy(currentPlayer);
             ClearWindow();
             GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
         }

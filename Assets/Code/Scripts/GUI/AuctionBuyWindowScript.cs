@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AuctionBuyWindowScript : MonoBehaviour
+//JBT
+public class auctionBuyWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
     private AuctionManager auctionManager;
-    private Player curPlayer;
+    private Player currentPlayer;
     private AuctionManager.Auction auction;
 
     #region Resource amount labels
@@ -17,15 +18,43 @@ public class AuctionBuyWindowScript : MonoBehaviour
     #endregion
 
     public Text AuctionBuyPrice;
+    public GameObject AuctionResources;
+    public GameObject Price;
+    public GameObject NoAuctionMessage;
+    public GameObject NotEnoughMoneyMessage;
 
-    void Start ()
+    void Start()
     {
         auctionManager = GameHandler.GetGameManager().auctionManager;
-        curPlayer = GameHandler.gameManager.GetCurrentPlayer();
-        auction = auctionManager.RetrieveAuction(curPlayer);
+
+        loadAuction();
+    }
+
+    public void OnBuyAuctionButtonPress()
+    {
+        if (auction.AuctionPrice < currentPlayer.GetMoney())
+        {
+            GameHandler.gameManager.auctionManager.AuctionBuy(currentPlayer);
+            ClearWindow();
+            GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
+        }
+        else
+        {
+            NotEnoughMoneyMessage.SetActive(true);
+        }
+    }
+
+    public void loadAuction()
+    {
+        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
+        auction = auctionManager.RetrieveAuction(currentPlayer);
+        NotEnoughMoneyMessage.SetActive(false);
 
         if (auction != null)
         {
+            AuctionResources.SetActive(true);
+            Price.SetActive(true);
+            NoAuctionMessage.SetActive(false);
             foodAuctionAmount.text = auction.AuctionResources.food.ToString();
             energyAuctionAmount.text = auction.AuctionResources.energy.ToString();
             oreAuctionAmount.text = auction.AuctionResources.ore.ToString();
@@ -33,20 +62,14 @@ public class AuctionBuyWindowScript : MonoBehaviour
         }
         else
         {
-            string noAuction = "no auctions to buy";
+            ClearWindow();
         }
-	}
-
-    public void OnBuyAuctionButtonPress()
-    {
-        GameHandler.gameManager.auctionManager.AuctionBuy(GameHandler.gameManager.GetCurrentPlayer());
     }
 
-    public void RefreshWindow()
+    public void ClearWindow()
     {
-        foodAuctionAmount.text = "0";
-        energyAuctionAmount.text = "0";
-        oreAuctionAmount.text = "0";
-        AuctionBuyPrice.text = "0";
+        AuctionResources.SetActive(false);
+        Price.SetActive(false);
+        NoAuctionMessage.SetActive(true);
     }
 }

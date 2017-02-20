@@ -27,7 +27,7 @@ public class auctionSellWindowScript : MonoBehaviour
 
     void Start()
     {
-        auction = GameHandler.GetGameManager().auction;
+        auction = GameHandler.GetGameManager().auctionManager;
 
         foodAuctionAmount.onValidateInput += ValidatePositiveInput;
         energyAuctionAmount.onValidateInput += ValidatePositiveInput;
@@ -76,7 +76,7 @@ public class auctionSellWindowScript : MonoBehaviour
         }
         else
         {
-            GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
+            GameHandler.gameManager.auctionManager.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
             ClearWindow();
         }
     }

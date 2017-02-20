@@ -169,7 +169,7 @@ public class GameManager
             else if(currentState == States.ACQUISITION)
             {
                 market.UpdatePrices();
-                auction.ClearAuctions();
+                auctionManager.ClearAuctions();
                 currentState++;
             }
             else
