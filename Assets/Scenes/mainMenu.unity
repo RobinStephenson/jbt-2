@@ -1680,7 +1680,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1565445983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 526f7dc4caef05949ad6a202b3721890, type: 3}
+  m_Script: {fileID: 11500000, guid: e136a66f71f22fa45baaba8e3a133dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AIToggle: {fileID: 756380716}
@@ -1888,22 +1888,22 @@ Prefab:
         type: 2}
       propertyPath: foodAmount
       value: 
-      objectReference: {fileID: 635563194}
+      objectReference: {fileID: 0}
     - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
         type: 2}
       propertyPath: energyAmount
       value: 
-      objectReference: {fileID: 500937286}
+      objectReference: {fileID: 0}
     - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
         type: 2}
       propertyPath: oreAmount
       value: 
-      objectReference: {fileID: 682068920}
+      objectReference: {fileID: 0}
     - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
         type: 2}
       propertyPath: roboticonAmount
       value: 
-      objectReference: {fileID: 1314224367}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b544816461f324e56a39767fdeb5b114, type: 2}
   m_IsPrefabParent: 0

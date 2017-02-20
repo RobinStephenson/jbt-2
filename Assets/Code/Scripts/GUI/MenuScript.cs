@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 
 
-public class mainMenuScript : MonoBehaviour
+public class MenuScript : MonoBehaviour
 {
     public Toggle AIToggle;
     public InputField Player1Name;
