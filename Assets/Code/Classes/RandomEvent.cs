@@ -86,7 +86,7 @@ public class RandomEvent
     /// <summary>
     /// create a new type of random event
     /// </summary>
-    /// <param name="tilte">The title of the event for display to the user</param>
+    /// <param name="title">The title of the event for display to the user</param>
     /// <param name="description">a detailed description of the event, for display to the user</param>
     /// <param name="duration">How many turns the event should last</param>
     /// <param name="numberOfTilesToAffect">how many tiles should the event affect</param>
@@ -97,9 +97,9 @@ public class RandomEvent
     /// <param name="energyMult">the multiplier that should be applied to energy production on affected tiles</param>
     /// <param name="oreMult">the multiplier that should be applied to ore production on affected tiles</param>
     /// <param name="iconPath">path to the icon to display on tiles affected by this event</param>
-    public RandomEvent(string tilte, string description, int duration, int numberOfTilesToAffect, bool connectedOnly, bool roboticonInstalled, bool noRoboticonInstalled, float foodMult, float energyMult, float oreMult, string iconPath)
+    public RandomEvent(string title, string description, int duration, int numberOfTilesToAffect, bool connectedOnly, bool roboticonInstalled, bool noRoboticonInstalled, float foodMult, float energyMult, float oreMult, string iconPath)
     {
-        if (tilte.Length == 0)
+        if (title.Length == 0)
         {
             throw new ArgumentException("title cannot be empty");
         }
@@ -124,7 +124,7 @@ public class RandomEvent
         {
             throw new ArgumentOutOfRangeException("resource multipliers cannot be < 0");
         }
-        Title = tilte;
+        Title = title;
         Description = description;
         Duration = duration;
         NumberOfTilesToAffect = numberOfTilesToAffect;
