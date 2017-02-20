@@ -36,6 +36,13 @@ public class auctionSellWindowScript : MonoBehaviour
         AuctionPrice.onValidateInput += ValidatePositiveInput;
     }
 
+    /// <summary>
+    /// Only allows for integer characters in the input fields
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="charIndex"></param>
+    /// <param name="addedChar"></param>
+    /// <returns>The entered character if it is an integer</returns>
     public char ValidatePositiveInput(string text, int charIndex, char addedChar)
     {
         NotEnoughResourcesMessage.SetActive(false);
@@ -53,6 +60,11 @@ public class auctionSellWindowScript : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Gathers the entered resources and price when the list auction button is pressed.
+    /// Displays error messages if invalid values are entered or calls PutUpForAuction if valid
+    /// </summary>
     public void OnListAuctionButtonPress()
     {
         ResourceGroup resourcesToAuction = new ResourceGroup();
@@ -63,6 +75,7 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
         int auctionPrice = int.Parse(AuctionPrice.text);
 
+        //Checks that the player has enough resources, that a positive number of resources has been entered and then that a positive price has been entered
         if ((currentPlayer.GetResources().food < resourcesToAuction.food) || (currentPlayer.GetResources().energy < resourcesToAuction.energy) || (currentPlayer.GetResources().ore < resourcesToAuction.ore))
         {
             NotEnoughResourcesMessage.SetActive(true);
@@ -82,6 +95,10 @@ public class auctionSellWindowScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads a fresh Auction Sell Window
+    /// Sets certain parts of the window to active depending on if the player already owns an auction
+    /// </summary>
     public void LoadWindow()
     {
         currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
@@ -95,6 +112,7 @@ public class auctionSellWindowScript : MonoBehaviour
         NoResourcesMessage.SetActive(false);
         NoPriceMessage.SetActive(false);
 
+        //Checks if the player already owns an auction and displays the correct information if they do.
         foreach (AuctionManager.Auction curAuction in GameHandler.GetGameManager().auctionManager.auctionListings)
         {
             if (currentPlayer == curAuction.Owner)
@@ -104,7 +122,10 @@ public class auctionSellWindowScript : MonoBehaviour
             }
         }
     }
-
+    
+    /// <summary>
+    /// Clears the window when the player lists their auction and displays the correct information (removes the option to list another auction and displays text
+    /// </summary>
     public void ClearWindow()
     {
         AuctionListedText.SetActive(true);
