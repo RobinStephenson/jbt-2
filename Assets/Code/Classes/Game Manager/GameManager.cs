@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager
 {
+    //JBT - split auction phase into Auction List and Auction Bid phases
     public enum States : int
     {
         ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTIONLIST, AUCTIONBID
