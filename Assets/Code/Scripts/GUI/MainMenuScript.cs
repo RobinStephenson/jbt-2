@@ -24,18 +24,30 @@ public class mainMenuScript : MonoBehaviour
             Destroy(GameObject.Find("Player GUI Canvas(Clone)"));
         }
 
-        //TODO - BALANCE PLAYER RESOURCES
         List<Player> players = new List<Player>();
+
+        //If no player name entered, set default player names
+        if (Player1Name.text == "" || Player1Name.text == null)
+        {
+            Player1Name.text = "Player1";
+        }
+        if (Player2Name.text == "" || Player2Name.text == null)
+        {
+            Player2Name.text = "Player2";
+        }
+
+        //If AI Is on, then make an AI player and a human, else make 2 human players
         if (AIToggle.isOn)
         {
-            players.Add(new Human(new ResourceGroup(50, 999, 50), Player1Name.text, 999));
-            players.Add(new AI(new ResourceGroup(3, 2, 3), AIPlayerName, 500));
+            players.Add(new Human(new ResourceGroup(10, 10, 10), Player1Name.text, 500));
+            players.Add(new AI(new ResourceGroup(10, 10, 10), AIPlayerName, 500));
         }
         else
         {
-            players.Add(new Human(new ResourceGroup(5, 8, 9), Player1Name.text, 10));
-            players.Add(new Human(new ResourceGroup(50, 999, 50), Player2Name.text, 999));
+            players.Add(new Human(new ResourceGroup(10, 10, 10), Player2Name.text, 10));
+            players.Add(new Human(new ResourceGroup(10, 10, 10), Player1Name.text, 10));
         }
+
 
         GameHandler.CreateNew(gameName, players);
         GameHandler.GetGameManager().StartGame();
