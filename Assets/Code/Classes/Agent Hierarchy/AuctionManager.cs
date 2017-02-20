@@ -41,7 +41,7 @@ public class AuctionManager
     {
         foreach (Auction curAuction in auctionListings)
         {
-            if (curAuction.Owner != player)
+            if (curAuction.Owner != player)      //finds an auction that belongs to the other player
             {
                 return curAuction;
             }
@@ -50,9 +50,9 @@ public class AuctionManager
     }
 
     /// <summary>
-    /// 
+    /// Transfers the auction's resources to the current player and the money to the owner of the auction
     /// </summary>
-    /// <param name="player">The player buying</param>
+    /// <param name="player">The player buying the resources</param>
     public void AuctionBuy(Player player)
     {
         Auction auction = RetrieveAuction(player);
@@ -67,7 +67,7 @@ public class AuctionManager
             player.SetMoney(player.GetMoney() - auction.AuctionPrice);
             auction.Owner.SetResources(auction.Owner.GetResources() - auction.AuctionResources);
             auction.Owner.SetMoney(auction.Owner.GetMoney() + auction.AuctionPrice);
-            auctionListings.Remove(auction);
+            auctionListings.Remove(auction);            //removes the auction from auctionListings when it has been bought
         }
     }
 
@@ -80,7 +80,7 @@ public class AuctionManager
     }
 
     /// <summary>
-    /// A simple class which contains a list of resources a player wants to put up for auction and how much it will cost
+    /// Contains a list of resources, the price set and the owner of the auction
     /// </summary>
     public class Auction
     {
@@ -89,11 +89,11 @@ public class AuctionManager
         public Player Owner { get; private set; }
 
         /// <summary>
-        /// Creating an auction lot with its price and resource type
+        /// Creates an auction listing with its price and resource type
         /// </summary>
-        /// <param name="resourceType">Type of resource</param>
-        /// <param name="startPrice">Price of auction</param>
+        /// <param name="resourceQuantity">amount of resources being auctioned</param>
         /// <param name="player">Player creating the auction</param>
+        /// <param name="price">Price of auction</param>
         public Auction(ResourceGroup resourceQuantity, Player player, int price)
         {
             AuctionResources = resourceQuantity;
