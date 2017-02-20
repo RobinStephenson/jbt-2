@@ -6,7 +6,7 @@ using System;
 using UnityEngine.SceneManagement;
 
 
-
+//Made by JBT
 public class MenuScript : MonoBehaviour
 {
     public Toggle AIToggle;
@@ -16,6 +16,9 @@ public class MenuScript : MonoBehaviour
     public const string AIPlayerName = "Bot";
     public string gameName = "game";
 
+    /// <summary>
+    /// Starts the game by creating a new gamehandler
+    /// </summary>
     public void StartGame()
     {
         //If a player is quitting to the menu from the game itself, or the end of game screen, then remove the GUI canvas that was not destroyed on load
@@ -55,11 +58,18 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene(GAME_SCENE_INDEX);   //LoadScene is asynchronous   
 
     }
+
+    /// <summary>
+    /// Quits the game
+    /// </summary>
     public void QuitGame()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// Toggles if AI is active
+    /// </summary>
     public void ToggleAI()
     {
         if (AIToggle.isOn)
