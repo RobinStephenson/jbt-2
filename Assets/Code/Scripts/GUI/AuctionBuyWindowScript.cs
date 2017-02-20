@@ -44,11 +44,7 @@ public class auctionBuyWindowScript : MonoBehaviour
 
     public void LoadAuction()
     {
-        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
-        Debug.Log(currentPlayer);
-        Debug.Log(GameHandler.gameManager.auctionManager);
-        Debug.Log(auctionManager);
-        
+        currentPlayer = GameHandler.gameManager.GetCurrentPlayer();        
         auction = GameHandler.GetGameManager().auctionManager.RetrieveAuction(currentPlayer);
         NotEnoughMoneyMessage.SetActive(false);
 

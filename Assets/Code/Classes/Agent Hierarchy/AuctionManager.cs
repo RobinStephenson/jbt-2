@@ -22,8 +22,7 @@ public class AuctionManager
     /// <param name="player">The player setting the auction</param>
     public void PutUpForAuction(ResourceGroup resources, Player player, int price)
     {
-        ResourceGroup resourceDifference = player.GetResources() - resources;
-        if ((resourceDifference.food < 0) || (resourceDifference.energy < 0) || (resourceDifference.ore < 0))
+        if ((player.GetResources().food < resources.food) || (player.GetResources().energy < resources.energy) || (player.GetResources().ore < resources.ore))
         {
             throw new ArgumentOutOfRangeException("Not enough resources");
         }
