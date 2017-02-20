@@ -34,7 +34,6 @@ public class canvasScript : MonoBehaviour
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
     private GameObject eventSystem; //JBT used to create and track the eventsystem in the scene
-    public Texture2D tex;
 
     #region Resource Labels
     public Text foodLabel;

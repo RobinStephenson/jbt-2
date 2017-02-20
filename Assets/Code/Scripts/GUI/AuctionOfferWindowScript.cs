@@ -21,6 +21,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
     public GameObject AuctionResources;
     public GameObject Price;
     public GameObject NoAuctionMessage;
+    public GameObject NotEnoughMoneyMessage;
 
     void Start ()
     {
@@ -31,9 +32,16 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     public void OnBuyAuctionButtonPress()
     {
-        GameHandler.gameManager.auction.AuctionBuy(currentPlayer);
-        ClearWindow();
-        GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
+        if (auction.AuctionPrice < currentPlayer.GetMoney)
+        {
+            GameHandler.gameManager.auction.AuctionBuy(currentPlayer);
+            ClearWindow();
+            GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
+        }
+        else
+        {
+            NotEnoughMoneyMessage.SetActive(true);
+        }
     }
 
     public void loadAuction()
