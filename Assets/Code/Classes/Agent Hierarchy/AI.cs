@@ -1,20 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
 
+/// <summary>
+/// A player that is controlled by the computer
+/// </summary>
 public class AI : Player
 {
-    private enum DifficultyLevel
-    {
-        EASY,
-        MEDIUM,
-        HARD
-    }
-
-    private DifficultyLevel difficulty;
-    private ResourceGroup optimalResourceFractions = new ResourceGroup(33, 33, 34);     //The AI will attempt to meet this resource distribution.
-
+    /// <summary>
+    /// Creates an AI player instance
+    /// </summary>
+    /// <param name="resources">The resources this AI player starts with</param>
+    /// <param name="name">The name of the AI player</param>
+    /// <param name="money">The money this AI player starts with</param>
     public AI(ResourceGroup resources, string name, int money)
     {
         this.name = name;
@@ -22,9 +18,12 @@ public class AI : Player
         this.money = money;
     }
 
+    /// <summary>
+    /// Performs the turn for the current AI player depending on the state
+    /// </summary>
+    /// <param name="state">The current state of the game</param>
     public override void Act(GameManager.States state)
     {
-        //TODO - AI action
         switch(state)
         {
             case GameManager.States.ACQUISITION:
@@ -41,6 +40,10 @@ public class AI : Player
     }
 
     //JBT changed this method to actually select a buyable tile
+    /// <summary>
+    /// Allows the AI to choose a tile to acquire
+    /// </summary>
+    /// <returns>A random tile that the AI can afford</returns>
     private Tile ChooseTileToAcquire()
     {
         List<Tile> tiles = GameHandler.GetGameManager().GetMap().GetTiles();
@@ -62,50 +65,5 @@ public class AI : Player
         {
             return possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count - 1)];
         }
-    }
-
-    private ResourceGroup ChooseBestRoboticonUpgrade(Roboticon roboticon)
-    {
-        //TODO - intelligent decision of best upgrade.
-        return new ResourceGroup(1, 0, 0);
-    }
-
-    /// <summary>
-    /// Returns a resource group in which each resource value signifies
-    /// the necessity of that resource from 0 to 100, where 0 is not 
-    /// necessary at all and 100 is absolutely necessary.
-    /// </summary>
-    /// <returns></returns>
-    private ResourceGroup GetResourceNecessityWeights()
-    {
-        int totalResources = resources.food + resources.energy + resources.ore;
-        ResourceGroup necessityWeights;
-
-        if (totalResources != 0)
-        {
-            necessityWeights = new ResourceGroup();
-            necessityWeights.food   = 50 + optimalResourceFractions.food   - (int)(100 * resources.food   / totalResources);
-            necessityWeights.energy = 50 + optimalResourceFractions.energy - (int)(100 * resources.energy / totalResources);
-            necessityWeights.ore    = 50 + optimalResourceFractions.ore    - (int)(100 * resources.ore    / totalResources);
-        }
-        else
-        {
-            necessityWeights = optimalResourceFractions;
-        }
-
-        return necessityWeights;
-    }
-
-    private bool ShouldPurchaseRoboticon()
-    {
-        //TODO - decide if new roboticon purchase is 
-        // justified.
-        return false;
-    }
-
-    public Tile GetOptimalTileForRoboticon(Roboticon roboticon)
-    {
-        //TODO - decide best tile for supplied roboticon.
-        return null;
     }
 }
