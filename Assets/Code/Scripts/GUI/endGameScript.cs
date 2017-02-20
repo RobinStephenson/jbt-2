@@ -13,6 +13,7 @@ public class endGameScript : MonoBehaviour
     public Text LoserText;
     public Text WinnerScore;
     public Text LoserScore;
+    public Text ViceChancellor;
 
     void Start()
     {
@@ -55,5 +56,6 @@ public class endGameScript : MonoBehaviour
         LoserText.text = Scoreboard[0].PlayerName;
         WinnerScore.text = ("Score: " + Scoreboard[1].PlayerScore.ToString());
         LoserScore.text = ("Score: " + Scoreboard[0].PlayerScore.ToString());
+        ViceChancellor.text = (Scoreboard[1].PlayerName + " is the Vice-Chancellor!");
     }
 }
