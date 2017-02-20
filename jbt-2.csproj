@@ -100,6 +100,7 @@
     <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
     <Compile Include="Assets\Code\Classes\Roboticon.cs" />
     <Compile Include="Assets\Code\Classes\Timeout.cs" />
+    <Compile Include="Assets\Code\Scripts\GUI\MenuScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\endGameScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\gamblingScript.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
     <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
+    <Compile Include="Assets\Code\Scripts\mainMenuDayNightCylce.cs" />
     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
   </ItemGroup>
   <ItemGroup>
