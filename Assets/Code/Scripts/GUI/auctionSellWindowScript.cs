@@ -19,6 +19,12 @@ public class auctionSellWindowScript : MonoBehaviour
     public GameObject AuctionListedText;
     public GameObject ListingWindow;
 
+    #region errorMessage labels
+    public GameObject NotEnoughResourcesMessage;
+    public GameObject NoResourcesMessage;
+    public GameObject NoPriceMessage;
+    #endregion
+
     void Start()
     {
         auction = GameHandler.GetGameManager().auction;
@@ -26,10 +32,14 @@ public class auctionSellWindowScript : MonoBehaviour
         foodAuctionAmount.onValidateInput += ValidatePositiveInput;
         energyAuctionAmount.onValidateInput += ValidatePositiveInput;
         oreAuctionAmount.onValidateInput += ValidatePositiveInput;
+        AuctionPrice.onValidateInput += ValidatePositiveInput;
     }
 
     public char ValidatePositiveInput(string text, int charIndex, char addedChar)
     {
+        NotEnoughResourcesMessage.SetActive(false);
+        NoResourcesMessage.SetActive(false);
+        NoPriceMessage.SetActive(false);
         int tryParseResult;
 
         if (int.TryParse(addedChar.ToString(), out tryParseResult)) //Only accept characters which are integers (no '-')
@@ -52,8 +62,23 @@ public class auctionSellWindowScript : MonoBehaviour
         resourcesToAuction.ore = int.Parse(oreAuctionAmount.text);
         int auctionPrice = int.Parse(AuctionPrice.text);
 
-        GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
-        ClearWindow();
+        if ((currentPlayer.GetResources().food < resourcesToAuction.food) || (currentPlayer.GetResources().energy < resourcesToAuction.energy) || (currentPlayer.GetResources().ore < resourcesToAuction.ore))
+        {
+            NotEnoughResourcesMessage.SetActive(true);
+        }
+        else if (resourcesToAuction.Sum() == 0)
+        {
+            NoResourcesMessage.SetActive(true);
+        }
+        else if (auctionPrice == 0)
+        {
+            NoPriceMessage.SetActive(true);
+        }
+        else
+        {
+            GameHandler.gameManager.auction.PutUpForAuction(resourcesToAuction, currentPlayer, auctionPrice);
+            ClearWindow();
+        }
     }
 
     public void LoadWindow()
@@ -64,11 +89,17 @@ public class auctionSellWindowScript : MonoBehaviour
         AuctionPrice.text = "0";
         AuctionListedText.SetActive(false);
         ListingWindow.SetActive(true);
+        NotEnoughResourcesMessage.SetActive(false);
+        NoResourcesMessage.SetActive(false);
+        NoPriceMessage.SetActive(false);
     }
 
     public void ClearWindow()
     {
         AuctionListedText.SetActive(true);
         ListingWindow.SetActive(false);
+        NotEnoughResourcesMessage.SetActive(false);
+        NoResourcesMessage.SetActive(false);
+        NoPriceMessage.SetActive(false);
     }
 }

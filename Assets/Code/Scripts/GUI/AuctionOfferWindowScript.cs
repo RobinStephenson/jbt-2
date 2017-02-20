@@ -32,7 +32,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
 
     public void OnBuyAuctionButtonPress()
     {
-        if (auction.AuctionPrice < currentPlayer.GetMoney)
+        if (auction.AuctionPrice < currentPlayer.GetMoney())
         {
             GameHandler.gameManager.auction.AuctionBuy(currentPlayer);
             ClearWindow();
@@ -48,6 +48,7 @@ public class AuctionOfferWindowScript : MonoBehaviour
     {
         currentPlayer = GameHandler.gameManager.GetCurrentPlayer();
         auction = auctionManager.RetrieveAuction(currentPlayer);
+        NotEnoughMoneyMessage.SetActive(false);
 
         if (auction != null)
         {
