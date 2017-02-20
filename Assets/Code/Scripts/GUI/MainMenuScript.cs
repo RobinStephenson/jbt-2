@@ -31,7 +31,7 @@ public class mainMenuScript : MonoBehaviour
         {
             Player1Name.text = "Player1";
         }
-        if (Player2Name.text == "" || Player2Name.text == null)
+        if (Player2Name.text == "" || Player2Name.text == null|| Player2Name.text == "Enter Name Here...")
         {
             Player2Name.text = "Player2";
         }
