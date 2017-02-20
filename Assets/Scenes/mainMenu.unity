@@ -1307,6 +1307,26 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: foodAmount
+      value: 
+      objectReference: {fileID: 635563194}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: energyAmount
+      value: 
+      objectReference: {fileID: 500937286}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: oreAmount
+      value: 
+      objectReference: {fileID: 682068920}
+    - target: {fileID: 114263533662129720, guid: 2753b52175ea92944a0ed50a8801f84c,
+        type: 2}
+      propertyPath: roboticonAmount
+      value: 
+      objectReference: {fileID: 1314224367}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2753b52175ea92944a0ed50a8801f84c, type: 2}
   m_IsPrefabParent: 0
