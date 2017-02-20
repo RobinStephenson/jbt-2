@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class ResourceGroup
 {
@@ -44,12 +43,6 @@ public class ResourceGroup
         return new ResourceGroup(r.getFood() * s,
                                  r.getEnergy() * s,
                                  r.getOre() * s);
-    }
-    public static ResourceGroup operator *(ResourceGroup r, double s)
-    {
-        return new ResourceGroup(Convert.ToInt16(r.getFood() * s),
-                                 Convert.ToInt16(r.getEnergy() * s),
-                                 Convert.ToInt16(r.getOre() * s));
     }
 
     public static ResourceGroup operator *(int s, ResourceGroup r)

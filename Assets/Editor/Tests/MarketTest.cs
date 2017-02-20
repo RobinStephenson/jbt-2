@@ -56,22 +56,5 @@ public class MarketTest
         Assert.Throws<System.ArgumentException>(() => m.BuyFrom(new ResourceGroup(0, 0, -5), 0));
         Assert.AreEqual(new ResourceGroup(Market.STARTING_FOOD_AMOUNT, Market.STARTING_ENERGY_AMOUNT, ore), m.GetResources());
     }
-
-    [Test]
-    public void UpdateMarketPrice()
-    {
-        Market m = new Market();
-        ResourceGroup expectedBuyPrice = new ResourceGroup(26,21,5);
-        ResourceGroup expectedSellPrice = new ResourceGroup(26, 21, 8);
-        int expectedRoboPrice = 15;
-        ResourceGroup testResources = new ResourceGroup(0, 5, 50);
-        m.SetResources(testResources);
-
-        m.UpdatePrices();
-
-        Assert.AreEqual(expectedBuyPrice, m.GetResourceBuyingPrices());
-        Assert.AreEqual(expectedSellPrice, m.GetResourceSellingPrices());
-        Assert.AreEqual(expectedRoboPrice, m.GetRoboticonSellingPrice());
-    }
 }	
 

@@ -1078,23 +1078,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012132406300
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4000013219907468}
-  - component: {fileID: 114000013548646320}
-  - component: {fileID: 114000012455952138}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000012172661438
 GameObject:
   m_ObjectHideFlags: 1
@@ -2386,7 +2369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1371271036258936
 GameObject:
   m_ObjectHideFlags: 1
@@ -2662,19 +2645,6 @@ Transform:
   - {fileID: 224000011368295630}
   - {fileID: 224000011540447662}
   m_Father: {fileID: 224000011453818422}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4000013219907468
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012132406300}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -400.00003, y: -225.06966, z: 0}
-  m_LocalScale: {x: 1.1142061, y: 1.1142061, z: 1}
-  m_Children: []
-  m_Father: {fileID: 224000013395552864}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95000010969875062
@@ -5690,24 +5660,6 @@ MonoBehaviour:
   helpBoxAnimator: {fileID: 95000010969875062}
   helpBoxText: {fileID: 114000011694296508}
   hide: 0
---- !u!114 &114000012455952138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012132406300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &114000012471418442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7107,20 +7059,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000013548646320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012132406300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!114 &114000013555115310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8483,10 +8421,6 @@ MonoBehaviour:
   roboticonBuyPrice: {fileID: 114000010171447160}
   totalBuyPrice: {fileID: 114000012659019684}
   totalSellPrice: {fileID: 114000011877622410}
-  foodAmount: {fileID: 114000012604799860}
-  energyAmount: {fileID: 114000012952368886}
-  oreAmount: {fileID: 114000011488856506}
-  roboticonAmount: {fileID: 114000013738760030}
   foodBuyAmount: {fileID: 114000013433888100}
   foodSellAmount: {fileID: 114000011053986442}
   energyBuyAmount: {fileID: 114000013121590446}
@@ -10098,7 +10032,7 @@ RectTransform:
   - {fileID: 224000012848273114}
   - {fileID: 224000013419134758}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10976,7 +10910,7 @@ RectTransform:
   - {fileID: 224000013569388872}
   - {fileID: 224000013783740296}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11170,7 +11104,7 @@ RectTransform:
   - {fileID: 224000011348824366}
   - {fileID: 224000012747049442}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11638,7 +11572,6 @@ RectTransform:
   m_Children:
   - {fileID: 224000013676909450}
   - {fileID: 224000011453818422}
-  - {fileID: 4000013219907468}
   - {fileID: 224000012138028820}
   - {fileID: 224647684443688006}
   - {fileID: 224000010245317814}
@@ -12216,7 +12149,7 @@ RectTransform:
   - {fileID: 224000013691083514}
   - {fileID: 4000010206666048}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12298,7 +12231,7 @@ RectTransform:
   - {fileID: 224000012783509512}
   - {fileID: 224000012943165056}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12446,7 +12379,7 @@ RectTransform:
   m_Children:
   - {fileID: 224000010403293226}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12638,7 +12571,7 @@ RectTransform:
   - {fileID: 224299727684803136}
   - {fileID: 224000011093938464}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12712,7 +12645,7 @@ RectTransform:
   - {fileID: 224041585605128582}
   - {fileID: 224576171506494606}
   m_Father: {fileID: 224000013395552864}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}

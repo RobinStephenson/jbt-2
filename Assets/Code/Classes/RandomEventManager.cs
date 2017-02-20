@@ -17,7 +17,7 @@ public static class RandomEventManager
     /// Number between 0 and 1 (exclusive) for how often a random event should happen 
     /// </summary>
     public static float EventFrequency { get; private set; }
-    public const float DefaultEventFrequency = 0.999f;
+    public const float DefaultEventFrequency = 0.5f;
     
     /// <summary>
     /// Maximum number of events that can be active at the same time
@@ -55,8 +55,7 @@ public static class RandomEventManager
                     EventConfiguration["noRoboticonInstalled"].AsBool,
                     EventConfiguration["foodMultiplier"].AsFloat,
                     EventConfiguration["energyMultiplier"].AsFloat,
-                    EventConfiguration["oreMultiplier"].AsFloat,
-                    EventConfiguration["texture"].Value
+                    EventConfiguration["oreMultiplier"].AsFloat
                 ));
         }
 
