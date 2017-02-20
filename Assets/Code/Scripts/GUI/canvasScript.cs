@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class canvasScript : MonoBehaviour
@@ -32,6 +33,7 @@ public class canvasScript : MonoBehaviour
     public GameObject NewEventMessage; //JBT UI element displayed when a new event is started.
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
+    private GameObject eventSystem; //JBT used to create and track the eventsystem in the scene
     public Texture2D tex;
 
     #region Resource Labels
@@ -45,7 +47,7 @@ public class canvasScript : MonoBehaviour
     #endregion
 
     private HumanGui humanGui;
-
+     
     // JBT created this method
     void Update()
     {
@@ -84,6 +86,23 @@ public class canvasScript : MonoBehaviour
                 EventMessageTimeout = null;
             }
         }
+
+        //Made by JBT to create an even system if there is not already one. 
+        SetEventSystem();
+    }
+
+    // JBT
+    /// <summary>
+    /// Create an Event system if there is not already one in the scene
+    /// </summary>
+    public void SetEventSystem()
+    {
+        if (eventSystem != null)
+            return;
+
+        eventSystem = new GameObject();
+        eventSystem.AddComponent<EventSystem>();
+        eventSystem.AddComponent<StandaloneInputModule>();
     }
 
     // JBT Created this method
@@ -257,6 +276,7 @@ public class canvasScript : MonoBehaviour
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
+        ShowRoboticonList();
     }
 
     public void HideRoboticonWindow()
@@ -372,6 +392,7 @@ public class canvasScript : MonoBehaviour
     public void PurchaseTile(Tile tile)
     {
         humanGui.PurchaseTile(tile);
+        tileWindow.Refresh();
     }
 
     public void ShowTileInfoWindow(Tile tile)

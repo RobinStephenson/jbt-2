@@ -188,7 +188,7 @@ public class TileObject
         }
     }
 
-    // created by jbt
+    //Created by JBT
     /// <summary>
     /// Set the tiles event icon and display it
     /// </summary>
@@ -197,6 +197,15 @@ public class TileObject
     {
         tileEventDisplay.SetActive(true);
         tileEventDisplay.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture2D>(iconPath);
+    }
+
+    //Created by JBT
+    /// <summary>
+    /// Remove the random event display from a tile
+    /// </summary>
+    public void RemoveEventIcon()
+    {
+        tileEventDisplay.SetActive(false);
     }
 
     // created by jbt

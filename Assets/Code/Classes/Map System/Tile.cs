@@ -254,5 +254,6 @@ public class Tile
             throw new InvalidOperationException("No event applied to this tile");
         }
         CurrentEvent = null;
+        tileObject.RemoveEventIcon();
     }
 }
