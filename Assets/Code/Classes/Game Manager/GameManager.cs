@@ -155,16 +155,22 @@ public class GameManager
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
-            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-            if (currentState == States.PRODUCTION)
+            //If we're moving on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == (States.PRODUCTION - 1))
             {
                 RandomEventManager.ManageAndTriggerEvents();
                 ProcessProductionPhase();
-                currentState = States.AUCTIONLIST ;       //Reset the state counter after the production (final) phase
+                currentState++;
             }
             else if(currentState == States.AUCTIONBID)
             {
                 currentState = States.ACQUISITION;
+            }
+            else if(currentState == States.ACQUISITION)
+            {
+                market.UpdatePrices();
+                auction.ClearAuctions();
+                currentState++;
             }
             else
             {
@@ -226,7 +232,7 @@ public class GameManager
         humanGui.GetCanvas().SetPhaseTimeout(new Timeout(1));
     }
 
-    //Amended by JBT to add GameEnd functionality
+    //Amended by JBT to add GameEnd functionality and remove update market call
     private void ProcessProductionPhase()
     {
         if(GameEnded())
@@ -239,8 +245,6 @@ public class GameManager
         {
             players[i].Produce();
         }
-
-        market.UpdatePrices();
     }
 
     /// <summary>

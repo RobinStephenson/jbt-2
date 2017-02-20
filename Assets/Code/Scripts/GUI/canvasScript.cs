@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class canvasScript : MonoBehaviour
@@ -32,6 +33,7 @@ public class canvasScript : MonoBehaviour
     public GameObject NewEventMessage; //JBT UI element displayed when a new event is started.
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
+    private GameObject eventSystem; //JBT used to create and track the eventsystem in the scene
 
     #region Resource Labels
     public Text foodLabel;
@@ -44,10 +46,13 @@ public class canvasScript : MonoBehaviour
     #endregion
 
     private HumanGui humanGui;
-
+     
     // JBT created this method
     void Update()
     {
+        //tex = Resources.Load<Texture2D>("Textures/gooseIcon");
+        //GameObject.Find("Terrain").GetComponent<Renderer>().material.mainTexture = tex;
+
         if (CurrentPhaseTimeout != null)
         {
             // We are in a timed phase, update the display timer
@@ -80,9 +85,30 @@ public class canvasScript : MonoBehaviour
                 EventMessageTimeout = null;
             }
         }
+
+        //Made by JBT to create an even system if there is not already one. 
+        SetEventSystem();
+    }
+
+    // JBT
+    /// <summary>
+    /// Create an Event system if there is not already one in the scene
+    /// </summary>
+    public void SetEventSystem()
+    {
+        if (eventSystem != null)
+            return;
+
+        eventSystem = new GameObject();
+        eventSystem.AddComponent<EventSystem>();
+        eventSystem.AddComponent<StandaloneInputModule>();
     }
 
     // JBT Created this method
+    /// <summary>
+    /// Dispaly information about a new event that has started for a few seconds
+    /// </summary>
+    /// <param name="newEvent">The event that has started</param>
     public void DisplayNewEventMessage(RandomEvent newEvent)
     {
         NewEventTitle.text = newEvent.Title;
@@ -160,6 +186,7 @@ public class canvasScript : MonoBehaviour
         else
         {
             ShowMarketWindow();
+            marketScript.SetShownMarketPrices();
         }
     }
     //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
@@ -210,6 +237,7 @@ public class canvasScript : MonoBehaviour
             }
             else
             {
+
                 ShowAuctionSellWindow();
             }
         }        
@@ -247,6 +275,7 @@ public class canvasScript : MonoBehaviour
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
+        ShowRoboticonList();
     }
 
     public void HideRoboticonWindow()
@@ -257,6 +286,7 @@ public class canvasScript : MonoBehaviour
     //JBT
     public void ShowAuctionSellWindow()
     {
+        auctionSellWindow.GetComponent<auctionSellWindowScript>().LoadWindow();
         auctionSellWindow.SetActive(true);
     }
 
@@ -270,6 +300,7 @@ public class canvasScript : MonoBehaviour
     public void ShowAuctionBuyWindow()
     {
         auctionBuyWindow.SetActive(true);
+        auctionBuyWindow.GetComponent<AuctionOfferWindowScript>().loadAuction();
     }
 
     //JBT
@@ -360,6 +391,7 @@ public class canvasScript : MonoBehaviour
     public void PurchaseTile(Tile tile)
     {
         humanGui.PurchaseTile(tile);
+        tileWindow.Refresh();
     }
 
     public void ShowTileInfoWindow(Tile tile)

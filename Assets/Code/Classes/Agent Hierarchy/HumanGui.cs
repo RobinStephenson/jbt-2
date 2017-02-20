@@ -47,6 +47,7 @@ public class HumanGui
         canvas.RefreshTileInfoWindow();
         canvas.HideGamblingWindow();
         canvas.HideMarketWindow();
+        canvas.HideRoboticonWindow();
         canvas.HideAuctionBuyWindow();
         canvas.HideAuctionSellWindow();
         canvas.HideAITurnText();
@@ -137,7 +138,8 @@ public class HumanGui
 
     public void BuyFromMarket(ResourceGroup resourcesToBuy, int roboticonsToBuy, int buyPrice)
     {
-        if(currentHuman.GetMoney() >= buyPrice)
+        
+        if (currentHuman.GetMoney() >= buyPrice)
         {
             try
             {

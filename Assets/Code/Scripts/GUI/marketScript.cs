@@ -19,6 +19,11 @@ public class marketScript : MonoBehaviour
 
     public Text totalBuyPrice;
     public Text totalSellPrice;
+
+    public Text foodAmount;
+    public Text energyAmount;
+    public Text oreAmount;
+    public Text roboticonAmount;
     #endregion
 
     #region Resource amount labels
@@ -47,10 +52,16 @@ public class marketScript : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        market = GameHandler.GetGameManager().market;
+    }
+
     // Use this for initialization
     void Start ()
     {
         market = GameHandler.GetGameManager().market;
+        Debug.Log((market == null).ToString());
         SetShownMarketPrices();
 
         foodBuyAmount.onValidateInput   += ValidatePositiveInput;       //Add the ValidatePositiveInput function to
@@ -149,6 +160,7 @@ public class marketScript : MonoBehaviour
         marketBalance.text = "Market has £" + market.GetMoney().ToString();
     }
 
+    //Amended by JBT to show market stock in ui
     private void UpdateShownMarketPrices()
     {
         ResourceGroup sellingPrices = market.GetResourceSellingPrices();
@@ -162,5 +174,10 @@ public class marketScript : MonoBehaviour
         foodSellPrice.text     = "£" + sellingPrices.food.ToString();
         energySellPrice.text   = "£" + sellingPrices.energy.ToString();
         oreSellPrice.text      = "£" + sellingPrices.ore.ToString();
+
+        foodAmount.text = "/" + market.GetResources().food.ToString();
+        energyAmount.text = "/" + market.GetResources().energy.ToString();
+        oreAmount.text = "/" + market.GetResources().ore.ToString();
+        roboticonAmount.text = "/" + market.GetNumRoboticonsForSale().ToString();
     }
 }
