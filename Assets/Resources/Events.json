@@ -2,7 +2,7 @@
 	"configurations": [
 		{
 			"title": "Donald Trump riding a pig!",
-			"description": "No this isn't fake news. Donald Trump is riding a pig somewhere on campus. Nearby tiles produce no food. Energy and Ore production is unaffected.",
+			"description": "No this isn't fake news. Donald Trump is riding a pig somewhere on campus. Nearby tiles produce no food as the pig is eating it all. Energy and Ore production remains unaffected.",
 			"duration": 4,
 			"numberOfTilesToAffect": 5,
 			"foodMultiplier": 0,
@@ -10,12 +10,11 @@
 			"energyMultiplier": 1,
 			"connectedTilesOnly": "True",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True",
-			"texture": "Textures/trumpIcon"
+			"noRoboticonInstalled": "True"
 		},
 		{
 			"title": "Meteor Strike!",
-			"description": "A meteor strike has hit several tiles. These tiles no longer produce food, ore production has increased 50% & energy production has increased 25%.",
+			"description": "A meteor strike has hit several tiles. These tiles no longer produce food. However, ore production has increased 50% and energy production has increased 25%.",
 			"duration": 5,
 			"numberOfTilesToAffect": 7,
 			"foodMultiplier": 0,
@@ -23,8 +22,7 @@
 			"energyMultiplier": 1.25,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True",
-			"texture": "Textures/meteorIcon"
+			"noRoboticonInstalled": "True"
 		},
 		{
 			"title": "Freshers Flu!",
@@ -36,12 +34,11 @@
 			"energyMultiplier": 0.1,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "False",
-			"texture": "Textures/fluIcon"
+			"noRoboticonInstalled": "False"
 		},
 		{
 			"title": "Attack of the Geese!",
-			"description": "Geese are attacking tiles without Roboticons! Affected tiles produce nothing",
+			"description": "The local wildlife is fighting back due to the recent construction work. Fortunately your Roboticons can hold them off, but any tiles without them will cease production of all resources.",
 			"duration": 5,
 			"numberOfTilesToAffect": 6,
 			"foodMultiplier": 0,
@@ -49,12 +46,11 @@
 			"energyMultiplier": 0,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "False",
-			"noRoboticonInstalled": "True",
-			"texture": "Textures/gooseIcon"
+			"noRoboticonInstalled": "True"
 		},
 		{
 			"title": "Prof. Colin Runciman appears!",
-			"description": "A tile has been graced by the presence of Prof. Colin Runciman. Food and Ore production is doubled, energy halved, on affected tiles.",
+			"description": "A tile has been graced by the presence of Prof. Colin Runciman and he has enhanced its Roboticon. This doubles the ore and food production, but at the cost of halving the energy production.",
 			"duration": 3,
 			"numberOfTilesToAffect": 1,
 			"foodMultiplier": 2,
@@ -62,12 +58,11 @@
 			"energyMultiplier": 0.5,
 			"connectedTilesOnly": "False",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "False",
-			"texture": "Texture/colinIcon"
+			"noRoboticonInstalled": "False"
 		},
 		{
 			"title": "Construction has begun!",
-			"description": "Another building site! These tiles now produce no energy, but ore production has increased by 50%.",
+			"description": "Another building site has been set up, surprise surprise... These tiles now produce no energy, but ore production has increased by 50%.",
 			"duration": 4,
 			"numberOfTilesToAffect": 4,
 			"foodMultiplier": 1,
@@ -75,8 +70,7 @@
 			"energyMultiplier": 0,
 			"connectedTilesOnly": "True",
 			"roboticonInstalled": "True",
-			"noRoboticonInstalled": "True",
-			"texture": "Textures/constructionIcon"
+			"noRoboticonInstalled": "True"
 		}
 	]
 }

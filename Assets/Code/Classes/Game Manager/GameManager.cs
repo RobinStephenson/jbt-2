@@ -159,11 +159,6 @@ public class GameManager
                 ProcessProductionPhase();
                 currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
             }
-            else if(currentState == States.ACQUISITION)
-            {
-                market.UpdatePrices();
-                currentState++;
-            }
             else
             {
                 currentState++;
@@ -224,7 +219,7 @@ public class GameManager
         humanGui.GetCanvas().SetPhaseTimeout(new Timeout(1));
     }
 
-    //Amended by JBT to add GameEnd functionality and remove update market call
+    //Amended by JBT to add GameEnd functionality
     private void ProcessProductionPhase()
     {
         if(GameEnded())
@@ -237,6 +232,8 @@ public class GameManager
         {
             players[i].Produce();
         }
+
+        market.UpdatePrices();
     }
 
     /// <summary>
