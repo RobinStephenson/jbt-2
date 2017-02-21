@@ -8,6 +8,7 @@ public class mainMenuDayNightCylce : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Rotate the light
         sun.transform.Rotate(new Vector3(0.5f, 0.0f));
     }
 }
