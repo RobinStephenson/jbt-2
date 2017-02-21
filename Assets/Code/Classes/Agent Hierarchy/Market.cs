@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Market : Agent
 {
-    private Casino casino;
     private ResourceGroup resourceSellingPrices;
     private ResourceGroup resourceBuyingPrices;
     private int numRoboticonsForSale;

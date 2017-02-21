@@ -83,7 +83,6 @@
   <ItemGroup>
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
