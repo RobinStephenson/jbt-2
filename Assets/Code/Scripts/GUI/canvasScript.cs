@@ -552,24 +552,36 @@ public class canvasScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Set's the current player label to the selected string
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The selected string</param>
     public void SetCurrentPlayerName(string name)
     {
         currentPlayerText.text = name;
     }
 
+    /// <summary>
+    /// Shows the help box and inisialises it with the selected string
+    /// </summary>
+    /// <param name="helpBoxText">The selected string</param>
     public void ShowHelpBox(string helpBoxText)
     {
         helpBox.ShowHelpBox(helpBoxText);
     }
 
+    /// <summary>
+    /// Hides the help box window
+    /// </summary>
     public void HideHelpBox()
     {
         helpBox.HideHelpBox();
     }
 
+    /// <summary>
+    /// Sets the resource labels within the UI to the selected resource group and int
+    /// </summary>
+    /// <param name="resources">The selected resource group</param>
+    /// <param name="money">The selected int</param>
     public void SetResourceLabels(ResourceGroup resources, int money)
     {
         foodLabel.text = resources.food.ToString();
@@ -578,6 +590,10 @@ public class canvasScript : MonoBehaviour
         moneyLabel.text = money.ToString();
     }
 
+    /// <summary>
+    /// Sets the resource change labels to the selected resource group
+    /// </summary>
+    /// <param name="resources">The selected resource group</param>
     public void SetResourceChangeLabels(ResourceGroup resources)
     {
         foodChangeLabel.text = FormatResourceChangeLabel(resources.food);
@@ -586,7 +602,9 @@ public class canvasScript : MonoBehaviour
     }
 
     //Created by JBT 
-    //Changes the UI when an AI is taking its turn
+    /// <summary>
+    /// Sets the resource labels for the AI's turn
+    /// </summary>
     public void SetUnknownResourceLabels()
     {
         foodLabel.text = "??";
@@ -596,7 +614,9 @@ public class canvasScript : MonoBehaviour
     }
 
     //Created by JBT 
-    //Change the UI when an AI is taking its turn
+    /// <summary>
+    /// Sets the resource change labels for the AI's turn
+    /// </summary>
     public void SetUnknownChangeLabels()
     {
         foodChangeLabel.text = "+??";
@@ -605,7 +625,10 @@ public class canvasScript : MonoBehaviour
     }
 
     //Created by JBT 
-    //Changes the UI when an AI is taking its turn
+    /// <summary>
+    /// Shows the AI turn box window and sets the AI turn text to the specified string
+    /// </summary>
+    /// <param name="t">The specified string</param>
     public void SetAITurnText(string t)
     {
         aiTurnBox.SetActive(true);
@@ -613,22 +636,37 @@ public class canvasScript : MonoBehaviour
     }
 
     //Created by JBT 
-    //Hides the AI Turn text when it's the player's turn. 
+    /// <summary>
+    /// Hides the AI turn box window
+    /// </summary>
     public void HideAITurnText()
     {
         aiTurnBox.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Sets the humanGUI in the scene to the specified gui
+    /// </summary>
+    /// <param name="gui">The specified gui</param>
     public void SetHumanGui(HumanGui gui)
     {
         humanGui = gui;
     }
 
+    /// <summary>
+    /// Returns the current gui displayed in the scene
+    /// </summary>
+    /// <returns>The current gui</returns>
     public HumanGui GetHumanGui()
     {
         return humanGui;
     }
 
+    /// <summary>
+    /// Formats the specified resource change into the correct string syntax to be displayed in the GUI
+    /// </summary>
+    /// <param name="changeAmount">The specified resource change</param>
+    /// <returns>The formatted string</returns>
     private string FormatResourceChangeLabel(int changeAmount)
     {
         string sign = (changeAmount >= 0) ? "+" : "";
@@ -636,7 +674,10 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
-    //Returns the player to the main menu, losing all progress. 
+    /// <summary>
+    /// Quits the game and returns to the main menu
+    /// Loses all player progress
+    /// </summary>
     public void QuitToMenu()
     {
         //Remove gameobjects that would not get destroyed on load
