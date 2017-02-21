@@ -115,7 +115,6 @@
     <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
-    <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\mainMenuDayNightCylce.cs" />
     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
   </ItemGroup>

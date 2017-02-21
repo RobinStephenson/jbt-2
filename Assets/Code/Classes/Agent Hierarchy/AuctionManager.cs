@@ -1,4 +1,6 @@
-﻿//Created by JBT
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+//Created by JBT
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;

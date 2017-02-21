@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using System.Collections.Generic;
 
 /// <summary>
 /// A player object, used to represent a player in the game, which can either be a Human or an AI

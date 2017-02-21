@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 /// <summary>
 /// Handles UI interaction for the market window
