@@ -274,6 +274,9 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT - Show or hide the auction window depending on the state the window is in when the button is pressed
+    /// <summary>
+    /// Shows the auction menu if it is closed and hides it if it is open
+    /// </summary>
     public void AuctionButtonPressed()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.AUCTIONBID)
@@ -466,12 +469,18 @@ public class canvasScript : MonoBehaviour
     }
 
     //JBT
+    /// <summary>
+    /// Shows the auction button
+    /// </summary>
     public void ShowAuctionButton()
     {
         auctionButton.SetActive(true);
     }
 
     //JBT
+    /// <summary>
+    /// Hide the auction button
+    /// </summary>
     public void HideAuctionButton()
     {
         auctionButton.SetActive(false);
