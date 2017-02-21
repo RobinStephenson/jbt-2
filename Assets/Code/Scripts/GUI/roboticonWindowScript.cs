@@ -21,21 +21,25 @@ public class roboticonWindowScript : MonoBehaviour
     /// <param name="roboticonsToDisplay"></param>
     public void DisplayRoboticonList(List<Roboticon> roboticonsToDisplay)
     {
+        //Remove all roboticon from list and add new roboticons to currently displayed roboticons list
         currentlyDisplayedRoboticons = roboticonsToDisplay; // JBT
         ClearRoboticonList();
 
         gameObject.SetActive(true);
 
+        //Display all the roboticons
         foreach (Roboticon roboticon in roboticonsToDisplay)
         {
             AddRoboticon(roboticon);
         }
 
+        //If the current state = Purchase state then, display the Roboticon Upgrade buttons
         GameManager.States currentState = GameHandler.GetGameManager().GetCurrentState();
         if (currentState == GameManager.States.PURCHASE)
         {
             ShowRoboticonUpgradeButtons();
         }
+        //Else if the current state = Installation state, and the tile selected is owned by the current player then show the roboticon install button
         else if(currentState == GameManager.States.INSTALLATION)
         {
             HumanGui humanGui = canvas.GetHumanGui();
@@ -48,6 +52,7 @@ public class roboticonWindowScript : MonoBehaviour
                 }
             }
         }
+        // else if the current state is neither instll or purchase then hide both the install and upgrade buttons
         else
         {
             HideInstallAndUpgradeButtons();
@@ -66,7 +71,6 @@ public class roboticonWindowScript : MonoBehaviour
     /// Returns the gameobject representing the roboticon in the scene.
     /// </summary>
     /// <param name="roboticon"></param>
-    /// <returns></returns>
     public void AddRoboticon(Roboticon roboticon)
     {
         LoadRoboticonTemplate();
