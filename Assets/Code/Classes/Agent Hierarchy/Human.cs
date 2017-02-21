@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Handles interaction with Player data
+/// </summary>
 public class Human : Player
 {
     private HumanGui humanGui;
