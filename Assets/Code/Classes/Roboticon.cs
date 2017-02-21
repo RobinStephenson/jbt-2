@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class that holds instances of roboticons. Handles manipulation of Roboticons.
+/// </summary>
 public class Roboticon
 {
     public static int TotalRoboticons = 0;
