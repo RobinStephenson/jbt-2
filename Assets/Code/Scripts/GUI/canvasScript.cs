@@ -14,10 +14,13 @@ public class canvasScript : MonoBehaviour
     public GameObject gambleButton; //JBT
     public GameObject marketButton; //JBT
     public GameObject roboticonButton;  //JBT
+    public GameObject auctionButton;    //JBT
     public roboticonWindowScript roboticonList;
     public GameObject gamblingWindow;
     public marketScript marketScript;
     public GameObject endPhaseButton;
+    public GameObject auctionSellWindow; //JBT
+    public GameObject auctionBuyWindow; //JBT
     public tileInfoWindowScript tileWindow;
     public Text currentPlayerText;
     public Text currentPhaseText;
@@ -31,7 +34,6 @@ public class canvasScript : MonoBehaviour
     private Timeout CurrentPhaseTimeout; //JBT used to limit phase durations
     private Timeout EventMessageTimeout; //JBT used to display the new event message for a few seconds
     private GameObject eventSystem; //JBT used to create and track the eventsystem in the scene
-    public Texture2D tex;
 
     #region Resource Labels
     public Text foodLabel;
@@ -213,6 +215,33 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    //Added by JBT - Show or hide the auction window depending on the state the window is in when the button is pressed
+    public void AuctionButtonPressed()
+    {
+        if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.AUCTIONBID)
+        {
+            if (auctionBuyWindow.activeSelf)
+            {
+                HideAuctionBuyWindow();
+            }
+            else
+            {
+                ShowAuctionBuyWindow();
+            }
+        }
+        else if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.AUCTIONLIST)
+        {
+            if (auctionSellWindow.activeSelf)
+            {
+                HideAuctionSellWindow();
+            }
+            else
+            {
+                ShowAuctionSellWindow();
+            }
+        }        
+    }
+
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -251,6 +280,32 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionSellWindow()
+    {
+        auctionSellWindow.GetComponent<auctionSellWindowScript>().LoadWindow();
+        auctionSellWindow.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionSellWindow()
+    {
+        auctionSellWindow.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionBuyWindow()
+    {
+        auctionBuyWindow.GetComponent<AuctionBuyWindowScript>().LoadAuction();
+        auctionBuyWindow.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionBuyWindow()
+    {
+        auctionBuyWindow.SetActive(false);
     }
 
     //JBT
@@ -308,6 +363,18 @@ public class canvasScript : MonoBehaviour
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);
+    }
+
+    //JBT
+    public void ShowAuctionButton()
+    {
+        auctionButton.SetActive(true);
+    }
+
+    //JBT
+    public void HideAuctionButton()
+    {
+        auctionButton.SetActive(false);
     }
 
     public void ShowOptionsMenu()
