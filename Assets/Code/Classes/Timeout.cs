@@ -39,7 +39,7 @@ public class Timeout
     }
 
     /// <summary>
-    /// check if the timeout has reached its time allowed
+    /// Check if the timeout has reached its time allowed
     /// </summary>
     public bool Finished
     {
