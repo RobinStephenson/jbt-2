@@ -11,9 +11,9 @@ public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;
     public GameObject optionsMenu;
-    public GameObject gambleButton; //JBT
-    public GameObject marketButton; //JBT
-    public GameObject roboticonButton;  //JBT
+    public GameObject gambleButton; //JBT used to track Gamble UI button
+    public GameObject marketButton; //JBT used to track Market UI button
+    public GameObject roboticonButton;  //JBT used to track roboticons UI button
     public roboticonWindowScript roboticonList;
     public GameObject gamblingWindow;
     public marketScript marketScript;
@@ -33,6 +33,9 @@ public class canvasScript : MonoBehaviour
     private GameObject eventSystem; //JBT used to create and track the eventsystem in the scene
     public Texture2D tex;
 
+    /// <summary>
+    /// Tracks all of the player's resources within the UI
+    /// </summary>
     #region Resource Labels
     public Text foodLabel;
     public Text foodChangeLabel;
@@ -48,9 +51,6 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
-        //tex = Resources.Load<Texture2D>("Textures/gooseIcon");
-        //GameObject.Find("Terrain").GetComponent<Renderer>().material.mainTexture = tex;
-
         if (CurrentPhaseTimeout != null)
         {
             // We are in a timed phase, update the display timer
