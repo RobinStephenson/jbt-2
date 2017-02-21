@@ -51,15 +51,20 @@ public class canvasScript : MonoBehaviour
     // JBT created this method
     void Update()
     {
+        //If the current phase has a Time restriction then...
         if (CurrentPhaseTimeout != null)
         {
             // We are in a timed phase, update the display timer
             ShowTimeout(CurrentPhaseTimeout);
+
+            /// If the timeout is finished then...
             if (CurrentPhaseTimeout.Finished)
             {
                 Debug.Log("Current Timeout Finished");
+                //Set the phase time to null
                 CurrentPhaseTimeout = null;
 
+                //Move the game onto the next phase
                 if (GameHandler.gameManager.GetCurrentPlayer() is Human)
                 {
                     EndPhase();
@@ -70,13 +75,17 @@ public class canvasScript : MonoBehaviour
                 }
             }
         }
+        //Else if the phase is not timed then...
         else
         {
+            //Hide the phase timer
             HidePhaseTimeout();
         }
 
+        //If there is an event in effect then...
         if (EventMessageTimeout != null)
         {
+            //Check if the event's message should still be displayed
             if (EventMessageTimeout.Finished)
             {
                 NewEventMessage.SetActive(false);
@@ -84,19 +93,21 @@ public class canvasScript : MonoBehaviour
             }
         }
 
-        //Made by JBT to create an even system if there is not already one. 
+        //Create an event system if there is not already one in the scene.
         SetEventSystem();
     }
 
-    // JBT
+    // JBT Created this method
     /// <summary>
     /// Create an Event system if there is not already one in the scene
     /// </summary>
     public void SetEventSystem()
     {
+        //If there is an event system then return
         if (eventSystem != null)
             return;
 
+        //else make a new event system
         eventSystem = new GameObject();
         eventSystem.AddComponent<EventSystem>();
         eventSystem.AddComponent<StandaloneInputModule>();
@@ -136,33 +147,39 @@ public class canvasScript : MonoBehaviour
         humanGui.EndPhase();
     }
 
+    // This is called inbetween turns to prevent any actions being registered while the game swaps players. 
     public void DisableEndPhaseButton()
     {
         endPhaseButton.SetActive(false);
     }
 
+    // This is called when the GUI is started and re-set for each player's turn. 
     public void EnableEndPhaseButton()
     {
         endPhaseButton.SetActive(true);
     }
 
+    // This is called at the start of each player's turn.
     public void SetCurrentPhaseText(string text)
     {
         currentPhaseText.text = text;
     }
 
+    //This is called when the player attempts to buy something from the market. 
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
         RefreshRoboticonList(); //Added by JBT to fix a bug when buying roboticons with the roboticon list open was not creating the GUI elements correctly
     }
 
+    //This is called when the player attempts to sell something to the market.
     public void SellToMarket(ResourceGroup resources, int price)
     {
         humanGui.SellToMarket(resources, price);
     }
 
-    //Added by JBT - Show or hide the gambling window depending on the state the window is in when the button is pressed
+    //Added by JBT 
+    //Show or hide the gambling window depending on the state the window is in when the button is pressed
     public void GamblingButtonPressed()
     {
         if(gamblingWindow.activeSelf)
@@ -174,7 +191,9 @@ public class canvasScript : MonoBehaviour
             ShowGamblingWindow();
         }
     }
-    //Added by JBT - Show or hide the market window depending on the state the window is in when the button is pressed
+
+    //Added by JBT 
+    //Show or hide the market window depending on the state the window is in when the button is pressed
     public void MarketButtonPressed()
     {
         if (marketScript.gameObject.activeSelf)
@@ -187,7 +206,9 @@ public class canvasScript : MonoBehaviour
             marketScript.SetShownMarketPrices();
         }
     }
-    //Added by JBT - Show or hide the roboticon window depending on the state the window is in when the button is pressed
+
+    //Added by JBT 
+    //Show or hide the roboticon window depending on the state the window is in when the button is pressed
     public void RoboticonButtonPressed()
     {
         if(roboticonList.gameObject.activeSelf)
@@ -200,7 +221,8 @@ public class canvasScript : MonoBehaviour
         }
     }
 
-    //Added by JBT - Show or hide the options window depending on the state the window is in when the button is pressed
+    //Added by JBT 
+    //Show or hide the options window depending on the state the window is in when the button is pressed
     public void OptionsButtonPressed()
     {
         if (optionsMenu.activeSelf)
@@ -213,6 +235,7 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    // This is called when the market button in the UI is pressed. Used to display the market window.
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -221,12 +244,14 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    // This is called after a turn, or when the market window is closed. Used to hide the market window.
     public void HideMarketWindow()
     {
         marketScript.gameObject.SetActive(false);
     }
 
     //Added by JBT
+    //This is called whent the Gambling button is pressed in the UI. Used to show the gambling window.
     public void ShowGamblingWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -237,11 +262,13 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT
+    //This is called at the start of a new turn or when the gambling window is closed. Used to hide the gambling window.
     public void HideGamblingWindow()
     {
         gamblingWindow.SetActive(false);
     }
 
+    //
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
