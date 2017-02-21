@@ -10,21 +10,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManager
 {
+    //JBT - split auction phase into Auction List and Auction Bid phases
     public enum States : int
     {
-        ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTION
+        ACQUISITION, PURCHASE, INSTALLATION, PRODUCTION, AUCTIONLIST, AUCTIONBID
     };
-    public static string[] stateNames = new string[5] {
+    public static string[] stateNames = new string[6] {
         "Acquisition",
         "Purchase",
         "Installation",
         "Production",
-        "Auction"
+        "Auction List",
+        "Auction Bid"
         };
 
     public GameObject humanGuiCanvas;
     public Market market;
     public string gameName;
+    public AuctionManager auctionManager;
 
     private List<Player> players;
     private int currentPlayerIndex;
@@ -45,6 +48,7 @@ public class GameManager
     /// <param name="players"></param>
     public GameManager(string gameName, List<Player> players)
     {
+        auctionManager = new AuctionManager();
         this.gameName = gameName;
         this.players = players;
         FormatPlayerList(this.players);
@@ -152,16 +156,21 @@ public class GameManager
         //Check that the current player exists, if not then we have iterated through all players and need to move on to the next stage.
         if (currentPlayerIndex >= players.Count)
         {
-            //If we've moved on to the production phase, run the function that handles the logic for the production phase.
-            if (currentState == States.PRODUCTION)
+            //If we're moving on to the production phase, run the function that handles the logic for the production phase.
+            if (currentState == (States.PRODUCTION - 1))
             {
                 RandomEventManager.ManageAndTriggerEvents();
                 ProcessProductionPhase();
-                currentState = States.ACQUISITION;       //Reset the state counter after the production (final) phase
+                currentState++;
+            }
+            else if(currentState == States.AUCTIONBID)
+            {
+                currentState = States.ACQUISITION;
             }
             else if(currentState == States.ACQUISITION)
             {
                 market.UpdatePrices();
+                auctionManager.ClearAuctions();
                 currentState++;
             }
             else
@@ -208,9 +217,9 @@ public class GameManager
         {
             CurrentPhaseTimeout = new Timeout(45);
         }
-        else if (currentState == States.AUCTION)
+        else if (currentState == States.AUCTIONLIST || currentState == States.AUCTIONBID)
         {
-            CurrentPhaseTimeout = new Timeout(60);
+            CurrentPhaseTimeout = new Timeout(30);
         }
         humanGui.GetCanvas().SetPhaseTimeout(CurrentPhaseTimeout);
     }

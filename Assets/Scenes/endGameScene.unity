@@ -196,7 +196,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -300}
-  m_SizeDelta: {x: 700, y: 100}
+  m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216270526
 MonoBehaviour:
@@ -940,6 +940,7 @@ MonoBehaviour:
   LoserText: {fileID: 424518989}
   WinnerScore: {fileID: 918029777}
   LoserScore: {fileID: 1058851632}
+  ViceChancellor: {fileID: 216270526}
 --- !u!1 &1058851630
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,6 +124,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\Tests\AuctionTest.cs" />
     <Compile Include="Assets\Editor\Tests\GamblingTest.cs" />
     <Compile Include="Assets\Editor\Tests\GameManagerTest.cs" />
     <Compile Include="Assets\Editor\Tests\MapTest.cs" />

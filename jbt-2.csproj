@@ -83,12 +83,13 @@
   <ItemGroup>
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
+    <Compile Include="Assets\Code\Classes\Agent Hierarchy\AuctionManager.cs" />
+    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Market.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Player.cs" />
-    <Compile Include="Assets\Code\Classes\Game Manager\Auction.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameHandler.cs" />
     <Compile Include="Assets\Code\Classes\Game Manager\GameManager.cs" />
     <Compile Include="Assets\Code\Classes\Map System\Map.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="Assets\Code\Classes\ResourceGroup.cs" />
     <Compile Include="Assets\Code\Classes\Roboticon.cs" />
     <Compile Include="Assets\Code\Classes\Timeout.cs" />
+    <Compile Include="Assets\Code\Scripts\GUI\AuctionBuyWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\MenuScript.cs" />
+    <Compile Include="Assets\Code\Scripts\GUI\auctionSellWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\canvasScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\endGameScript.cs" />
     <Compile Include="Assets\Code\Scripts\GUI\gamblingScript.cs" />

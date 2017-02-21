@@ -19,17 +19,20 @@ public class MenuScript : MonoBehaviour
     public const string AIPlayerName = "Bot";
     public string gameName = "game";
 
-    /// <summary>
-    /// Starts the game by creating a new gamehandler
-    /// </summary>
-    public void StartGame()
+    public void Start()
     {
         //If a player is quitting to the menu from the game itself, or the end of game screen, then remove the GUI canvas that was not destroyed on load
         if (GameObject.Find("Player GUI Canvas(Clone)") != null)
         {
             Destroy(GameObject.Find("Player GUI Canvas(Clone)"));
         }
+    }
 
+    /// <summary>
+    /// Starts the game by creating a new gamehandler
+    /// </summary>
+    public void StartGame()
+    {
         List<Player> players = new List<Player>();
 
         //If no player name entered, set default player names
