@@ -14,6 +14,10 @@ public class roboticonUpgradesWindowScript : MonoBehaviour
     private Roboticon roboticon;
 
     //Added by JBT to actually show whether a roboticon is installed or not in the roboticon upgrades window
+    /// <summary>
+    /// Shows the Roboticon upgrades window and populates the related information with the specified Roboticon.
+    /// </summary>
+    /// <param name="roboticon">The specified roboticon</param>
     public void Show(Roboticon roboticon)
     {
         ResourceGroup upgrades = roboticon.GetUpgrades();
