@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Handles all interactions for the market
+/// </summary>
 public class Market : Agent
 {
     private ResourceGroup resourceSellingPrices;
