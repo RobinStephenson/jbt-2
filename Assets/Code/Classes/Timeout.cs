@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 
-// Created by JBT
+// created by JBT
+/// <summary>
+/// A timer class. When created, will count down from the provided time value to zero, which can then be checked in code.
+/// </summary>
 public class Timeout
 {
     private int timeAllowed;
@@ -25,7 +28,7 @@ public class Timeout
     }
 
     /// <summary>
-    /// get the seconds remaining before a timeout
+    /// Get the seconds remaining before a timeout
     /// </summary>
     public int SecondsRemaining
     {

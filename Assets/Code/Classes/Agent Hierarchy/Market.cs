@@ -167,6 +167,10 @@ public class Market : Agent
         Debug.Log(resourceBuyingPrices.energy);
     }
 
+    /// <summary>
+    /// Produces a Roboticon in the market if the market has enough ore.
+    /// The market's ore will be decreased by the price or the Roboticon
+    /// </summary>
     public void ProduceRoboticon()
     {
         if (resources.ore >= ROBOTICON_PRODUCTION_COST)

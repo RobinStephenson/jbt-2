@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+/// <summary>
+/// A player object, used to represent a player in the game, which can either be a Human or an AI
+/// </summary>
 public abstract class Player : Agent
 {
     public static int PlayerCount;
