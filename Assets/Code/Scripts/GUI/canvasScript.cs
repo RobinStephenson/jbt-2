@@ -140,46 +140,68 @@ public class canvasScript : MonoBehaviour
         Debug.Log(String.Format("Set a new timeout {0}", timeout));
     }
 
-    // this is called by the end phase button
+    /// <summary>
+    /// Ends the current phase
+    /// </summary>
     public void EndPhase()
     {
         CurrentPhaseTimeout = null;
         humanGui.EndPhase();
     }
 
-    // This is called inbetween turns to prevent any actions being registered while the game swaps players. 
+    /// <summary>
+    /// Disables the end of phase button
+    /// </summary>
     public void DisableEndPhaseButton()
     {
         endPhaseButton.SetActive(false);
     }
 
-    // This is called when the GUI is started and re-set for each player's turn. 
+    /// <summary>
+    /// Enables the end of phase button
+    /// </summary>
     public void EnableEndPhaseButton()
     {
         endPhaseButton.SetActive(true);
     }
 
-    // This is called at the start of each player's turn.
+    /// <summary>
+    /// Sets the current phase text label to the specified text string
+    /// </summary>
+    /// <param name="text">The string that the current phase text should be set to</param>
     public void SetCurrentPhaseText(string text)
     {
         currentPhaseText.text = text;
     }
 
-    //This is called when the player attempts to buy something from the market. 
+    /// <summary>
+    /// Attempts to buy a resource group from the market. 
+    /// </summary>
+    /// <param name="resources">The resources the player is attempting to buy</param>
+    /// <param name="roboticonsToBuy">The number of roboticons the player is attempting to buy</param>
+    /// <param name="price">The price for all of these resources</param>
     public void BuyFromMarket(ResourceGroup resources, int roboticonsToBuy, int price)
     {
         humanGui.BuyFromMarket(resources, roboticonsToBuy, price);
         RefreshRoboticonList(); //Added by JBT to fix a bug when buying roboticons with the roboticon list open was not creating the GUI elements correctly
     }
 
-    //This is called when the player attempts to sell something to the market.
+    /// <summary>
+    /// Attempts to sell a resource group to the market
+    /// </summary>
+    /// <param name="resources">The resource group being sold</param>
+    /// <param name="price">The price for the resource group</param>
     public void SellToMarket(ResourceGroup resources, int price)
     {
         humanGui.SellToMarket(resources, price);
     }
 
     //Added by JBT 
-    //Show or hide the gambling window depending on the state the window is in when the button is pressed
+    /// <summary>
+    /// Shows or hides the gambling window depending on the state of the window. 
+    /// Window open -> close window
+    /// Window close -> open window
+    /// </summary>
     public void GamblingButtonPressed()
     {
         if(gamblingWindow.activeSelf)
@@ -193,7 +215,11 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
-    //Show or hide the market window depending on the state the window is in when the button is pressed
+    /// <summary>
+    /// Shows or hides the market window depending on the state of the window. 
+    /// Window open -> close window
+    /// Window close -> open window
+    /// </summary>
     public void MarketButtonPressed()
     {
         if (marketScript.gameObject.activeSelf)
@@ -208,7 +234,11 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
-    //Show or hide the roboticon window depending on the state the window is in when the button is pressed
+    /// <summary>
+    /// Shows or hides the roboticon window depending on the state of the window. 
+    /// Window open -> close window
+    /// Window close -> open window
+    /// </summary>
     public void RoboticonButtonPressed()
     {
         if(roboticonList.gameObject.activeSelf)
@@ -222,7 +252,11 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
-    //Show or hide the options window depending on the state the window is in when the button is pressed
+    /// <summary>
+    /// Shows or hides the option window depending on the state of the window. 
+    /// Window open -> close window
+    /// Window close -> open window
+    /// </summary>
     public void OptionsButtonPressed()
     {
         if (optionsMenu.activeSelf)
@@ -235,7 +269,9 @@ public class canvasScript : MonoBehaviour
         }
     }
 
-    // This is called when the market button in the UI is pressed. Used to display the market window.
+    /// <summary>
+    /// Opens the market window if the game state is purchase
+    /// </summary>
     public void ShowMarketWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -244,14 +280,18 @@ public class canvasScript : MonoBehaviour
         }
     }
 
-    // This is called after a turn, or when the market window is closed. Used to hide the market window.
+    /// <summary>
+    /// Hides the market window
+    /// </summary>
     public void HideMarketWindow()
     {
         marketScript.gameObject.SetActive(false);
     }
 
     //Added by JBT
-    //This is called whent the Gambling button is pressed in the UI. Used to show the gambling window.
+    /// <summary>
+    /// Show the gambling window if the current game state is purchase.
+    /// </summary>
     public void ShowGamblingWindow()
     {
         if (GameHandler.GetGameManager().GetCurrentState() == GameManager.States.PURCHASE)
@@ -262,55 +302,72 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT
-    //This is called at the start of a new turn or when the gambling window is closed. Used to hide the gambling window.
+    /// <summary>
+    /// Hides the gambling window
+    /// </summary>
     public void HideGamblingWindow()
     {
         gamblingWindow.SetActive(false);
     }
 
-    //This is called when the Roboticons button is pressed in the UI. Used to show the roboticons window. 
+    /// <summary>
+    /// Shows the roboticon window
+    /// </summary>
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
         ShowRoboticonList();
     }
 
-    //This is called at the start of a new turn of when the Roboticon windoww is closed. Used to hid the roboticon window. 
+    /// <summary>
+    /// Hides the roboticon window
+    /// </summary>
     public void HideRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(false);
     }
 
     //JBT
-    //This is called when the game enters the Purchase phase. Shows the market button
+    /// <summary>
+    /// Shows the market button
+    /// </summary>
     public void ShowMarketButton()
     {
         marketButton.SetActive(true);
     }
 
     //JBT
-    //This is called when the game leaves the Purchase phase. Hides the market button
+    /// <summary>
+    /// Hides the market button
+    /// </summary>
     public void HideMarketButton()
     {
         marketButton.SetActive(false);
     }
 
     //JBT
-    //This is called when the game enters the Purchase phase. Shows the gamble button
+    /// <summary>
+    /// Shows the gamble button
+    /// </summary>
     public void ShowGambleButton()
     {
         gambleButton.SetActive(true);
     }
 
     //JBT
-    //This is called when the game leaves the Purchase phase. Hides the gamble button
+    /// <summary>
+    /// Hides the gamble button
+    /// </summary>
     public void HideGambleButton()
     {
         gambleButton.SetActive(false);
     }
 
     //Added by JBT
-    //Shows the current human player the amount of seconds left in the current turn, if the current phase is a timed one
+    /// <summary>
+    /// Shows the current player the amount of seconds they have left in the current turn
+    /// </summary>
+    /// <param name="t">The current timeout</param>
     public void ShowTimeout(Timeout t)
     {
         timeoutText.gameObject.SetActive(true);
@@ -326,57 +383,86 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
-    //Enables the hiding of the timer text, if the current phase is not a timed one
+    /// <summary>
+    /// Hides the timeout
+    /// </summary>
     public void HidePhaseTimeout()
     {
         timeoutText.gameObject.SetActive(false);
     }
 
     //JBT
-    //This is called when the game enters the Purchase or Installation phases. Shows the Roboticon button.
+    /// <summary>
+    /// Shows the Roboticon button
+    /// </summary>
     public void ShowRoboticonButton()
     {
         roboticonButton.SetActive(true);
     }
 
     //JBT
-    //This is called when the game leaves the Purchase or Installation phases. Hides the roboticon button.
+    /// <summary>
+    /// Hides the roboticon button
+    /// </summary>
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);
     }
 
+    /// <summary>
+    /// Shows the option menu
+    /// </summary>
     public void ShowOptionsMenu()
     {
         optionsMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Hides the option menu
+    /// </summary>
     public void HideOptionsMenu()
     {
         optionsMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// Purchases the selected tile and refreshes the tile window
+    /// </summary>
+    /// <param name="tile">The selected tile</param>
     public void PurchaseTile(Tile tile)
     {
         humanGui.PurchaseTile(tile);
         tileWindow.Refresh();
     }
 
+    /// <summary>
+    /// Shows the selected tile info window
+    /// </summary>
+    /// <param name="tile">The selected tile</param>
     public void ShowTileInfoWindow(Tile tile)
     {
         tileWindow.Show(tile);
     }
 
+    /// <summary>
+    /// Refreshes the tile info window with up-to date information
+    /// </summary>
     public void RefreshTileInfoWindow()
     {
         tileWindow.Refresh();
     }
 
+    /// <summary>
+    /// Hides the selected tile info window
+    /// </summary>
     public void HideTileInfoWindow()
     {
         tileWindow.Hide();
     }
 
+    /// <summary>
+    /// Refreshes the Roboticon list window with accurate information.
+    /// </summary>
     public void RefreshRoboticonList()
     {
         if (roboticonList.isActiveAndEnabled)
@@ -385,6 +471,9 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows the roboticon list window and initialises it's information
+    /// </summary>
     public void ShowRoboticonList()
     {
         List<Roboticon> roboticonsToDisplay = new List<Roboticon>();
@@ -398,8 +487,7 @@ public class canvasScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a roboticon to the roboticon display list if it is currently
-    /// being displayed.
+    /// Adds a roboticon to the roboticon display list if it is currently being displayed.
     /// </summary>
     public void AddRoboticonToList(Roboticon roboticon)
     {
@@ -409,38 +497,64 @@ public class canvasScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hides the roboticon list window
+    /// </summary>
     public void HideRoboticonList()
     {
         roboticonList.HideRoboticonList();
     }
 
+    /// <summary>
+    /// Shows the roboticon upgrades window
+    /// </summary>
+    /// <param name="roboticon"></param>
     public void ShowRoboticonUpgradesWindow(Roboticon roboticon)
     {
         roboticonUpgradesWindow.Show(roboticon);
     }
 
+    /// <summary>
+    /// Hides the roboticon upgrades window
+    /// </summary>
     public void HideRoboticonUpgradesWindow()
     {
         roboticonUpgradesWindow.Hide();
     }
 
+    /// <summary>
+    /// Upgrades the selected roboticon with the selected upgrades
+    /// </summary>
+    /// <param name="roboticon">The selected roboticon</param>
+    /// <param name="upgrades">The selected upgrades</param>
     public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrades)
     {
         humanGui.UpgradeRoboticon(roboticon, upgrades);
     }
 
+    /// <summary>
+    /// Installs the selected robotcion onto the selected tile
+    /// </summary>
+    /// <param name="roboticon">The selected robotcion</param>
     public void InstallRoboticon(Roboticon roboticon)
     {
         humanGui.InstallRoboticon(roboticon);
     }
 
     //Added by JBT 
-    //used to remove a roboticon from it's tile.
+    /// <summary>
+    /// Uninstalls the selected roboticon from it's assigned tile
+    /// </summary>
+    /// <param name="roboticon">The selected roboticon</param>
     public void UninstallRoboticon(Roboticon roboticon)
     {
         humanGui.UninstallRoboticon(roboticon);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
     public void SetCurrentPlayerName(string name)
     {
         currentPlayerText.text = name;
