@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using System;
 using System.Diagnostics;
 
 // created by JBT

@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>

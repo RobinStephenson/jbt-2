@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,7 +86,6 @@
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AI.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Agent.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\AuctionManager.cs" />
-    <Compile Include="Assets\Code\Classes\Agent Hierarchy\Casino.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\GuiTextStore.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\Human.cs" />
     <Compile Include="Assets\Code\Classes\Agent Hierarchy\HumanGui.cs" />
@@ -114,7 +115,6 @@
     <Compile Include="Assets\Code\Scripts\GUI\tileInfoWindowScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\Map System\mapTileScript.cs" />
-    <Compile Include="Assets\Code\Scripts\gameManagerScript.cs" />
     <Compile Include="Assets\Code\Scripts\mainMenuDayNightCylce.cs" />
     <Compile Include="Assets\Code\Scripts\sunRiseScript.cs" />
   </ItemGroup>

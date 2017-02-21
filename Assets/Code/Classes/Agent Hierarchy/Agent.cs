@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+/// <summary>
 /// The base class for all player types and market.
 /// Contains owned money and resources for an Agent.
 /// </summary>

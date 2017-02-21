@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using UnityEngine.UI;
 
 // Edited by JBT to stop displaying the helpbox after a user has clicked the hide button

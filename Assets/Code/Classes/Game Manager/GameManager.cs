@@ -1,4 +1,6 @@
-﻿/* JBT Changes to this file
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+/* JBT Changes to this file
  * removed references to old events system
  */
 
