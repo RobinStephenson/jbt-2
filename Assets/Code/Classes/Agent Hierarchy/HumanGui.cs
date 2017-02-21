@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Contains information used to allow human players to see details about the current game state.
+/// Contains logic used to allow human players to interact with the game.
+/// </summary>
 public class HumanGui
 {
     public static GameObject humanGuiGameObject;
