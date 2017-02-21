@@ -24,21 +24,26 @@ public class gamblingScript : MonoBehaviour {
     {
         Human currentPlayer = GameHandler.gameManager.GetHumanGui().GetCurrentHuman();
 
+        //If the player doesn't have the requried amount of money then...
         if(currentPlayer.GetMoney() < amount)
         {
             SetResultText("You need at least £10 to play!", false);
             return;
         }
 
+        //Take the money from the player
         currentPlayer.SetMoney(currentPlayer.GetMoney() - amount);
 
         try
         {
             int valueRolled;
+            //Check if the player has won.
             bool won = market.DoubleOrNothing(amount, 0, 100, out valueRolled);
 
+            //Display the result to the player
             SetResultText("You rolled: " + valueRolled.ToString() + "\n" + (won ? "You won £" + (amount * 2).ToString() + "!" : "You Lose!"), won);
 
+            //If the player has won, add the won money to the player.
             if (won)
             {
                 currentPlayer.SetMoney(currentPlayer.GetMoney() + (amount * 3));
@@ -54,6 +59,9 @@ public class gamblingScript : MonoBehaviour {
         GameHandler.gameManager.GetHumanGui().UpdateResourceBar(false);
     }
 
+    /// <summary>
+    /// Refreshes the Gambling and market windows with up-to date information. 
+    /// </summary>
     public void ResetGamblingWindow()
     {
         RefreshMarketBalance();
@@ -67,11 +75,17 @@ public class gamblingScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Refreshes the Market window's balance
+    /// </summary>
     public void RefreshMarketBalance()
     {
         marketBalance.text = "Market has £" + market.GetMoney();
     }
 
+    /// <summary>
+    /// Opens the gambling window. 
+    /// </summary>
     public void OpenGamblingWindow()
     {
         resultText.text = "";
