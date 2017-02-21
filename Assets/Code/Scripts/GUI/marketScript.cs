@@ -118,7 +118,10 @@ public class marketScript : MonoBehaviour
         RefreshMarketBalance();
     }
 
-    //JBT - Also refreshes balance on gambling window if open
+    //JBT
+    /// <summary>
+    /// Refreshes the balance on the gambling window, if the gambling window is open.
+    /// </summary>
     public void RefreshMarketBalance()
     {
         UpdateMarketBalance();
@@ -161,6 +164,9 @@ public class marketScript : MonoBehaviour
     }
 
     //Amended by JBT to show market stock in ui
+    /// <summary>
+    /// Update shown market stock, sell price and buy price of market items in the market window
+    /// </summary>
     private void UpdateShownMarketPrices()
     {
         ResourceGroup sellingPrices = market.GetResourceSellingPrices();
