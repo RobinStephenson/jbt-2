@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
 
+/// <summary>
+/// Handles game-wide manipulation of RandomEvents
+/// </summary>
 public static class RandomEventManager
 {
     private static System.Random Random = new System.Random();

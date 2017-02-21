@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds information relating to an instance of a random event
+/// </summary>
 public class RandomEvent
 {
     private static System.Random Random = new System.Random();
