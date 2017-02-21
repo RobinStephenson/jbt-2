@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //JBT
-public class auctionBuyWindowScript : MonoBehaviour
+public class AuctionBuyWindowScript : MonoBehaviour
 {
     public canvasScript AuctionCanvas;
     private AuctionManager auctionManager;
