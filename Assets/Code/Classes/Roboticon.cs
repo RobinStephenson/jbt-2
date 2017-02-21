@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class that holds instances of roboticons. Handles manipulation of Roboticons.
+/// </summary>
 public class Roboticon
 {
     public static int TotalRoboticons = 0;
-    public const int UPGRADEVALUE = 50; //TODO - Get correct valuation of an upgrade - Placeholder 50 per upgrade
+    public const int UPGRADEVALUE = 50;
     public Tile InstalledTile;  //Added by JBT
 
     private ResourceGroup upgrades;
@@ -52,19 +57,30 @@ public class Roboticon
         return upgrades;
     }
 
-    //Tile reference added by JBT
+    //Added by JBT
+    /// <summary>
+    /// Installs the Roboticon onto the selected Tile
+    /// </summary>
+    /// <param name="t">The selected tile<param>
     public void InstallRoboticonToTile(Tile t)
     {
         InstalledTile = t;
     }
 
-    //Tile reference added by JBT
+    //Added by JBT
+    /// <summary>
+    /// Uninstalled the Roboticon from it's tile
+    /// </summary>
     public void UninstallRoboticonFromTile()
     {
         InstalledTile = null;
     }
     
     //Changed by JBT to use the tile reference for this instance instead
+    /// <summary>
+    /// Checks if the Roboticon is installed to a tile
+    /// </summary>
+    /// <returns>Bool, Is roboticon installed on a tile?</returns>
     public bool IsInstalledToTile()
     {
         return InstalledTile != null;

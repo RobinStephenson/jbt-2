@@ -1,9 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
 
+using UnityEngine;
+
+/// <summary>
+/// Handles all interactions for the market
+/// </summary>
 public class Market : Agent
 {
-    private Casino casino;
     private ResourceGroup resourceSellingPrices;
     private ResourceGroup resourceBuyingPrices;
     private int numRoboticonsForSale;
@@ -168,6 +171,10 @@ public class Market : Agent
         Debug.Log(resourceBuyingPrices.energy);
     }
 
+    /// <summary>
+    /// Produces a Roboticon in the market if the market has enough ore.
+    /// The market's ore will be decreased by the price or the Roboticon
+    /// </summary>
     public void ProduceRoboticon()
     {
         if (resources.ore >= ROBOTICON_PRODUCTION_COST)

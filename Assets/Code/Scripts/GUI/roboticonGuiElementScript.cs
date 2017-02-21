@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -32,6 +34,9 @@ public class roboticonGuiElementScript : MonoBehaviour
     }
 
     //Added by JBT to fix a bug where the install button would still be visiable when a roboticon was already installed
+    /// <summary>
+    /// Show Remove button 
+    /// </summary>
     public void ShowRemoveButton()
     {
         removeButton.gameObject.SetActive(true);

@@ -75,7 +75,7 @@ public class PlayerTest {
         testHuman.AcquireRoboticon(r);
         InstallRoboticon(r, t);
 
-        Assert.AreEqual(testHuman.CalculateScore(), 164);
+        Assert.AreEqual(testHuman.CalculateScore(), 1964);
     }
 
     //Added by JBT to simulate the installation of a roboticon without interaction with any untestable gameobjects

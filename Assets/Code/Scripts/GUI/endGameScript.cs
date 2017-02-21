@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 //Made by JBT
+/// <summary>
+/// Handles interaction between UI elements within the end game scene
+/// </summary>
 public class endGameScript : MonoBehaviour
 {
-    public static List<ScoreboardEntry> Scoreboard;
+    public static List<ScoreboardEntry> Scoreboard; //Used to keep track of the scoreboard 
 
+    //Used to track text labels within the end game scene
     public Text WinnerText;
     public Text LoserText;
     public Text WinnerScore;
@@ -23,10 +29,12 @@ public class endGameScript : MonoBehaviour
         Destroy(GameObject.Find("Tile Holder"));
         Destroy(GameObject.Find("Map Manager"));
 
+        //Create a new event system for the scene.
         GameObject newEventSystem = new GameObject();
         newEventSystem.AddComponent<EventSystem>();
         newEventSystem.AddComponent<StandaloneInputModule>();
         
+        //Set the scorboard
         SetScoreBoard();
     }
 

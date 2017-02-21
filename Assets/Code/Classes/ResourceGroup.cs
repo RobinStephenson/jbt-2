@@ -1,7 +1,13 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using System.Collections;
 using System;
 
+/// <summary>
+/// Holds information relating to 3 resource types. 
+/// Handles manipultation of these resources and interactions between resource types. 
+/// </summary>
 public class ResourceGroup
 {
     public int food;

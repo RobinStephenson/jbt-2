@@ -1,10 +1,14 @@
-﻿// This file was created by JBT
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+// This file was created by JBT
 
 using System;
 using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
 
+/// <summary>
+/// Handles game-wide manipulation of RandomEvents
+/// </summary>
 public static class RandomEventManager
 {
     private static System.Random Random = new System.Random();

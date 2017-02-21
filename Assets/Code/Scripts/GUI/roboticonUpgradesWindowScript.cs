@@ -1,7 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles UI interaction for the Roboticon upgrades window
+/// </summary>
 public class roboticonUpgradesWindowScript : MonoBehaviour
 {
     public canvasScript canvas;
@@ -14,6 +18,10 @@ public class roboticonUpgradesWindowScript : MonoBehaviour
     private Roboticon roboticon;
 
     //Added by JBT to actually show whether a roboticon is installed or not in the roboticon upgrades window
+    /// <summary>
+    /// Shows the Roboticon upgrades window and populates the related information with the specified Roboticon.
+    /// </summary>
+    /// <param name="roboticon">The specified roboticon</param>
     public void Show(Roboticon roboticon)
     {
         ResourceGroup upgrades = roboticon.GetUpgrades();

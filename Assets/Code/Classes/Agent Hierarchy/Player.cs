@@ -1,7 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
 using System.Collections.Generic;
 
+/// <summary>
+/// A player object, used to represent a player in the game, which can either be a Human or an AI
+/// </summary>
 public abstract class Player : Agent
 {
     public static int PlayerCount;
@@ -11,6 +14,10 @@ public abstract class Player : Agent
     protected List<Roboticon> ownedRoboticons = new List<Roboticon>();
     protected List<Tile> ownedTiles = new List<Tile>();
 
+    /// <summary>
+    /// Calculates the players score based off of the amount of tiles and resources that they own and upgraded roboticons they have
+    /// </summary>
+    /// <returns>The score of the player</returns>
     public int CalculateScore()
     {
         int scoreFromTiles = 0;
@@ -26,7 +33,11 @@ public abstract class Player : Agent
             scoreFromRoboticons += roboticon.GetPrice();
         }
 
-        return scoreFromRoboticons + scoreFromTiles;
+        int scoreFromResources = 0;
+        scoreFromResources += resources.Sum() * 5;
+        scoreFromResources += money * 5;
+
+        return scoreFromRoboticons + scoreFromTiles + scoreFromResources;
     }
 
     /// <summary>
@@ -53,6 +64,10 @@ public abstract class Player : Agent
     }
 
     //JBT moved the logic for buying tiles to this method from the HumanGUI class, so AI's can use this method also
+    /// <summary>
+    /// Makes the player the owner of the provided tile, providing they have enough money to purchase it and they don't already own it
+    /// </summary>
+    /// <param name="tile">The tile to acquire</param>
     public void AcquireTile(Tile tile)
     {
         if (!ownedTiles.Contains(tile))
@@ -75,26 +90,48 @@ public abstract class Player : Agent
         }
     }
 
+    /// <summary>
+    /// Gets a list of owned tiles
+    /// </summary>
+    /// <returns>The list of owned tiles</returns>
     public List<Tile> GetOwnedTiles()
     {
         return ownedTiles;
     }
 
+    /// <summary>
+    /// Gets a list roboticons
+    /// </summary>
+    /// <returns>The list of owned tiles</returns>
     public List<Roboticon> GetRoboticons()
     {
         return ownedRoboticons;
     }
 
+    /// <summary>
+    /// Add a roboticon to a list of roboticons owned by the player
+    /// </summary>
+    /// <param name="roboticon">The roboticon to acquire</param>
     public void AcquireRoboticon(Roboticon roboticon)
     {
         ownedRoboticons.Add(roboticon);
     }
 
+    /// <summary>
+    /// Upgrade a roboticon in the players inventory
+    /// </summary>
+    /// <param name="roboticon">The roboticon to upgrade</param>
+    /// <param name="upgrade">The upgrade to apply</param>
     public void UpgradeRoboticon(Roboticon roboticon, ResourceGroup upgrade)
     {
         roboticon.Upgrade(upgrade);
     }
 
+    /// <summary>
+    /// Installs a roboticon to a tile owned by the player
+    /// </summary>
+    /// <param name="roboticon">The roboticon to install</param>
+    /// <param name="tile">The tile to install the roboticon to</param>
     public void InstallRoboticon(Roboticon roboticon, Tile tile)
     {
         tile.InstallRoboticon(roboticon);
@@ -102,32 +139,38 @@ public abstract class Player : Agent
     }
 
     //Added by JBT to support the uninstallation of Roboticons from tiles
+    /// <summary>
+    /// Uninstall a roboticon from a tile owned by the player
+    /// </summary>
+    /// <param name="roboticon">The roboticon to uninstall</param>
+    /// <param name="tile">The tile to uninstall the roboticon from</param>
     public void UninstallRoboticon(Roboticon roboticon, Tile tile)
     {
         tile.UninstallRoboticon(roboticon);
         roboticon.UninstallRoboticonFromTile();
     }
 
-    public void PutItemUpForAuction()
-    {
-        //TODO - interface with auction. Not a priority.
-    }
-
-    public bool PlaceBidOnCurrentAuctionItem(int bidAmount)
-    {
-        //TODO - interface with auction. Not a priority.
-        return true;
-    }
-
+    /// <summary>
+    /// Returns a value indicating if this player is a human or AI player
+    /// </summary>
+    /// <returns>True if this player is human, false if AI</returns>
     public bool IsHuman()
     {
         return this.GetType().ToString() == "Human";
     }
 
+    /// <summary>
+    /// Getter for the name of this player
+    /// </summary>
+    /// <returns>The name of this player</returns>
     public string GetName()
     {
         return name;
     }
 
+    /// <summary>
+    /// Performs turn logic for the player, is used differently by human and AI players
+    /// </summary>
+    /// <param name="state">The current state of the game</param>
     public abstract void Act(GameManager.States state);
 }

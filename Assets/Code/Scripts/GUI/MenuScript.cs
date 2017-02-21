@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine.SceneManagement;
 
 
 //Made by JBT
+/// <summary>
+/// Handles UI interaction for the Main Menu scene
+/// </summary>
 public class MenuScript : MonoBehaviour
 {
     public Toggle AIToggle;

@@ -1,15 +1,19 @@
-﻿using System;
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+using System;
 using System.Diagnostics;
 
 // created by JBT
-
+/// <summary>
+/// A timer class. When created, will count down from the provided time value to zero, which can then be checked in code.
+/// </summary>
 public class Timeout
 {
     private int timeAllowed;
     private Stopwatch stopwatch;
 
     /// <summary>
-    /// creates a timout object. use to keep track of how long phases are going
+    /// Creates a timout object. use to keep track of how long phases are going
     /// </summary>
     /// <param name="time">time in seconds of the timeout</param>
     public Timeout(int time)
@@ -26,7 +30,7 @@ public class Timeout
     }
 
     /// <summary>
-    /// get the seconds remaining before a timeout
+    /// Get the seconds remaining before a timeout
     /// </summary>
     public int SecondsRemaining
     {
@@ -37,7 +41,7 @@ public class Timeout
     }
 
     /// <summary>
-    /// check if the timeout has reached its time allowed
+    /// Check if the timeout has reached its time allowed
     /// </summary>
     public bool Finished
     {

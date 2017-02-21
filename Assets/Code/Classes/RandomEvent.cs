@@ -1,4 +1,6 @@
-﻿/* JBT changes to this file:
+﻿//Game executable hosted by JBT at: http://robins.tech/jbt/documents/assthree/GameExecutable.zip
+
+/* JBT changes to this file:
  * removed RandomEventFactory.cs, RandomEventStore.cs and moved all logic into the class as the system was 
  *     overcomplicated and there was nothing of use implemented anyway 
  * rewrote this file completely
@@ -8,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds information relating to an instance of a random event
+/// </summary>
 public class RandomEvent
 {
     private static System.Random Random = new System.Random();
