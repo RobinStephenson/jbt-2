@@ -268,43 +268,49 @@ public class canvasScript : MonoBehaviour
         gamblingWindow.SetActive(false);
     }
 
-    //
+    //This is called when the Roboticons button is pressed in the UI. Used to show the roboticons window. 
     public void ShowRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(true);
         ShowRoboticonList();
     }
 
+    //This is called at the start of a new turn of when the Roboticon windoww is closed. Used to hid the roboticon window. 
     public void HideRoboticonWindow()
     {
         roboticonList.gameObject.SetActive(false);
     }
 
     //JBT
+    //This is called when the game enters the Purchase phase. Shows the market button
     public void ShowMarketButton()
     {
         marketButton.SetActive(true);
     }
 
     //JBT
+    //This is called when the game leaves the Purchase phase. Hides the market button
     public void HideMarketButton()
     {
         marketButton.SetActive(false);
     }
 
     //JBT
+    //This is called when the game enters the Purchase phase. Shows the gamble button
     public void ShowGambleButton()
     {
         gambleButton.SetActive(true);
     }
 
     //JBT
+    //This is called when the game leaves the Purchase phase. Hides the gamble button
     public void HideGambleButton()
     {
         gambleButton.SetActive(false);
     }
 
-    //Added by JBT to show the current human player the amount of seconds left in the current turn, if the current phase is a timed one
+    //Added by JBT
+    //Shows the current human player the amount of seconds left in the current turn, if the current phase is a timed one
     public void ShowTimeout(Timeout t)
     {
         timeoutText.gameObject.SetActive(true);
@@ -319,19 +325,22 @@ public class canvasScript : MonoBehaviour
         }
     }
 
-    //Added by JBT to enable the hiding of the timer text, if the current phase is not a timed one
+    //Added by JBT 
+    //Enables the hiding of the timer text, if the current phase is not a timed one
     public void HidePhaseTimeout()
     {
         timeoutText.gameObject.SetActive(false);
     }
 
     //JBT
+    //This is called when the game enters the Purchase or Installation phases. Shows the Roboticon button.
     public void ShowRoboticonButton()
     {
         roboticonButton.SetActive(true);
     }
 
     //JBT
+    //This is called when the game leaves the Purchase or Installation phases. Hides the roboticon button.
     public void HideRoboticonButton()
     {
         roboticonButton.SetActive(false);
@@ -425,7 +434,8 @@ public class canvasScript : MonoBehaviour
         humanGui.InstallRoboticon(roboticon);
     }
 
-    //Added by JBT so that it is now possible to remove roboticons from their tile
+    //Added by JBT 
+    //used to remove a roboticon from it's tile.
     public void UninstallRoboticon(Roboticon roboticon)
     {
         humanGui.UninstallRoboticon(roboticon);
@@ -461,7 +471,8 @@ public class canvasScript : MonoBehaviour
         oreChangeLabel.text = FormatResourceChangeLabel(resources.ore);
     }
 
-    //Created by JBT to change the UI when an AI is taking its turn
+    //Created by JBT 
+    //Changes the UI when an AI is taking its turn
     public void SetUnknownResourceLabels()
     {
         foodLabel.text = "??";
@@ -470,7 +481,8 @@ public class canvasScript : MonoBehaviour
         moneyLabel.text = "??";
     }
 
-    //Created by JBT to change the UI when an AI is taking its turn
+    //Created by JBT 
+    //Change the UI when an AI is taking its turn
     public void SetUnknownChangeLabels()
     {
         foodChangeLabel.text = "+??";
@@ -478,14 +490,16 @@ public class canvasScript : MonoBehaviour
         oreChangeLabel.text = "+??";
     }
 
-    //Created by JBT to change the UI when an AI is taking its turn
+    //Created by JBT 
+    //Changes the UI when an AI is taking its turn
     public void SetAITurnText(string t)
     {
         aiTurnBox.SetActive(true);
         aiTurnText.text = t;
     }
 
-    //Created by JBT to change the UI when an AI is taking its turn
+    //Created by JBT 
+    //Hides the AI Turn text when it's the player's turn. 
     public void HideAITurnText()
     {
         aiTurnBox.gameObject.SetActive(false);
@@ -508,6 +522,7 @@ public class canvasScript : MonoBehaviour
     }
 
     //Added by JBT 
+    //Returns the player to the main menu, losing all progress. 
     public void QuitToMenu()
     {
         //Remove gameobjects that would not get destroyed on load
