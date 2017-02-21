@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles UI interaction for the tile info window
+/// </summary>
 public class tileInfoWindowScript : MonoBehaviour
 {
     public canvasScript uiCanvas;

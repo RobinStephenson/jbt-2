@@ -3,6 +3,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Forces a light game object to imitate a sun rise
+/// </summary>
 public class sunRiseScript : MonoBehaviour
 {
     public Vector3 startRotation = new Vector3(280, 0, 0);

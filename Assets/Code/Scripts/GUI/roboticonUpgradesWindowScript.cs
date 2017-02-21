@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles UI interaction for the Roboticon upgrades window
+/// </summary>
 public class roboticonUpgradesWindowScript : MonoBehaviour
 {
     public canvasScript canvas;

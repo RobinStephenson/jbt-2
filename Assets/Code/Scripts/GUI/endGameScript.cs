@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 //Made by JBT
+/// <summary>
+/// Handles interaction between UI elements within the end game scene
+/// </summary>
 public class endGameScript : MonoBehaviour
 {
     public static List<ScoreboardEntry> Scoreboard; //Used to keep track of the scoreboard 

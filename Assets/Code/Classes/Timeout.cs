@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 
-// created by JBT
-
+// Created by JBT
 public class Timeout
 {
     private int timeAllowed;
     private Stopwatch stopwatch;
 
     /// <summary>
-    /// creates a timout object. use to keep track of how long phases are going
+    /// Creates a timout object. use to keep track of how long phases are going
     /// </summary>
     /// <param name="time">time in seconds of the timeout</param>
     public Timeout(int time)

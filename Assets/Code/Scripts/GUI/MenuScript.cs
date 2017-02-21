@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 
 //Made by JBT
+/// <summary>
+/// Handles UI interaction for the Main Menu scene
+/// </summary>
 public class MenuScript : MonoBehaviour
 {
     public Toggle AIToggle;

@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Handles UI interaction for the market window
+/// </summary>
 public class marketScript : MonoBehaviour
 {
     public canvasScript uiCanvas;

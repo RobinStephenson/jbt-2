@@ -6,7 +6,9 @@ using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-
+/// <summary>
+/// Handles interaction between UI elements within the PlayerGUI prefab
+/// </summary>
 public class canvasScript : MonoBehaviour
 {
     public helpBoxScript helpBox;

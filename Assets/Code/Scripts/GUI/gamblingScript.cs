@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //Added by JBT for gambling support in purchase phase
+/// <summary>
+/// Handles UI related to the gambling window
+/// </summary>
 public class gamblingScript : MonoBehaviour {
 
     public Text marketBalance;

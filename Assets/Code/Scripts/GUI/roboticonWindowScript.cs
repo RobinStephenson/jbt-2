@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Handles UI interaction for the Roboticons List window
+/// </summary>
 public class roboticonWindowScript : MonoBehaviour
 {
     public canvasScript canvas;
