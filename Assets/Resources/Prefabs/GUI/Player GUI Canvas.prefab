@@ -975,7 +975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000011940601254
 GameObject:
   m_ObjectHideFlags: 1
@@ -1608,7 +1608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000012879339940
 GameObject:
   m_ObjectHideFlags: 1
@@ -3449,7 +3449,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224000012254852020}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5034,6 +5034,7 @@ MonoBehaviour:
   NewEventTitle: {fileID: 114074713547345622}
   NewEventDescription: {fileID: 114391450409289410}
   NewEventMessage: {fileID: 1288991083047584}
+  tex: {fileID: 0}
   foodLabel: {fileID: 114000010675805944}
   foodChangeLabel: {fileID: 114000011348724816}
   energyLabel: {fileID: 114000011341611768}

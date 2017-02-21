@@ -32,6 +32,9 @@ public class roboticonGuiElementScript : MonoBehaviour
     }
 
     //Added by JBT to fix a bug where the install button would still be visiable when a roboticon was already installed
+    /// <summary>
+    /// Show Remove button 
+    /// </summary>
     public void ShowRemoveButton()
     {
         removeButton.gameObject.SetActive(true);

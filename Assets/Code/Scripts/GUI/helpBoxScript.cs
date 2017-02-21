@@ -11,6 +11,10 @@ public class helpBoxScript : MonoBehaviour
     public Text helpBoxText;
     public bool hide = false;
 
+    /// <summary>
+    /// Show the Help box window and initialise with the specified help text
+    /// </summary>
+    /// <param name="text">The specifiede help text</param>
     public void ShowHelpBox(string text = "")
     {
         if (hide)
@@ -20,6 +24,9 @@ public class helpBoxScript : MonoBehaviour
         helpBoxAnimator.SetBool("helpBoxVisible", true);
     }
 
+    /// <summary>
+    /// Hides the HelpBox 
+    /// </summary>
     public void HideHelpBox()
     {
         helpBoxAnimator.SetBool("helpBoxVisible", false);
